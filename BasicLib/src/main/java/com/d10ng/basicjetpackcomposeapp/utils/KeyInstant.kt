@@ -2,14 +2,14 @@ package com.d10ng.basicjetpackcomposeapp.utils
 
 internal object KeyInstant {
 
-    private var mKey = Int.MIN_VALUE
+    private var mKey = 1
 
     @Synchronized
     fun new(): Int {
         if (mKey < Int.MAX_VALUE) {
             mKey ++
         } else {
-            mKey = Int.MIN_VALUE
+            mKey = 1
         }
         return mKey
     }
