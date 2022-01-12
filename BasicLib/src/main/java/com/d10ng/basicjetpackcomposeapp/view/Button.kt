@@ -182,7 +182,7 @@ fun HollowButtonWithText(
         enabled = enabled,
         onClick = onClick
     ) {
-        Text(text = text, style = AppText.Bold.OnSecondary.v16)
+        Text(text = text, style = AppText.Bold.Secondary.v16)
     }
 }
 
@@ -234,7 +234,7 @@ fun HollowButtonWithImageText(
                 alignment = Alignment.Center,
                 colorFilter = ColorFilter.tint(colors.contentColor(enabled = enabled).value)
             )
-            Text(text = text, style = AppText.Bold.OnSecondary.v16)
+            Text(text = text, style = AppText.Bold.Secondary.v16)
         }
     }
 }
