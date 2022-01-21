@@ -16,7 +16,7 @@ import com.d10ng.coroutines.launchMain
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-open class BaseActivity: AppCompatActivity() {
+abstract class BaseActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

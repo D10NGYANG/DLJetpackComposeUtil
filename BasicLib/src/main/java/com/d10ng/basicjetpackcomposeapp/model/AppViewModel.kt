@@ -1,18 +1,37 @@
 package com.d10ng.basicjetpackcomposeapp.model
 
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.d10ng.basicjetpackcomposeapp.BaseActivity
 import com.d10ng.basicjetpackcomposeapp.bean.NormalDialogBuilder
 import com.d10ng.coroutines.launchIO
 import com.d10ng.coroutines.launchMain
 import kotlinx.coroutines.delay
+import java.lang.ref.WeakReference
 
 /**
  * APP公共数据
  * @Author: D10NG
  * @Time: 2021/9/25 11:14 上午
  */
-class AppViewModel: ViewModel() {
+class AppViewModel(act: BaseActivity): ViewModel() {
+
+    class Factory(private val act: BaseActivity): ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return AppViewModel(act) as T
+        }
+    }
+
+    /** activity的弱引用 */
+    val weakAct = WeakReference(act)
+
+    /** 显示Toast */
+    fun showToast(value: String, duration: Int = Toast.LENGTH_SHORT) {
+        val act = weakAct.get()?: return
+        Toast.makeText(act, value, duration).show()
+    }
 
     /** 是否显示加载中弹窗 */
     val isShowLoading: MutableLiveData<Boolean> = MutableLiveData(false)

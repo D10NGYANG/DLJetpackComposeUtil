@@ -43,43 +43,45 @@ android {
 dependencies {
     implementation(Kotlin.stdlib)
     // Android
-    implementation(Android.X.core_ktx)
-    implementation(Android.X.appcompat)
-    implementation(Android.Google.material)
+    api(Android.X.core_ktx)
+    api(Android.X.appcompat)
+    api(Android.Google.material)
 
     // 单元测试（可选）
     testImplementation(Test.junit)
+    androidTestImplementation(Android.Test.junit)
+    androidTestImplementation(Android.Test.espresso)
 
     // Compose
-    implementation(Compose.AndroidX.ui)
-    implementation(Compose.AndroidX.ui_tooling)
-    implementation(Compose.AndroidX.foundation)
-    implementation(Compose.AndroidX.material)
-    implementation(Compose.AndroidX.activity)
-    implementation(Compose.AndroidX.livedata)
-    implementation(Compose.AndroidX.navigation)
+    api(Compose.AndroidX.ui)
+    api(Compose.AndroidX.ui_tooling)
+    api(Compose.AndroidX.foundation)
+    api(Compose.AndroidX.material)
+    api(Compose.AndroidX.activity)
+    api(Compose.AndroidX.livedata)
+    api(Compose.AndroidX.navigation)
 
     // Compose 拓展
-    implementation(Accompanist.insets)
-    implementation(Accompanist.insets_ui)
-    implementation(Accompanist.systemuicontroller)
-    implementation(Accompanist.swiperefresh)
-    implementation(Accompanist.navigation_animation)
+    api(Accompanist.insets)
+    api(Accompanist.insets_ui)
+    api(Accompanist.systemuicontroller)
+    api(Accompanist.swiperefresh)
+    api(Accompanist.navigation_animation)
 
     // Lifecycle
-    implementation(Jetpack.Lifecycle.runtime)
-    implementation(Jetpack.Lifecycle.compiler)
-    implementation(Jetpack.Lifecycle.compose_viewmodel_support)
-    implementation(Jetpack.Lifecycle.livedata_support)
+    api(Jetpack.Lifecycle.runtime)
+    api(Jetpack.Lifecycle.compiler)
+    api(Jetpack.Lifecycle.compose_viewmodel_support)
+    api(Jetpack.Lifecycle.livedata_support)
 
     // Coroutines
-    implementation(Kotlin.Coroutines.core)
-    implementation(Kotlin.Coroutines.android)
+    api(Kotlin.Coroutines.core)
+    api(Kotlin.Coroutines.android)
 
     // 协程封装工具
-    implementation(D10NG.coroutinesUtil)
+    api(D10NG.coroutinesUtil)
     // APP通用工具
-    implementation(D10NG.appUtil)
+    api(D10NG.appUtil)
 }
 
 afterEvaluate {

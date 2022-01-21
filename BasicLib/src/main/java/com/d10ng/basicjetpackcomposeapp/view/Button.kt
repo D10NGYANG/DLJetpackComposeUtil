@@ -182,7 +182,7 @@ fun HollowButtonWithText(
         enabled = enabled,
         onClick = onClick
     ) {
-        Text(text = text, style = AppText.Bold.Secondary.v16)
+        Text(text = text, color = colors.contentColor(enabled = enabled).value, style = AppText.Bold.Secondary.v16)
     }
 }
 
@@ -234,42 +234,7 @@ fun HollowButtonWithImageText(
                 alignment = Alignment.Center,
                 colorFilter = ColorFilter.tint(colors.contentColor(enabled = enabled).value)
             )
-            Text(text = text, style = AppText.Bold.Secondary.v16)
-        }
-    }
-}
-
-@Composable
-fun BottomButton(
-    text: String,
-    onClick: () -> Unit = {}
-) {
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(AppColor.System.background),
-        elevation = 5.dp
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(16.dp, 8.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(),
-                shape = Shapes.small,
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = AppColor.System.secondary,
-                    contentColor = AppColor.On.secondary
-                ),
-                onClick = { onClick.invoke() }
-            ) {
-                Text(text = text, style = AppText.Bold.OnSecondary.v16)
-            }
+            Text(text = text, color = colors.contentColor(enabled = enabled).value, style = AppText.Bold.Secondary.v16)
         }
     }
 }

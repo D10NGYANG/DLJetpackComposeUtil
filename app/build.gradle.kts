@@ -50,44 +50,8 @@ android {
 
 dependencies {
 
-    // Android
-    implementation(Android.X.core_ktx)
-    implementation(Android.X.appcompat)
-    implementation(Android.Google.material)
-
     implementation(project(mapOf("path" to ":BasicLib")))
 
     // 单元测试（可选）
     testImplementation(Test.junit)
-
-    // Compose
-    implementation(Compose.AndroidX.ui)
-    implementation(Compose.AndroidX.ui_tooling)
-    implementation(Compose.AndroidX.foundation)
-    implementation(Compose.AndroidX.material)
-    implementation(Compose.AndroidX.activity)
-    implementation(Compose.AndroidX.livedata)
-    implementation(Compose.AndroidX.navigation)
-
-    // Compose 拓展
-    implementation(Accompanist.insets)
-    implementation(Accompanist.insets_ui)
-    implementation(Accompanist.systemuicontroller)
-    implementation(Accompanist.swiperefresh)
-    implementation(Accompanist.navigation_animation)
-
-    // Lifecycle
-    implementation(Jetpack.Lifecycle.runtime)
-    implementation(Jetpack.Lifecycle.compiler)
-    implementation(Jetpack.Lifecycle.compose_viewmodel_support)
-    implementation(Jetpack.Lifecycle.livedata_support)
-
-    // Coroutines
-    implementation(Kotlin.Coroutines.core)
-    implementation(Kotlin.Coroutines.android)
-
-    // 协程封装工具
-    implementation(D10NG.coroutinesUtil)
-    // APP通用工具
-    implementation(D10NG.appUtil)
 }
