@@ -1,6 +1,7 @@
 package com.d10ng.basicjetpackcomposeapp.view
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -18,6 +19,11 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import com.d10ng.basicjetpackcomposeapp.bean.InputDialogBuilder
+import com.d10ng.basicjetpackcomposeapp.compose.AppColor
+import com.d10ng.basicjetpackcomposeapp.compose.AppShape
+import com.d10ng.basicjetpackcomposeapp.compose.AppText
 
 /**
  * 基础输入框
@@ -88,4 +94,36 @@ fun Input(
             focusRequester.requestFocus()
         }
     }
+}
+
+@Composable
+fun ColumnScope.DialogInput(
+    input: InputDialogBuilder.Input,
+    value: String,
+    errorText: String = "",
+    onValueChange: (String) -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(if (input.singleLine) 30.dp else 90.dp)
+            .border(
+                1.dp,
+                if (errorText.isEmpty()) AppColor.Text.body else AppColor.Text.error,
+                AppShape.RC.v8
+            )
+            .padding(horizontal = 8.dp),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Input(
+            value = value,
+            onValueChange = onValueChange,
+            textStyle = AppText.Normal.Body.v14,
+            placeholder = input.placeholder,
+            placeholderStyle = AppText.Normal.Hint.v14,
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = input.keyboardType),
+            singleLine = input.singleLine
+        )
+    }
+    Text(text = errorText, style = AppText.Normal.Error.v12)
 }

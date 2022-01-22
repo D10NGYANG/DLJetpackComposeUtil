@@ -6,21 +6,21 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.d10ng.basicjetpackcomposeapp.bean.NormalDialogBuilder
+import com.d10ng.basicjetpackcomposeapp.bean.DialogBuilder
+import com.d10ng.basicjetpackcomposeapp.bean.InputDialogBuilder
+import com.d10ng.basicjetpackcomposeapp.bean.WarningDialogBuilder
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
 import com.d10ng.basicjetpackcomposeapp.compose.AppTheme
 import com.d10ng.basicjetpackcomposeapp.model.AppViewModel
-import com.d10ng.basicjetpackcomposeapp.view.HollowButtonWithText
 import com.d10ng.basicjetpackcomposeapp.view.SolidButtonWithText
 import com.d10ng.coroutines.launchIO
 import com.google.accompanist.insets.statusBarsHeight
@@ -60,32 +60,88 @@ class MainActivity : BaseActivity() {
                     ) {
                         item {
                             SolidButtonWithText(text = "显示加载中弹窗", onClick = {
-                                app.startLoading()
+                                app.showLoading()
                                 launchIO {
                                     delay(1000L)
-                                    app.cancelLoading()
+                                    app.hideLoading()
                                 }
                             })
                         }
 
                         item {
-                            SolidButtonWithText(text = "显示普通弹窗", onClick = {
-                                app.buildNormalDialog(NormalDialogBuilder(
-                                    title = "弹窗",
-                                    message = "注意，这是一个弹窗，提醒用户某些信息。",
-                                    sureButton = "确定",
-                                    cancelButton = "取消",
-                                    onClickButton = { w ->
-                                        if (w == 1) {
-                                            app.showSnackBar("用户点击了[确定]")
-                                            app.dismissNormalDialog()
-                                        } else {
-                                            app.showSnackBar("用户点击了[取消]")
-                                            app.dismissNormalDialog()
-                                        }
+                            SolidButtonWithText(text = "显示警告", onClick = {
+                                app.showWarningDialog(WarningDialogBuilder(
+                                    message = "我警告你不要乱来！！！"
+                                ))
+                            })
+                        }
+
+                        item {
+                            SolidButtonWithText(text = "显示提示1", onClick = {
+                                app.showDialog(DialogBuilder(
+                                    message = "您将会收到一条提示消息，请注意查看提示内容，以免发生误操作！",
+                                    onClickSure = {
+                                        app.hideDialog()
+                                        app.showToast("用户点击了【确定】")
                                     }
                                 ))
-                                app.showNormalDialog()
+                            })
+                        }
+
+                        item {
+                            SolidButtonWithText(text = "显示提示2", onClick = {
+                                app.showDialog(DialogBuilder(
+                                    message = "您将会收到一条提示消息，请注意查看提示内容，以免发生误操作！",
+                                    onClickSure = {
+                                        app.hideDialog()
+                                        app.showToast("用户点击了【确定】")
+                                    },
+                                    onClickCancel = {
+                                        app.hideDialog()
+                                        app.showToast("用户点击了【取消】")
+                                    }
+                                ))
+                            })
+                        }
+
+                        item {
+                            SolidButtonWithText(text = "显示输入框1", onClick = {
+                                app.showInputDialog(InputDialogBuilder(
+                                    message = "请输入您的身份证号码",
+                                    inputs = listOf(
+                                        InputDialogBuilder.Input(
+                                            keyboardType = KeyboardType.Number,
+                                            verify = { value ->
+                                                if (value.isEmpty()) {
+                                                    InputDialogBuilder.Verify(false, "身份证不能为空")
+                                                } else if (!value.matches("[0-9X]+".toRegex())) {
+                                                    InputDialogBuilder.Verify(false, "身份证格式不正确")
+                                                } else {
+                                                    InputDialogBuilder.Verify(true)
+                                                }
+                                            }
+                                        ),
+                                        InputDialogBuilder.Input(
+                                            keyboardType = KeyboardType.Number,
+                                            verify = { value ->
+                                                if (value.isEmpty()) {
+                                                    InputDialogBuilder.Verify(false, "身份证不能为空")
+                                                } else if (!value.matches("[0-9X]+".toRegex())) {
+                                                    InputDialogBuilder.Verify(false, "身份证格式不正确")
+                                                } else {
+                                                    InputDialogBuilder.Verify(true)
+                                                }
+                                            }
+                                        )
+                                    ),
+                                    onClickSure = {
+                                        app.hideInputDialog()
+                                        app.showToast("身份证：${it[0]}")
+                                    },
+                                    onClickCancel = {
+                                        app.hideInputDialog()
+                                    }
+                                ))
                             })
                         }
 
@@ -94,20 +150,6 @@ class MainActivity : BaseActivity() {
                                 isShow = true
                             })
                         }
-                    }
-                }
-
-                Box(modifier = Modifier.fillMaxSize()) {
-                    if (isShow) {
-                        AlertDialog(
-                            modifier = Modifier.align(Alignment.BottomCenter),
-                            onDismissRequest = {
-                                isShow = false
-                            },
-                            buttons = {
-                                HollowButtonWithText(text = "关闭", onClick = { isShow = false })
-                            }
-                        )
                     }
                 }
             }

@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.d10ng.basicjetpackcomposeapp.BaseActivity
-import com.d10ng.basicjetpackcomposeapp.bean.NormalDialogBuilder
+import com.d10ng.basicjetpackcomposeapp.bean.DialogBuilder
+import com.d10ng.basicjetpackcomposeapp.bean.InputDialogBuilder
+import com.d10ng.basicjetpackcomposeapp.bean.WarningDialogBuilder
 import com.d10ng.coroutines.launchIO
 import com.d10ng.coroutines.launchMain
 import kotlinx.coroutines.delay
@@ -33,59 +35,78 @@ class AppViewModel(act: BaseActivity): ViewModel() {
         Toast.makeText(act, value, duration).show()
     }
 
-    /** 是否显示加载中弹窗 */
-    val isShowLoading: MutableLiveData<Boolean> = MutableLiveData(false)
-
-    /** 显示加载中弹窗 */
-    fun startLoading() {
-        isShowLoading.postValue(true)
-    }
-
-    /** 隐藏加载中弹窗 */
-    fun cancelLoading() {
-        isShowLoading.postValue(false)
-    }
-
-    /** 普通弹窗构造器 */
-    val normalDialogBuilder: MutableLiveData<NormalDialogBuilder?> = MutableLiveData(null)
-
-    /** 构造普通弹窗 */
-    fun buildNormalDialog(builder: NormalDialogBuilder) {
-        normalDialogBuilder.value = builder
-    }
-
-    /** 是否显示普通弹窗 */
-    val isShowNormalDialog = MutableLiveData(false)
-
-    /** 显示普通弹窗 */
-    fun showNormalDialog() {
-        if (normalDialogBuilder.value == null) {
-            isShowNormalDialog.postValue(false)
-        } else {
-            isShowNormalDialog.postValue(true)
-        }
-    }
-
-    /** 隐藏普通弹窗 */
-    fun dismissNormalDialog() {
-        isShowNormalDialog.postValue(false)
-    }
-
-    /** 是否显示提示 */
-    val isShowSnackBar = MutableLiveData(false)
-
-    /** 提示内容 */
-    val snackBarValue = MutableLiveData("")
-
-    /** 显示提示 */
-    fun showSnackBar(value: String) {
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * 错误提示
+     */
+    val isShowError = MutableLiveData(false)
+    val errorText = MutableLiveData("")
+    fun showError(value: String) {
         launchMain {
-            snackBarValue.value = value
+            errorText.value = value
             launchIO {
-                isShowSnackBar.postValue(true)
+                isShowError.postValue(true)
                 delay(3000)
-                isShowSnackBar.postValue(false)
+                isShowError.postValue(false)
             }
         }
     }
+    /** ----------------------------------------------------------------------------------------- */
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * loading
+     */
+    val isShowLoading = MutableLiveData(false)
+    fun showLoading() {
+        isShowLoading.postValue(true)
+    }
+    fun hideLoading() {
+        isShowLoading.postValue(false)
+    }
+    /** ----------------------------------------------------------------------------------------- */
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * 警告
+     */
+    val isShowWarning = MutableLiveData(false)
+    val warningBuilder: MutableLiveData<WarningDialogBuilder?> = MutableLiveData(null)
+    fun showWarningDialog(builder: WarningDialogBuilder) {
+        warningBuilder.postValue(builder)
+        isShowWarning.postValue(true)
+    }
+    fun hideWarningDialog() {
+        isShowWarning.postValue(false)
+    }
+    /** ----------------------------------------------------------------------------------------- */
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * 提示弹窗
+     */
+    val isShowDialog = MutableLiveData(false)
+    val dialogBuilder: MutableLiveData<DialogBuilder?> = MutableLiveData(null)
+    fun showDialog(builder: DialogBuilder) {
+        dialogBuilder.postValue(builder)
+        isShowDialog.postValue(true)
+    }
+    fun hideDialog() {
+        isShowDialog.postValue(false)
+    }
+    /** ----------------------------------------------------------------------------------------- */
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * 输入框弹窗
+     */
+    val isShowInputDialog = MutableLiveData(false)
+    val inputDialogBuilder: MutableLiveData<InputDialogBuilder?> = MutableLiveData(null)
+    fun showInputDialog(builder: InputDialogBuilder) {
+        inputDialogBuilder.postValue(builder)
+        isShowInputDialog.postValue(true)
+    }
+    fun hideInputDialog() {
+        isShowInputDialog.postValue(false)
+    }
+    /** ----------------------------------------------------------------------------------------- */
 }

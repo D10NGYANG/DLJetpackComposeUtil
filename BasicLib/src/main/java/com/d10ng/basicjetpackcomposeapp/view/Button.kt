@@ -15,8 +15,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
+import com.d10ng.basicjetpackcomposeapp.compose.AppShape
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
-import com.d10ng.basicjetpackcomposeapp.compose.Shapes
 
 @Preview
 @Composable
@@ -57,7 +57,7 @@ fun Button_Test() {
 @Composable
 fun SolidButton(
     modifier: Modifier = Modifier,
-    shape: Shape = Shapes.small,
+    shape: Shape = AppShape.RC.v4,
     colors: ButtonColors = ButtonDefaults.buttonColors(
         backgroundColor = AppColor.System.secondary,
         disabledBackgroundColor = AppColor.System.secondaryVariant,
@@ -91,7 +91,7 @@ fun SolidButton(
 @Composable
 fun SolidButtonWithText(
     modifier: Modifier = Modifier,
-    shape: Shape = Shapes.small,
+    shape: Shape = AppShape.RC.v4,
     colors: ButtonColors = ButtonDefaults.buttonColors(
         backgroundColor = AppColor.System.secondary,
         disabledBackgroundColor = AppColor.System.secondaryVariant,
@@ -126,7 +126,7 @@ fun SolidButtonWithText(
 @Composable
 fun HollowButton(
     modifier: Modifier = Modifier,
-    shape: Shape = Shapes.small,
+    shape: Shape = AppShape.RC.v4,
     colors: ButtonColors = ButtonDefaults.buttonColors(
         backgroundColor = Color.Transparent,
         disabledBackgroundColor = Color.Transparent,
@@ -162,7 +162,7 @@ fun HollowButton(
 @Composable
 fun HollowButtonWithText(
     modifier: Modifier = Modifier,
-    shape: Shape = Shapes.small,
+    shape: Shape = AppShape.RC.v4,
     colors: ButtonColors = ButtonDefaults.buttonColors(
         backgroundColor = Color.Transparent,
         disabledBackgroundColor = Color.Transparent,
@@ -200,7 +200,7 @@ fun HollowButtonWithText(
 @Composable
 fun HollowButtonWithImageText(
     modifier: Modifier = Modifier,
-    shape: Shape = Shapes.small,
+    shape: Shape = AppShape.RC.v4,
     colors: ButtonColors = ButtonDefaults.buttonColors(
         backgroundColor = Color.Transparent,
         disabledBackgroundColor = Color.Transparent,
@@ -236,5 +236,55 @@ fun HollowButtonWithImageText(
             )
             Text(text = text, color = colors.contentColor(enabled = enabled).value, style = AppText.Bold.Secondary.v16)
         }
+    }
+}
+
+@Composable
+fun DialogSureButton(
+    modifier: Modifier = Modifier,
+    text: String = "确定",
+    onClick: () -> Unit
+) {
+    Button(
+        onClick = onClick,
+        shape = AppShape.RC.v8,
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = AppColor.System.secondary,
+            disabledBackgroundColor = AppColor.System.secondaryVariant,
+            contentColor = AppColor.On.secondary,
+            disabledContentColor = AppColor.On.secondary
+        ),
+        elevation = null,
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = text,
+            style = AppText.Normal.OnSecondary.v14
+        )
+    }
+}
+
+@Composable
+fun DialogCancelButton(
+    modifier: Modifier = Modifier,
+    text: String = "取消",
+    onClick: () -> Unit
+) {
+    OutlinedButton(
+        onClick = onClick,
+        shape = AppShape.RC.v8,
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.Transparent,
+            disabledBackgroundColor = Color.Transparent,
+            contentColor = AppColor.Text.body,
+            disabledContentColor = AppColor.Text.body
+        ),
+        border = BorderStroke(1.dp, AppColor.Text.body),
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = text,
+            style = AppText.Normal.Body.v14
+        )
     }
 }
