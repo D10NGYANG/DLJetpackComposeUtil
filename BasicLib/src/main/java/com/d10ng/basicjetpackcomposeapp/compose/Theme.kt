@@ -50,6 +50,9 @@ fun AppTheme(
     // 单选
     val isShowRadioDialog by app.isShowRadioDialog.observeAsState(false)
     val radioDialogBuilder by app.radioDialogBuilder.observeAsState(null)
+    // 日期选择
+    val isShowDatePickerDialog by app.isShowDatePickerDialog.observeAsState(false)
+    val datePickerDialogBuilder by app.datePickerDialogBuilder.observeAsState(null)
 
     MaterialTheme(
         colors = LightColorPalette
@@ -107,6 +110,15 @@ fun AppTheme(
             isShow = isShowRadioDialog,
             builder = it,
             onDismiss = { app.hideRadioDialog() }
+        )
+    }
+
+    // 日期选择
+    datePickerDialogBuilder?.let {
+        DatePickerDialog(
+            isShow = isShowDatePickerDialog,
+            builder = it,
+            onDismiss = { app.hideDatePickerDialog() }
         )
     }
 

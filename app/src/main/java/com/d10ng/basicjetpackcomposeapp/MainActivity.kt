@@ -14,16 +14,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.d10ng.basicjetpackcomposeapp.bean.DialogBuilder
-import com.d10ng.basicjetpackcomposeapp.bean.InputDialogBuilder
-import com.d10ng.basicjetpackcomposeapp.bean.RadioDialogBuilder
-import com.d10ng.basicjetpackcomposeapp.bean.WarningDialogBuilder
+import com.d10ng.basicjetpackcomposeapp.bean.*
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
 import com.d10ng.basicjetpackcomposeapp.compose.AppTheme
 import com.d10ng.basicjetpackcomposeapp.model.AppViewModel
 import com.d10ng.basicjetpackcomposeapp.view.SolidButtonWithText
 import com.d10ng.coroutines.launchIO
+import com.d10ng.datelib.curTime
+import com.d10ng.datelib.toDateStr
 import com.google.accompanist.insets.statusBarsHeight
 import kotlinx.coroutines.delay
 
@@ -37,9 +36,7 @@ class MainActivity : BaseActivity() {
             var isShow by remember {
                 mutableStateOf(false)
             }
-            var selectStr by remember {
-                mutableStateOf("1080*1920px")
-            }
+
             AppTheme(app = app) {
                 Column(
                     modifier = Modifier.fillMaxSize()
@@ -138,6 +135,9 @@ class MainActivity : BaseActivity() {
                         }
 
                         item {
+                            var selectStr by remember {
+                                mutableStateOf("1080*1920px")
+                            }
                             SolidButtonWithText(text = "显示单选弹窗", onClick = {
                                 app.showRadioDialog(RadioDialogBuilder(
                                     title = "屏幕分辨率",
@@ -152,6 +152,27 @@ class MainActivity : BaseActivity() {
                                         app.hideRadioDialog()
                                         app.showToast("【${it.second}】= ${it.first}")
                                         selectStr = it.first
+                                    }
+                                ))
+                            })
+                        }
+
+                        item {
+                            var selectTime by remember {
+                                mutableStateOf(curTime)
+                            }
+                            SolidButtonWithText(text = "显示日期选择", onClick = {
+                                app.showDatePickerDialog(DatePickerDialogBuilder(
+                                    title = "选择日期",
+                                    message = "请选择您的出生日期",
+                                    initValue = selectTime,
+                                    onClickSure = {
+                                        selectTime = it
+                                        app.hideDatePickerDialog()
+                                        app.showToast("您的出生日期为${it.toDateStr("yyyy-MM-dd")}")
+                                    },
+                                    onClickCancel = {
+                                        app.hideDatePickerDialog()
                                     }
                                 ))
                             })

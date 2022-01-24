@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.d10ng.basicjetpackcomposeapp.BaseActivity
-import com.d10ng.basicjetpackcomposeapp.bean.DialogBuilder
-import com.d10ng.basicjetpackcomposeapp.bean.InputDialogBuilder
-import com.d10ng.basicjetpackcomposeapp.bean.RadioDialogBuilder
-import com.d10ng.basicjetpackcomposeapp.bean.WarningDialogBuilder
+import com.d10ng.basicjetpackcomposeapp.bean.*
 import com.d10ng.coroutines.launchIO
 import com.d10ng.coroutines.launchMain
 import kotlinx.coroutines.delay
@@ -123,6 +120,21 @@ class AppViewModel(act: BaseActivity): ViewModel() {
     }
     fun hideRadioDialog() {
         isShowRadioDialog.postValue(false)
+    }
+    /** ----------------------------------------------------------------------------------------- */
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * 日期选择弹窗
+     */
+    val isShowDatePickerDialog = MutableLiveData(false)
+    val datePickerDialogBuilder: MutableLiveData<DatePickerDialogBuilder?> = MutableLiveData(null)
+    fun showDatePickerDialog(builder: DatePickerDialogBuilder) {
+        datePickerDialogBuilder.postValue(builder)
+        isShowDatePickerDialog.postValue(true)
+    }
+    fun hideDatePickerDialog() {
+        isShowDatePickerDialog.postValue(false)
     }
     /** ----------------------------------------------------------------------------------------- */
 }

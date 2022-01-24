@@ -4,23 +4,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.d10ng.basicjetpackcomposeapp.bean.DialogBuilder
-import com.d10ng.basicjetpackcomposeapp.bean.InputDialogBuilder
-import com.d10ng.basicjetpackcomposeapp.bean.RadioDialogBuilder
-import com.d10ng.basicjetpackcomposeapp.bean.WarningDialogBuilder
+import com.d10ng.basicjetpackcomposeapp.bean.*
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppShape
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
-import com.google.accompanist.flowlayout.FlowColumn
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 
@@ -285,6 +279,43 @@ fun RadioDialog(
                 }
             }
         }
+        content()
+    }
+}
+
+@Composable
+fun DatePickerDialog(
+    isShow: Boolean,
+    builder: DatePickerDialogBuilder,
+    onDismiss:() -> Unit,
+    content: @Composable ColumnScope.() -> Unit = {}
+) {
+    var value by remember {
+        mutableStateOf(builder.initValue)
+    }
+    BaseDialog(
+        isShow = isShow,
+        builder = DialogBuilder(
+            builder.title,
+            builder.message,
+            builder.sureButton,
+            builder.cancelButton,
+            onClickSure = {
+                builder.onClickSure.invoke(value)
+            },
+            onClickCancel = builder.onClickCancel
+        ),
+        onDismiss = onDismiss
+    ) {
+        Spacer(modifier = Modifier.height(16.dp))
+        DatePicker(
+            value = value,
+            onValueChange = {
+                value = it
+            },
+            start = builder.start,
+            endInclude = builder.endInclude
+        )
         content()
     }
 }
