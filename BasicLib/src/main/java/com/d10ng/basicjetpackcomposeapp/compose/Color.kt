@@ -11,6 +11,7 @@ object AppColor {
         var background = Color(0xFFFFFFFF)
         var surface = Color(0xFFFFFFFF)
         var error = Color(0xFFB00020)
+        var divider = Color(0xFFDDDDDD)
     }
     object On {
         var primary = Color(0xFFFFFFFF)

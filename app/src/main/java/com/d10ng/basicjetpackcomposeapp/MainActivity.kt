@@ -209,6 +209,28 @@ class MainActivity : BaseActivity() {
                         }
 
                         item {
+                            SolidButtonWithText(text = "显示进度", onClick = {
+                                app.showProgressDialog(
+                                    ProgressDialogBuilder(
+                                        title = "发送中",
+                                        message = "请稍等片刻",
+                                        progress = 0,
+                                        max = 100
+                                    )
+                                )
+                                launchIO {
+                                    var index = 0
+                                    while (index < 100) {
+                                        index ++
+                                        app.updateProgressDialog(index.toLong())
+                                        delay(100)
+                                    }
+                                    app.hideProgressDialog()
+                                }
+                            })
+                        }
+
+                        item {
                             SolidButtonWithText(text = "显示底部弹窗", onClick = {
                                 isShow = true
                             })

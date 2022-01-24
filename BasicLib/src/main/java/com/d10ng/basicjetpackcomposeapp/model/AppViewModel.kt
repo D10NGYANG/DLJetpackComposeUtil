@@ -152,4 +152,27 @@ class AppViewModel(act: BaseActivity): ViewModel() {
         isShowTimePickerDialog.postValue(false)
     }
     /** ----------------------------------------------------------------------------------------- */
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * 进度弹窗
+     */
+    val isShowProgressDialog = MutableLiveData(false)
+    val progressDialogBuilder: MutableLiveData<ProgressDialogBuilder?> = MutableLiveData(null)
+    fun showProgressDialog(builder: ProgressDialogBuilder) {
+        progressDialogBuilder.postValue(builder)
+        isShowProgressDialog.postValue(true)
+    }
+    fun updateProgressDialog(progress: Long) {
+        val builder = progressDialogBuilder.value?: return
+        progressDialogBuilder.postValue(builder.copy(progress = progress))
+    }
+    fun updateProgressDialog(title: String?, message: String?) {
+        val builder = progressDialogBuilder.value?: return
+        progressDialogBuilder.postValue(builder.copy(title = title?: builder.title, message = message?: builder.message))
+    }
+    fun hideProgressDialog() {
+        isShowProgressDialog.postValue(false)
+    }
+    /** ----------------------------------------------------------------------------------------- */
 }

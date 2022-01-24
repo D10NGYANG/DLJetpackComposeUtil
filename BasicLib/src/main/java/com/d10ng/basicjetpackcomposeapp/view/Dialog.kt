@@ -3,6 +3,7 @@ package com.d10ng.basicjetpackcomposeapp.view
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,6 +16,7 @@ import com.d10ng.basicjetpackcomposeapp.bean.*
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppShape
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
+import com.d10ng.text.string.toDString
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 
@@ -103,33 +105,6 @@ fun DialogMessage(
 }
 
 @Composable
-fun WarningDialog(
-    isShow: Boolean,
-    builder: WarningDialogBuilder,
-    onDismiss:() -> Unit
-) {
-    DialogRack(isShow = isShow, onDismiss = onDismiss) {
-        DialogTitle(
-            text = builder.title,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-        )
-        DialogMessage(
-            text = builder.message,
-            modifier = Modifier
-                .padding(top = 16.dp)
-                .align(Alignment.CenterHorizontally)
-        )
-        DialogSureButton(
-            modifier = Modifier
-                .padding(top = 16.dp),
-            text = builder.buttonText,
-            onClick = builder.onClickButton?: onDismiss
-        )
-    }
-}
-
-@Composable
 fun BaseDialog(
     isShow: Boolean,
     builder: DialogBuilder,
@@ -140,14 +115,14 @@ fun BaseDialog(
         DialogTitle(
             text = builder.title,
             modifier = Modifier
-                .align(Alignment.Start)
+                .align(builder.titleAlign)
         )
         if (builder.message.isNotEmpty()) {
             DialogMessage(
                 text = builder.message,
                 modifier = Modifier
                     .padding(top = 16.dp)
-                    .align(Alignment.Start)
+                    .align(builder.messageAlign)
             )
         }
         content()
@@ -178,11 +153,30 @@ fun BaseDialog(
 }
 
 @Composable
+fun WarningDialog(
+    isShow: Boolean,
+    builder: WarningDialogBuilder,
+    onDismiss:() -> Unit
+) {
+    BaseDialog(
+        isShow = isShow,
+        builder = DialogBuilder(
+            title = builder.title,
+            titleAlign = Alignment.CenterHorizontally,
+            message = builder.message,
+            messageAlign = Alignment.CenterHorizontally,
+            sureButton = builder.buttonText,
+            onClickSure = builder.onClickButton?: onDismiss
+        ),
+        onDismiss = onDismiss
+    )
+}
+
+@Composable
 fun InputDialog(
     isShow: Boolean,
     builder: InputDialogBuilder,
-    onDismiss:() -> Unit,
-    content: @Composable ColumnScope.() -> Unit = {}
+    onDismiss:() -> Unit
 ) {
     val inputValues = remember(builder) {
         mutableStateListOf<String>().apply {
@@ -203,10 +197,10 @@ fun InputDialog(
     BaseDialog(
         isShow = isShow,
         builder = DialogBuilder(
-            builder.title,
-            builder.message,
-            builder.sureButton,
-            builder.cancelButton,
+            title = builder.title,
+            message = builder.message,
+            sureButton = builder.sureButton,
+            cancelButton = builder.cancelButton,
             onClickSure = {
                 val results = builder.inputs.mapIndexed { index, input ->
                     input.verify.invoke(inputValues[index])
@@ -233,7 +227,6 @@ fun InputDialog(
                 errorText = errorTexts[index]
             )
         }
-        content()
     }
 }
 
@@ -241,8 +234,7 @@ fun InputDialog(
 fun RadioDialog(
     isShow: Boolean,
     builder: RadioDialogBuilder,
-    onDismiss:() -> Unit,
-    content: @Composable ColumnScope.() -> Unit = {}
+    onDismiss:() -> Unit
 ) {
     BaseDialog(
         isShow = isShow,
@@ -279,7 +271,6 @@ fun RadioDialog(
                 }
             }
         }
-        content()
     }
 }
 
@@ -287,8 +278,7 @@ fun RadioDialog(
 fun DatePickerDialog(
     isShow: Boolean,
     builder: DatePickerDialogBuilder,
-    onDismiss:() -> Unit,
-    content: @Composable ColumnScope.() -> Unit = {}
+    onDismiss:() -> Unit
 ) {
     var value by remember(builder) {
         mutableStateOf(builder.initValue)
@@ -296,10 +286,10 @@ fun DatePickerDialog(
     BaseDialog(
         isShow = isShow,
         builder = DialogBuilder(
-            builder.title,
-            builder.message,
-            builder.sureButton,
-            builder.cancelButton,
+            title = builder.title,
+            message = builder.message,
+            sureButton = builder.sureButton,
+            cancelButton = builder.cancelButton,
             onClickSure = {
                 builder.onClickSure.invoke(value)
             },
@@ -316,7 +306,6 @@ fun DatePickerDialog(
             start = builder.start,
             endInclude = builder.endInclude
         )
-        content()
     }
 }
 
@@ -324,8 +313,7 @@ fun DatePickerDialog(
 fun TimePickerDialog(
     isShow: Boolean,
     builder: TimePickerDialogBuilder,
-    onDismiss:() -> Unit,
-    content: @Composable ColumnScope.() -> Unit = {}
+    onDismiss:() -> Unit
 ) {
     var hour by remember(builder) {
         mutableStateOf(builder.hour)
@@ -339,10 +327,10 @@ fun TimePickerDialog(
     BaseDialog(
         isShow = isShow,
         builder = DialogBuilder(
-            builder.title,
-            builder.message,
-            builder.sureButton,
-            builder.cancelButton,
+            title = builder.title,
+            message = builder.message,
+            sureButton = builder.sureButton,
+            cancelButton = builder.cancelButton,
             onClickSure = {
                 builder.onClickSure.invoke(hour, minute, second)
             },
@@ -362,6 +350,46 @@ fun TimePickerDialog(
                 second = s
             }
         )
-        content()
+    }
+}
+
+@Composable
+fun ProgressDialog(
+    isShow: Boolean,
+    builder: ProgressDialogBuilder,
+    onDismiss:() -> Unit
+) {
+    println("刷新 ProgressDialog $builder")
+    BaseDialog(
+        isShow = isShow,
+        builder = DialogBuilder(
+            title = builder.title,
+            titleAlign = Alignment.CenterHorizontally,
+            message = builder.message,
+            messageAlign = Alignment.CenterHorizontally
+        ),
+        onDismiss = onDismiss
+    ) {
+        Spacer(modifier = Modifier.height(16.dp))
+        if (builder.isShowProgressText) {
+            Text(
+                text = when(builder.progressTextStyle) {
+                    ProgressDialogBuilder.ProgressTextStyle.PROGRESS_AND_MAX -> {
+                        "${builder.progress}/${builder.max}"
+                    }
+                    ProgressDialogBuilder.ProgressTextStyle.PERCENTAGE -> {
+                        "${((builder.progress * 100.0) / builder.max).toInt()}%"
+                    }
+                },
+                style = AppText.Normal.Body.v16,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+        }
+        LinearProgressIndicator(
+            progress = (builder.progress * 1.0f) / builder.max,
+            modifier = Modifier.fillMaxWidth().wrapContentHeight().padding(top = 16.dp),
+            color = AppColor.System.secondary,
+            backgroundColor = AppColor.System.divider
+        )
     }
 }

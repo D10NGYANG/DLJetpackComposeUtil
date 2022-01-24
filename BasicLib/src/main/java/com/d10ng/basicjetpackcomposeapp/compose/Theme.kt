@@ -56,6 +56,9 @@ fun AppTheme(
     // 时间选择
     val isShowTimePickerDialog by app.isShowTimePickerDialog.observeAsState(false)
     val timePickerDialogBuilder by app.timePickerDialogBuilder.observeAsState(null)
+    // 进度
+    val isShowProgressDialog by app.isShowProgressDialog.observeAsState(false)
+    val progressDialogBuilder by app.progressDialogBuilder.observeAsState(null)
 
     MaterialTheme(
         colors = LightColorPalette
@@ -131,6 +134,15 @@ fun AppTheme(
             isShow = isShowTimePickerDialog,
             builder = it,
             onDismiss = { app.hideTimePickerDialog() }
+        )
+    }
+
+    // 进度
+    progressDialogBuilder?.let {
+        ProgressDialog(
+            isShow = isShowProgressDialog,
+            builder = it,
+            onDismiss = { app.hideProgressDialog() }
         )
     }
 
