@@ -47,6 +47,9 @@ fun AppTheme(
     // 输入
     val isShowInputDialog by app.isShowInputDialog.observeAsState(false)
     val inputDialogBuilder by app.inputDialogBuilder.observeAsState(null)
+    // 单选
+    val isShowRadioDialog by app.isShowRadioDialog.observeAsState(false)
+    val radioDialogBuilder by app.radioDialogBuilder.observeAsState(null)
 
     MaterialTheme(
         colors = LightColorPalette
@@ -95,6 +98,15 @@ fun AppTheme(
             isShow = isShowInputDialog,
             builder = it,
             onDismiss = { app.hideInputDialog() }
+        )
+    }
+
+    // 单选
+    radioDialogBuilder?.let {
+        RadioDialog(
+            isShow = isShowRadioDialog,
+            builder = it,
+            onDismiss = { app.hideRadioDialog() }
         )
     }
 

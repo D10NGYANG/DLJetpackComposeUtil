@@ -65,8 +65,17 @@ dependencies {
     api(Accompanist.insets)
     api(Accompanist.insets_ui)
     api(Accompanist.systemuicontroller)
+    api(Accompanist.appcompat_theme)
+    api(Accompanist.pager)
+    api(Accompanist.pager_indicators)
     api(Accompanist.swiperefresh)
+    api(Accompanist.placeholder)
+    api(Accompanist.placeholder_material)
+    api(Accompanist.drawablepainter)
+    api(Accompanist.flowlayout)
+    api(Accompanist.permissions)
     api(Accompanist.navigation_animation)
+    api(Accompanist.navigation_material)
 
     // Lifecycle
     api(Jetpack.Lifecycle.runtime)

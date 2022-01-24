@@ -15,10 +15,14 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.d10ng.basicjetpackcomposeapp.bean.DialogBuilder
 import com.d10ng.basicjetpackcomposeapp.bean.InputDialogBuilder
+import com.d10ng.basicjetpackcomposeapp.bean.RadioDialogBuilder
 import com.d10ng.basicjetpackcomposeapp.bean.WarningDialogBuilder
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppShape
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
+import com.google.accompanist.flowlayout.FlowColumn
+import com.google.accompanist.flowlayout.FlowMainAxisAlignment
+import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
 fun LoadingDialog (
@@ -144,12 +148,14 @@ fun BaseDialog(
             modifier = Modifier
                 .align(Alignment.Start)
         )
-        DialogMessage(
-            text = builder.message,
-            modifier = Modifier
-                .padding(top = 16.dp)
-                .align(Alignment.Start)
-        )
+        if (builder.message.isNotEmpty()) {
+            DialogMessage(
+                text = builder.message,
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .align(Alignment.Start)
+            )
+        }
         content()
         Row(
             modifier = Modifier
@@ -232,6 +238,52 @@ fun InputDialog(
                 },
                 errorText = errorTexts[index]
             )
+        }
+        content()
+    }
+}
+
+@Composable
+fun RadioDialog(
+    isShow: Boolean,
+    builder: RadioDialogBuilder,
+    onDismiss:() -> Unit,
+    content: @Composable ColumnScope.() -> Unit = {}
+) {
+    BaseDialog(
+        isShow = isShow,
+        builder = DialogBuilder(
+            title = builder.title,
+            message = builder.message
+        ),
+        onDismiss = onDismiss
+    ) {
+        Spacer(modifier = Modifier.height(16.dp))
+        if (builder.isRow) {
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                mainAxisAlignment = FlowMainAxisAlignment.Center
+            ) {
+                builder.map.forEach { map ->
+                    builder.customItemView(map.key == builder.select, map.toPair()) {
+                        builder.onSelect.invoke(map.toPair())
+                    }
+                }
+            }
+        } else {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+            ) {
+                builder.map.forEach { map ->
+                    builder.customItemView(map.key == builder.select, map.toPair()) {
+                        builder.onSelect.invoke(map.toPair())
+                    }
+                }
+            }
         }
         content()
     }

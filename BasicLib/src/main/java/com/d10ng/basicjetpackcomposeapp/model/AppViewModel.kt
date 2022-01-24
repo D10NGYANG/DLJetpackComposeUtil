@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.d10ng.basicjetpackcomposeapp.BaseActivity
 import com.d10ng.basicjetpackcomposeapp.bean.DialogBuilder
 import com.d10ng.basicjetpackcomposeapp.bean.InputDialogBuilder
+import com.d10ng.basicjetpackcomposeapp.bean.RadioDialogBuilder
 import com.d10ng.basicjetpackcomposeapp.bean.WarningDialogBuilder
 import com.d10ng.coroutines.launchIO
 import com.d10ng.coroutines.launchMain
@@ -107,6 +108,21 @@ class AppViewModel(act: BaseActivity): ViewModel() {
     }
     fun hideInputDialog() {
         isShowInputDialog.postValue(false)
+    }
+    /** ----------------------------------------------------------------------------------------- */
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * 单选弹窗
+     */
+    val isShowRadioDialog = MutableLiveData(false)
+    val radioDialogBuilder: MutableLiveData<RadioDialogBuilder?> = MutableLiveData(null)
+    fun showRadioDialog(builder: RadioDialogBuilder) {
+        radioDialogBuilder.postValue(builder)
+        isShowRadioDialog.postValue(true)
+    }
+    fun hideRadioDialog() {
+        isShowRadioDialog.postValue(false)
     }
     /** ----------------------------------------------------------------------------------------- */
 }

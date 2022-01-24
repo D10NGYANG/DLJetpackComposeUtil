@@ -16,6 +16,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.d10ng.basicjetpackcomposeapp.bean.DialogBuilder
 import com.d10ng.basicjetpackcomposeapp.bean.InputDialogBuilder
+import com.d10ng.basicjetpackcomposeapp.bean.RadioDialogBuilder
 import com.d10ng.basicjetpackcomposeapp.bean.WarningDialogBuilder
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
@@ -35,6 +36,9 @@ class MainActivity : BaseActivity() {
         setContent {
             var isShow by remember {
                 mutableStateOf(false)
+            }
+            var selectStr by remember {
+                mutableStateOf("1080*1920px")
             }
             AppTheme(app = app) {
                 Column(
@@ -121,18 +125,6 @@ class MainActivity : BaseActivity() {
                                                 }
                                             }
                                         ),
-                                        InputDialogBuilder.Input(
-                                            keyboardType = KeyboardType.Number,
-                                            verify = { value ->
-                                                if (value.isEmpty()) {
-                                                    InputDialogBuilder.Verify(false, "身份证不能为空")
-                                                } else if (!value.matches("[0-9X]+".toRegex())) {
-                                                    InputDialogBuilder.Verify(false, "身份证格式不正确")
-                                                } else {
-                                                    InputDialogBuilder.Verify(true)
-                                                }
-                                            }
-                                        )
                                     ),
                                     onClickSure = {
                                         app.hideInputDialog()
@@ -140,6 +132,26 @@ class MainActivity : BaseActivity() {
                                     },
                                     onClickCancel = {
                                         app.hideInputDialog()
+                                    }
+                                ))
+                            })
+                        }
+
+                        item {
+                            SolidButtonWithText(text = "显示单选弹窗", onClick = {
+                                app.showRadioDialog(RadioDialogBuilder(
+                                    title = "屏幕分辨率",
+                                    map = mutableMapOf(
+                                        Pair("360*640px", "360P"),
+                                        Pair("720*1280px", "720P"),
+                                        Pair("1080*1920px", "1080P"),
+                                        Pair("1440*2560px", "2K"),
+                                    ),
+                                    select = selectStr,
+                                    onSelect = {
+                                        app.hideRadioDialog()
+                                        app.showToast("【${it.second}】= ${it.first}")
+                                        selectStr = it.first
                                     }
                                 ))
                             })
