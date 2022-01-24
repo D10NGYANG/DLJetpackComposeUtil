@@ -21,8 +21,7 @@ import com.d10ng.basicjetpackcomposeapp.compose.AppTheme
 import com.d10ng.basicjetpackcomposeapp.model.AppViewModel
 import com.d10ng.basicjetpackcomposeapp.view.SolidButtonWithText
 import com.d10ng.coroutines.launchIO
-import com.d10ng.datelib.curTime
-import com.d10ng.datelib.toDateStr
+import com.d10ng.datelib.*
 import com.google.accompanist.insets.statusBarsHeight
 import kotlinx.coroutines.delay
 
@@ -173,6 +172,37 @@ class MainActivity : BaseActivity() {
                                     },
                                     onClickCancel = {
                                         app.hideDatePickerDialog()
+                                    }
+                                ))
+                            })
+                        }
+
+                        item {
+                            var selectHour by remember {
+                                mutableStateOf(curHour)
+                            }
+                            var selectMinute by remember {
+                                mutableStateOf(curMinute)
+                            }
+                            var selectSecond by remember {
+                                mutableStateOf(curSecond)
+                            }
+                            SolidButtonWithText(text = "显示时间选择", onClick = {
+                                app.showTimePickerDialog(TimePickerDialogBuilder(
+                                    title = "选择时间",
+                                    message = "请选择您的到店时间",
+                                    hour = selectHour,
+                                    minute = selectMinute,
+                                    second = selectSecond,
+                                    onClickSure = { h,m,s ->
+                                        selectHour = h
+                                        selectMinute = m
+                                        selectSecond = s
+                                        app.hideTimePickerDialog()
+                                        app.showToast("您的到店时间为 $selectHour:$selectMinute:$selectSecond")
+                                    },
+                                    onClickCancel = {
+                                        app.hideTimePickerDialog()
                                     }
                                 ))
                             })

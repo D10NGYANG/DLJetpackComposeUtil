@@ -290,7 +290,7 @@ fun DatePickerDialog(
     onDismiss:() -> Unit,
     content: @Composable ColumnScope.() -> Unit = {}
 ) {
-    var value by remember {
+    var value by remember(builder) {
         mutableStateOf(builder.initValue)
     }
     BaseDialog(
@@ -315,6 +315,52 @@ fun DatePickerDialog(
             },
             start = builder.start,
             endInclude = builder.endInclude
+        )
+        content()
+    }
+}
+
+@Composable
+fun TimePickerDialog(
+    isShow: Boolean,
+    builder: TimePickerDialogBuilder,
+    onDismiss:() -> Unit,
+    content: @Composable ColumnScope.() -> Unit = {}
+) {
+    var hour by remember(builder) {
+        mutableStateOf(builder.hour)
+    }
+    var minute by remember(builder) {
+        mutableStateOf(builder.minute)
+    }
+    var second by remember(builder) {
+        mutableStateOf(builder.second)
+    }
+    BaseDialog(
+        isShow = isShow,
+        builder = DialogBuilder(
+            builder.title,
+            builder.message,
+            builder.sureButton,
+            builder.cancelButton,
+            onClickSure = {
+                builder.onClickSure.invoke(hour, minute, second)
+            },
+            onClickCancel = builder.onClickCancel
+        ),
+        onDismiss = onDismiss
+    ) {
+        Spacer(modifier = Modifier.height(16.dp))
+        TimePicker(
+            hour = hour,
+            minute = minute,
+            second = second,
+            isShowSecond = builder.isShowSecond,
+            onValueChange = { h,m,s ->
+                hour = h
+                minute = m
+                second = s
+            }
         )
         content()
     }

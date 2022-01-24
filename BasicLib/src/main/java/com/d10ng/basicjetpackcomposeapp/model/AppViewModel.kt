@@ -137,4 +137,19 @@ class AppViewModel(act: BaseActivity): ViewModel() {
         isShowDatePickerDialog.postValue(false)
     }
     /** ----------------------------------------------------------------------------------------- */
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * 时间选择弹窗
+     */
+    val isShowTimePickerDialog = MutableLiveData(false)
+    val timePickerDialogBuilder: MutableLiveData<TimePickerDialogBuilder?> = MutableLiveData(null)
+    fun showTimePickerDialog(builder: TimePickerDialogBuilder) {
+        timePickerDialogBuilder.postValue(builder)
+        isShowTimePickerDialog.postValue(true)
+    }
+    fun hideTimePickerDialog() {
+        isShowTimePickerDialog.postValue(false)
+    }
+    /** ----------------------------------------------------------------------------------------- */
 }

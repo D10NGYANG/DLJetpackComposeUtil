@@ -53,6 +53,9 @@ fun AppTheme(
     // 日期选择
     val isShowDatePickerDialog by app.isShowDatePickerDialog.observeAsState(false)
     val datePickerDialogBuilder by app.datePickerDialogBuilder.observeAsState(null)
+    // 时间选择
+    val isShowTimePickerDialog by app.isShowTimePickerDialog.observeAsState(false)
+    val timePickerDialogBuilder by app.timePickerDialogBuilder.observeAsState(null)
 
     MaterialTheme(
         colors = LightColorPalette
@@ -119,6 +122,15 @@ fun AppTheme(
             isShow = isShowDatePickerDialog,
             builder = it,
             onDismiss = { app.hideDatePickerDialog() }
+        )
+    }
+
+    // 时间选择
+    timePickerDialogBuilder?.let {
+        TimePickerDialog(
+            isShow = isShowTimePickerDialog,
+            builder = it,
+            onDismiss = { app.hideTimePickerDialog() }
         )
     }
 
