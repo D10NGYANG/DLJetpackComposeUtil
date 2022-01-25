@@ -175,4 +175,19 @@ class AppViewModel(act: BaseActivity): ViewModel() {
         isShowProgressDialog.postValue(false)
     }
     /** ----------------------------------------------------------------------------------------- */
+
+    /**
+     * ---------------------------------------------------------------------------------------------
+     * 成功或失败弹窗
+     */
+    val isShowSuccessOrFalseDialog = MutableLiveData(false)
+    val successOrFalseDialogBuilder: MutableLiveData<SuccessOrFalseDialogBuilder?> = MutableLiveData(null)
+    fun showSuccessOrFalseDialog(builder: SuccessOrFalseDialogBuilder) {
+        successOrFalseDialogBuilder.postValue(builder)
+        isShowSuccessOrFalseDialog.postValue(true)
+    }
+    fun hideSuccessOrFalseDialog() {
+        isShowSuccessOrFalseDialog.postValue(false)
+    }
+    /** ----------------------------------------------------------------------------------------- */
 }

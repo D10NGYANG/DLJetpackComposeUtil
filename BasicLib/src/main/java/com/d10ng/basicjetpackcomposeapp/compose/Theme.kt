@@ -59,6 +59,9 @@ fun AppTheme(
     // 进度
     val isShowProgressDialog by app.isShowProgressDialog.observeAsState(false)
     val progressDialogBuilder by app.progressDialogBuilder.observeAsState(null)
+    // 成功或失败
+    val isShowSuccessOrFalseDialog by app.isShowSuccessOrFalseDialog.observeAsState(false)
+    val successOrFalseDialogBuilder by app.successOrFalseDialogBuilder.observeAsState(null)
 
     MaterialTheme(
         colors = LightColorPalette
@@ -143,6 +146,15 @@ fun AppTheme(
             isShow = isShowProgressDialog,
             builder = it,
             onDismiss = { app.hideProgressDialog() }
+        )
+    }
+
+    // 成功或失败
+    successOrFalseDialogBuilder?.let {
+        SuccessOrFalseDialog(
+            isShow = isShowSuccessOrFalseDialog,
+            builder = it,
+            onDismiss = { app.hideSuccessOrFalseDialog() }
         )
     }
 

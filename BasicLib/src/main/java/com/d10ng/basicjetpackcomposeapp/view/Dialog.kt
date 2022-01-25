@@ -3,20 +3,22 @@ package com.d10ng.basicjetpackcomposeapp.view
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Icon
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.d10ng.basicjetpackcomposeapp.R
 import com.d10ng.basicjetpackcomposeapp.bean.*
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppShape
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
-import com.d10ng.text.string.toDString
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 
@@ -185,7 +187,6 @@ fun InputDialog(
             }
         }
     }
-
     val errorTexts = remember(builder) {
         mutableStateListOf<String>().apply {
             builder.inputs.forEach { _ ->
@@ -359,7 +360,6 @@ fun ProgressDialog(
     builder: ProgressDialogBuilder,
     onDismiss:() -> Unit
 ) {
-    println("刷新 ProgressDialog $builder")
     BaseDialog(
         isShow = isShow,
         builder = DialogBuilder(
@@ -387,9 +387,46 @@ fun ProgressDialog(
         }
         LinearProgressIndicator(
             progress = (builder.progress * 1.0f) / builder.max,
-            modifier = Modifier.fillMaxWidth().wrapContentHeight().padding(top = 16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(top = 16.dp),
             color = AppColor.System.secondary,
             backgroundColor = AppColor.System.divider
+        )
+    }
+}
+
+@Composable
+fun SuccessOrFalseDialog(
+    isShow: Boolean,
+    builder: SuccessOrFalseDialogBuilder,
+    onDismiss:() -> Unit
+) {
+    DialogRack(isShow = isShow, onDismiss = onDismiss) {
+        DialogTitle(
+            text = builder.title,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+        )
+        Icon(
+            painter = painterResource(id = if (builder.isSuccess) R.drawable.ic_success_102 else R.drawable.ic_false_102),
+            contentDescription = if (builder.isSuccess) "成功" else "失败",
+            modifier = Modifier.padding(top = 16.dp).align(Alignment.CenterHorizontally),
+            tint = if (builder.isSuccess) AppColor.System.secondary else AppColor.System.error
+        )
+        if (builder.message.isNotEmpty()) {
+            DialogMessage(
+                text = builder.message,
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .align(Alignment.CenterHorizontally)
+            )
+        }
+        DialogSureButton(
+            text = builder.buttonText,
+            onClick = builder.onClickButton,
+            modifier = Modifier.padding(top = 16.dp)
         )
     }
 }

@@ -231,6 +231,30 @@ class MainActivity : BaseActivity() {
                         }
 
                         item {
+                            SolidButtonWithText(text = "显示成功", onClick = {
+                                app.showSuccessOrFalseDialog(SuccessOrFalseDialogBuilder(
+                                    title = "发送成功",
+                                    isSuccess = true,
+                                    onClickButton = {
+                                        app.hideSuccessOrFalseDialog()
+                                    }
+                                ))
+                            })
+                        }
+
+                        item {
+                            SolidButtonWithText(text = "显示失败", onClick = {
+                                app.showSuccessOrFalseDialog(SuccessOrFalseDialogBuilder(
+                                    title = "发送失败",
+                                    isSuccess = false,
+                                    onClickButton = {
+                                        app.hideSuccessOrFalseDialog()
+                                    }
+                                ))
+                            })
+                        }
+
+                        item {
                             SolidButtonWithText(text = "显示底部弹窗", onClick = {
                                 isShow = true
                             })
