@@ -93,7 +93,7 @@ dependencies {
     // APP通用工具
     api(D10NG.appUtil)
     // 时间工具
-    api("com.github.D10NGYANG:DLDateUtil:1.4")
+    api(D10NG.dateUtil)
     coreLibraryDesugaring(D10NG.date_fix_8_coreLibraryDesugaring)
     // 字符串字节数据工具
     api(D10NG.textUtil)
