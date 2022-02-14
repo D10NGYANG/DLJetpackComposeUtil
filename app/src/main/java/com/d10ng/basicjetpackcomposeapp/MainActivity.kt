@@ -27,8 +27,6 @@ import kotlinx.coroutines.delay
 
 class MainActivity : BaseActivity() {
 
-    val app: AppViewModel by viewModels(factoryProducer = { AppViewModel.Factory(this) })
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

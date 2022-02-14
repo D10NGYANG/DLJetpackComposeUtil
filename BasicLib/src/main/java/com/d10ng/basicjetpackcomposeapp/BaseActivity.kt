@@ -5,18 +5,22 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.MutableLiveData
 import com.d10ng.applib.view.lockScreenOrientation
+import com.d10ng.basicjetpackcomposeapp.model.AppViewModel
 import com.d10ng.basicjetpackcomposeapp.utils.KeyInstant
 import com.d10ng.coroutines.launchMain
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 abstract class BaseActivity: AppCompatActivity() {
+
+    val app: AppViewModel by viewModels(factoryProducer = { AppViewModel.Factory(this) })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
