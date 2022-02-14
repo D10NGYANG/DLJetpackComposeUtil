@@ -15,6 +15,6 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation 'com.github.D10NGYANG:DLBasicJetpackComposeApp:1.0.5'
+    implementation 'com.github.D10NGYANG:DLBasicJetpackComposeApp:1.0.6'
 }
 ```
