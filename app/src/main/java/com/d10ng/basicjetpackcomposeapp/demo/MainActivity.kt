@@ -1,8 +1,7 @@
-package com.d10ng.basicjetpackcomposeapp
+package com.d10ng.basicjetpackcomposeapp.demo
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,11 +13,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.d10ng.basicjetpackcomposeapp.BaseActivity
 import com.d10ng.basicjetpackcomposeapp.bean.*
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
 import com.d10ng.basicjetpackcomposeapp.compose.AppTheme
-import com.d10ng.basicjetpackcomposeapp.model.AppViewModel
 import com.d10ng.basicjetpackcomposeapp.view.SolidButtonWithText
 import com.d10ng.coroutines.launchIO
 import com.d10ng.datelib.*
