@@ -29,9 +29,6 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var isShow by remember {
-                mutableStateOf(false)
-            }
 
             AppTheme(app = app) {
                 Column(
@@ -248,12 +245,6 @@ class MainActivity : BaseActivity() {
                                         app.hideSuccessOrFalseDialog()
                                     }
                                 ))
-                            })
-                        }
-
-                        item {
-                            SolidButtonWithText(text = "显示底部弹窗", onClick = {
-                                isShow = true
                             })
                         }
                     }
