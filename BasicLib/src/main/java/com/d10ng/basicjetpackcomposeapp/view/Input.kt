@@ -49,9 +49,9 @@ fun Input(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    textStyle: TextStyle = LocalTextStyle.current,
-    placeholder: String,
-    placeholderStyle: TextStyle = LocalTextStyle.current,
+    textStyle: TextStyle = AppText.Normal.Body.v14,
+    placeholder: String = "",
+    placeholderStyle: TextStyle = AppText.Normal.Hint.v14,
     textAlign: TextAlign = TextAlign.Start,
     contentAlignment: Alignment = Alignment.TopStart,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -59,7 +59,7 @@ fun Input(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     singleLine: Boolean = false,
     maxLines: Int = Int.MAX_VALUE,
-    cursorColor: Color = Color.Black,
+    cursorColor: Color = AppColor.System.secondary,
     isFocus: Boolean = false
 ) {
     val focusRequester = remember { FocusRequester() }

@@ -33,10 +33,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = Kotlin.jvm_target_1_8
+        jvmTarget = "1.8"
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Compose.AndroidX.version
+        kotlinCompilerExtensionVersion = compose_ver
     }
     buildFeatures {
         compose = true
@@ -51,7 +51,4 @@ android {
 dependencies {
 
     implementation(project(mapOf("path" to ":BasicLib")))
-
-    // 单元测试（可选）
-    testImplementation(Test.junit)
 }

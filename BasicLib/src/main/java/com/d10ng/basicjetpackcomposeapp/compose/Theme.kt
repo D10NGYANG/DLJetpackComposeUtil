@@ -1,7 +1,10 @@
 package com.d10ng.basicjetpackcomposeapp.compose
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue

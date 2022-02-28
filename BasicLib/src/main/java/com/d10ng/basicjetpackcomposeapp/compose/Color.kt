@@ -21,7 +21,7 @@ object AppColor {
         var error = Color(0xFFFFFFFF)
     }
     object Text {
-        var title = Color(0xFF333333)
+        var title = Color(0xFF222222)
         var body = Color(0xFF666666)
         var hint = Color(0xFF999999)
         var error = Color(0xFFB00020)

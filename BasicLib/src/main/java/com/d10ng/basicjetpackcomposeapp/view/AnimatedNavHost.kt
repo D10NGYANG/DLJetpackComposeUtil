@@ -1,7 +1,6 @@
 package com.d10ng.basicjetpackcomposeapp.view
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
@@ -27,17 +26,17 @@ fun AnimatedNavHostDefault(
         modifier = modifier,
         contentAlignment = contentAlignment,
         route = route,
-        enterTransition = { _,_ ->
-            slideInHorizontally( { it } , tween(300) )
+        enterTransition = {
+            slideInHorizontally()
         },
-        exitTransition = { _,_ ->
-            slideOutHorizontally( { -it } , tween(300) )
+        exitTransition = {
+            slideOutHorizontally()
         },
-        popEnterTransition = { _, _ ->
-            slideInHorizontally( { -it } , tween(300) )
+        popEnterTransition = {
+            slideInHorizontally()
         },
-        popExitTransition = { _, _ ->
-            slideOutHorizontally( { it } , tween(300) )
+        popExitTransition = {
+            slideOutHorizontally()
         },
         builder = builder
     )
