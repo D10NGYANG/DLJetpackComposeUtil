@@ -27,16 +27,16 @@ fun AnimatedNavHostDefault(
         contentAlignment = contentAlignment,
         route = route,
         enterTransition = {
-            slideInHorizontally()
+            slideInHorizontally(initialOffsetX = {it})
         },
         exitTransition = {
-            slideOutHorizontally()
+            slideOutHorizontally(targetOffsetX = {-it})
         },
         popEnterTransition = {
-            slideInHorizontally()
+            slideInHorizontally(initialOffsetX = {-it})
         },
         popExitTransition = {
-            slideOutHorizontally()
+            slideOutHorizontally(targetOffsetX = {it})
         },
         builder = builder
     )
