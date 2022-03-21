@@ -34,6 +34,8 @@ private val LightColorPalette = lightColors(
 @Composable
 fun AppTheme(
     app: AppViewModel,
+    statusBarColor: Color = Color.Transparent,
+    statusBarUseDarkIcons: Boolean = MaterialTheme.colors.isLight,
     content: @Composable() () -> Unit
 ) {
     // 错误
@@ -71,10 +73,9 @@ fun AppTheme(
     ) {
         ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
             val systemUiController = rememberSystemUiController()
-            val useDarkIcons = MaterialTheme.colors.isLight
             SideEffect {
                 systemUiController.setStatusBarColor(
-                    Color.Transparent, darkIcons = useDarkIcons)
+                    statusBarColor, darkIcons = statusBarUseDarkIcons)
             }
             Surface {
                 Box(
