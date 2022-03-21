@@ -43,7 +43,7 @@ android {
 
 dependencies {
     implementation(Kotlin.stdlib(kotlin_ver))
-     Android
+    // Android
     api(AndroidX.core_ktx("1.7.0"))
     api(AndroidX.appcompat("1.4.1"))
     api(Android.Google.material("1.5.0"))
@@ -95,7 +95,7 @@ dependencies {
     // 协程封装工具
     api(D10NG.DLCoroutinesUtil("0.3"))
     // APP通用工具
-    api(D10NG.DLAppUtil("2.0"))
+    api(D10NG.DLAppUtil("2.1"))
     // 时间工具
     api(D10NG.DLDateUtil("1.5"))
     coreLibraryDesugaring(Android.Tools.desugar_jdk_libs_coreLibraryDesugaring())

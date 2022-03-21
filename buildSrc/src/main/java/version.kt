@@ -10,7 +10,7 @@ object Project {
 }
 
 val android_build_ver = "7.1.2"
-val compose_ver = "1.1.0"
+val compose_ver = "1.1.1"
 val kotlin_ver = "1.6.10"
 val kotlin_coroutines_ver = "1.6.0"
 val accompanist_ver = "0.23.1"
