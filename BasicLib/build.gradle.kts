@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.D10NG"
-version = "1.1.3"
+version = "1.1.4"
 
 android {
     compileSdk = Project.compile_sdk
@@ -65,6 +65,7 @@ dependencies {
     api(AndroidX.Compose.runtime_livedata(compose_ver))
     api(AndroidX.activity_compose("1.4.0"))
     api(AndroidX.navigation_compose("2.4.1"))
+    api(AndroidX.constraintlayout_compose("1.0.0"))
 
     // Compose 拓展
     api(Accompanist.insets(accompanist_ver))
@@ -100,7 +101,7 @@ dependencies {
     api(D10NG.DLDateUtil("1.5"))
     coreLibraryDesugaring(Android.Tools.desugar_jdk_libs_coreLibraryDesugaring())
     // 字符串字节数据工具
-    api(D10NG.DLTextUtil("1.3.0"))
+    api(D10NG.DLTextUtil("1.3.1"))
 }
 
 afterEvaluate {
