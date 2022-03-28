@@ -243,23 +243,26 @@ fun HollowButtonWithImageText(
 fun DialogSureButton(
     modifier: Modifier = Modifier,
     text: String = "确定",
+    color: Color = AppColor.On.secondary,
+    backgroundColor: Color = AppColor.System.secondary,
     onClick: () -> Unit
 ) {
     Button(
         onClick = onClick,
         shape = AppShape.RC.v8,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = AppColor.System.secondary,
-            disabledBackgroundColor = AppColor.System.secondaryVariant,
-            contentColor = AppColor.On.secondary,
-            disabledContentColor = AppColor.On.secondary
+            backgroundColor = backgroundColor,
+            disabledBackgroundColor = backgroundColor,
+            contentColor = color,
+            disabledContentColor = color
         ),
         elevation = null,
         modifier = modifier.fillMaxWidth()
     ) {
         Text(
             text = text,
-            style = AppText.Normal.OnSecondary.v14
+            style = AppText.Normal.OnSecondary.v14,
+            color = color
         )
     }
 }
@@ -268,6 +271,7 @@ fun DialogSureButton(
 fun DialogCancelButton(
     modifier: Modifier = Modifier,
     text: String = "取消",
+    color: Color = AppColor.Text.body,
     onClick: () -> Unit
 ) {
     OutlinedButton(
@@ -276,15 +280,16 @@ fun DialogCancelButton(
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.Transparent,
             disabledBackgroundColor = Color.Transparent,
-            contentColor = AppColor.Text.body,
-            disabledContentColor = AppColor.Text.body
+            contentColor = color,
+            disabledContentColor = color
         ),
-        border = BorderStroke(1.dp, AppColor.Text.body),
+        border = BorderStroke(1.dp, color),
         modifier = modifier.fillMaxWidth()
     ) {
         Text(
             text = text,
-            style = AppText.Normal.Body.v14
+            style = AppText.Normal.Body.v14,
+            color = color
         )
     }
 }

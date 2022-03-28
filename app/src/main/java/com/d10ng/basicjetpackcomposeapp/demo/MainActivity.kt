@@ -103,6 +103,22 @@ class MainActivity : BaseActivity() {
                         }
 
                         item {
+                            SolidButtonWithText(text = "显示提示3", onClick = {
+                                app.showDialog(getErrorDialogBuilder(
+                                    message = "您将会收到一条提示消息，请注意查看提示内容，以免发生误操作！",
+                                    onClickSure = {
+                                        app.hideDialog()
+                                        app.showToast("用户点击了【确定】")
+                                    },
+                                    onClickCancel = {
+                                        app.hideDialog()
+                                        app.showToast("用户点击了【取消】")
+                                    }
+                                ))
+                            })
+                        }
+
+                        item {
                             SolidButtonWithText(text = "显示输入框1", onClick = {
                                 app.showInputDialog(InputDialogBuilder(
                                     message = "请输入您的身份证号码",

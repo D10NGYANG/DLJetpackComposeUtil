@@ -19,9 +19,7 @@ import com.d10ng.basicjetpackcomposeapp.bean.*
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppShape
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
-import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
-import com.google.accompanist.flowlayout.SizeMode
 
 @Composable
 fun LoadingDialog (
@@ -85,25 +83,29 @@ private fun DialogColumn(
 
 @Composable
 fun DialogTitle(
+    modifier: Modifier = Modifier,
     text: String,
-    modifier: Modifier = Modifier
+    color: Color = AppColor.Text.title
 ) {
     Text(
         text = text,
         style = AppText.Bold.Title.v24,
-        modifier = modifier
+        modifier = modifier,
+        color = color
     )
 }
 
 @Composable
 fun DialogMessage(
+    modifier: Modifier = Modifier,
     text: String,
-    modifier: Modifier = Modifier
+    color: Color = AppColor.Text.body
 ) {
     Text(
         text = text,
         style = AppText.Normal.Body.v14,
-        modifier = modifier
+        modifier = modifier,
+        color = color
     )
 }
 
@@ -117,12 +119,14 @@ fun BaseDialog(
     DialogRack(isShow = isShow, onDismiss = onDismiss) {
         DialogTitle(
             text = builder.title,
+            color = builder.titleColor,
             modifier = Modifier
                 .align(builder.titleAlign)
         )
         if (builder.message.isNotEmpty()) {
             DialogMessage(
                 text = builder.message,
+                color = builder.messageColor,
                 modifier = Modifier
                     .padding(top = 16.dp)
                     .align(builder.messageAlign)
@@ -138,6 +142,7 @@ fun BaseDialog(
                 DialogCancelButton(
                     modifier = Modifier.weight(1f),
                     text = builder.cancelButton,
+                    color = builder.cancelButtonTextColor,
                     onClick = it
                 )
             }
@@ -148,6 +153,8 @@ fun BaseDialog(
                 DialogSureButton(
                     modifier = Modifier.weight(1f),
                     text = builder.sureButton,
+                    color = builder.sureButtonTextColor,
+                    backgroundColor = builder.sureButtonBackgroundColor,
                     onClick = it
                 )
             }
@@ -166,9 +173,12 @@ fun WarningDialog(
         builder = DialogBuilder(
             title = builder.title,
             titleAlign = Alignment.CenterHorizontally,
+            titleColor = AppColor.System.error,
             message = builder.message,
             messageAlign = Alignment.CenterHorizontally,
             sureButton = builder.buttonText,
+            sureButtonTextColor = AppColor.On.error,
+            sureButtonBackgroundColor = AppColor.System.error,
             onClickSure = builder.onClickButton?: onDismiss
         ),
         onDismiss = onDismiss
