@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.D10NG"
-version = "1.1.4"
+version = "1.1.5"
 
 android {
     compileSdk = Project.compile_sdk
@@ -98,7 +98,7 @@ dependencies {
     // APP通用工具
     api(D10NG.DLAppUtil("2.1"))
     // 时间工具
-    api(D10NG.DLDateUtil("1.5"))
+    api(D10NG.DLDateUtil("1.6"))
     coreLibraryDesugaring(Android.Tools.desugar_jdk_libs_coreLibraryDesugaring())
     // 字符串字节数据工具
     api(D10NG.DLTextUtil("1.3.1"))
