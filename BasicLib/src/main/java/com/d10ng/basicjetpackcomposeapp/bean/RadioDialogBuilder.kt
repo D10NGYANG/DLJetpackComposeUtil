@@ -9,10 +9,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.d10ng.basicjetpackcomposeapp.R
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
+import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
+import com.google.accompanist.flowlayout.FlowMainAxisAlignment
+import com.google.accompanist.flowlayout.SizeMode
 
 data class RadioDialogBuilder(
     var title: String = "请选择",
@@ -23,6 +27,12 @@ data class RadioDialogBuilder(
         DefaultItemView(isSelect, info, onClick)
     },
     var isRow: Boolean = false,
+    var mainAxisSize: SizeMode = SizeMode.Wrap,
+    var mainAxisAlignment: FlowMainAxisAlignment = FlowMainAxisAlignment.Start,
+    var mainAxisSpacing: Dp = 0.dp,
+    var crossAxisAlignment: FlowCrossAxisAlignment = FlowCrossAxisAlignment.Start,
+    var crossAxisSpacing: Dp = 0.dp,
+    var lastLineMainAxisAlignment: FlowMainAxisAlignment = mainAxisAlignment,
     var onSelect: (Pair<String, Any>) -> Unit
 ) {
     companion object{

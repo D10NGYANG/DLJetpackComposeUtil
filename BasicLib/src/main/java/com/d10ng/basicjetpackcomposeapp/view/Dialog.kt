@@ -21,6 +21,7 @@ import com.d10ng.basicjetpackcomposeapp.compose.AppShape
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
+import com.google.accompanist.flowlayout.SizeMode
 
 @Composable
 fun LoadingDialog (
@@ -251,7 +252,12 @@ fun RadioDialog(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
-                mainAxisAlignment = FlowMainAxisAlignment.Center
+                mainAxisSize = builder.mainAxisSize,
+                mainAxisAlignment = builder.mainAxisAlignment,
+                mainAxisSpacing = builder.mainAxisSpacing,
+                crossAxisAlignment = builder.crossAxisAlignment,
+                crossAxisSpacing = builder.crossAxisSpacing,
+                lastLineMainAxisAlignment = builder.lastLineMainAxisAlignment
             ) {
                 builder.map.forEach { map ->
                     builder.customItemView(map.key == builder.select, map.toPair()) {

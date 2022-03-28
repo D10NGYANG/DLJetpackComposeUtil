@@ -3,24 +3,28 @@ package com.d10ng.basicjetpackcomposeapp.demo
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.d10ng.basicjetpackcomposeapp.BaseActivity
 import com.d10ng.basicjetpackcomposeapp.bean.*
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
+import com.d10ng.basicjetpackcomposeapp.compose.AppShape
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
 import com.d10ng.basicjetpackcomposeapp.compose.AppTheme
 import com.d10ng.basicjetpackcomposeapp.view.SolidButtonWithText
 import com.d10ng.coroutines.launchIO
 import com.d10ng.datelib.*
+import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
+import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.insets.statusBarsHeight
 import kotlinx.coroutines.delay
 
@@ -151,6 +155,35 @@ class MainActivity : BaseActivity() {
                         }
 
                         item {
+                            var selectStr by remember {
+                                mutableStateOf("1080*1920px")
+                            }
+                            SolidButtonWithText(text = "显示单选弹窗-自定义", onClick = {
+                                app.showRadioDialog(RadioDialogBuilder(
+                                    title = "屏幕分辨率",
+                                    map = mutableMapOf(
+                                        Pair("360*640px", "360P"),
+                                        Pair("720*1280px", "720P"),
+                                        Pair("1080*1920px", "1080P"),
+                                        Pair("1440*2560px", "2K"),
+                                    ),
+                                    select = selectStr,
+                                    customItemView = { isSelect, info, onClick -> CustomRadioDialogItem(isSelect, info, onClick) },
+                                    isRow = true,
+                                    mainAxisSpacing = 16.dp,
+                                    mainAxisAlignment = FlowMainAxisAlignment.Center,
+                                    crossAxisSpacing = 16.dp,
+                                    crossAxisAlignment = FlowCrossAxisAlignment.Center,
+                                    onSelect = {
+                                        app.hideRadioDialog()
+                                        app.showToast("【${it.second}】= ${it.first}")
+                                        selectStr = it.first
+                                    }
+                                ))
+                            })
+                        }
+
+                        item {
                             var selectTime by remember {
                                 mutableStateOf(curTime)
                             }
@@ -251,5 +284,32 @@ class MainActivity : BaseActivity() {
                 }
             }
         }
+    }
+}
+
+@Composable
+fun CustomRadioDialogItem(
+    isSelect: Boolean,
+    info: Pair<String, Any>,
+    onClick: () -> Unit
+) {
+    val background = remember(isSelect) {
+        if (isSelect) AppColor.System.secondary else Color.Transparent
+    }
+    val borderWidth = remember(isSelect) {
+        if (isSelect) 0.dp else 1.dp
+    }
+    val textColor = remember(isSelect) {
+        if (isSelect) AppColor.On.secondary else AppColor.Text.body
+    }
+    Box(
+        modifier = Modifier
+            .size(width = 104.dp, height = 40.dp)
+            .background(background, AppShape.RC.Cycle)
+            .border(borderWidth, AppColor.Text.hint, AppShape.RC.Cycle)
+            .clickable { onClick() },
+        contentAlignment = Alignment.Center
+    ) {
+        Text(text = info.first, style = AppText.Medium.OnSecondary.v14, color = textColor)
     }
 }
