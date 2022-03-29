@@ -442,6 +442,8 @@ fun SuccessOrFalseDialog(
         DialogSureButton(
             text = builder.buttonText,
             onClick = builder.onClickButton,
+            color = if (builder.isSuccess) AppColor.On.secondary else AppColor.On.error,
+            backgroundColor = if (builder.isSuccess) AppColor.System.secondary else AppColor.System.error,
             modifier = Modifier.padding(top = 16.dp)
         )
     }
