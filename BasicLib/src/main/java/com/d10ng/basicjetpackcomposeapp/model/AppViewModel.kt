@@ -1,14 +1,17 @@
 package com.d10ng.basicjetpackcomposeapp.model
 
 import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.d10ng.basicjetpackcomposeapp.BaseActivity
 import com.d10ng.basicjetpackcomposeapp.bean.*
-import com.d10ng.coroutines.launchIO
 import com.d10ng.coroutines.launchMain
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 
 /**
@@ -30,23 +33,21 @@ class AppViewModel(act: BaseActivity): ViewModel() {
     /** 显示Toast */
     fun showToast(value: String, duration: Int = Toast.LENGTH_SHORT) {
         val act = weakAct.get()?: return
-        Toast.makeText(act, value, duration).show()
+        launchMain { Toast.makeText(act, value, duration).show() }
     }
 
     /**
      * ---------------------------------------------------------------------------------------------
      * 错误提示
      */
-    val isShowError = MutableLiveData(false)
-    val errorText = MutableLiveData("")
+    val isShowError = MutableStateFlow(false)
+    val errorText = MutableStateFlow("")
     fun showError(value: String) {
-        launchMain {
-            errorText.value = value
-            launchIO {
-                isShowError.postValue(true)
-                delay(3000)
-                isShowError.postValue(false)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            errorText.emit(value)
+            isShowError.emit(true)
+            delay(3000)
+            isShowError.emit(false)
         }
     }
     /** ----------------------------------------------------------------------------------------- */
@@ -54,12 +55,12 @@ class AppViewModel(act: BaseActivity): ViewModel() {
      * ---------------------------------------------------------------------------------------------
      * loading
      */
-    val isShowLoading = MutableLiveData(false)
+    val isShowLoading = MutableStateFlow(false)
     fun showLoading() {
-        isShowLoading.postValue(true)
+        isShowLoading.update { true }
     }
     fun hideLoading() {
-        isShowLoading.postValue(false)
+        isShowLoading.update { false }
     }
     /** ----------------------------------------------------------------------------------------- */
 
@@ -67,14 +68,18 @@ class AppViewModel(act: BaseActivity): ViewModel() {
      * ---------------------------------------------------------------------------------------------
      * 警告
      */
-    val isShowWarning = MutableLiveData(false)
-    val warningBuilder: MutableLiveData<WarningDialogBuilder?> = MutableLiveData(null)
+    val isShowWarning = MutableStateFlow(false)
+    val warningBuilder: MutableStateFlow<WarningDialogBuilder?> = MutableStateFlow(null)
     fun showWarningDialog(builder: WarningDialogBuilder) {
-        warningBuilder.postValue(builder)
-        isShowWarning.postValue(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            warningBuilder.emit(builder)
+            isShowWarning.emit(true)
+        }
     }
     fun hideWarningDialog() {
-        isShowWarning.postValue(false)
+        viewModelScope.launch(Dispatchers.IO) {
+            isShowWarning.emit(false)
+        }
     }
     /** ----------------------------------------------------------------------------------------- */
 
@@ -82,14 +87,18 @@ class AppViewModel(act: BaseActivity): ViewModel() {
      * ---------------------------------------------------------------------------------------------
      * 提示弹窗
      */
-    val isShowDialog = MutableLiveData(false)
-    val dialogBuilder: MutableLiveData<DialogBuilder?> = MutableLiveData(null)
+    val isShowDialog = MutableStateFlow(false)
+    val dialogBuilder: MutableStateFlow<DialogBuilder?> = MutableStateFlow(null)
     fun showDialog(builder: DialogBuilder) {
-        dialogBuilder.postValue(builder)
-        isShowDialog.postValue(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            dialogBuilder.emit(builder)
+            isShowDialog.emit(true)
+        }
     }
     fun hideDialog() {
-        isShowDialog.postValue(false)
+        viewModelScope.launch(Dispatchers.IO) {
+            isShowDialog.emit(false)
+        }
     }
     /** ----------------------------------------------------------------------------------------- */
 
@@ -97,14 +106,18 @@ class AppViewModel(act: BaseActivity): ViewModel() {
      * ---------------------------------------------------------------------------------------------
      * 输入框弹窗
      */
-    val isShowInputDialog = MutableLiveData(false)
-    val inputDialogBuilder: MutableLiveData<InputDialogBuilder?> = MutableLiveData(null)
+    val isShowInputDialog = MutableStateFlow(false)
+    val inputDialogBuilder: MutableStateFlow<InputDialogBuilder?> = MutableStateFlow(null)
     fun showInputDialog(builder: InputDialogBuilder) {
-        inputDialogBuilder.postValue(builder)
-        isShowInputDialog.postValue(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            inputDialogBuilder.emit(builder)
+            isShowInputDialog.emit(true)
+        }
     }
     fun hideInputDialog() {
-        isShowInputDialog.postValue(false)
+        viewModelScope.launch(Dispatchers.IO) {
+            isShowInputDialog.emit(false)
+        }
     }
     /** ----------------------------------------------------------------------------------------- */
 
@@ -112,14 +125,18 @@ class AppViewModel(act: BaseActivity): ViewModel() {
      * ---------------------------------------------------------------------------------------------
      * 单选弹窗
      */
-    val isShowRadioDialog = MutableLiveData(false)
-    val radioDialogBuilder: MutableLiveData<RadioDialogBuilder?> = MutableLiveData(null)
+    val isShowRadioDialog = MutableStateFlow(false)
+    val radioDialogBuilder: MutableStateFlow<RadioDialogBuilder?> = MutableStateFlow(null)
     fun showRadioDialog(builder: RadioDialogBuilder) {
-        radioDialogBuilder.postValue(builder)
-        isShowRadioDialog.postValue(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            radioDialogBuilder.emit(builder)
+            isShowRadioDialog.emit(true)
+        }
     }
     fun hideRadioDialog() {
-        isShowRadioDialog.postValue(false)
+        viewModelScope.launch(Dispatchers.IO) {
+            isShowRadioDialog.emit(false)
+        }
     }
     /** ----------------------------------------------------------------------------------------- */
 
@@ -127,14 +144,18 @@ class AppViewModel(act: BaseActivity): ViewModel() {
      * ---------------------------------------------------------------------------------------------
      * 日期选择弹窗
      */
-    val isShowDatePickerDialog = MutableLiveData(false)
-    val datePickerDialogBuilder: MutableLiveData<DatePickerDialogBuilder?> = MutableLiveData(null)
+    val isShowDatePickerDialog = MutableStateFlow(false)
+    val datePickerDialogBuilder: MutableStateFlow<DatePickerDialogBuilder?> = MutableStateFlow(null)
     fun showDatePickerDialog(builder: DatePickerDialogBuilder) {
-        datePickerDialogBuilder.postValue(builder)
-        isShowDatePickerDialog.postValue(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            datePickerDialogBuilder.emit(builder)
+            isShowDatePickerDialog.emit(true)
+        }
     }
     fun hideDatePickerDialog() {
-        isShowDatePickerDialog.postValue(false)
+        viewModelScope.launch(Dispatchers.IO) {
+            isShowDatePickerDialog.emit(false)
+        }
     }
     /** ----------------------------------------------------------------------------------------- */
 
@@ -142,14 +163,18 @@ class AppViewModel(act: BaseActivity): ViewModel() {
      * ---------------------------------------------------------------------------------------------
      * 时间选择弹窗
      */
-    val isShowTimePickerDialog = MutableLiveData(false)
-    val timePickerDialogBuilder: MutableLiveData<TimePickerDialogBuilder?> = MutableLiveData(null)
+    val isShowTimePickerDialog = MutableStateFlow(false)
+    val timePickerDialogBuilder: MutableStateFlow<TimePickerDialogBuilder?> = MutableStateFlow(null)
     fun showTimePickerDialog(builder: TimePickerDialogBuilder) {
-        timePickerDialogBuilder.postValue(builder)
-        isShowTimePickerDialog.postValue(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            timePickerDialogBuilder.emit(builder)
+            isShowTimePickerDialog.emit(true)
+        }
     }
     fun hideTimePickerDialog() {
-        isShowTimePickerDialog.postValue(false)
+        viewModelScope.launch(Dispatchers.IO) {
+            isShowTimePickerDialog.emit(false)
+        }
     }
     /** ----------------------------------------------------------------------------------------- */
 
@@ -157,22 +182,30 @@ class AppViewModel(act: BaseActivity): ViewModel() {
      * ---------------------------------------------------------------------------------------------
      * 进度弹窗
      */
-    val isShowProgressDialog = MutableLiveData(false)
-    val progressDialogBuilder: MutableLiveData<ProgressDialogBuilder?> = MutableLiveData(null)
+    val isShowProgressDialog = MutableStateFlow(false)
+    val progressDialogBuilder: MutableStateFlow<ProgressDialogBuilder?> = MutableStateFlow(null)
     fun showProgressDialog(builder: ProgressDialogBuilder) {
-        progressDialogBuilder.postValue(builder)
-        isShowProgressDialog.postValue(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            progressDialogBuilder.emit(builder)
+            isShowProgressDialog.emit(true)
+        }
     }
     fun updateProgressDialog(progress: Long) {
         val builder = progressDialogBuilder.value?: return
-        progressDialogBuilder.postValue(builder.copy(progress = progress))
+        viewModelScope.launch(Dispatchers.IO) {
+            progressDialogBuilder.emit(builder.copy(progress = progress))
+        }
     }
     fun updateProgressDialog(title: String?, message: String?) {
         val builder = progressDialogBuilder.value?: return
-        progressDialogBuilder.postValue(builder.copy(title = title?: builder.title, message = message?: builder.message))
+        viewModelScope.launch(Dispatchers.IO) {
+            progressDialogBuilder.emit(builder.copy(title = title?: builder.title, message = message?: builder.message))
+        }
     }
     fun hideProgressDialog() {
-        isShowProgressDialog.postValue(false)
+        viewModelScope.launch(Dispatchers.IO) {
+            isShowProgressDialog.emit(false)
+        }
     }
     /** ----------------------------------------------------------------------------------------- */
 
@@ -180,14 +213,18 @@ class AppViewModel(act: BaseActivity): ViewModel() {
      * ---------------------------------------------------------------------------------------------
      * 成功或失败弹窗
      */
-    val isShowSuccessOrFalseDialog = MutableLiveData(false)
-    val successOrFalseDialogBuilder: MutableLiveData<SuccessOrFalseDialogBuilder?> = MutableLiveData(null)
+    val isShowSuccessOrFalseDialog = MutableStateFlow(false)
+    val successOrFalseDialogBuilder: MutableStateFlow<SuccessOrFalseDialogBuilder?> = MutableStateFlow(null)
     fun showSuccessOrFalseDialog(builder: SuccessOrFalseDialogBuilder) {
-        successOrFalseDialogBuilder.postValue(builder)
-        isShowSuccessOrFalseDialog.postValue(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            successOrFalseDialogBuilder.emit(builder)
+            isShowSuccessOrFalseDialog.emit(true)
+        }
     }
     fun hideSuccessOrFalseDialog() {
-        isShowSuccessOrFalseDialog.postValue(false)
+        viewModelScope.launch(Dispatchers.IO) {
+            isShowSuccessOrFalseDialog.emit(false)
+        }
     }
     /** ----------------------------------------------------------------------------------------- */
 }

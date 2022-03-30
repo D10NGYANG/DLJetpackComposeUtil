@@ -7,8 +7,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.d10ng.basicjetpackcomposeapp.model.AppViewModel
@@ -39,34 +39,34 @@ fun AppTheme(
     content: @Composable() () -> Unit
 ) {
     // 错误
-    val isShowError by app.isShowError.observeAsState(false)
-    val errorText by app.errorText.observeAsState("")
+    val isShowError by app.isShowError.collectAsState()
+    val errorText by app.errorText.collectAsState()
     // 加载中
-    val isShowLoading by app.isShowLoading.observeAsState(false)
+    val isShowLoading by app.isShowLoading.collectAsState()
     // 警告
-    val isShowWarning by app.isShowWarning.observeAsState(false)
-    val warningBuilder by app.warningBuilder.observeAsState(null)
+    val isShowWarning by app.isShowWarning.collectAsState()
+    val warningBuilder by app.warningBuilder.collectAsState()
     // 提示
-    val isShowDialog by app.isShowDialog.observeAsState(false)
-    val dialogBuilder by app.dialogBuilder.observeAsState(null)
+    val isShowDialog by app.isShowDialog.collectAsState()
+    val dialogBuilder by app.dialogBuilder.collectAsState()
     // 输入
-    val isShowInputDialog by app.isShowInputDialog.observeAsState(false)
-    val inputDialogBuilder by app.inputDialogBuilder.observeAsState(null)
+    val isShowInputDialog by app.isShowInputDialog.collectAsState()
+    val inputDialogBuilder by app.inputDialogBuilder.collectAsState()
     // 单选
-    val isShowRadioDialog by app.isShowRadioDialog.observeAsState(false)
-    val radioDialogBuilder by app.radioDialogBuilder.observeAsState(null)
+    val isShowRadioDialog by app.isShowRadioDialog.collectAsState()
+    val radioDialogBuilder by app.radioDialogBuilder.collectAsState()
     // 日期选择
-    val isShowDatePickerDialog by app.isShowDatePickerDialog.observeAsState(false)
-    val datePickerDialogBuilder by app.datePickerDialogBuilder.observeAsState(null)
+    val isShowDatePickerDialog by app.isShowDatePickerDialog.collectAsState()
+    val datePickerDialogBuilder by app.datePickerDialogBuilder.collectAsState()
     // 时间选择
-    val isShowTimePickerDialog by app.isShowTimePickerDialog.observeAsState(false)
-    val timePickerDialogBuilder by app.timePickerDialogBuilder.observeAsState(null)
+    val isShowTimePickerDialog by app.isShowTimePickerDialog.collectAsState()
+    val timePickerDialogBuilder by app.timePickerDialogBuilder.collectAsState()
     // 进度
-    val isShowProgressDialog by app.isShowProgressDialog.observeAsState(false)
-    val progressDialogBuilder by app.progressDialogBuilder.observeAsState(null)
+    val isShowProgressDialog by app.isShowProgressDialog.collectAsState()
+    val progressDialogBuilder by app.progressDialogBuilder.collectAsState()
     // 成功或失败
-    val isShowSuccessOrFalseDialog by app.isShowSuccessOrFalseDialog.observeAsState(false)
-    val successOrFalseDialogBuilder by app.successOrFalseDialogBuilder.observeAsState(null)
+    val isShowSuccessOrFalseDialog by app.isShowSuccessOrFalseDialog.collectAsState()
+    val successOrFalseDialogBuilder by app.successOrFalseDialogBuilder.collectAsState()
 
     MaterialTheme(
         colors = LightColorPalette
