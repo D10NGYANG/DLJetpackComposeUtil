@@ -1,6 +1,7 @@
 package com.d10ng.basicjetpackcomposeapp.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
@@ -10,30 +11,33 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import com.d10ng.basicjetpackcomposeapp.R
 import com.d10ng.basicjetpackcomposeapp.bean.*
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppShape
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
 import com.google.accompanist.flowlayout.FlowRow
+import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.statusBarsPadding
 
 @Composable
 fun LoadingDialog (
     isShow: Boolean,
-    background: Color = Color(0x97454545),
-    onDismiss:() -> Unit = {}
+    background: Color = Color(0x97454545)
 ) {
     if (isShow) {
-        Dialog(
-            onDismissRequest = { onDismiss.invoke() },
-            properties = DialogProperties(
-                dismissOnBackPress = false,
-                dismissOnClickOutside = false
-            )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.6f))
+                .pointerInput(Unit) {
+                    // 拦截外部的点击
+                    detectTapGestures {  }
+                },
+            contentAlignment = Alignment.Center
         ) {
             Box(
                 contentAlignment= Alignment.Center,
@@ -50,17 +54,22 @@ fun LoadingDialog (
 @Composable
 fun DialogRack(
     isShow: Boolean,
-    onDismiss: () -> Unit,
-    properties: DialogProperties = DialogProperties(
-        dismissOnBackPress = false,
-        dismissOnClickOutside = false
-    ),
+    onDismiss: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
     if (isShow) {
-        Dialog(
-            onDismissRequest = onDismiss,
-            properties = properties
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.6f))
+                .pointerInput(Unit) {
+                    // 拦截外部的点击
+                    detectTapGestures { onDismiss?.invoke() }
+                }
+                .statusBarsPadding()
+                .navigationBarsPadding()
+                .padding(horizontal = 24.dp),
+            contentAlignment = Alignment.Center
         ) {
             DialogColumn(content = content)
         }
@@ -113,7 +122,7 @@ fun DialogMessage(
 fun BaseDialog(
     isShow: Boolean,
     builder: DialogBuilder,
-    onDismiss:() -> Unit,
+    onDismiss: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit = {}
 ) {
     DialogRack(isShow = isShow, onDismiss = onDismiss) {
@@ -166,7 +175,7 @@ fun BaseDialog(
 fun WarningDialog(
     isShow: Boolean,
     builder: WarningDialogBuilder,
-    onDismiss:() -> Unit
+    onDismiss: (() -> Unit)? = null,
 ) {
     BaseDialog(
         isShow = isShow,
@@ -189,7 +198,7 @@ fun WarningDialog(
 fun InputDialog(
     isShow: Boolean,
     builder: InputDialogBuilder,
-    onDismiss:() -> Unit
+    onDismiss: (() -> Unit)? = null,
 ) {
     val inputValues = remember(builder) {
         mutableStateListOf<String>().apply {
@@ -246,7 +255,7 @@ fun InputDialog(
 fun RadioDialog(
     isShow: Boolean,
     builder: RadioDialogBuilder,
-    onDismiss:() -> Unit
+    onDismiss: (() -> Unit)? = null,
 ) {
     BaseDialog(
         isShow = isShow,
@@ -295,7 +304,7 @@ fun RadioDialog(
 fun DatePickerDialog(
     isShow: Boolean,
     builder: DatePickerDialogBuilder,
-    onDismiss:() -> Unit
+    onDismiss: (() -> Unit)? = null,
 ) {
     var value by remember(builder) {
         mutableStateOf(builder.initValue)
@@ -330,7 +339,7 @@ fun DatePickerDialog(
 fun TimePickerDialog(
     isShow: Boolean,
     builder: TimePickerDialogBuilder,
-    onDismiss:() -> Unit
+    onDismiss: (() -> Unit)? = null,
 ) {
     var hour by remember(builder) {
         mutableStateOf(builder.hour)
@@ -374,7 +383,7 @@ fun TimePickerDialog(
 fun ProgressDialog(
     isShow: Boolean,
     builder: ProgressDialogBuilder,
-    onDismiss:() -> Unit
+    onDismiss: (() -> Unit)? = null,
 ) {
     BaseDialog(
         isShow = isShow,
@@ -417,7 +426,7 @@ fun ProgressDialog(
 fun SuccessOrFalseDialog(
     isShow: Boolean,
     builder: SuccessOrFalseDialogBuilder,
-    onDismiss:() -> Unit
+    onDismiss: (() -> Unit)? = null,
 ) {
     DialogRack(isShow = isShow, onDismiss = onDismiss) {
         DialogTitle(
@@ -428,7 +437,9 @@ fun SuccessOrFalseDialog(
         Icon(
             painter = painterResource(id = if (builder.isSuccess) R.drawable.ic_success_102 else R.drawable.ic_false_102),
             contentDescription = if (builder.isSuccess) "成功" else "失败",
-            modifier = Modifier.padding(top = 16.dp).align(Alignment.CenterHorizontally),
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .align(Alignment.CenterHorizontally),
             tint = if (builder.isSuccess) AppColor.System.secondary else AppColor.System.error
         )
         if (builder.message.isNotEmpty()) {

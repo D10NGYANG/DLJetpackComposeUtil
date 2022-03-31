@@ -94,8 +94,7 @@ fun AppTheme(
     warningBuilder?.let {
         WarningDialog(
             isShow = isShowWarning,
-            builder = it,
-            onDismiss = { app.hideWarningDialog() }
+            builder = it
         )
     }
 
@@ -103,8 +102,7 @@ fun AppTheme(
     dialogBuilder?.let {
         BaseDialog(
             isShow = isShowDialog,
-            builder = it,
-            onDismiss = { app.hideDialog() }
+            builder = it
         )
     }
 
@@ -112,8 +110,7 @@ fun AppTheme(
     inputDialogBuilder?.let {
         InputDialog(
             isShow = isShowInputDialog,
-            builder = it,
-            onDismiss = { app.hideInputDialog() }
+            builder = it
         )
     }
 
@@ -121,8 +118,7 @@ fun AppTheme(
     radioDialogBuilder?.let {
         RadioDialog(
             isShow = isShowRadioDialog,
-            builder = it,
-            onDismiss = { app.hideRadioDialog() }
+            builder = it
         )
     }
 
@@ -130,8 +126,7 @@ fun AppTheme(
     datePickerDialogBuilder?.let {
         DatePickerDialog(
             isShow = isShowDatePickerDialog,
-            builder = it,
-            onDismiss = { app.hideDatePickerDialog() }
+            builder = it
         )
     }
 
@@ -139,8 +134,7 @@ fun AppTheme(
     timePickerDialogBuilder?.let {
         TimePickerDialog(
             isShow = isShowTimePickerDialog,
-            builder = it,
-            onDismiss = { app.hideTimePickerDialog() }
+            builder = it
         )
     }
 
@@ -148,8 +142,7 @@ fun AppTheme(
     progressDialogBuilder?.let {
         ProgressDialog(
             isShow = isShowProgressDialog,
-            builder = it,
-            onDismiss = { app.hideProgressDialog() }
+            builder = it
         )
     }
 
@@ -157,13 +150,10 @@ fun AppTheme(
     successOrFalseDialogBuilder?.let {
         SuccessOrFalseDialog(
             isShow = isShowSuccessOrFalseDialog,
-            builder = it,
-            onDismiss = { app.hideSuccessOrFalseDialog() }
+            builder = it
         )
     }
 
     // 加载中
-    LoadingDialog(isShow = isShowLoading) {
-        app.hideLoading()
-    }
+    LoadingDialog(isShow = isShowLoading)
 }

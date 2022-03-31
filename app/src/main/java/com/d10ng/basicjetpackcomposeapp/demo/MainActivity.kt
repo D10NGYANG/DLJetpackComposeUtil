@@ -69,7 +69,10 @@ class MainActivity : BaseActivity() {
                         item {
                             SolidButtonWithText(text = "显示警告", onClick = {
                                 app.showWarningDialog(WarningDialogBuilder(
-                                    message = "我警告你不要乱来！！！"
+                                    message = "我警告你不要乱来！！！",
+                                    onClickButton = {
+                                        app.hideWarningDialog()
+                                    }
                                 ))
                             })
                         }
