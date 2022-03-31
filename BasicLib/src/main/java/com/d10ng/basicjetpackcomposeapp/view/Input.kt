@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -20,10 +19,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.d10ng.basicjetpackcomposeapp.bean.InputDialogBuilder
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppShape
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
+import com.d10ng.basicjetpackcomposeapp.dialog.builder.InputDialogBuilder
 
 /**
  * 基础输入框

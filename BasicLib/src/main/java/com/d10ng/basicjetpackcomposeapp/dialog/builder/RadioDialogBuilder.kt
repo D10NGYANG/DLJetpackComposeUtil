@@ -1,4 +1,4 @@
-package com.d10ng.basicjetpackcomposeapp.bean
+package com.d10ng.basicjetpackcomposeapp.dialog.builder
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,6 +16,7 @@ import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
 import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
+import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.SizeMode
 
 data class RadioDialogBuilder(
@@ -34,7 +35,7 @@ data class RadioDialogBuilder(
     var crossAxisSpacing: Dp = 0.dp,
     var lastLineMainAxisAlignment: FlowMainAxisAlignment = mainAxisAlignment,
     var onSelect: (Pair<String, Any>) -> Unit
-) {
+): DialogBuilder() {
     companion object{
         @Composable
         fun DefaultItemView(isSelect: Boolean, info: Pair<String, Any>, onClick: () -> Unit) {
@@ -72,5 +73,46 @@ data class RadioDialogBuilder(
                 )
             }
         }
+    }
+
+    @Composable
+    override fun Build() {
+        BaseDialogBuilder(
+            title = title,
+            message = message
+        ) {
+            Spacer(modifier = Modifier.height(16.dp))
+            if (isRow) {
+                FlowRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    mainAxisSize = mainAxisSize,
+                    mainAxisAlignment = mainAxisAlignment,
+                    mainAxisSpacing = mainAxisSpacing,
+                    crossAxisAlignment = crossAxisAlignment,
+                    crossAxisSpacing = crossAxisSpacing,
+                    lastLineMainAxisAlignment = lastLineMainAxisAlignment
+                ) {
+                    map.forEach { map ->
+                        customItemView(map.key == select, map.toPair()) {
+                            onSelect.invoke(map.toPair())
+                        }
+                    }
+                }
+            } else {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                ) {
+                    map.forEach { map ->
+                        customItemView(map.key == select, map.toPair()) {
+                            onSelect.invoke(map.toPair())
+                        }
+                    }
+                }
+            }
+        }.Build()
     }
 }

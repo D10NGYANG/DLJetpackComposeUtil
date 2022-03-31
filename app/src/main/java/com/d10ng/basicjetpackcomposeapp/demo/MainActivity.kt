@@ -15,11 +15,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.d10ng.basicjetpackcomposeapp.BaseActivity
-import com.d10ng.basicjetpackcomposeapp.bean.*
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppShape
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
 import com.d10ng.basicjetpackcomposeapp.compose.AppTheme
+import com.d10ng.basicjetpackcomposeapp.dialog.builder.*
 import com.d10ng.basicjetpackcomposeapp.view.SolidButtonWithText
 import com.d10ng.coroutines.launchIO
 import com.d10ng.datelib.*
@@ -68,10 +68,10 @@ class MainActivity : BaseActivity() {
 
                         item {
                             SolidButtonWithText(text = "显示警告", onClick = {
-                                app.showWarningDialog(WarningDialogBuilder(
+                                app.showDialog(WarningDialogBuilder(
                                     message = "我警告你不要乱来！！！",
                                     onClickButton = {
-                                        app.hideWarningDialog()
+                                        app.hideDialog()
                                     }
                                 ))
                             })
@@ -79,7 +79,7 @@ class MainActivity : BaseActivity() {
 
                         item {
                             SolidButtonWithText(text = "显示提示1", onClick = {
-                                app.showDialog(DialogBuilder(
+                                app.showDialog(BaseDialogBuilder(
                                     message = "您将会收到一条提示消息，请注意查看提示内容，以免发生误操作！",
                                     onClickSure = {
                                         app.hideDialog()
@@ -91,7 +91,7 @@ class MainActivity : BaseActivity() {
 
                         item {
                             SolidButtonWithText(text = "显示提示2", onClick = {
-                                app.showDialog(DialogBuilder(
+                                app.showDialog(BaseDialogBuilder(
                                     message = "您将会收到一条提示消息，请注意查看提示内容，以免发生误操作！",
                                     onClickSure = {
                                         app.hideDialog()
@@ -123,7 +123,7 @@ class MainActivity : BaseActivity() {
 
                         item {
                             SolidButtonWithText(text = "显示输入框1", onClick = {
-                                app.showInputDialog(InputDialogBuilder(
+                                app.showDialog(InputDialogBuilder(
                                     message = "请输入您的身份证号码",
                                     inputs = listOf(
                                         InputDialogBuilder.Input(
@@ -140,11 +140,11 @@ class MainActivity : BaseActivity() {
                                         ),
                                     ),
                                     onClickSure = {
-                                        app.hideInputDialog()
+                                        app.hideDialog()
                                         app.showToast("身份证：${it[0]}")
                                     },
                                     onClickCancel = {
-                                        app.hideInputDialog()
+                                        app.hideDialog()
                                     }
                                 ))
                             })
@@ -155,7 +155,7 @@ class MainActivity : BaseActivity() {
                                 mutableStateOf("1080*1920px")
                             }
                             SolidButtonWithText(text = "显示单选弹窗", onClick = {
-                                app.showRadioDialog(RadioDialogBuilder(
+                                app.showDialog(RadioDialogBuilder(
                                     title = "屏幕分辨率",
                                     map = mutableMapOf(
                                         Pair("360*640px", "360P"),
@@ -165,7 +165,7 @@ class MainActivity : BaseActivity() {
                                     ),
                                     select = selectStr,
                                     onSelect = {
-                                        app.hideRadioDialog()
+                                        app.hideDialog()
                                         app.showToast("【${it.second}】= ${it.first}")
                                         selectStr = it.first
                                     }
@@ -178,7 +178,7 @@ class MainActivity : BaseActivity() {
                                 mutableStateOf("1080*1920px")
                             }
                             SolidButtonWithText(text = "显示单选弹窗-自定义", onClick = {
-                                app.showRadioDialog(RadioDialogBuilder(
+                                app.showDialog(RadioDialogBuilder(
                                     title = "屏幕分辨率",
                                     map = mutableMapOf(
                                         Pair("360*640px", "360P"),
@@ -194,7 +194,7 @@ class MainActivity : BaseActivity() {
                                     crossAxisSpacing = 16.dp,
                                     crossAxisAlignment = FlowCrossAxisAlignment.Center,
                                     onSelect = {
-                                        app.hideRadioDialog()
+                                        app.hideDialog()
                                         app.showToast("【${it.second}】= ${it.first}")
                                         selectStr = it.first
                                     }
@@ -207,17 +207,17 @@ class MainActivity : BaseActivity() {
                                 mutableStateOf(curTime)
                             }
                             SolidButtonWithText(text = "显示日期选择", onClick = {
-                                app.showDatePickerDialog(DatePickerDialogBuilder(
+                                app.showDialog(DatePickerDialogBuilder(
                                     title = "选择日期",
                                     message = "请选择您的出生日期",
                                     initValue = selectTime,
                                     onClickSure = {
                                         selectTime = it
-                                        app.hideDatePickerDialog()
+                                        app.hideDialog()
                                         app.showToast("您的出生日期为${it.toDateStr("yyyy-MM-dd")}")
                                     },
                                     onClickCancel = {
-                                        app.hideDatePickerDialog()
+                                        app.hideDialog()
                                     }
                                 ))
                             })
@@ -234,7 +234,7 @@ class MainActivity : BaseActivity() {
                                 mutableStateOf(curSecond)
                             }
                             SolidButtonWithText(text = "显示时间选择", onClick = {
-                                app.showTimePickerDialog(TimePickerDialogBuilder(
+                                app.showDialog(TimePickerDialogBuilder(
                                     title = "选择时间",
                                     message = "请选择您的到店时间",
                                     hour = selectHour,
@@ -244,11 +244,11 @@ class MainActivity : BaseActivity() {
                                         selectHour = h
                                         selectMinute = m
                                         selectSecond = s
-                                        app.hideTimePickerDialog()
+                                        app.hideDialog()
                                         app.showToast("您的到店时间为 $selectHour:$selectMinute:$selectSecond")
                                     },
                                     onClickCancel = {
-                                        app.hideTimePickerDialog()
+                                        app.hideDialog()
                                     }
                                 ))
                             })
@@ -256,7 +256,7 @@ class MainActivity : BaseActivity() {
 
                         item {
                             SolidButtonWithText(text = "显示进度", onClick = {
-                                app.showProgressDialog(
+                                app.showDialog(
                                     ProgressDialogBuilder(
                                         title = "发送中",
                                         message = "请稍等片刻",
@@ -268,21 +268,22 @@ class MainActivity : BaseActivity() {
                                     var index = 0
                                     while (index < 100) {
                                         index ++
-                                        app.updateProgressDialog(index.toLong())
+                                        val builder = (app.dialogBuilder.value as ProgressDialogBuilder).copy(progress = index.toLong())
+                                        app.showDialog(builder)
                                         delay(100)
                                     }
-                                    app.hideProgressDialog()
+                                    app.hideDialog()
                                 }
                             })
                         }
 
                         item {
                             SolidButtonWithText(text = "显示成功", onClick = {
-                                app.showSuccessOrFalseDialog(SuccessOrFalseDialogBuilder(
+                                app.showDialog(SuccessOrFalseDialogBuilder(
                                     title = "发送成功",
                                     isSuccess = true,
                                     onClickButton = {
-                                        app.hideSuccessOrFalseDialog()
+                                        app.hideDialog()
                                     }
                                 ))
                             })
@@ -290,11 +291,11 @@ class MainActivity : BaseActivity() {
 
                         item {
                             SolidButtonWithText(text = "显示失败", onClick = {
-                                app.showSuccessOrFalseDialog(SuccessOrFalseDialogBuilder(
+                                app.showDialog(SuccessOrFalseDialogBuilder(
                                     title = "发送失败",
                                     isSuccess = false,
                                     onClickButton = {
-                                        app.hideSuccessOrFalseDialog()
+                                        app.hideDialog()
                                     }
                                 ))
                             })
