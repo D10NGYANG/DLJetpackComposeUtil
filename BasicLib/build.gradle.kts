@@ -1,9 +1,9 @@
 plugins {
-    id(Android.Plugin.library)
-    id(Kotlin.Plugin.ID.android)
-    id(Kotlin.Plugin.ID.kapt)
-    id(Kotlin.Plugin.ID.parcelize)
-    id(Maven.Plugin.public)
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
+    id("org.jetbrains.kotlin.plugin.parcelize")
+    id("maven-publish")
 }
 
 group = "com.github.D10NG"
@@ -42,66 +42,65 @@ android {
 }
 
 dependencies {
-    implementation(Kotlin.stdlib(kotlin_ver))
     // Android
-    api(AndroidX.core_ktx("1.7.0"))
-    api(AndroidX.appcompat("1.4.1"))
-    api(Android.Google.material("1.5.0"))
+    implementation("androidx.core:core-ktx:1.7.0")
+    api("androidx.appcompat:appcompat:1.4.1")
+    api("com.google.android.material:material:1.5.0")
 
     // 单元测试（可选）
-    testApi(Test.junit("4.13.2"))
-    androidTestApi(AndroidX.Test.junit("1.1.3"))
-    androidTestApi(AndroidX.Test.espresso_core("3.4.0"))
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
     // Compose
-    api(AndroidX.Compose.ui(compose_ver))
-    androidTestApi(AndroidX.Compose.ui_test(compose_ver))
-    api(AndroidX.Compose.ui_tooling(compose_ver))
-    api(AndroidX.Compose.foundation(compose_ver))
-    api(AndroidX.Compose.animation(compose_ver))
-    api(AndroidX.Compose.material(compose_ver))
-    api(AndroidX.Compose.material_icons_core(compose_ver))
-    api(AndroidX.Compose.material_icons_extended(compose_ver))
-    api(AndroidX.Compose.runtime_livedata(compose_ver))
-    api(AndroidX.activity_compose("1.4.0"))
-    api(AndroidX.navigation_compose("2.4.1"))
-    api(AndroidX.constraintlayout_compose("1.0.0"))
+    api("androidx.compose.ui:ui:$compose_ver")
+    androidTestApi("androidx.compose.ui:ui-test-junit4:$compose_ver")
+    api("androidx.compose.ui:ui-tooling:$compose_ver")
+    api("androidx.compose.foundation:foundation:$compose_ver")
+    api("androidx.compose.animation:animation:$compose_ver")
+    api("androidx.compose.material:material:$compose_ver")
+    api("androidx.compose.material:material-icons-core:$compose_ver")
+    api("androidx.compose.material:material-icons-extended:$compose_ver")
+    api("androidx.compose.runtime:runtime-livedata:$compose_ver")
+    api("androidx.activity:activity-compose:1.4.0")
+    api("androidx.navigation:navigation-compose:2.4.1")
+    api("androidx.constraintlayout:constraintlayout-compose:1.0.0")
 
     // Compose 拓展
-    api(Accompanist.insets(accompanist_ver))
-    api(Accompanist.insets_ui(accompanist_ver))
-    api(Accompanist.systemuicontroller(accompanist_ver))
-    api(Accompanist.appcompat_theme(accompanist_ver))
-    api(Accompanist.pager(accompanist_ver))
-    api(Accompanist.pager_indicators(accompanist_ver))
-    api(Accompanist.swiperefresh(accompanist_ver))
-    api(Accompanist.placeholder(accompanist_ver))
-    api(Accompanist.placeholder_material(accompanist_ver))
-    api(Accompanist.drawablepainter(accompanist_ver))
-    api(Accompanist.flowlayout(accompanist_ver))
-    api(Accompanist.permissions(accompanist_ver))
-    api(Accompanist.navigation_animation(accompanist_ver))
-    api(Accompanist.navigation_material(accompanist_ver))
+    api("com.google.accompanist:accompanist-insets:$accompanist_ver")
+    api("com.google.accompanist:accompanist-insets-ui:$accompanist_ver")
+    api("com.google.accompanist:accompanist-systemuicontroller:$accompanist_ver")
+    api("com.google.accompanist:accompanist-appcompat-theme:$accompanist_ver")
+    api("com.google.accompanist:accompanist-pager:$accompanist_ver")
+    api("com.google.accompanist:accompanist-pager-indicators:$accompanist_ver")
+    api("com.google.accompanist:accompanist-swiperefresh:$accompanist_ver")
+    api("com.google.accompanist:accompanist-placeholder:$accompanist_ver")
+    api("com.google.accompanist:accompanist-placeholder-material:$accompanist_ver")
+    api("com.google.accompanist:accompanist-drawablepainter:$accompanist_ver")
+    api("com.google.accompanist:accompanist-flowlayout:$accompanist_ver")
+    api("com.google.accompanist:accompanist-permissions:$accompanist_ver")
+    api("com.google.accompanist:accompanist-navigation-animation:$accompanist_ver")
+    api("com.google.accompanist:accompanist-navigation-material:$accompanist_ver")
 
     // Lifecycle
-    api(AndroidX.Lifecycle.runtime_ktx(jetpack_lifecycle_ver))
-    api(AndroidX.Lifecycle.common_java8((jetpack_lifecycle_ver)))
-    api(AndroidX.Lifecycle.viewmodel_compose_support(jetpack_lifecycle_ver))
-    api(AndroidX.Lifecycle.livedata_ktx_support(jetpack_lifecycle_ver))
+    api("androidx.lifecycle:lifecycle-runtime-ktx:$jetpack_lifecycle_ver")
+    api("androidx.lifecycle:lifecycle-common-java8:$jetpack_lifecycle_ver")
+    api("androidx.lifecycle:lifecycle-livedata-ktx:$jetpack_lifecycle_ver")
+    api("androidx.lifecycle:lifecycle-viewmodel-compose:$jetpack_lifecycle_ver")
 
     // Coroutines
-    api(Kotlin.Coroutines.core(kotlin_coroutines_ver))
-    api(Kotlin.Coroutines.android(kotlin_coroutines_ver))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_ver")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
     // 协程封装工具
-    api(D10NG.DLCoroutinesUtil("0.3"))
+    api("com.github.D10NGYANG:DLCoroutinesUtil:0.3")
     // APP通用工具
-    api(D10NG.DLAppUtil("2.1"))
+    api("com.github.D10NGYANG:DLAppUtil:2.1")
     // 时间工具
-    api(D10NG.DLDateUtil("1.6"))
-    coreLibraryDesugaring(Android.Tools.desugar_jdk_libs_coreLibraryDesugaring())
+    api("com.github.D10NGYANG:DLDateUtil:1.6")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     // 字符串字节数据工具
-    api(D10NG.DLTextUtil("1.3.1"))
+    api("com.github.D10NGYANG:DLTextUtil:1.4.0")
 }
 
 afterEvaluate {
