@@ -158,6 +158,7 @@ fun MenuInput(
     isPassword: Boolean = false,
     isFocus: Boolean = false,
     maxLines: Int = 1,
+    inputWidth: Dp? = null,
     inputBackgroundColor: Color = AppColor.System.divider,
     inputBackgroundShape: Shape = AppShape.RC.v4,
     onClickNext: () -> Unit = {},
@@ -179,91 +180,102 @@ fun MenuInput(
         val list = menus.filter { it.show.contains(value) }
         list.subList(0, list.size.coerceAtMost(20))
     }
-    Column(
+    val inputModifier = remember(inputWidth) {
+        if (inputWidth == null) Modifier.fillMaxWidth()
+        else Modifier.width(inputWidth)
+    }
+    Row(
         modifier = modifier
             .fillMaxWidth()
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(inputBackgroundColor, inputBackgroundShape)
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
+        Spacer(modifier = Modifier
+            .fillMaxWidth()
+            .weight(1f))
+        Column(
+            modifier = inputModifier
         ) {
-            if (prefix.isNotEmpty() && value.isNotEmpty()) {
-                Text(text = prefix, style = textStyle)
-            }
-            Input(
-                value = value,
-                onValueChange = {
-                    if (it.contains("\n")) {
-                        onValueChange.invoke(it.replace("\n", ""))
-                        onClickNext.invoke()
-                    } else {
-                        onValueChange.invoke(it)
-                    }
-                },
-                textStyle = textStyle,
-                placeholder = placeholder,
-                placeholderStyle = placeholderStyle,
-                keyboardOptions = KeyboardOptions().copy(
-                    keyboardType = keyboardType, imeAction = ImeAction.Next),
-                keyboardActions = KeyboardActions { onClickNext.invoke() },
-                visualTransformation = visualTransformation,
-                singleLine = maxLines == 1,
-                maxLines = maxLines,
-                isFocus = isFocus,
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
-                    .onFocusChanged { state ->
-                        if (state.isFocused) {
-                            onFocus.invoke()
-                        }
-                    }
-            )
-            if (suffix.isNotEmpty() && value.isNotEmpty()) {
-                Text(text = suffix, style = textStyle)
-            }
-            if (isPassword) {
-                Icon(
-                    painter = painterResource(id = if (isPasswordVisible) R.drawable.ic_baseline_visibility_24 else R.drawable.ic_baseline_visibility_off_24) ,
-                    contentDescription = if (isPasswordVisible) "点击隐藏" else "点击显示",
-                    tint = textStyle.color,
-                    modifier = Modifier
-                        .padding(start = 8.dp)
-                        .clickable { isPasswordVisible = !isPasswordVisible }
-                )
-            }
-        }
-        if (menus.isNotEmpty()) {
-            DropdownMenu(
-                expanded = isFocus,
-                onDismissRequest = { onNoFocus.invoke() },
-                properties = PopupProperties(
-                    dismissOnBackPress = false,
-                    dismissOnClickOutside = false,
-                    clippingEnabled = false
-                ),
-                modifier = Modifier.heightIn(max = 200.dp)
+                    .background(inputBackgroundColor, inputBackgroundShape)
+                    .padding(8.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                if (menuList.isEmpty()) {
-                    DropdownMenuItem(onClick = {}) {
-                        Text(noMatchMenuTips, style = textStyle)
-                    }
-                } else {
-                    menuList.forEach { item ->
-                        DropdownMenuItem(onClick = {
-                            onMenuSelect.invoke(item)
-                        }) {
-                            Text(item.show, style = textStyle)
+                if (prefix.isNotEmpty() && value.isNotEmpty()) {
+                    Text(text = prefix, style = textStyle)
+                }
+                Input(
+                    value = value,
+                    onValueChange = {
+                        if (it.contains("\n")) {
+                            onValueChange.invoke(it.replace("\n", ""))
+                            onClickNext.invoke()
+                        } else {
+                            onValueChange.invoke(it)
+                        }
+                    },
+                    textStyle = textStyle,
+                    placeholder = placeholder,
+                    placeholderStyle = placeholderStyle,
+                    keyboardOptions = KeyboardOptions().copy(
+                        keyboardType = keyboardType, imeAction = ImeAction.Next),
+                    keyboardActions = KeyboardActions { onClickNext.invoke() },
+                    visualTransformation = visualTransformation,
+                    singleLine = maxLines == 1,
+                    maxLines = maxLines,
+                    isFocus = isFocus,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .onFocusChanged { state ->
+                            if (state.isFocused) {
+                                onFocus.invoke()
+                            }
+                        }
+                )
+                if (suffix.isNotEmpty() && value.isNotEmpty()) {
+                    Text(text = suffix, style = textStyle)
+                }
+                if (isPassword) {
+                    Icon(
+                        painter = painterResource(id = if (isPasswordVisible) R.drawable.ic_baseline_visibility_24 else R.drawable.ic_baseline_visibility_off_24) ,
+                        contentDescription = if (isPasswordVisible) "点击隐藏" else "点击显示",
+                        tint = textStyle.color,
+                        modifier = Modifier
+                            .padding(start = 8.dp)
+                            .clickable { isPasswordVisible = !isPasswordVisible }
+                    )
+                }
+            }
+            if (menus.isNotEmpty()) {
+                DropdownMenu(
+                    expanded = isFocus,
+                    onDismissRequest = { onNoFocus.invoke() },
+                    properties = PopupProperties(
+                        dismissOnBackPress = false,
+                        dismissOnClickOutside = false,
+                        clippingEnabled = false
+                    ),
+                    modifier = Modifier.heightIn(max = 200.dp)
+                ) {
+                    if (menuList.isEmpty()) {
+                        DropdownMenuItem(onClick = {}) {
+                            Text(noMatchMenuTips, style = textStyle)
+                        }
+                    } else {
+                        menuList.forEach { item ->
+                            DropdownMenuItem(onClick = {
+                                onMenuSelect.invoke(item)
+                            }) {
+                                Text(item.show, style = textStyle)
+                            }
                         }
                     }
                 }
             }
-        }
-        if (error.isNotEmpty()) {
-            Text(text = error, style = AppText.Normal.Error.v12)
+            if (error.isNotEmpty()) {
+                Text(text = error, style = AppText.Normal.Error.v12)
+            }
         }
     }
 }

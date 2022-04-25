@@ -319,6 +319,7 @@ fun ListInputItem(
     isPassword: Boolean = false,
     isFocus: Boolean = false,
     maxLines: Int = 1,
+    inputWidth: Dp? = null,
     inputBackgroundColor: Color = AppColor.System.divider,
     inputBackgroundShape: Shape = AppShape.RC.v4,
     onClickNext: () -> Unit = {},
@@ -357,6 +358,7 @@ fun ListInputItem(
             isPassword = isPassword,
             isFocus = isFocus,
             maxLines = maxLines,
+            inputWidth = inputWidth,
             inputBackgroundColor = inputBackgroundColor,
             inputBackgroundShape = inputBackgroundShape,
             onClickNext = onClickNext,
@@ -376,6 +378,13 @@ private fun ListMenuItem_Test() {
             menus = listOf(ListItemMenu("item 1", 1))
         )
         Divider()
+        ListMenuItem(
+            title = "我是标题",
+            value = 1,
+            menus = listOf(ListItemMenu("item 1", 1)),
+            inputWidth = 200.dp
+        )
+        Divider()
     }
 }
 
@@ -393,8 +402,10 @@ fun ListMenuItem(
     note: String = "",
     noteStyle: TextStyle = AppText.Normal.Body.v12,
     value: Any?,
+    textStyle: TextStyle = AppText.Medium.Body.v14,
     placeholder: String = "请选择",
-    textStyle: TextStyle = AppText.Normal.Hint.v14,
+    placeholderStyle: TextStyle = AppText.Normal.Hint.v14,
+    inputWidth: Dp? = null,
     inputBackgroundColor: Color = AppColor.System.divider,
     inputBackgroundShape: Shape = AppShape.RC.v4,
     menus: List<ListItemMenu> = emptyList(),
@@ -405,6 +416,10 @@ fun ListMenuItem(
     }
     val select = remember(value, menus) {
         menus.find { it.data == value }
+    }
+    val inputModifier = remember(inputWidth) {
+        if (inputWidth == null) Modifier.fillMaxWidth()
+        else Modifier.width(inputWidth)
     }
 
     ListItem(
@@ -421,51 +436,58 @@ fun ListMenuItem(
         noteStyle = noteStyle,
         isShowArrow = false
     ) {
-        Column(
+        Row(
             modifier = Modifier
-                .padding(start = 16.dp)
                 .fillMaxWidth()
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(inputBackgroundColor, inputBackgroundShape)
-                    .padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
+            Spacer(modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f))
+            Column(
+                modifier = inputModifier
+                    .padding(start = if (inputWidth == null) 16.dp else 0.dp)
             ) {
-                Input(
-                    value = select?.show?: placeholder,
-                    onValueChange = {},
-                    textStyle = textStyle,
-                    enabled = false,
-                    readOnly = true,
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(1f)
-                        .clickable {
-                            isShowMenu = !isShowMenu
+                        .background(inputBackgroundColor, inputBackgroundShape)
+                        .padding(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Input(
+                        value = select?.show?: placeholder,
+                        onValueChange = {},
+                        textStyle = if (select == null) placeholderStyle else textStyle,
+                        enabled = false,
+                        readOnly = true,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f)
+                            .clickable {
+                                isShowMenu = !isShowMenu
+                            }
+                    )
+                    Icon(
+                        painter = painterResource(id = if (isShowMenu) R.drawable.ic_baseline_arrow_drop_up_24 else R.drawable.ic_baseline_arrow_drop_down_24) ,
+                        contentDescription = if (isShowMenu) "点击隐藏" else "点击显示",
+                        tint = textStyle.color,
+                        modifier = Modifier
+                            .padding(start = 8.dp)
+                            .clickable { isShowMenu = !isShowMenu }
+                    )
+                }
+                DropdownMenu(
+                    expanded = isShowMenu,
+                    onDismissRequest = { isShowMenu = false },
+                    modifier = Modifier.heightIn(max = 200.dp)
+                ) {
+                    menus.forEach { item ->
+                        DropdownMenuItem(onClick = {
+                            onMenuSelect.invoke(item)
+                            isShowMenu = false
+                        }) {
+                            Text(item.show, style = textStyle)
                         }
-                )
-                Icon(
-                    painter = painterResource(id = if (isShowMenu) R.drawable.ic_baseline_arrow_drop_up_24 else R.drawable.ic_baseline_arrow_drop_down_24) ,
-                    contentDescription = if (isShowMenu) "点击隐藏" else "点击显示",
-                    tint = textStyle.color,
-                    modifier = Modifier
-                        .padding(start = 8.dp)
-                        .clickable { isShowMenu = !isShowMenu }
-                )
-            }
-            DropdownMenu(
-                expanded = isShowMenu,
-                onDismissRequest = { isShowMenu = false },
-                modifier = Modifier.heightIn(max = 200.dp)
-            ) {
-                menus.forEach { item ->
-                    DropdownMenuItem(onClick = {
-                        onMenuSelect.invoke(item)
-                        isShowMenu = false
-                    }) {
-                        Text(item.show, style = textStyle)
                     }
                 }
             }
