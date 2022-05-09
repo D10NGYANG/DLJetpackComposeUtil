@@ -1,10 +1,12 @@
 package com.d10ng.basicjetpackcomposeapp.dialog.builder
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.dialog.DialogColumn
@@ -39,16 +41,27 @@ data class BaseDialogBuilder(
                 modifier = Modifier
                     .align(titleAlign)
             )
-            if (message.isNotEmpty()) {
-                DialogMessage(
-                    text = message,
-                    color = messageColor,
-                    modifier = Modifier
-                        .padding(top = 16.dp)
-                        .align(messageAlign)
-                )
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(max = LocalConfiguration.current.screenHeightDp.dp - 160.dp)
+            ) {
+                if (message.isNotEmpty()) {
+                    item {
+                        DialogMessage(
+                            text = message,
+                            color = messageColor,
+                            modifier = Modifier
+                                .padding(top = 16.dp)
+                                .align(messageAlign)
+                        )
+                    }
+                }
+                item {
+                    columnContent()
+                }
             }
-            columnContent()
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

@@ -107,8 +107,13 @@ class MainActivity : BaseActivity() {
 
                         item {
                             SolidButtonWithText(text = "显示提示3", onClick = {
+                                val msg = StringBuilder().apply {
+                                    for (i in 0 .. 100) {
+                                        append("您将会收到一条提示消息，请注意查看提示内容，以免发生误操作！")
+                                    }
+                                }
                                 app.showDialog(getErrorDialogBuilder(
-                                    message = "您将会收到一条提示消息，请注意查看提示内容，以免发生误操作！",
+                                    message = msg.toString(),
                                     onClickSure = {
                                         app.hideDialog()
                                         app.showToast("用户点击了【确定】")

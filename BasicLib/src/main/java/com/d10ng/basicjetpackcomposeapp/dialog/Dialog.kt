@@ -70,7 +70,7 @@ fun DialogColumn(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 25.dp)
+            .padding(25.dp)
             .wrapContentHeight()
             .background(AppColor.System.surface, AppShape.RC.v16)
             .padding(25.dp),
