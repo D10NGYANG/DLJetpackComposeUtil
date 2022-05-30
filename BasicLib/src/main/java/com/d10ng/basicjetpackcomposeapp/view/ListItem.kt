@@ -542,9 +542,8 @@ fun ListChatItem(
                 if (badgeNumber > 0) {
                     BadgeText(
                         modifier = Modifier.align(Alignment.TopEnd),
-                        badgeNum = badgeNumber,
-                        defaultMinSize = 22.dp,
-                        padding = 1.dp
+                        number = badgeNumber,
+                        size = 22.dp
                     )
                 }
             }
