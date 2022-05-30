@@ -33,7 +33,7 @@ class AppViewModel(act: BaseActivity): ViewModel() {
     /** 显示Toast */
     fun showToast(value: String, duration: Int = Toast.LENGTH_SHORT) {
         val act = weakAct.get()?: return
-        launchMain { Toast.makeText(act, value, duration).show() }
+        launchMain { Toast.makeText(act.applicationContext, value, duration).show() }
     }
 
     /**

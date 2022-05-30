@@ -3,17 +3,25 @@ package com.d10ng.basicjetpackcomposeapp.view
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppShape
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
@@ -26,6 +34,10 @@ fun Button_Test() {
             .background(Color.White)
             .padding(16.dp)
     ) {
+        NoPaddingButton(onClick = {  }) {
+            Text(text = "无内间距按钮")
+        }
+        MiniButton("小按钮", {})
         Button(onClick = { }) {
             Text(text = "Button")
         }
@@ -42,6 +54,87 @@ fun Button_Test() {
         }
         HollowButtonWithText(text = "空心按钮带文本")
         /*HollowButtonWithImageText(text = "空心按钮带文本和左侧图标", imageId = R.mipmap.ic_launcher)*/
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun NoPaddingButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    elevation: ButtonElevation? = ButtonDefaults.elevation(),
+    shape: Shape = MaterialTheme.shapes.small,
+    border: BorderStroke? = null,
+    colors: ButtonColors = ButtonDefaults.buttonColors(),
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+    content: @Composable RowScope.() -> Unit
+) {
+    val contentColor by colors.contentColor(enabled)
+    Surface(
+        modifier = modifier,
+        shape = shape,
+        color = colors.backgroundColor(enabled).value,
+        contentColor = contentColor.copy(alpha = 1f),
+        border = border,
+        elevation = elevation?.elevation(enabled, interactionSource)?.value ?: 0.dp,
+        onClick = onClick,
+        enabled = enabled,
+        role = Role.Button,
+        interactionSource = interactionSource,
+        indication = rememberRipple()
+    ) {
+        CompositionLocalProvider(LocalContentAlpha provides contentColor.alpha) {
+            ProvideTextStyle(
+                value = MaterialTheme.typography.button
+            ) {
+                Row(
+                    Modifier
+                        .padding(contentPadding),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                    content = content
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun MiniButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    fontSize: TextUnit = 12.sp,
+    fontColor: Color = AppColor.On.secondary,
+    disabledFontColor: Color = AppColor.Text.hint,
+    shape: Shape = AppShape.RC.v8,
+    background: Color = AppColor.System.secondary,
+    disabledBackground: Color = AppColor.System.secondaryVariant,
+    enabled: Boolean = true,
+    border: BorderStroke? = null,
+    contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
+) {
+    NoPaddingButton(
+        modifier = modifier,
+        enabled = enabled,
+        onClick = onClick,
+        shape = shape,
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = background,
+            disabledBackgroundColor = disabledBackground
+        ),
+        border = border,
+        elevation = null,
+        contentPadding = contentPadding
+    ) {
+        Text(
+            text = text,
+            style = AppText.Medium.OnSecondary.v12,
+            color = if (enabled) fontColor else disabledFontColor,
+            fontSize = fontSize
+        )
     }
 }
 
