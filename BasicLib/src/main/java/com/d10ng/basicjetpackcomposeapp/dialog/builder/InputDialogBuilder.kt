@@ -13,7 +13,7 @@ import com.d10ng.basicjetpackcomposeapp.view.DialogInput
 data class InputDialogBuilder(
     var title: String = "提示",
     var message: String,
-    var inputs: List<InputDialogBuilder.Input>,
+    var inputs: List<Input>,
     var sureButton: String = "确定",
     var cancelButton: String = "取消",
     var onClickSure: (List<String>) -> Unit,
@@ -72,11 +72,10 @@ data class InputDialogBuilder(
                 DialogInput(
                     input = input,
                     value = inputValues[index],
-                    onValueChange = {
-                        inputValues[index] = it
-                    },
                     errorText = errorTexts[index]
-                )
+                ) {
+                    inputValues[index] = it
+                }
             }
         }.Build()
     }

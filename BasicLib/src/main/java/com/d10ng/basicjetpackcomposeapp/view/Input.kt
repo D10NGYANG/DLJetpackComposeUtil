@@ -18,7 +18,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
@@ -109,7 +108,7 @@ fun Input(
 }
 
 @Composable
-fun ColumnScope.DialogInput(
+fun DialogInput(
     input: InputDialogBuilder.Input,
     value: String,
     errorText: String = "",
@@ -128,6 +127,8 @@ fun ColumnScope.DialogInput(
         contentAlignment = Alignment.CenterStart
     ) {
         Input(
+            modifier = Modifier
+                .fillMaxWidth(),
             value = value,
             onValueChange = onValueChange,
             textStyle = AppText.Normal.Body.v14,
