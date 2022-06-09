@@ -260,6 +260,84 @@ class MainActivity : BaseActivity() {
                         }
 
                         item {
+                            var select by remember {
+                                mutableStateOf(1)
+                            }
+                            SolidButtonWithText(text = "显示整型数字选择", onClick = {
+                                app.showDialog(IntNumberPickerDialogBuilder(
+                                    title = "提示",
+                                    message = "请选择地图缩放级别",
+                                    value = select,
+                                    start = 0,
+                                    endInclude = 22,
+                                    onClickSure = { v ->
+                                        select = v
+                                        app.hideDialog()
+                                        app.showToast("您选择的地图缩放级别 $select")
+                                    },
+                                    onClickCancel = {
+                                        app.hideDialog()
+                                    }
+                                ))
+                            })
+                        }
+
+                        item {
+                            var select by remember {
+                                mutableStateOf(1.0)
+                            }
+                            SolidButtonWithText(text = "显示浮点型数字选择", onClick = {
+                                app.showDialog(DoubleNumberPickerDialogBuilder(
+                                    title = "提示",
+                                    message = "请选择地图缩放级别",
+                                    value = select,
+                                    start = 0.0,
+                                    endInclude = 10.0,
+                                    step = 0.5,
+                                    onClickSure = { v ->
+                                        select = v
+                                        app.hideDialog()
+                                        app.showToast("您选择的地图缩放级别 $select")
+                                    },
+                                    onClickCancel = {
+                                        app.hideDialog()
+                                    }
+                                ))
+                            })
+                        }
+
+                        item {
+                            val list = remember {
+                                listOf(
+                                    CustomPickInfo("360*640px", "360P"),
+                                    CustomPickInfo("720*1280px", "720P"),
+                                    CustomPickInfo("1080*1920px", "1080P"),
+                                    CustomPickInfo("1440*2560px", "2K"),
+                                )
+                            }
+                            var select by remember {
+                                mutableStateOf(list[0])
+                            }
+                            SolidButtonWithText(text = "显示实体类选择", onClick = {
+                                app.showDialog(PickerDialogBuilder(
+                                    title = "提示",
+                                    message = "请选择屏幕分辨率",
+                                    label = { it.text },
+                                    value = select,
+                                    list = list,
+                                    onClickSure = { v ->
+                                        select = v
+                                        app.hideDialog()
+                                        app.showToast("您选择的屏幕分辨率 ${select.text} : ${select.name}")
+                                    },
+                                    onClickCancel = {
+                                        app.hideDialog()
+                                    }
+                                ))
+                            })
+                        }
+
+                        item {
                             SolidButtonWithText(text = "显示进度", onClick = {
                                 app.showDialog(
                                     ProgressDialogBuilder(
@@ -311,6 +389,11 @@ class MainActivity : BaseActivity() {
         }
     }
 }
+
+data class CustomPickInfo(
+    var text: String = "",
+    var name: String = ""
+)
 
 @Composable
 fun CustomRadioDialogItem(

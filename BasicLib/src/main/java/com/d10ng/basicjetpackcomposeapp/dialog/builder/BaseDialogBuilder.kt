@@ -48,13 +48,18 @@ data class BaseDialogBuilder(
             ) {
                 if (message.isNotEmpty()) {
                     item {
-                        DialogMessage(
-                            text = message,
-                            color = messageColor,
+                        Column(
                             modifier = Modifier
-                                .padding(top = 16.dp)
-                                .align(messageAlign)
-                        )
+                                .fillMaxWidth()
+                        ) {
+                            DialogMessage(
+                                text = message,
+                                color = messageColor,
+                                modifier = Modifier
+                                    .padding(top = 16.dp)
+                                    .align(messageAlign)
+                            )
+                        }
                     }
                 }
                 item {

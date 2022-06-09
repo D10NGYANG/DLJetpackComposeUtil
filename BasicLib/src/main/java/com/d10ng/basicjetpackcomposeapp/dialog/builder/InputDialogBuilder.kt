@@ -5,17 +5,27 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.view.DialogInput
 
 data class InputDialogBuilder(
     var title: String = "提示",
+    var titleAlign: Alignment.Horizontal = Alignment.Start,
+    var titleColor: Color = AppColor.Text.title,
     var message: String,
+    var messageAlign: Alignment.Horizontal = Alignment.Start,
+    var messageColor: Color = AppColor.Text.body,
     var inputs: List<Input>,
     var sureButton: String = "确定",
+    var sureButtonTextColor: Color = AppColor.On.secondary,
+    var sureButtonBackgroundColor: Color = AppColor.System.secondary,
     var cancelButton: String = "取消",
+    var cancelButtonTextColor: Color = AppColor.Text.body,
     var onClickSure: (List<String>) -> Unit,
     var onClickCancel: () -> Unit,
 ): DialogBuilder() {
@@ -51,9 +61,16 @@ data class InputDialogBuilder(
 
         BaseDialogBuilder(
             title = title,
+            titleAlign = titleAlign,
+            titleColor = titleColor,
             message = message,
+            messageAlign = messageAlign,
+            messageColor = messageColor,
             sureButton = sureButton,
+            sureButtonTextColor = sureButtonTextColor,
+            sureButtonBackgroundColor = sureButtonBackgroundColor,
             cancelButton = cancelButton,
+            cancelButtonTextColor = cancelButtonTextColor,
             onClickSure = {
                 val results = inputs.mapIndexed { index, input ->
                     input.verify.invoke(inputValues[index])

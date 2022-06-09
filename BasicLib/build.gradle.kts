@@ -43,9 +43,9 @@ android {
 
 dependencies {
     // Android
-    implementation("androidx.core:core-ktx:1.7.0")
-    api("androidx.appcompat:appcompat:1.4.1")
-    api("com.google.android.material:material:1.5.0")
+    implementation("androidx.core:core-ktx:1.8.0")
+    api("androidx.appcompat:appcompat:1.4.2")
+    api("com.google.android.material:material:1.6.1")
 
     // 单元测试（可选）
     testImplementation("junit:junit:4.13.2")
@@ -63,8 +63,8 @@ dependencies {
     api("androidx.compose.material:material-icons-extended:$compose_ver")
     api("androidx.compose.runtime:runtime-livedata:$compose_ver")
     api("androidx.activity:activity-compose:1.4.0")
-    api("androidx.navigation:navigation-compose:2.4.1")
-    api("androidx.constraintlayout:constraintlayout-compose:1.0.0")
+    api("androidx.navigation:navigation-compose:2.4.2")
+    api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Compose 拓展
     api("com.google.accompanist:accompanist-insets:$accompanist_ver")

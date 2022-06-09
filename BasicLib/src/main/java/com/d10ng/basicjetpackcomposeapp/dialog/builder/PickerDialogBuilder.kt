@@ -11,20 +11,18 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
-import com.d10ng.basicjetpackcomposeapp.view.DatePicker
-import com.d10ng.datelib.curTime
-import com.d10ng.datelib.getDateBy
+import com.d10ng.basicjetpackcomposeapp.view.ListItemPicker
 
-data class DatePickerDialogBuilder(
+data class PickerDialogBuilder<T>(
     var title: String = "提示",
     var titleAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
     var titleColor: Color = AppColor.Text.title,
     var message: String,
     var messageAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
     var messageColor: Color = AppColor.Text.body,
-    var initValue: Long,
-    var start: Long = getDateBy(1900, 1, 1, 0, 0, 0, 0),
-    var endInclude: Long = curTime,
+    var label: (T) -> String = { it.toString() },
+    var value: T,
+    var list: List<T>,
     var dividersColor: Color = Color.Transparent,
     var textStyle: TextStyle = AppText.Normal.Title.v16,
     var sureButton: String = "确定",
@@ -32,14 +30,13 @@ data class DatePickerDialogBuilder(
     var sureButtonBackgroundColor: Color = AppColor.System.secondary,
     var cancelButton: String = "取消",
     var cancelButtonTextColor: Color = AppColor.Text.body,
-    var onClickSure: (Long) -> Unit,
+    var onClickSure: (T) -> Unit,
     var onClickCancel: () -> Unit,
 ): DialogBuilder() {
-    
     @Composable
     override fun Build() {
-        var value by remember(this) {
-            mutableStateOf(initValue)
+        var pick by remember(this) {
+            mutableStateOf(value)
         }
         BaseDialogBuilder(
             title = title,
@@ -54,7 +51,7 @@ data class DatePickerDialogBuilder(
             cancelButton = cancelButton,
             cancelButtonTextColor = cancelButtonTextColor,
             onClickSure = {
-                onClickSure.invoke(value)
+                onClickSure.invoke(pick)
             },
             onClickCancel = onClickCancel
         ) {
@@ -64,14 +61,14 @@ data class DatePickerDialogBuilder(
                     .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
-                DatePicker(
-                    value = value,
+                ListItemPicker(
+                    label = label,
+                    value = pick,
                     onValueChange = {
-                        value = it
+                        pick = it
                     },
-                    start = start,
-                    endInclude = endInclude,
                     dividersColor = dividersColor,
+                    list = list,
                     textStyle = textStyle
                 )
             }

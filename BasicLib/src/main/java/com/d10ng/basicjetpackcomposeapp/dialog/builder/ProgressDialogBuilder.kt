@@ -6,13 +6,18 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
 
 data class ProgressDialogBuilder(
     var title: String = "进度",
+    var titleAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
+    var titleColor: Color = AppColor.Text.title,
     var message: String = "",
+    var messageAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
+    var messageColor: Color = AppColor.Text.body,
     var progress: Long = 0,
     var max: Long = 100,
     var isShowProgressText: Boolean = true,
@@ -27,9 +32,11 @@ data class ProgressDialogBuilder(
     override fun Build() {
         BaseDialogBuilder(
             title = title,
-            titleAlign = Alignment.CenterHorizontally,
+            titleAlign = titleAlign,
+            titleColor = titleColor,
             message = message,
-            messageAlign = Alignment.CenterHorizontally
+            messageAlign = messageAlign,
+            messageColor = messageColor,
         ) {
             Spacer(modifier = Modifier.height(16.dp))
             if (isShowProgressText) {

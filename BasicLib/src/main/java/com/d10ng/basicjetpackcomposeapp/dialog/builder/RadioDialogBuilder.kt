@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -20,8 +21,12 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.SizeMode
 
 data class RadioDialogBuilder(
-    var title: String = "请选择",
+    var title: String = "提示",
+    var titleAlign: Alignment.Horizontal = Alignment.Start,
+    var titleColor: Color = AppColor.Text.title,
     var message: String = "",
+    var messageAlign: Alignment.Horizontal = Alignment.Start,
+    var messageColor: Color = AppColor.Text.body,
     var map: Map<String, Any>,
     var select: String,
     var customItemView: @Composable (Boolean, Pair<String, Any>, () -> Unit) -> Unit = { isSelect, info, onClick ->
@@ -79,7 +84,11 @@ data class RadioDialogBuilder(
     override fun Build() {
         BaseDialogBuilder(
             title = title,
-            message = message
+            titleAlign = titleAlign,
+            titleColor = titleColor,
+            message = message,
+            messageAlign = messageAlign,
+            messageColor = messageColor,
         ) {
             Spacer(modifier = Modifier.height(16.dp))
             if (isRow) {

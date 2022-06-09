@@ -3,8 +3,6 @@ package com.d10ng.basicjetpackcomposeapp.view
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -24,11 +22,11 @@ fun IntNumberPicker(
     },
     value: Int,
     onValueChange: (Int) -> Unit,
-    dividersColor: Color = MaterialTheme.colors.primary,
+    dividersColor: Color = Color.Transparent,
     start: Int = Int.MIN_VALUE,
     endInclude: Int = Int.MAX_VALUE,
     step: Int = 1,
-    textStyle: TextStyle = LocalTextStyle.current,
+    textStyle: TextStyle = AppText.Normal.Title.v16,
 ) {
     val list = remember(start, endInclude, step) {
         val ls = mutableListOf<Int>()
@@ -56,11 +54,11 @@ fun DoubleNumberPicker(
     },
     value: Double,
     onValueChange: (Double) -> Unit,
-    dividersColor: Color = MaterialTheme.colors.primary,
+    dividersColor: Color = Color.Transparent,
     start: Double = Double.MIN_VALUE,
     endInclude: Double = Double.MAX_VALUE,
     step: Double = 1.0,
-    textStyle: TextStyle = LocalTextStyle.current,
+    textStyle: TextStyle = AppText.Normal.Title.v16,
 ) {
     val list = remember(start, endInclude, step) {
         val ls = mutableListOf<Double>()
@@ -90,10 +88,10 @@ fun YearPicker(
     },
     value: Int,
     onValueChange: (Int) -> Unit,
-    dividersColor: Color = MaterialTheme.colors.primary,
+    dividersColor: Color = Color.Transparent,
     start: Int = 1900,
     endInclude: Int = curYear,
-    textStyle: TextStyle = LocalTextStyle.current,
+    textStyle: TextStyle = AppText.Normal.Title.v16,
 ) {
     IntNumberPicker(
         modifier = modifier,
@@ -116,10 +114,10 @@ fun MonthPicker(
     },
     value: Int,
     onValueChange: (Int) -> Unit,
-    dividersColor: Color = MaterialTheme.colors.primary,
+    dividersColor: Color = Color.Transparent,
     start: Int = 1,
     endInclude: Int = 12,
-    textStyle: TextStyle = LocalTextStyle.current,
+    textStyle: TextStyle = AppText.Normal.Title.v16,
 ) {
     IntNumberPicker(
         modifier = modifier,
@@ -142,10 +140,10 @@ fun DayPicker(
     },
     value: Int,
     onValueChange: (Int) -> Unit,
-    dividersColor: Color = MaterialTheme.colors.primary,
+    dividersColor: Color = Color.Transparent,
     start: Int = 1,
     endInclude: Int = getDaysOfMonth(),
-    textStyle: TextStyle = LocalTextStyle.current,
+    textStyle: TextStyle = AppText.Normal.Title.v16,
 ) {
     IntNumberPicker(
         modifier = modifier,
@@ -165,10 +163,10 @@ fun DatePicker(
     value: Long,
     onValueChange: (Long) -> Unit,
     start: Long = getDateBy(1900, 1, 1, 0, 0, 0, 0),
-    endInclude: Long = curTime
+    endInclude: Long = curTime,
+    dividersColor: Color = Color.Transparent,
+    textStyle: TextStyle = AppText.Normal.Title.v16,
 ) {
-    val dividersColor = remember { Color.Transparent }
-    val textStyle = remember { AppText.Normal.Title.v16 }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -219,10 +217,10 @@ fun HourPicker(
     },
     value: Int,
     onValueChange: (Int) -> Unit,
-    dividersColor: Color = MaterialTheme.colors.primary,
+    dividersColor: Color = Color.Transparent,
     start: Int = 0,
     endInclude: Int = 23,
-    textStyle: TextStyle = LocalTextStyle.current,
+    textStyle: TextStyle = AppText.Normal.Title.v16,
 ) {
     IntNumberPicker(
         modifier = modifier,
@@ -245,10 +243,10 @@ fun MinutePicker(
     },
     value: Int,
     onValueChange: (Int) -> Unit,
-    dividersColor: Color = MaterialTheme.colors.primary,
+    dividersColor: Color = Color.Transparent,
     start: Int = 0,
     endInclude: Int = 59,
-    textStyle: TextStyle = LocalTextStyle.current,
+    textStyle: TextStyle = AppText.Normal.Title.v16,
 ) {
     IntNumberPicker(
         modifier = modifier,
@@ -271,10 +269,10 @@ fun SecondPicker(
     },
     value: Int,
     onValueChange: (Int) -> Unit,
-    dividersColor: Color = MaterialTheme.colors.primary,
+    dividersColor: Color = Color.Transparent,
     start: Int = 0,
     endInclude: Int = 59,
-    textStyle: TextStyle = LocalTextStyle.current,
+    textStyle: TextStyle = AppText.Normal.Title.v16,
 ) {
     IntNumberPicker(
         modifier = modifier,
@@ -295,10 +293,10 @@ fun TimePicker(
     minute: Int,
     second: Int,
     isShowSecond: Boolean = true,
-    onValueChange: (Int, Int, Int) -> Unit
+    onValueChange: (Int, Int, Int) -> Unit,
+    dividersColor: Color = Color.Transparent,
+    textStyle: TextStyle = AppText.Normal.Title.v16,
 ) {
-    val dividersColor = remember { Color.Transparent }
-    val textStyle = remember { AppText.Normal.Title.v16 }
     Row(
         modifier = Modifier
             .fillMaxWidth()

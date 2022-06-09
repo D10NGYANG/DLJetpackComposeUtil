@@ -11,20 +11,20 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
-import com.d10ng.basicjetpackcomposeapp.view.DatePicker
-import com.d10ng.datelib.curTime
-import com.d10ng.datelib.getDateBy
+import com.d10ng.basicjetpackcomposeapp.view.IntNumberPicker
 
-data class DatePickerDialogBuilder(
+data class IntNumberPickerDialogBuilder(
     var title: String = "提示",
     var titleAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
     var titleColor: Color = AppColor.Text.title,
     var message: String,
     var messageAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
     var messageColor: Color = AppColor.Text.body,
-    var initValue: Long,
-    var start: Long = getDateBy(1900, 1, 1, 0, 0, 0, 0),
-    var endInclude: Long = curTime,
+    var label: (Int) -> String = { it.toString() },
+    var value: Int,
+    var start: Int = Int.MIN_VALUE,
+    var endInclude: Int = Int.MAX_VALUE,
+    var step: Int = 1,
     var dividersColor: Color = Color.Transparent,
     var textStyle: TextStyle = AppText.Normal.Title.v16,
     var sureButton: String = "确定",
@@ -32,14 +32,14 @@ data class DatePickerDialogBuilder(
     var sureButtonBackgroundColor: Color = AppColor.System.secondary,
     var cancelButton: String = "取消",
     var cancelButtonTextColor: Color = AppColor.Text.body,
-    var onClickSure: (Long) -> Unit,
+    var onClickSure: (Int) -> Unit,
     var onClickCancel: () -> Unit,
 ): DialogBuilder() {
-    
+
     @Composable
     override fun Build() {
-        var value by remember(this) {
-            mutableStateOf(initValue)
+        var pick by remember(this) {
+            mutableStateOf(value)
         }
         BaseDialogBuilder(
             title = title,
@@ -54,7 +54,7 @@ data class DatePickerDialogBuilder(
             cancelButton = cancelButton,
             cancelButtonTextColor = cancelButtonTextColor,
             onClickSure = {
-                onClickSure.invoke(value)
+                onClickSure.invoke(pick)
             },
             onClickCancel = onClickCancel
         ) {
@@ -64,17 +64,20 @@ data class DatePickerDialogBuilder(
                     .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
-                DatePicker(
-                    value = value,
+                IntNumberPicker(
+                    label = label,
+                    value = pick,
                     onValueChange = {
-                        value = it
+                        pick = it
                     },
+                    dividersColor = dividersColor,
                     start = start,
                     endInclude = endInclude,
-                    dividersColor = dividersColor,
+                    step = step,
                     textStyle = textStyle
                 )
             }
         }.Build()
     }
+
 }
