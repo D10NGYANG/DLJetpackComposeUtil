@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.d10ng.basicjetpackcomposeapp.BaseActivity
 import com.d10ng.basicjetpackcomposeapp.dialog.builder.DialogBuilder
 import com.d10ng.coroutines.launchMain
@@ -22,7 +23,7 @@ import java.lang.ref.WeakReference
 class AppViewModel(act: BaseActivity): ViewModel() {
 
     class Factory(private val act: BaseActivity): ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return AppViewModel(act) as T
         }
     }
