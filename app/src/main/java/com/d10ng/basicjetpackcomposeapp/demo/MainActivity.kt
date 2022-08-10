@@ -40,7 +40,7 @@ class MainActivity : BaseActivity() {
                 ) {
                     Spacer(modifier = Modifier
                         .fillMaxWidth()
-                        .statusBarsHeight()
+                        .windowInsetsTopHeight(WindowInsets.statusBars)
                         .background(AppColor.System.primaryVariant))
                     Box(modifier = Modifier
                         .fillMaxWidth()

@@ -63,8 +63,8 @@ dependencies {
     api("androidx.compose.material:material-icons-core:$compose_ver")
     api("androidx.compose.material:material-icons-extended:$compose_ver")
     api("androidx.compose.runtime:runtime-livedata:$compose_ver")
-    api("androidx.activity:activity-compose:1.5.0")
-    api("androidx.navigation:navigation-compose:2.5.0")
+    api("androidx.activity:activity-compose:1.5.1")
+    api("androidx.navigation:navigation-compose:2.5.1")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Compose 拓展
