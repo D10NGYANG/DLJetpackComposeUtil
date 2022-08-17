@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.D10NG"
-version = "1.1.5"
+version = "1.2.0"
 
 android {
     compileSdk = Project.compile_sdk
@@ -32,7 +32,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs = listOf("-Xjvm-default=all-compatibility")
     }
     composeOptions {
         kotlinCompilerExtensionVersion = compose_ver
@@ -40,12 +39,18 @@ android {
     buildFeatures {
         compose = true
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
 }
 
 dependencies {
     // Android
-    implementation("androidx.core:core-ktx:1.8.0")
-    api("androidx.appcompat:appcompat:1.4.2")
+    api("androidx.core:core-ktx:1.8.0")
+    api("androidx.appcompat:appcompat:1.5.0")
     api("com.google.android.material:material:1.6.1")
 
     // 单元测试（可选）
@@ -68,8 +73,6 @@ dependencies {
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Compose 拓展
-    api("com.google.accompanist:accompanist-insets:$accompanist_ver")
-    api("com.google.accompanist:accompanist-insets-ui:$accompanist_ver")
     api("com.google.accompanist:accompanist-systemuicontroller:$accompanist_ver")
     api("com.google.accompanist:accompanist-appcompat-theme:$accompanist_ver")
     api("com.google.accompanist:accompanist-pager:$accompanist_ver")
@@ -82,6 +85,7 @@ dependencies {
     api("com.google.accompanist:accompanist-permissions:$accompanist_ver")
     api("com.google.accompanist:accompanist-navigation-animation:$accompanist_ver")
     api("com.google.accompanist:accompanist-navigation-material:$accompanist_ver")
+    api("com.google.accompanist:accompanist-webview:$accompanist_ver")
 
     // Lifecycle
     api("androidx.lifecycle:lifecycle-runtime-ktx:$jetpack_lifecycle_ver")
@@ -90,8 +94,8 @@ dependencies {
     api("androidx.lifecycle:lifecycle-viewmodel-compose:$jetpack_lifecycle_ver")
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_ver")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_ver")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
     // 协程封装工具
     api("com.github.D10NGYANG:DLCoroutinesUtil:0.3")
@@ -99,7 +103,6 @@ dependencies {
     api("com.github.D10NGYANG:DLAppUtil:2.1")
     // 时间工具
     api("com.github.D10NGYANG:DLDateUtil:1.6")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.0")
     // 字符串字节数据工具
     api("com.github.D10NGYANG:DLTextUtil:1.4.0")
 }

@@ -8,18 +8,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DLBasicJetpackComposeApp">
+        android:theme="@style/Theme.DLBasicJetpackComposeApp.NoActionBar">
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.DLBasicJetpackComposeApp.NoActionBar">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".NavigationActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

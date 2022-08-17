@@ -20,7 +20,7 @@ import kotlin.coroutines.suspendCoroutine
 
 abstract class BaseActivity: AppCompatActivity() {
 
-    val app: AppViewModel by viewModels(factoryProducer = { AppViewModel.Factory(this) })
+    val app: AppViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

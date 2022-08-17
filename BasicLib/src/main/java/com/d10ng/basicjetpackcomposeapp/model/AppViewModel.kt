@@ -1,11 +1,9 @@
 package com.d10ng.basicjetpackcomposeapp.model
 
+import android.app.Application
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
-import com.d10ng.basicjetpackcomposeapp.BaseActivity
 import com.d10ng.basicjetpackcomposeapp.dialog.builder.DialogBuilder
 import com.d10ng.coroutines.launchMain
 import kotlinx.coroutines.Dispatchers
@@ -13,28 +11,19 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.lang.ref.WeakReference
 
 /**
  * APP公共数据
  * @Author: D10NG
  * @Time: 2021/9/25 11:14 上午
  */
-class AppViewModel(act: BaseActivity): ViewModel() {
+class AppViewModel(application: Application): AndroidViewModel(application) {
 
-    class Factory(private val act: BaseActivity): ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return AppViewModel(act) as T
-        }
-    }
-
-    /** activity的弱引用 */
-    val weakAct = WeakReference(act)
+    private val mApplication = this.getApplication<Application>()
 
     /** 显示Toast */
     fun showToast(value: String, duration: Int = Toast.LENGTH_SHORT) {
-        val act = weakAct.get()?: return
-        launchMain { Toast.makeText(act.applicationContext, value, duration).show() }
+        launchMain { Toast.makeText(mApplication, value, duration).show() }
     }
 
     /**

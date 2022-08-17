@@ -20,7 +20,6 @@ import com.d10ng.basicjetpackcomposeapp.R
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppShape
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
-import com.google.accompanist.insets.statusBarsHeight
 
 @Preview
 @Composable
@@ -50,7 +49,7 @@ fun TitleBar(
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .statusBarsHeight()
+                .windowInsetsTopHeight(WindowInsets.statusBars)
         )
         // 标题栏
         Box(

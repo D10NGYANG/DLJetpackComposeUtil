@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.d10ng.applib.app.goTo
 import com.d10ng.basicjetpackcomposeapp.BaseActivity
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppShape
@@ -25,10 +26,13 @@ import com.d10ng.coroutines.launchIO
 import com.d10ng.datelib.*
 import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
-import com.google.accompanist.insets.statusBarsHeight
 import kotlinx.coroutines.delay
 
 class MainActivity : BaseActivity() {
+
+    override fun isNeedLockScreenOrientation(): Boolean {
+        return false
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +60,12 @@ class MainActivity : BaseActivity() {
                         .weight(1f)
                         .padding(16.dp)
                     ) {
+                        item {
+                            SolidButtonWithText(text = "跳转导航活动页", onClick = {
+                                goTo(NavigationActivity::class.java)
+                            })
+                        }
+
                         item {
                             SolidButtonWithText(text = "显示加载中弹窗", onClick = {
                                 app.showLoading()

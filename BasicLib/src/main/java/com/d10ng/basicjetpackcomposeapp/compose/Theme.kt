@@ -15,7 +15,6 @@ import com.d10ng.basicjetpackcomposeapp.dialog.Dialog
 import com.d10ng.basicjetpackcomposeapp.dialog.LoadingDialog
 import com.d10ng.basicjetpackcomposeapp.model.AppViewModel
 import com.d10ng.basicjetpackcomposeapp.view.ErrorBar
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val LightColorPalette = lightColors(
@@ -38,7 +37,7 @@ fun AppTheme(
     app: AppViewModel,
     statusBarColor: Color = Color.Transparent,
     statusBarUseDarkIcons: Boolean = MaterialTheme.colors.isLight,
-    content: @Composable() () -> Unit
+    content: @Composable () -> Unit
 ) {
     // 错误
     val isShowError by app.isShowError.collectAsState()
@@ -51,21 +50,19 @@ fun AppTheme(
     MaterialTheme(
         colors = LightColorPalette
     ) {
-        ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
-            val systemUiController = rememberSystemUiController()
-            SideEffect {
-                systemUiController.setStatusBarColor(
-                    statusBarColor, darkIcons = statusBarUseDarkIcons)
-            }
-            Surface {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                ) {
-                    content()
-                    // 错误
-                    ErrorBar(isShowError, errorText)
-                }
+        val systemUiController = rememberSystemUiController()
+        SideEffect {
+            systemUiController.setStatusBarColor(
+                statusBarColor, darkIcons = statusBarUseDarkIcons)
+        }
+        Surface {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                content()
+                // 错误
+                ErrorBar(isShowError, errorText)
             }
         }
     }

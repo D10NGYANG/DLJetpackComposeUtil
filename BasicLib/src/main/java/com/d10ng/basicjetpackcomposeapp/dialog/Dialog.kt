@@ -14,8 +14,6 @@ import androidx.compose.ui.unit.dp
 import com.d10ng.basicjetpackcomposeapp.compose.AppColor
 import com.d10ng.basicjetpackcomposeapp.compose.AppShape
 import com.d10ng.basicjetpackcomposeapp.compose.AppText
-import com.google.accompanist.insets.navigationBarsWithImePadding
-import com.google.accompanist.insets.statusBarsPadding
 
 @Composable
 fun LoadingDialog (
@@ -57,7 +55,8 @@ fun Dialog(
                 detectTapGestures { onDismiss.invoke() }
             }
             .statusBarsPadding()
-            .navigationBarsWithImePadding(),
+            .navigationBarsPadding()
+            .imePadding(),
         content = content,
         contentAlignment = contentAlignment
     )
