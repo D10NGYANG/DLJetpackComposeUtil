@@ -103,6 +103,7 @@ dependencies {
     api("com.github.D10NGYANG:DLAppUtil:2.1")
     // 时间工具
     api("com.github.D10NGYANG:DLDateUtil:1.6")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     // 字符串字节数据工具
     api("com.github.D10NGYANG:DLTextUtil:1.4.0")
 }
