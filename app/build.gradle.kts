@@ -50,8 +50,7 @@ android {
 
 dependencies {
 
-    api(project(mapOf("path" to ":BasicLib")))
-
+    api(project(mapOf("path" to ":library")))
     // 单元测试（可选）
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")

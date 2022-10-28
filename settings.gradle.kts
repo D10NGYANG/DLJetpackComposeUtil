@@ -16,4 +16,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "DLBasicJetpackComposeApp"
 include(":app")
-include(":BasicLib")
+include(":library")
