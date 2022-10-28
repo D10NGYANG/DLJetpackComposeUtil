@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -20,6 +21,7 @@ import com.d10ng.basicjetpackcomposeapp.view.TitleBar
 import com.d10ng.datelib.curTime
 import com.d10ng.datelib.toDateStr
 import com.google.accompanist.navigation.animation.composable
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.lang.ref.WeakReference
 import java.util.*
@@ -108,6 +110,15 @@ fun NavigationOneScreen(
             model.onClickScreen2()
         })
 
+        SolidButtonWithText(text = "显示提示", onClick = {
+            act.app.showError("错误信息")
+        })
+
         Text(text = timeText)
+    }
+
+    LaunchedEffect(Unit) {
+        delay(3000L)
+        act.app.showError("hahahahhaha")
     }
 }

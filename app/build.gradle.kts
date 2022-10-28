@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    namespace = "com.d10ng.basicjetpackcomposeapp.demo"
     compileSdk = Project.compile_sdk
 
     defaultConfig {
@@ -16,7 +17,6 @@ android {
         versionName = "0.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled = true
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -36,7 +36,7 @@ android {
         jvmTarget = "1.8"
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = compose_ver
+        kotlinCompilerExtensionVersion = compose_compiler_ver
     }
     buildFeatures {
         compose = true
@@ -51,6 +51,11 @@ android {
 dependencies {
 
     api(project(mapOf("path" to ":BasicLib")))
+
+    // 单元测试（可选）
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
     // 调试工具
     debugImplementation("com.github.simplepeng.SpiderMan:spiderman:v1.1.9") {

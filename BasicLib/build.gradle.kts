@@ -1,3 +1,5 @@
+import kotlinx.coroutines.internal.artificialFrame
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -6,10 +8,11 @@ plugins {
     id("maven-publish")
 }
 
-group = "com.github.D10NG"
-version = "1.2.0"
+group = "com.github.D10NGYANG"
+version = "1.2.1"
 
 android {
+    namespace = "com.d10ng.basicjetpackcomposeapp"
     compileSdk = Project.compile_sdk
 
     defaultConfig {
@@ -34,7 +37,7 @@ android {
         jvmTarget = "1.8"
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = compose_ver
+        kotlinCompilerExtensionVersion = compose_compiler_ver
     }
     buildFeatures {
         compose = true
@@ -49,9 +52,9 @@ android {
 
 dependencies {
     // Android
-    api("androidx.core:core-ktx:1.8.0")
-    api("androidx.appcompat:appcompat:1.5.0")
-    api("com.google.android.material:material:1.6.1")
+    api("androidx.core:core-ktx:1.9.0")
+    api("androidx.appcompat:appcompat:1.5.1")
+    api("com.google.android.material:material:1.7.0")
 
     // 单元测试（可选）
     testImplementation("junit:junit:4.13.2")
@@ -68,8 +71,8 @@ dependencies {
     api("androidx.compose.material:material-icons-core:$compose_ver")
     api("androidx.compose.material:material-icons-extended:$compose_ver")
     api("androidx.compose.runtime:runtime-livedata:$compose_ver")
-    api("androidx.activity:activity-compose:1.5.1")
-    api("androidx.navigation:navigation-compose:2.5.1")
+    api("androidx.activity:activity-compose:1.6.1")
+    api("androidx.navigation:navigation-compose:2.5.3")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Compose 拓展
@@ -102,8 +105,8 @@ dependencies {
     // APP通用工具
     api("com.github.D10NGYANG:DLAppUtil:2.1")
     // 时间工具
-    api("com.github.D10NGYANG:DLDateUtil:1.6")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
+    api("com.github.D10NGYANG:DLDateUtil:1.7.1")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.0")
     // 字符串字节数据工具
     api("com.github.D10NGYANG:DLTextUtil:1.4.0")
 }
@@ -112,7 +115,13 @@ afterEvaluate {
     publishing {
         publications {
             create("release", MavenPublication::class) {
+                artifactId = "DLBasicJetpackComposeApp"
                 from(components.getByName("release"))
+            }
+        }
+        repositories {
+            maven {
+                url = uri("/Users/d10ng/project/kotlin/maven-repo/repository")
             }
         }
     }
