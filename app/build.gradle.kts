@@ -53,14 +53,14 @@ dependencies {
     api(project(mapOf("path" to ":library")))
     // 单元测试（可选）
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.4")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
 
     // 调试工具
     debugImplementation("com.github.simplepeng.SpiderMan:spiderman:v1.1.9") {
         exclude(group = "androidx.appcompat")
     }
     // 内存泄漏检查
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.10")
 
 }

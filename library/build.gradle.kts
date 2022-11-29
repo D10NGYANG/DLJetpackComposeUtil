@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "1.2.2"
+version = "1.2.3"
 
 android {
     namespace = "com.d10ng.basicjetpackcomposeapp"
@@ -56,8 +56,8 @@ dependencies {
 
     // 单元测试（可选）
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.4")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
 
     // Compose
     api("androidx.compose.ui:ui:$compose_ver")
@@ -99,11 +99,11 @@ dependencies {
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
     // 协程封装工具
-    api("com.github.D10NGYANG:DLCoroutinesUtil:0.3")
+    api("com.github.D10NGYANG:DLCoroutinesUtil-jvm:0.3")
     // APP通用工具
     api("com.github.D10NGYANG:DLAppUtil:2.1")
     // 时间工具
-    api("com.github.D10NGYANG:DLDateUtil:1.7.1")
+    api("com.github.D10NGYANG:DLDateUtil-jvm:1.7.1")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.0")
     // 字符串字节数据工具
     api("com.github.D10NGYANG:DLTextUtil:1.4.0")
