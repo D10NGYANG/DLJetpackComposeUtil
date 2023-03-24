@@ -68,7 +68,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
     // APP通用工具
-    implementation("com.github.D10NGYANG:DLAppUtil:2.2.2")
+    implementation("com.github.D10NGYANG:DLAppUtil:2.2.3")
     // 时间工具
     implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.7.2")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.2")

@@ -70,7 +70,7 @@ dependencies {
     androidTestApi("androidx.compose.ui:ui-test-junit4")
     debugApi("androidx.compose.ui:ui-test-manifest")
     // Integration with activities
-    api("androidx.activity:activity-compose:1.6.1")
+    api("androidx.activity:activity-compose:1.7.0")
 
     // Compose 拓展
     api("com.google.accompanist:accompanist-systemuicontroller:$accompanist_ver")
