@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "1.3.1"
+version = "1.3.2"
 
 android {
     namespace = "com.d10ng.compose"
@@ -15,7 +15,6 @@ android {
 
     defaultConfig {
         minSdk = Project.min_sdk
-        targetSdk = Project.target_sdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -23,16 +22,19 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    kotlin {
+        jvmToolchain(8)
     }
     composeOptions {
         kotlinCompilerExtensionVersion = compose_compiler_ver
@@ -50,7 +52,7 @@ android {
 
 dependencies {
     // Android
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.10.0")
 
     // 单元测试（可选）
     testImplementation("junit:junit:4.13.2")
@@ -70,7 +72,7 @@ dependencies {
     androidTestApi("androidx.compose.ui:ui-test-junit4")
     debugApi("androidx.compose.ui:ui-test-manifest")
     // Integration with activities
-    api("androidx.activity:activity-compose:1.7.0")
+    api("androidx.activity:activity-compose:1.7.1")
 
     // Compose 拓展
     api("com.google.accompanist:accompanist-systemuicontroller:$accompanist_ver")
@@ -85,8 +87,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
     // 时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.7.2")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.2")
+    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.0")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 }
 
 afterEvaluate {

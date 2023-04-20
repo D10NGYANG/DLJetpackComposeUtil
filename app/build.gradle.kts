@@ -25,15 +25,18 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    kotlin {
+        jvmToolchain(8)
     }
     composeOptions {
         kotlinCompilerExtensionVersion = compose_compiler_ver
@@ -41,16 +44,11 @@ android {
     buildFeatures {
         compose = true
     }
-    packagingOptions {
-        resources {
-            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
-        }
-    }
 }
 
 dependencies {
     // Android
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.10.0")
 
     // 单元测试（可选）
     testImplementation("junit:junit:4.13.2")
@@ -68,10 +66,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
     // APP通用工具
-    implementation("com.github.D10NGYANG:DLAppUtil:2.2.3")
+    implementation("com.github.D10NGYANG:DLAppUtil:2.3.0")
     // 时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.7.2")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.2")
+    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.0")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
     // 调试工具
     debugImplementation("com.github.simplepeng.SpiderMan:spiderman:v1.1.9") {
