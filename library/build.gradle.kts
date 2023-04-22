@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "1.3.2"
+version = "1.3.3"
 
 android {
     namespace = "com.d10ng.compose"

@@ -3,13 +3,26 @@ package com.d10ng.compose
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
 import com.d10ng.compose.model.AppViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 abstract class BaseActivity: ComponentActivity() {
 
     val app: AppViewModel by viewModels()
+
+    /** 请求权限相关 */
+    private var _permissionRequestLauncher: ActivityResultLauncher<Array<String>>? = null
+    private val _permissionRequestResultFlow = MutableSharedFlow<Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +31,40 @@ abstract class BaseActivity: ComponentActivity() {
         // 固定屏幕方向
         if (isNeedLockScreenOrientation()) {
             lockScreenOrientation(isLockScreenVerticalOrientation())
+        }
+        // 初始化请求权限
+        initReqPermission(this)
+    }
+
+    /**
+     * 初始化请求权限
+     * - 需要在Activity的onCreate函数中
+     * @param act ComponentActivity
+     */
+    private fun initReqPermission(act: ComponentActivity) {
+        _permissionRequestLauncher =
+            act.registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissionResult ->
+                CoroutineScope(Dispatchers.IO).launch {
+                    _permissionRequestResultFlow.emit(!permissionResult.containsValue(false))
+                }
+            }
+    }
+
+    /**
+     * 请求权限
+     * @param permissions Array<String>
+     * @return Boolean
+     */
+    suspend fun reqPermissions(permissions: Array<String>): Boolean {
+        _permissionRequestLauncher ?: return false
+        return suspendCoroutine { cont ->
+            _permissionRequestLauncher?.launch(permissions)
+            CoroutineScope(Dispatchers.IO).launch {
+                _permissionRequestResultFlow.collect {
+                    cont.resume(it)
+                    cancel()
+                }
+            }
         }
     }
 
