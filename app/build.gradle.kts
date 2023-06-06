@@ -46,7 +46,7 @@ android {
 
 dependencies {
     // Android
-    implementation("androidx.core:core-ktx:1.10.0")
+    implementation("androidx.core:core-ktx:1.10.1")
 
     // 单元测试（可选）
     testImplementation("junit:junit:4.13.2")
@@ -64,9 +64,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
     // APP通用工具
-    implementation("com.github.D10NGYANG:DLAppUtil:2.3.0")
+    implementation("com.github.D10NGYANG:DLAppUtil:2.3.1")
     // 时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.0")
+    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.1")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
     // 调试工具
@@ -74,6 +74,6 @@ dependencies {
         exclude(group = "androidx.appcompat")
     }
     // 内存泄漏检查
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.10")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.11")
 
 }

@@ -4,10 +4,10 @@ object Project {
     const val target_sdk = 30
 }
 
-const val android_build_ver = "8.0.0"
-const val compose_ver = "androidx.compose:compose-bom:2023.04.01"
-const val compose_compiler_ver = "1.4.6"
-const val kotlin_ver = "1.8.20"
-const val kotlin_coroutines_ver = "1.6.4"
+const val android_build_ver = "8.0.2"
+const val compose_ver = "androidx.compose:compose-bom:2023.05.01"
+const val compose_compiler_ver = "1.4.7"
+const val kotlin_ver = "1.8.21"
+const val kotlin_coroutines_ver = "1.7.1"
 const val accompanist_ver = "0.30.1"
-const val jetpack_lifecycle_ver = "2.6.0"
+const val jetpack_lifecycle_ver = "2.6.1"

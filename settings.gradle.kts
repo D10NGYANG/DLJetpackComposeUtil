@@ -15,5 +15,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "DLJetpackComposeUtil"
-include("app")
-include("library")
+include("app", "library")

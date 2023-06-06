@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "1.3.3"
+version = "1.3.4"
 
 android {
     namespace = "com.d10ng.compose"
@@ -27,7 +27,6 @@ android {
         }
     }
     compileOptions {
-        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -50,7 +49,7 @@ android {
 
 dependencies {
     // Android
-    implementation("androidx.core:core-ktx:1.10.0")
+    implementation("androidx.core:core-ktx:1.10.1")
 
     // 单元测试（可选）
     testImplementation("junit:junit:4.13.2")
@@ -70,7 +69,7 @@ dependencies {
     androidTestApi("androidx.compose.ui:ui-test-junit4")
     debugApi("androidx.compose.ui:ui-test-manifest")
     // Integration with activities
-    api("androidx.activity:activity-compose:1.7.1")
+    api("androidx.activity:activity-compose:1.7.2")
 
     // Compose 拓展
     api("com.google.accompanist:accompanist-systemuicontroller:$accompanist_ver")
@@ -85,7 +84,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
     // 时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.0")
+    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.1")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 }
 
