@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "1.3.4"
+version = "1.3.5"
 
 android {
     namespace = "com.d10ng.compose"
@@ -84,7 +84,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
     // 时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.1")
+    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.3")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 }
 
