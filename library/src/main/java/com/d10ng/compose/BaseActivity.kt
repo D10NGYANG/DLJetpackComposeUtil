@@ -10,19 +10,21 @@ import androidx.core.view.WindowCompat
 import com.d10ng.compose.model.AppViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
+import kotlinx.coroutines.withContext
 
 abstract class BaseActivity: ComponentActivity() {
 
     val app: AppViewModel by viewModels()
 
     /** 请求权限相关 */
-    private var _permissionRequestLauncher: ActivityResultLauncher<Array<String>>? = null
-    private val _permissionRequestResultFlow = MutableSharedFlow<Boolean>()
+    private lateinit var _permissionRequestLauncher: ActivityResultLauncher<Array<String>>
+    private val _permissionRequestResultFlow = MutableSharedFlow<Map<String, Boolean>>()
+    private val _permissionRequestScope = CoroutineScope(Dispatchers.IO)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +46,8 @@ abstract class BaseActivity: ComponentActivity() {
     private fun initReqPermission(act: ComponentActivity) {
         _permissionRequestLauncher =
             act.registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissionResult ->
-                CoroutineScope(Dispatchers.IO).launch {
-                    _permissionRequestResultFlow.emit(!permissionResult.containsValue(false))
+                _permissionRequestScope.launch {
+                    _permissionRequestResultFlow.emit(permissionResult)
                 }
             }
     }
@@ -55,17 +57,13 @@ abstract class BaseActivity: ComponentActivity() {
      * @param permissions Array<String>
      * @return Boolean
      */
-    suspend fun reqPermissions(permissions: Array<String>): Boolean {
-        _permissionRequestLauncher ?: return false
-        return suspendCoroutine { cont ->
-            _permissionRequestLauncher?.launch(permissions)
-            CoroutineScope(Dispatchers.IO).launch {
-                _permissionRequestResultFlow.collect {
-                    cont.resume(it)
-                    cancel()
-                }
-            }
+    suspend fun reqPermissions(permissions: Array<String>): Boolean = withContext(Dispatchers.IO) {
+        _permissionRequestLauncher.launch(permissions)
+        val waitJob = async {
+            _permissionRequestResultFlow.filter { it.keys.containsAll(permissions.toList()) }
+                .first()
         }
+        waitJob.await().values.all { it }
     }
 
     /**
