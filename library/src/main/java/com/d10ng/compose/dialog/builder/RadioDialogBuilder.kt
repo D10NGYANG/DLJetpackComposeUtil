@@ -10,15 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.R
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
-import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
-import com.google.accompanist.flowlayout.FlowMainAxisAlignment
-import com.google.accompanist.flowlayout.FlowRow
-import com.google.accompanist.flowlayout.SizeMode
 
 data class RadioDialogBuilder(
     var title: String = "提示",
@@ -33,12 +28,9 @@ data class RadioDialogBuilder(
         DefaultItemView(isSelect, info, onClick)
     },
     var isRow: Boolean = false,
-    var mainAxisSize: SizeMode = SizeMode.Wrap,
-    var mainAxisAlignment: FlowMainAxisAlignment = FlowMainAxisAlignment.Start,
-    var mainAxisSpacing: Dp = 0.dp,
-    var crossAxisAlignment: FlowCrossAxisAlignment = FlowCrossAxisAlignment.Start,
-    var crossAxisSpacing: Dp = 0.dp,
-    var lastLineMainAxisAlignment: FlowMainAxisAlignment = mainAxisAlignment,
+    var verticalArrangement: Arrangement.Vertical = Arrangement.Top,
+    var horizontalArrangement: Arrangement.Horizontal = Arrangement.SpaceAround,
+    var maxItemsInEachColumn: Int = Int.MAX_VALUE,
     var onSelect: (Pair<String, Any>) -> Unit
 ): DialogBuilder() {
     companion object{
@@ -80,6 +72,7 @@ data class RadioDialogBuilder(
         }
     }
 
+    @OptIn(ExperimentalLayoutApi::class)
     @Composable
     override fun Build() {
         BaseDialogBuilder(
@@ -96,12 +89,9 @@ data class RadioDialogBuilder(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight(),
-                    mainAxisSize = mainAxisSize,
-                    mainAxisAlignment = mainAxisAlignment,
-                    mainAxisSpacing = mainAxisSpacing,
-                    crossAxisAlignment = crossAxisAlignment,
-                    crossAxisSpacing = crossAxisSpacing,
-                    lastLineMainAxisAlignment = lastLineMainAxisAlignment
+                    verticalArrangement = verticalArrangement,
+                    horizontalArrangement = horizontalArrangement,
+                    maxItemsInEachRow = maxItemsInEachColumn
                 ) {
                     map.forEach { map ->
                         customItemView(map.key == select, map.toPair()) {

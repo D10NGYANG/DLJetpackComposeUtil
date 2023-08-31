@@ -73,7 +73,6 @@ dependencies {
 
     // Compose 拓展
     api("com.google.accompanist:accompanist-systemuicontroller:$accompanist_ver")
-    api("com.google.accompanist:accompanist-flowlayout:$accompanist_ver")
 
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$jetpack_lifecycle_ver")

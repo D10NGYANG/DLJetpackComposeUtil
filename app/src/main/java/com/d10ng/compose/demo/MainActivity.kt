@@ -52,8 +52,6 @@ import com.d10ng.datelib.curMinute
 import com.d10ng.datelib.curSecond
 import com.d10ng.datelib.curTime
 import com.d10ng.datelib.toDateStr
-import com.google.accompanist.flowlayout.FlowCrossAxisAlignment
-import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -244,10 +242,6 @@ class MainActivity : BaseActivity() {
                                     select = selectStr,
                                     customItemView = { isSelect, info, onClick -> CustomRadioDialogItem(isSelect, info, onClick) },
                                     isRow = true,
-                                    mainAxisSpacing = 16.dp,
-                                    mainAxisAlignment = FlowMainAxisAlignment.Center,
-                                    crossAxisSpacing = 16.dp,
-                                    crossAxisAlignment = FlowCrossAxisAlignment.Center,
                                     onSelect = {
                                         app.hideDialog()
                                         app.showToast("【${it.second}】= ${it.first}")
@@ -462,6 +456,7 @@ fun CustomRadioDialogItem(
     }
     Box(
         modifier = Modifier
+            .padding(top = 8.dp)
             .size(width = 104.dp, height = 40.dp)
             .background(background, AppShape.RC.Cycle)
             .border(borderWidth, AppColor.Text.hint, AppShape.RC.Cycle)
