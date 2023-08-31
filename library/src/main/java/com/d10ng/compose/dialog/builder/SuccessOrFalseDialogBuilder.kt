@@ -1,17 +1,17 @@
 package com.d10ng.compose.dialog.builder
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.R
-import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.dialog.DialogColumn
 import com.d10ng.compose.dialog.DialogMessage
 import com.d10ng.compose.dialog.DialogTitle
+import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.view.DialogSureButton
 
 data class SuccessOrFalseDialogBuilder(
@@ -50,7 +50,7 @@ data class SuccessOrFalseDialogBuilder(
                 text = buttonText,
                 onClick = onClickButton,
                 color = if (isSuccess) AppColor.On.secondary else AppColor.On.error,
-                backgroundColor = if (isSuccess) AppColor.System.secondary else AppColor.System.error,
+                containerColor = if (isSuccess) AppColor.System.secondary else AppColor.System.error,
                 modifier = Modifier.padding(top = 16.dp)
             )
         }

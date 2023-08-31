@@ -60,8 +60,8 @@ dependencies {
     val composeBom = platform(compose_ver)
     api(composeBom)
     androidTestApi(composeBom)
-    // Material Design 2
-    api("androidx.compose.material:material")
+    // Material Design 3
+    api("androidx.compose.material3:material3")
     // Android Studio Preview support
     api("androidx.compose.ui:ui-tooling-preview")
     debugApi("androidx.compose.ui:ui-tooling")
@@ -70,9 +70,6 @@ dependencies {
     debugApi("androidx.compose.ui:ui-test-manifest")
     // Integration with activities
     api("androidx.activity:activity-compose:1.7.2")
-
-    // Compose 拓展
-    api("com.google.accompanist:accompanist-systemuicontroller:$accompanist_ver")
 
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$jetpack_lifecycle_ver")

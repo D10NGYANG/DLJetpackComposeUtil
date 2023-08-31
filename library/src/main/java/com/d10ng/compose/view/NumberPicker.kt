@@ -3,7 +3,7 @@ package com.d10ng.compose.view
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -11,8 +11,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import com.d10ng.compose.ui.AppText
-import com.d10ng.datelib.*
 import com.d10ng.compose.utils.up2Length
+import com.d10ng.datelib.curTime
+import com.d10ng.datelib.curYear
+import com.d10ng.datelib.getDateBy
+import com.d10ng.datelib.getDateDay
+import com.d10ng.datelib.getDateMonth
+import com.d10ng.datelib.getDateYear
+import com.d10ng.datelib.getDaysOfMonth
+import com.d10ng.datelib.setDateDay
+import com.d10ng.datelib.setDateMonth
+import com.d10ng.datelib.setDateYear
 
 @Composable
 fun IntNumberPicker(

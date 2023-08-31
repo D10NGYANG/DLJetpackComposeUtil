@@ -1,8 +1,14 @@
 package com.d10ng.compose.view
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.Snackbar
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +31,7 @@ fun BoxScope.ErrorBar(
                 .navigationBarsPadding()
                 .imePadding()
                 .align(Alignment.TopCenter),
-            backgroundColor = AppColor.System.error
+            containerColor = AppColor.System.error
         ) {
             Text(text = text, style = AppText.Medium.OnError.v14)
         }

@@ -6,8 +6,8 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.progressSemantics
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ProgressIndicatorDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -17,15 +17,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 private val LinearIndicatorHeight = 240.dp
-private val LinearIndicatorWidth = ProgressIndicatorDefaults.StrokeWidth
+private val LinearIndicatorWidth = ProgressIndicatorDefaults.CircularStrokeWidth
 
 @Composable
 fun VerticalLinearProgressIndicator(
     /*@FloatRange(from = 0.0, to = 1.0)*/
     progress: Float,
     modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colors.primary,
-    backgroundColor: Color = color.copy(alpha = ProgressIndicatorDefaults.IndicatorBackgroundOpacity)
+    color: Color = MaterialTheme.colorScheme.primary,
+    backgroundColor: Color = color
 ) {
     Canvas(
         modifier

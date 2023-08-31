@@ -3,17 +3,23 @@ package com.d10ng.compose.view
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,9 +38,6 @@ fun Button_Test() {
             .background(Color.White)
             .padding(16.dp)
     ) {
-        NoPaddingButton(onClick = {  }) {
-            Text(text = "无内间距按钮")
-        }
         MiniButton("小按钮", {})
         Button(onClick = { }) {
             Text(text = "Button")
@@ -55,48 +58,6 @@ fun Button_Test() {
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun NoPaddingButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    elevation: ButtonElevation? = ButtonDefaults.elevation(),
-    shape: Shape = MaterialTheme.shapes.small,
-    border: BorderStroke? = null,
-    colors: ButtonColors = ButtonDefaults.buttonColors(),
-    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
-    content: @Composable RowScope.() -> Unit
-) {
-    val contentColor by colors.contentColor(enabled)
-    Surface(
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-        shape = shape,
-        color = colors.backgroundColor(enabled).value,
-        contentColor = contentColor.copy(alpha = 1f),
-        border = border,
-        elevation = elevation?.elevation(enabled, interactionSource)?.value ?: 0.dp,
-        interactionSource = interactionSource
-    ) {
-        CompositionLocalProvider(LocalContentAlpha provides contentColor.alpha) {
-            ProvideTextStyle(
-                value = MaterialTheme.typography.button
-            ) {
-                Row(
-                    Modifier
-                        .padding(contentPadding),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
-                    content = content
-                )
-            }
-        }
-    }
-}
-
 @Composable
 fun MiniButton(
     text: String,
@@ -112,14 +73,14 @@ fun MiniButton(
     border: BorderStroke? = null,
     contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
 ) {
-    NoPaddingButton(
+    Button(
         modifier = modifier,
         enabled = enabled,
         onClick = onClick,
         shape = shape,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = background,
-            disabledBackgroundColor = disabledBackground
+            containerColor = background,
+            disabledContainerColor = disabledBackground
         ),
         border = border,
         elevation = null,
@@ -148,8 +109,8 @@ fun SolidButton(
     modifier: Modifier = Modifier,
     shape: Shape = AppShape.RC.v4,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        backgroundColor = AppColor.System.secondary,
-        disabledBackgroundColor = AppColor.System.secondaryVariant,
+        containerColor = AppColor.System.secondary,
+        disabledContainerColor = AppColor.System.secondaryVariant,
         contentColor = AppColor.On.secondary,
         disabledContentColor = AppColor.On.secondary
     ),
@@ -182,8 +143,8 @@ fun SolidButtonWithText(
     modifier: Modifier = Modifier,
     shape: Shape = AppShape.RC.v4,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        backgroundColor = AppColor.System.secondary,
-        disabledBackgroundColor = AppColor.System.secondaryVariant,
+        containerColor = AppColor.System.secondary,
+        disabledContainerColor = AppColor.System.secondaryVariant,
         contentColor = AppColor.On.secondary,
         disabledContentColor = AppColor.On.secondary
     ),
@@ -198,7 +159,10 @@ fun SolidButtonWithText(
         enabled = enabled,
         onClick = onClick
     ) {
-        Text(text = text, color = colors.contentColor(enabled = enabled).value, style = AppText.Bold.OnSecondary.v16)
+        Text(
+            text = text,
+            style = AppText.Bold.OnSecondary.v16
+        )
     }
 }
 
@@ -217,8 +181,8 @@ fun HollowButton(
     modifier: Modifier = Modifier,
     shape: Shape = AppShape.RC.v4,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        backgroundColor = Color.Transparent,
-        disabledBackgroundColor = Color.Transparent,
+        containerColor = Color.Transparent,
+        disabledContainerColor = Color.Transparent,
         contentColor = AppColor.System.secondary,
         disabledContentColor = AppColor.System.secondary
     ),
@@ -253,8 +217,8 @@ fun HollowButtonWithText(
     modifier: Modifier = Modifier,
     shape: Shape = AppShape.RC.v4,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        backgroundColor = Color.Transparent,
-        disabledBackgroundColor = Color.Transparent,
+        containerColor = Color.Transparent,
+        disabledContainerColor = Color.Transparent,
         contentColor = AppColor.System.secondary,
         disabledContentColor = AppColor.System.secondary
     ),
@@ -271,7 +235,10 @@ fun HollowButtonWithText(
         enabled = enabled,
         onClick = onClick
     ) {
-        Text(text = text, color = colors.contentColor(enabled = enabled).value, style = AppText.Bold.Secondary.v16)
+        Text(
+            text = text,
+            style = AppText.Bold.Secondary.v16
+        )
     }
 }
 
@@ -291,8 +258,8 @@ fun HollowButtonWithImageText(
     modifier: Modifier = Modifier,
     shape: Shape = AppShape.RC.v4,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        backgroundColor = Color.Transparent,
-        disabledBackgroundColor = Color.Transparent,
+        containerColor = Color.Transparent,
+        disabledContainerColor = Color.Transparent,
         contentColor = AppColor.System.secondary,
         disabledContentColor = AppColor.System.secondary
     ),
@@ -320,10 +287,12 @@ fun HollowButtonWithImageText(
                 modifier = Modifier
                     .padding(end = 8.dp)
                     .size(18.dp),
-                alignment = Alignment.Center,
-                colorFilter = ColorFilter.tint(colors.contentColor(enabled = enabled).value)
+                alignment = Alignment.Center
             )
-            Text(text = text, color = colors.contentColor(enabled = enabled).value, style = AppText.Bold.Secondary.v16)
+            Text(
+                text = text,
+                style = AppText.Bold.Secondary.v16
+            )
         }
     }
 }
@@ -333,15 +302,15 @@ fun DialogSureButton(
     modifier: Modifier = Modifier,
     text: String = "确定",
     color: Color = AppColor.On.secondary,
-    backgroundColor: Color = AppColor.System.secondary,
+    containerColor: Color = AppColor.System.secondary,
     onClick: () -> Unit
 ) {
     Button(
         onClick = onClick,
         shape = AppShape.RC.v8,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = backgroundColor,
-            disabledBackgroundColor = backgroundColor,
+            containerColor = containerColor,
+            disabledContainerColor = containerColor,
             contentColor = color,
             disabledContentColor = color
         ),
@@ -367,8 +336,8 @@ fun DialogCancelButton(
         onClick = onClick,
         shape = AppShape.RC.v8,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.Transparent,
-            disabledBackgroundColor = Color.Transparent,
+            containerColor = Color.Transparent,
+            disabledContainerColor = Color.Transparent,
             contentColor = color,
             disabledContentColor = color
         ),
