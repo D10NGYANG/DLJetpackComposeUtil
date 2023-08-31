@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -62,6 +63,10 @@ dependencies {
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_ver")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
+
+    // 导航路由
+    implementation("io.github.raamcosta.compose-destinations:animations-core:$compose_destinations_ver")
+    ksp("io.github.raamcosta.compose-destinations:ksp:$compose_destinations_ver")
 
     // APP通用工具
     implementation("com.github.D10NGYANG:DLAppUtil:2.3.4")

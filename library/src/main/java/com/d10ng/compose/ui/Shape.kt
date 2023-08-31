@@ -6,6 +6,7 @@ import androidx.compose.ui.unit.dp
 object AppShape {
     object RC {
         val Cycle = RoundedCornerShape(100)
+        val v0 = RoundedCornerShape(0.dp)
         val v2 = RoundedCornerShape(2.dp)
         val v4 = RoundedCornerShape(4.dp)
         val v6 = RoundedCornerShape(6.dp)
