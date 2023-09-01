@@ -46,6 +46,7 @@ fun CellPreview() {
                 modifier = Modifier.padding(16.dp)
             )
             VenCellGroup {
+                VenCell(title = "单元格")
                 VenCell(title = "单元格", value = "内容")
                 VenCell(title = "单元格", value = "内容", label = "描述信息", border = false)
             }
@@ -55,6 +56,7 @@ fun CellPreview() {
                 modifier = Modifier.padding(16.dp)
             )
             VenCellGroup(inset = true) {
+                VenCell(title = "单元格", isLink = true)
                 VenCell(title = "单元格", value = "内容")
                 VenCell(title = "单元格", value = "内容", label = "描述信息", border = false)
             }
@@ -90,6 +92,7 @@ fun CellPreview() {
                 modifier = Modifier.padding(16.dp)
             )
             VenCellGroup {
+                VenCell(title = "单元格", isLink = true)
                 VenCell(title = "单元格", value = "内容", isLink = true)
                 VenCell(
                     title = "单元格",
@@ -191,7 +194,7 @@ fun VenCell(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
-            .clickable(enabled = onClick != null) {
+            .clickable {
                 onClick?.invoke()
             },
     ) {
