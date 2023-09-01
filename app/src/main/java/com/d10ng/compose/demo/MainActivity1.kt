@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
+import com.d10ng.app.base.PermissionManager
 import com.d10ng.compose.BaseActivity
 import com.d10ng.compose.dialog.builder.BaseDialogBuilder
 import com.d10ng.compose.dialog.builder.DatePickerDialogBuilder
@@ -58,10 +59,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity1 : BaseActivity() {
-
-    override fun isNeedLockScreenOrientation(): Boolean {
-        return false
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,7 +94,7 @@ class MainActivity1 : BaseActivity() {
                         item {
                             SolidButtonWithText(text = "请求定位权限", onClick = {
                                 CoroutineScope(Dispatchers.IO).launch {
-                                    val result = reqPermissions(
+                                    val result = PermissionManager.reqPermissions(
                                         arrayOf(
                                             android.Manifest.permission.ACCESS_FINE_LOCATION,
                                             android.Manifest.permission.ACCESS_COARSE_LOCATION

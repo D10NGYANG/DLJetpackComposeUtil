@@ -69,7 +69,7 @@ dependencies {
     ksp("io.github.raamcosta.compose-destinations:ksp:$compose_destinations_ver")
 
     // APP通用工具
-    implementation("com.github.D10NGYANG:DLAppUtil:2.3.4")
+    implementation("com.github.D10NGYANG:DLAppUtil:2.4.1")
     // 时间工具
     implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.5")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")

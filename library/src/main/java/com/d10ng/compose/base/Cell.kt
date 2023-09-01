@@ -198,13 +198,13 @@ fun VenCell(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
             .clickable(
                 enabled = onClick != null,
                 role = Role.Button
             ) {
                 onClick?.invoke()
-            },
+            }
+            .padding(horizontal = 16.dp),
     ) {
         Row(
             modifier = Modifier

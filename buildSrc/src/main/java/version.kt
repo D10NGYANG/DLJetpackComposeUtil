@@ -1,6 +1,6 @@
 object Project {
     const val compile_sdk = 34
-    const val min_sdk = 23
+    const val min_sdk = 24
     const val target_sdk = 30
 }
 
