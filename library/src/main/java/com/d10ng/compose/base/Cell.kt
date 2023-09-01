@@ -1,5 +1,6 @@
 package com.d10ng.compose.base
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -26,12 +27,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 
-@Preview
+@Preview(device = "spec:width=1080px,height=3500px,dpi=440")
 @Composable
 fun CellPreview() {
     LazyColumn(
@@ -114,7 +117,10 @@ fun CellPreview() {
                 modifier = Modifier.padding(16.dp)
             )
             VenCellGroup {
-                VenCell(title = "单元格", value = "内容", isLink = true, onClick = {})
+                val ctx = LocalContext.current
+                VenCell(title = "单元格", value = "内容", isLink = true, onClick = {
+                    Toast.makeText(ctx, "点击了单元格", Toast.LENGTH_SHORT).show()
+                })
                 VenCell(
                     title = "单元格",
                     value = "内容",
@@ -184,7 +190,6 @@ fun VenCell(
     border: Boolean = true,
     isLink: Boolean = false,
     required: Boolean = false,
-    center: Boolean = false,
     arrowDirection: CellArrowDirection = CellArrowDirection.RIGHT,
     onClick: (() -> Unit)? = null,
     afterTitle: @Composable (() -> Unit)? = null,
@@ -194,7 +199,10 @@ fun VenCell(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
-            .clickable {
+            .clickable(
+                enabled = onClick != null,
+                role = Role.Button
+            ) {
                 onClick?.invoke()
             },
     ) {

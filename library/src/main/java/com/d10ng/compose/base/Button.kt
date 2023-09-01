@@ -39,7 +39,7 @@ import com.d10ng.compose.utils.isDark
 import com.d10ng.compose.utils.next
 
 @OptIn(ExperimentalLayoutApi::class)
-@Preview
+@Preview(device = "spec:width=1080px,height=3000px,dpi=440")
 @Composable
 internal fun ButtonPreview() {
     LazyColumn(
