@@ -41,7 +41,7 @@ import com.d10ng.compose.utils.next
 @OptIn(ExperimentalLayoutApi::class)
 @Preview(device = "spec:width=1080px,height=3000px,dpi=440")
 @Composable
-internal fun ButtonPreview() {
+fun ButtonPreview() {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -57,11 +57,11 @@ internal fun ButtonPreview() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                VanButton(text = "主要按钮", type = ButtonType.PRIMARY) {}
-                VanButton(text = "成功按钮", type = ButtonType.SUCCESS) {}
-                VanButton(text = "默认按钮") {}
-                VanButton(text = "警告按钮", type = ButtonType.WARNING) {}
-                VanButton(text = "危险按钮", type = ButtonType.DANGER) {}
+                Button(text = "主要按钮", type = ButtonType.PRIMARY) {}
+                Button(text = "成功按钮", type = ButtonType.SUCCESS) {}
+                Button(text = "默认按钮") {}
+                Button(text = "警告按钮", type = ButtonType.WARNING) {}
+                Button(text = "危险按钮", type = ButtonType.DANGER) {}
             }
             Text(
                 text = "朴素按钮",
@@ -75,9 +75,9 @@ internal fun ButtonPreview() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                VanButton(text = "主要按钮", type = ButtonType.PRIMARY, plain = true) {}
-                VanButton(text = "成功按钮", type = ButtonType.SUCCESS, plain = true) {}
-                VanButton(text = "默认按钮", plain = true) {}
+                Button(text = "主要按钮", type = ButtonType.PRIMARY, plain = true) {}
+                Button(text = "成功按钮", type = ButtonType.SUCCESS, plain = true) {}
+                Button(text = "默认按钮", plain = true) {}
             }
             Text(
                 text = "细边框",
@@ -91,19 +91,19 @@ internal fun ButtonPreview() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                VanButton(
+                Button(
                     text = "主要按钮",
                     type = ButtonType.PRIMARY,
                     plain = true,
                     hairline = true
                 ) {}
-                VanButton(
+                Button(
                     text = "成功按钮",
                     type = ButtonType.SUCCESS,
                     plain = true,
                     hairline = true
                 ) {}
-                VanButton(text = "默认按钮", plain = true, hairline = true) {}
+                Button(text = "默认按钮", plain = true, hairline = true) {}
             }
             Text(
                 text = "禁用状态",
@@ -117,9 +117,9 @@ internal fun ButtonPreview() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                VanButton(text = "主要按钮", type = ButtonType.PRIMARY, disabled = true) {}
-                VanButton(text = "成功按钮", type = ButtonType.SUCCESS, disabled = true) {}
-                VanButton(text = "默认按钮", plain = true, disabled = true) {}
+                Button(text = "主要按钮", type = ButtonType.PRIMARY, disabled = true) {}
+                Button(text = "成功按钮", type = ButtonType.SUCCESS, disabled = true) {}
+                Button(text = "默认按钮", plain = true, disabled = true) {}
             }
             Text(
                 text = "加载状态",
@@ -133,9 +133,9 @@ internal fun ButtonPreview() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                VanButton(text = "主要按钮", type = ButtonType.PRIMARY, loading = true) {}
-                VanButton(text = "成功按钮", type = ButtonType.SUCCESS, loading = true) {}
-                VanButton(text = "默认按钮", plain = true, loading = true) {}
+                Button(text = "主要按钮", type = ButtonType.PRIMARY, loading = true) {}
+                Button(text = "成功按钮", type = ButtonType.SUCCESS, loading = true) {}
+                Button(text = "默认按钮", plain = true, loading = true) {}
             }
             Text(
                 text = "按钮形状",
@@ -149,13 +149,13 @@ internal fun ButtonPreview() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                VanButton(
+                Button(
                     text = "圆形按钮",
                     type = ButtonType.PRIMARY,
                     shape = AppShape.RC.Cycle
                 ) {}
-                VanButton(text = "圆角按钮", type = ButtonType.SUCCESS, shape = AppShape.RC.v8) {}
-                VanButton(text = "方形按钮", plain = true, shape = AppShape.RC.v0) {}
+                Button(text = "圆角按钮", type = ButtonType.SUCCESS, shape = AppShape.RC.v8) {}
+                Button(text = "方形按钮", plain = true, shape = AppShape.RC.v0) {}
             }
             Text(
                 text = "图标按钮",
@@ -169,21 +169,21 @@ internal fun ButtonPreview() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                VanButton(text = "", type = ButtonType.PRIMARY, icon = {
+                Button(text = "", type = ButtonType.PRIMARY, icon = {
                     Icon(
                         Icons.Default.Add,
                         contentDescription = "",
                         modifier = Modifier.size(18.dp)
                     )
                 }) {}
-                VanButton(text = "按钮", type = ButtonType.SUCCESS, icon = {
+                Button(text = "按钮", type = ButtonType.SUCCESS, icon = {
                     Icon(
                         Icons.Default.Add,
                         contentDescription = "",
                         modifier = Modifier.size(18.dp)
                     )
                 }) {}
-                VanButton(text = "图标按钮", plain = true, icon = {
+                Button(text = "图标按钮", plain = true, icon = {
                     Icon(
                         Icons.Default.AccountCircle,
                         contentDescription = "",
@@ -203,10 +203,10 @@ internal fun ButtonPreview() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                VanButton(text = "迷你按钮", type = ButtonType.PRIMARY, size = ButtonSize.MINI) {}
-                VanButton(text = "小型按钮", type = ButtonType.SUCCESS, size = ButtonSize.SMALL) {}
-                VanButton(text = "默认按钮", plain = true, size = ButtonSize.NORMAL) {}
-                VanButton(text = "大型按钮", type = ButtonType.WARNING, size = ButtonSize.LARGE) {}
+                Button(text = "迷你按钮", type = ButtonType.PRIMARY, size = ButtonSize.MINI) {}
+                Button(text = "小型按钮", type = ButtonType.SUCCESS, size = ButtonSize.SMALL) {}
+                Button(text = "默认按钮", plain = true, size = ButtonSize.NORMAL) {}
+                Button(text = "大型按钮", type = ButtonType.WARNING, size = ButtonSize.LARGE) {}
             }
             Text(
                 text = "自定义颜色",
@@ -221,9 +221,9 @@ internal fun ButtonPreview() {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 val color = Color(0xFF9C27B0)
-                VanButton(text = "主要按钮", type = ButtonType.PRIMARY, color = color) {}
-                VanButton(text = "默认按钮", plain = true, color = color) {}
-                VanButton(
+                Button(text = "主要按钮", type = ButtonType.PRIMARY, color = color) {}
+                Button(text = "默认按钮", plain = true, color = color) {}
+                Button(
                     text = "主要按钮",
                     type = ButtonType.PRIMARY,
                     color = color,
@@ -281,7 +281,7 @@ enum class ButtonSize(val textSize: TextUnit, val paddingValues: PaddingValues, 
  * @param onClick Function0<Unit> 点击事件
  */
 @Composable
-fun VanButton(
+fun Button(
     text: String,
     modifier: Modifier = Modifier,
     icon: @Composable (() -> Unit)? = null,
