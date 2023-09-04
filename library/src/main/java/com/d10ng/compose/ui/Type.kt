@@ -1,21 +1,27 @@
 package com.d10ng.compose.ui
 
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 class BasicTextFontWeight(style: TextStyle) {
-    val Title = BasicTextFontSize(style.copy(color = AppColor.Text.title))
-    val Body = BasicTextFontSize(style.copy(color = AppColor.Text.body))
-    val Hint = BasicTextFontSize(style.copy(color = AppColor.Text.hint))
-    val Error = BasicTextFontSize(style.copy(color = AppColor.Text.error))
-    val Primary = BasicTextFontSize(style.copy(color = AppColor.System.primary))
-    val PrimaryVariant = BasicTextFontSize(style.copy(color = AppColor.System.primaryVariant))
-    val Secondary = BasicTextFontSize(style.copy(color = AppColor.System.secondary))
-    val SecondaryVariant = BasicTextFontSize(style.copy(color = AppColor.System.secondaryVariant))
-    val OnPrimary = BasicTextFontSize(style.copy(color = AppColor.On.primary))
-    val OnSecondary = BasicTextFontSize(style.copy(color = AppColor.On.secondary))
-    val OnError = BasicTextFontSize(style.copy(color = AppColor.On.error))
+    val Primary = BasicTextFontSize(style.copy(color = AppColor.Main.primary))
+    val Title = BasicTextFontSize(style.copy(color = AppColor.Neutral.title))
+    val Body = BasicTextFontSize(style.copy(color = AppColor.Neutral.body))
+    val Hint = BasicTextFontSize(style.copy(color = AppColor.Neutral.hint))
+    val Tips = BasicTextFontSize(style.copy(color = AppColor.Neutral.tips))
+    val Link = BasicTextFontSize(style.copy(color = AppColor.Func.link))
+    val Success = BasicTextFontSize(style.copy(color = AppColor.Func.success))
+    val Error = BasicTextFontSize(style.copy(color = AppColor.Func.error))
+    val Notice = BasicTextFontSize(style.copy(color = AppColor.Func.notice))
+    val Assist = BasicTextFontSize(style.copy(color = AppColor.Func.assist))
+
+    // 白色
+    val White = BasicTextFontSize(style.copy(color = Color.White))
+
+    // 黑色
+    val Black = BasicTextFontSize(style.copy(color = Color.Black))
 }
 
 class BasicTextFontSize(style: TextStyle) {

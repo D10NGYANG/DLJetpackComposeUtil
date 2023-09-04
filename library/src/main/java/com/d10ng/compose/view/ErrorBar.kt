@@ -33,7 +33,7 @@ fun BoxScope.ErrorBar(
                 .align(Alignment.TopCenter),
             containerColor = AppColor.System.error
         ) {
-            Text(text = text, style = AppText.Medium.OnError.v14)
+            Text(text = text, style = AppText.Medium.White.v14)
         }
     }
 }

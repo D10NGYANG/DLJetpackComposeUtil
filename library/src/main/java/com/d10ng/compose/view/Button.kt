@@ -45,7 +45,7 @@ fun Button_Test() {
         OutlinedButton(onClick = { }) {
             Text(text = "OutlinedButton")
         }
-        Text(text = "TextButton", style = AppText.Bold.OnSecondary.v16)
+        Text(text = "TextButton", style = AppText.Bold.White.v16)
         SolidButton {
             Text(text = "实心按钮")
         }
@@ -88,7 +88,7 @@ fun MiniButton(
     ) {
         Text(
             text = text,
-            style = AppText.Medium.OnSecondary.v12,
+            style = AppText.Medium.White.v12,
             color = if (enabled) fontColor else disabledFontColor,
             fontSize = fontSize
         )
@@ -161,7 +161,7 @@ fun SolidButtonWithText(
     ) {
         Text(
             text = text,
-            style = AppText.Bold.OnSecondary.v16
+            style = AppText.Bold.White.v16
         )
     }
 }
@@ -237,7 +237,7 @@ fun HollowButtonWithText(
     ) {
         Text(
             text = text,
-            style = AppText.Bold.Secondary.v16
+            style = AppText.Bold.Primary.v16
         )
     }
 }
@@ -291,7 +291,7 @@ fun HollowButtonWithImageText(
             )
             Text(
                 text = text,
-                style = AppText.Bold.Secondary.v16
+                style = AppText.Bold.Primary.v16
             )
         }
     }
@@ -319,7 +319,7 @@ fun DialogSureButton(
     ) {
         Text(
             text = text,
-            style = AppText.Normal.OnSecondary.v14,
+            style = AppText.Normal.White.v14,
             color = color
         )
     }

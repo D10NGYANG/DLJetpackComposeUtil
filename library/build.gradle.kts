@@ -71,6 +71,9 @@ dependencies {
     // Integration with activities
     api("androidx.activity:activity-compose:1.7.2")
 
+    // startup
+    implementation("androidx.startup:startup-runtime:1.1.1")
+
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$jetpack_lifecycle_ver")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$jetpack_lifecycle_ver")

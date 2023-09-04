@@ -23,7 +23,7 @@ fun BadgeText(
     number: Int,
     size: Dp = 20.dp,
     background: Color = AppColor.System.secondary,
-    textStyle: TextStyle = AppText.Bold.OnSecondary.v12
+    textStyle: TextStyle = AppText.Bold.White.v12
 ) {
     if (number == 0) return
     val text = remember(number) {

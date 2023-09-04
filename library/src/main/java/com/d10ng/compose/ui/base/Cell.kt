@@ -1,21 +1,15 @@
-package com.d10ng.compose.base
+package com.d10ng.compose.ui.base
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,90 +17,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.R
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 
-@Preview(device = "spec:width=1080px,height=3500px,dpi=440")
-@Composable
-fun CellPreview() {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AppColor.Neutral.bg)
-    ) {
-        item {
-            CellGroup(
-                title = "基础用法"
-            ) {
-                Cell(title = "单元格")
-                Cell(title = "单元格", value = "内容")
-                Cell(title = "单元格", value = "内容", label = "描述信息", border = false)
-            }
-            CellGroup(inset = true, title = "卡片风格") {
-                Cell(title = "单元格", isLink = true)
-                Cell(title = "单元格", value = "内容")
-                Cell(title = "单元格", value = "内容", label = "描述信息", border = false)
-            }
-            CellGroup(title = "展示图标") {
-                Cell(title = "单元格", value = "内容", icon = {
-                    Icon(
-                        Icons.Default.Favorite,
-                        contentDescription = "",
-                        modifier = Modifier.size(14.dp)
-                    )
-                })
-                Cell(
-                    title = "单元格",
-                    value = "内容",
-                    label = "描述信息",
-                    border = false,
-                    icon = {
-                        Icon(
-                            Icons.Default.LocationOn,
-                            contentDescription = "",
-                            modifier = Modifier.size(14.dp)
-                        )
-                    })
-            }
-            CellGroup(title = "展示箭头") {
-                Cell(title = "单元格", isLink = true)
-                Cell(title = "单元格", value = "内容", isLink = true)
-                Cell(
-                    title = "单元格",
-                    value = "内容",
-                    isLink = true,
-                    arrowDirection = CellArrowDirection.DOWN
-                )
-                Cell(
-                    title = "单元格",
-                    value = "内容",
-                    label = "描述信息",
-                    border = false,
-                    isLink = true
-                )
-            }
-            CellGroup(title = "点击效果") {
-                val ctx = LocalContext.current
-                Cell(title = "单元格", value = "内容", isLink = true, onClick = {
-                    Toast.makeText(ctx, "点击了单元格", Toast.LENGTH_SHORT).show()
-                })
-                Cell(
-                    title = "单元格",
-                    value = "内容",
-                    isLink = true,
-                    label = "描述信息",
-                    border = false,
-                    onClick = {})
-            }
-        }
-    }
-}
+/**
+ * 单元格组件
+ * @Author d10ng
+ * @Date 2023/9/4 10:07
+ */
 
 @Composable
 private fun Border() {

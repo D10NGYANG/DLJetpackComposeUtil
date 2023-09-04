@@ -94,7 +94,7 @@ class MainActivity1 : BaseActivity() {
                         item {
                             SolidButtonWithText(text = "请求定位权限", onClick = {
                                 CoroutineScope(Dispatchers.IO).launch {
-                                    val result = PermissionManager.reqPermissions(
+                                    val result = PermissionManager.request(
                                         arrayOf(
                                             android.Manifest.permission.ACCESS_FINE_LOCATION,
                                             android.Manifest.permission.ACCESS_COARSE_LOCATION
