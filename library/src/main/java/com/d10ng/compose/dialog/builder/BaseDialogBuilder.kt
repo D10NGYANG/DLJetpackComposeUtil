@@ -25,15 +25,15 @@ import com.d10ng.compose.view.DialogSureButton
 data class BaseDialogBuilder(
     var title: String = "提示",
     var titleAlign: Alignment.Horizontal = Alignment.Start,
-    var titleColor: Color = AppColor.Text.title,
+    var titleColor: Color = AppColor.Neutral.title,
     var message: String = "",
     var messageAlign: Alignment.Horizontal = Alignment.Start,
-    var messageColor: Color = AppColor.Text.body,
+    var messageColor: Color = AppColor.Neutral.body,
     var sureButton: String = "确定",
-    var sureButtonTextColor: Color = AppColor.On.secondary,
-    var sureButtonBackgroundColor: Color = AppColor.System.secondary,
+    var sureButtonTextColor: Color = Color.White,
+    var sureButtonBackgroundColor: Color = AppColor.Main.primary,
     var cancelButton: String = "取消",
-    var cancelButtonTextColor: Color = AppColor.Text.body,
+    var cancelButtonTextColor: Color = AppColor.Neutral.body,
     var onClickSure: (() -> Unit)? = null,
     var onClickCancel: (() -> Unit)? = null,
     var columnContent: @Composable ColumnScope.() -> Unit = {}
@@ -126,5 +126,17 @@ fun getErrorDialogBuilder(
     onClickSure: (() -> Unit)? = null,
     onClickCancel: (() -> Unit)? = null,
 ) = BaseDialogBuilder(
-    title, titleAlign, AppColor.System.error, message, messageAlign, AppColor.Text.body, sureButton, AppColor.On.error, AppColor.System.error, cancelButton, AppColor.Text.body, onClickSure, onClickCancel
+    title,
+    titleAlign,
+    AppColor.Func.error,
+    message,
+    messageAlign,
+    AppColor.Neutral.body,
+    sureButton,
+    Color.White,
+    AppColor.Func.error,
+    cancelButton,
+    AppColor.Neutral.body,
+    onClickSure,
+    onClickCancel
 )

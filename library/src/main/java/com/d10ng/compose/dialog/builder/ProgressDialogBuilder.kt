@@ -18,10 +18,10 @@ import com.d10ng.compose.ui.AppText
 data class ProgressDialogBuilder(
     var title: String = "进度",
     var titleAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
-    var titleColor: Color = AppColor.Text.title,
+    var titleColor: Color = AppColor.Neutral.title,
     var message: String = "",
     var messageAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
-    var messageColor: Color = AppColor.Text.body,
+    var messageColor: Color = AppColor.Neutral.body,
     var progress: Long = 0,
     var max: Long = 100,
     var isShowProgressText: Boolean = true,
@@ -63,8 +63,8 @@ data class ProgressDialogBuilder(
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .padding(top = 16.dp),
-                color = AppColor.System.secondary,
-                trackColor = AppColor.System.divider
+                color = AppColor.Main.primary,
+                trackColor = AppColor.Neutral.line
             )
         }.Build()
     }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
+import com.d10ng.compose.dialog.builder.DialogBuilder
 import com.d10ng.compose.ui.base.ToastPosition
 
 /**
@@ -80,5 +81,17 @@ object UiViewModelManager : IUiViewModel {
 
     override fun hideLoading() {
         getTopVM()?.hideLoading()
+    }
+
+    override fun showError(msg: String) {
+        getTopVM()?.showError(msg)
+    }
+
+    override fun showDialog(builder: DialogBuilder) {
+        getTopVM()?.showDialog(builder)
+    }
+
+    override fun hideDialog() {
+        getTopVM()?.hideDialog()
     }
 }

@@ -18,10 +18,10 @@ import com.d10ng.compose.ui.AppText
 data class RadioDialogBuilder(
     var title: String = "提示",
     var titleAlign: Alignment.Horizontal = Alignment.Start,
-    var titleColor: Color = AppColor.Text.title,
+    var titleColor: Color = AppColor.Neutral.title,
     var message: String = "",
     var messageAlign: Alignment.Horizontal = Alignment.Start,
-    var messageColor: Color = AppColor.Text.body,
+    var messageColor: Color = AppColor.Neutral.body,
     var map: Map<String, Any>,
     var select: String,
     var customItemView: @Composable (Boolean, Pair<String, Any>, () -> Unit) -> Unit = { isSelect, info, onClick ->
@@ -41,8 +41,8 @@ data class RadioDialogBuilder(
                 else R.drawable.ic_baseline_radio_button_unchecked_24
             }
             val color = remember(isSelect) {
-                if (isSelect) AppColor.System.secondary
-                else AppColor.Text.body
+                if (isSelect) AppColor.Main.primary
+                else AppColor.Neutral.body
             }
             Row(
                 modifier = Modifier

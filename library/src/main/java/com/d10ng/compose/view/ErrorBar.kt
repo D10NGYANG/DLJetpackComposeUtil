@@ -31,7 +31,7 @@ fun BoxScope.ErrorBar(
                 .navigationBarsPadding()
                 .imePadding()
                 .align(Alignment.TopCenter),
-            containerColor = AppColor.System.error
+            containerColor = AppColor.Func.error
         ) {
             Text(text = text, style = AppText.Medium.White.v14)
         }

@@ -3,7 +3,11 @@ package com.d10ng.compose.dialog.builder
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,20 +22,20 @@ import com.d10ng.datelib.getDateBy
 data class DatePickerDialogBuilder(
     var title: String = "提示",
     var titleAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
-    var titleColor: Color = AppColor.Text.title,
+    var titleColor: Color = AppColor.Neutral.title,
     var message: String,
     var messageAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
-    var messageColor: Color = AppColor.Text.body,
+    var messageColor: Color = AppColor.Neutral.body,
     var initValue: Long,
     var start: Long = getDateBy(1900, 1, 1, 0, 0, 0, 0),
     var endInclude: Long = curTime,
     var dividersColor: Color = Color.Transparent,
     var textStyle: TextStyle = AppText.Normal.Title.v16,
     var sureButton: String = "确定",
-    var sureButtonTextColor: Color = AppColor.On.secondary,
-    var sureButtonBackgroundColor: Color = AppColor.System.secondary,
+    var sureButtonTextColor: Color = Color.White,
+    var sureButtonBackgroundColor: Color = AppColor.Main.primary,
     var cancelButton: String = "取消",
-    var cancelButtonTextColor: Color = AppColor.Text.body,
+    var cancelButtonTextColor: Color = AppColor.Neutral.body,
     var onClickSure: (Long) -> Unit,
     var onClickCancel: () -> Unit,
 ): DialogBuilder() {

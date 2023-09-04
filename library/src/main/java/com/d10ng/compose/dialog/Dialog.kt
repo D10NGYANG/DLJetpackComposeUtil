@@ -82,7 +82,7 @@ fun DialogColumn(
             .fillMaxWidth()
             .padding(25.dp)
             .wrapContentHeight()
-            .background(AppColor.System.surface, AppShape.RC.v16)
+            .background(Color.White, AppShape.RC.v16)
             .padding(25.dp),
         content = content
     )
@@ -92,7 +92,7 @@ fun DialogColumn(
 fun DialogTitle(
     modifier: Modifier = Modifier,
     text: String,
-    color: Color = AppColor.Text.title
+    color: Color = AppColor.Neutral.title
 ) {
     Text(
         text = text,
@@ -106,7 +106,7 @@ fun DialogTitle(
 fun DialogMessage(
     modifier: Modifier = Modifier,
     text: String,
-    color: Color = AppColor.Text.body
+    color: Color = AppColor.Neutral.body
 ) {
     Text(
         text = text,

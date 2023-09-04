@@ -2,6 +2,7 @@ package com.d10ng.compose.dialog.builder
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import com.d10ng.compose.ui.AppColor
 
 data class WarningDialogBuilder(
@@ -16,12 +17,12 @@ data class WarningDialogBuilder(
         BaseDialogBuilder(
             title = title,
             titleAlign = Alignment.CenterHorizontally,
-            titleColor = AppColor.System.error,
+            titleColor = AppColor.Func.error,
             message = message,
             messageAlign = Alignment.CenterHorizontally,
             sureButton = buttonText,
-            sureButtonTextColor = AppColor.On.error,
-            sureButtonBackgroundColor = AppColor.System.error,
+            sureButtonTextColor = Color.White,
+            sureButtonBackgroundColor = AppColor.Func.error,
             onClickSure = onClickButton
         ).Build()
     }

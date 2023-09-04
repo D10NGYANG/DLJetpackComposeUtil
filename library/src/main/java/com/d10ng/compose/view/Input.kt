@@ -83,7 +83,7 @@ fun Input(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     singleLine: Boolean = false,
     maxLines: Int = Int.MAX_VALUE,
-    cursorColor: Color = AppColor.System.secondary,
+    cursorColor: Color = AppColor.Main.primary,
     isFocus: Boolean = false
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -133,7 +133,7 @@ fun DialogInput(
             .height(if (input.singleLine) 30.dp else 90.dp)
             .border(
                 1.dp,
-                if (errorText.isEmpty()) AppColor.Text.body else AppColor.Text.error,
+                if (errorText.isEmpty()) AppColor.Neutral.body else AppColor.Func.error,
                 AppShape.RC.v8
             )
             .padding(horizontal = 8.dp),
@@ -173,7 +173,7 @@ fun MenuInput(
     isFocus: Boolean = false,
     maxLines: Int = 1,
     inputWidth: Dp? = null,
-    inputBackgroundColor: Color = AppColor.System.divider,
+    inputBackgroundColor: Color = AppColor.Neutral.line,
     inputBackgroundShape: Shape = AppShape.RC.v4,
     onClickNext: () -> Unit = {},
     onFocus: () -> Unit = {},

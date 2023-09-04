@@ -5,6 +5,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.R
@@ -36,7 +37,7 @@ data class SuccessOrFalseDialogBuilder(
                 modifier = Modifier
                     .padding(top = 16.dp)
                     .align(Alignment.CenterHorizontally),
-                tint = if (isSuccess) AppColor.System.secondary else AppColor.System.error
+                tint = if (isSuccess) AppColor.Main.primary else AppColor.Func.error
             )
             if (message.isNotEmpty()) {
                 DialogMessage(
@@ -49,8 +50,8 @@ data class SuccessOrFalseDialogBuilder(
             DialogSureButton(
                 text = buttonText,
                 onClick = onClickButton,
-                color = if (isSuccess) AppColor.On.secondary else AppColor.On.error,
-                containerColor = if (isSuccess) AppColor.System.secondary else AppColor.System.error,
+                color = if (isSuccess) Color.White else Color.White,
+                containerColor = if (isSuccess) AppColor.Main.primary else AppColor.Func.error,
                 modifier = Modifier.padding(top = 16.dp)
             )
         }

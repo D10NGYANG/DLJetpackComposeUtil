@@ -22,7 +22,7 @@ fun BadgeText(
     modifier: Modifier = Modifier,
     number: Int,
     size: Dp = 20.dp,
-    background: Color = AppColor.System.secondary,
+    background: Color = AppColor.Main.primary,
     textStyle: TextStyle = AppText.Bold.White.v12
 ) {
     if (number == 0) return

@@ -222,7 +222,7 @@ fun ListItem(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_keyboard_arrow_right_24),
                     contentDescription = title,
-                    tint = AppColor.On.background
+                    tint = AppColor.Neutral.tips
                 )
             }
         }
@@ -342,7 +342,7 @@ fun ListInputItem(
     isFocus: Boolean = false,
     maxLines: Int = 1,
     inputWidth: Dp? = null,
-    inputBackgroundColor: Color = AppColor.System.divider,
+    inputBackgroundColor: Color = AppColor.Neutral.line,
     inputBackgroundShape: Shape = AppShape.RC.v4,
     onClickNext: () -> Unit = {},
     onFocus: () -> Unit = {},
@@ -428,7 +428,7 @@ fun ListMenuItem(
     placeholder: String = "请选择",
     placeholderStyle: TextStyle = AppText.Normal.Hint.v14,
     inputWidth: Dp? = null,
-    inputBackgroundColor: Color = AppColor.System.divider,
+    inputBackgroundColor: Color = AppColor.Neutral.line,
     inputBackgroundShape: Shape = AppShape.RC.v4,
     menus: List<ListItemMenu> = emptyList(),
     onMenuSelect: (ListItemMenu) -> Unit = {},

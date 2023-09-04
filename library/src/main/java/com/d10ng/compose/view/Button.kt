@@ -64,11 +64,11 @@ fun MiniButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     fontSize: TextUnit = 12.sp,
-    fontColor: Color = AppColor.On.secondary,
-    disabledFontColor: Color = AppColor.Text.hint,
+    fontColor: Color = Color.White,
+    disabledFontColor: Color = AppColor.Neutral.hint,
     shape: Shape = AppShape.RC.v8,
-    background: Color = AppColor.System.secondary,
-    disabledBackground: Color = AppColor.System.secondaryVariant,
+    background: Color = AppColor.Main.primary,
+    disabledBackground: Color = AppColor.Main.primary,
     enabled: Boolean = true,
     border: BorderStroke? = null,
     contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
@@ -109,10 +109,10 @@ fun SolidButton(
     modifier: Modifier = Modifier,
     shape: Shape = AppShape.RC.v4,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        containerColor = AppColor.System.secondary,
-        disabledContainerColor = AppColor.System.secondaryVariant,
-        contentColor = AppColor.On.secondary,
-        disabledContentColor = AppColor.On.secondary
+        containerColor = AppColor.Main.primary,
+        disabledContainerColor = AppColor.Main.primary,
+        contentColor = Color.White,
+        disabledContentColor = Color.White
     ),
     enabled: Boolean = true,
     onClick: () -> Unit = {},
@@ -143,10 +143,10 @@ fun SolidButtonWithText(
     modifier: Modifier = Modifier,
     shape: Shape = AppShape.RC.v4,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        containerColor = AppColor.System.secondary,
-        disabledContainerColor = AppColor.System.secondaryVariant,
-        contentColor = AppColor.On.secondary,
-        disabledContentColor = AppColor.On.secondary
+        containerColor = AppColor.Main.primary,
+        disabledContainerColor = AppColor.Main.primary,
+        contentColor = Color.White,
+        disabledContentColor = Color.White
     ),
     enabled: Boolean = true,
     onClick: () -> Unit = {},
@@ -183,10 +183,10 @@ fun HollowButton(
     colors: ButtonColors = ButtonDefaults.buttonColors(
         containerColor = Color.Transparent,
         disabledContainerColor = Color.Transparent,
-        contentColor = AppColor.System.secondary,
-        disabledContentColor = AppColor.System.secondary
+        contentColor = AppColor.Main.primary,
+        disabledContentColor = AppColor.Main.primary
     ),
-    border: BorderStroke = BorderStroke(1.dp, AppColor.System.secondary),
+    border: BorderStroke = BorderStroke(1.dp, AppColor.Main.primary),
     enabled: Boolean = true,
     onClick: () -> Unit = {},
     content: @Composable RowScope.() -> Unit
@@ -219,10 +219,10 @@ fun HollowButtonWithText(
     colors: ButtonColors = ButtonDefaults.buttonColors(
         containerColor = Color.Transparent,
         disabledContainerColor = Color.Transparent,
-        contentColor = AppColor.System.secondary,
-        disabledContentColor = AppColor.System.secondary
+        contentColor = AppColor.Main.primary,
+        disabledContentColor = AppColor.Main.primary
     ),
-    border: BorderStroke = BorderStroke(1.dp, AppColor.System.secondary),
+    border: BorderStroke = BorderStroke(1.dp, AppColor.Main.primary),
     enabled: Boolean = true,
     onClick: () -> Unit = {},
     text: String
@@ -260,10 +260,10 @@ fun HollowButtonWithImageText(
     colors: ButtonColors = ButtonDefaults.buttonColors(
         containerColor = Color.Transparent,
         disabledContainerColor = Color.Transparent,
-        contentColor = AppColor.System.secondary,
-        disabledContentColor = AppColor.System.secondary
+        contentColor = AppColor.Main.primary,
+        disabledContentColor = AppColor.Main.primary
     ),
-    border: BorderStroke = BorderStroke(1.dp, AppColor.System.secondary),
+    border: BorderStroke = BorderStroke(1.dp, AppColor.Main.primary),
     enabled: Boolean = true,
     onClick: () -> Unit = {},
     imageId: Int,
@@ -301,8 +301,8 @@ fun HollowButtonWithImageText(
 fun DialogSureButton(
     modifier: Modifier = Modifier,
     text: String = "确定",
-    color: Color = AppColor.On.secondary,
-    containerColor: Color = AppColor.System.secondary,
+    color: Color = Color.White,
+    containerColor: Color = AppColor.Main.primary,
     onClick: () -> Unit
 ) {
     Button(
@@ -329,7 +329,7 @@ fun DialogSureButton(
 fun DialogCancelButton(
     modifier: Modifier = Modifier,
     text: String = "取消",
-    color: Color = AppColor.Text.body,
+    color: Color = AppColor.Neutral.body,
     onClick: () -> Unit
 ) {
     OutlinedButton(

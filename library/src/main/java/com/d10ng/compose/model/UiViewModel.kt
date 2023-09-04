@@ -1,14 +1,20 @@
 package com.d10ng.compose.model
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.d10ng.compose.dialog.Dialog
+import com.d10ng.compose.dialog.builder.DialogBuilder
 import com.d10ng.compose.ui.base.LoadingToast
 import com.d10ng.compose.ui.base.Toast
 import com.d10ng.compose.ui.base.ToastPosition
 import com.d10ng.compose.ui.base.ToastType
+import com.d10ng.compose.view.ErrorBar
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +37,13 @@ class UiViewModel : ViewModel(), IUiViewModel {
     private val loadingFlow = MutableStateFlow(false)
     private val loadingTextFlow = MutableStateFlow("")
 
+    // error
+    private val errorFlow = MutableStateFlow("")
+    private var cancelErrorJob: Job? = null
+
+    // dialog
+    private val dialogBuilderFlow: MutableStateFlow<DialogBuilder?> = MutableStateFlow(null)
+
     @Composable
     fun Init() {
         val toast by toastFlow.collectAsState()
@@ -44,6 +57,25 @@ class UiViewModel : ViewModel(), IUiViewModel {
         val loadingText by loadingTextFlow.collectAsState()
         if (loading) {
             LoadingToast(text = loadingText)
+        }
+
+        val error by errorFlow.collectAsState()
+        Box(modifier = Modifier.fillMaxWidth()) {
+            ErrorBar(error.isNotEmpty(), error)
+        }
+
+        val dialogBuilder by dialogBuilderFlow.collectAsState()
+        dialogBuilder?.let {
+            Dialog(
+                onDismiss = {
+                    if (it.isClickOutsideDismiss) {
+                        hideDialog()
+                    }
+                },
+                contentAlignment = it.contentAlignment
+            ) {
+                it.Build()
+            }
         }
     }
 
@@ -85,5 +117,22 @@ class UiViewModel : ViewModel(), IUiViewModel {
 
     override fun hideLoading() {
         loadingFlow.value = false
+    }
+
+    override fun showError(msg: String) {
+        errorFlow.value = msg
+        cancelErrorJob?.cancel()
+        cancelErrorJob = viewModelScope.launch {
+            delay(3000)
+            errorFlow.value = ""
+        }
+    }
+
+    override fun showDialog(builder: DialogBuilder) {
+        dialogBuilderFlow.value = builder
+    }
+
+    override fun hideDialog() {
+        dialogBuilderFlow.value = null
     }
 }

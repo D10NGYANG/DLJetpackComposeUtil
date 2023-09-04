@@ -43,9 +43,9 @@ private fun TitleBar_Test() {
 @Composable
 fun TitleBar(
     value: String,
-    background: Color = AppColor.System.primary,
+    background: Color = Color.White,
     titleStyle: TextStyle = AppText.Bold.Title.v18,
-    backButtonTint: Color = AppColor.Text.hint,
+    backButtonTint: Color = AppColor.Neutral.hint,
     onClickBack: (() -> Unit)? = null,
     content: @Composable BoxScope.() -> Unit = {}
 ) {
