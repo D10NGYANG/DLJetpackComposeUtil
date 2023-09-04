@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.d10ng.compose.R
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
+import com.d10ng.compose.ui.AppText
 
 /**
  * 单元格组件
@@ -163,7 +164,7 @@ fun Cell(
         if (label.isNotEmpty()) {
             Text(
                 text = label,
-                color = AppColor.Neutral.tips,
+                style = AppText.Normal.Tips.v12,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
         }

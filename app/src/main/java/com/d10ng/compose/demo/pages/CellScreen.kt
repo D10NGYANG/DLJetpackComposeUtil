@@ -49,7 +49,7 @@ private fun CellScreenView(
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Button", onClickBack = onClickBack)
+        NavBar(title = "Cell", onClickBack = onClickBack)
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()

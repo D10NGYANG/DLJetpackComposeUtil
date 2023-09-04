@@ -6,13 +6,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
+import com.d10ng.compose.ui.base.ToastPosition
 
 /**
  * UI ViewModel 管理器
  * @Author d10ng
  * @Date 2023/9/4 10:24
  */
-object UiViewModelManager {
+object UiViewModelManager : IUiViewModel {
 
     private lateinit var application: Application
 
@@ -59,9 +60,25 @@ object UiViewModelManager {
         modelMap[act]!!.Init()
     }
 
-    fun showToast(msg: String) {
-        topActivity?.let {
-            modelMap[it]?.showToast(msg)
-        }
+    private fun getTopVM() = topActivity?.let { modelMap[it] }
+
+    override fun showToast(msg: String, duration: Long, position: ToastPosition) {
+        getTopVM()?.showToast(msg, duration, position)
+    }
+
+    override fun showSuccessToast(msg: String, duration: Long) {
+        getTopVM()?.showSuccessToast(msg, duration)
+    }
+
+    override fun showFailToast(msg: String, duration: Long) {
+        getTopVM()?.showFailToast(msg, duration)
+    }
+
+    override fun showLoading(text: String) {
+        getTopVM()?.showLoading(text)
+    }
+
+    override fun hideLoading() {
+        getTopVM()?.hideLoading()
     }
 }

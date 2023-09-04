@@ -1,15 +1,26 @@
 package com.d10ng.compose.ui.base
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.d10ng.compose.R
 import com.d10ng.compose.ui.AppShape
 
 /**
@@ -24,8 +35,35 @@ enum class ToastPosition(val contentAlignment: Alignment) {
     Bottom(Alignment.BottomCenter)
 }
 
+enum class ToastType(val iconId: Int?) {
+    Normal(null),
+    Success(R.drawable.ic_success_102),
+    Fail(R.drawable.ic_false_102)
+}
+
 @Composable
 fun Toast(
+    text: String,
+    position: ToastPosition = ToastPosition.Center,
+    forbidClick: Boolean = false,
+    type: ToastType = ToastType.Normal
+) {
+    if (type == ToastType.Normal) {
+        NormalToast(text = text, position = position)
+    } else {
+        IconToast(text = text, forbidClick = forbidClick, icon = {
+            Icon(
+                painter = painterResource(id = type.iconId!!),
+                contentDescription = type.name,
+                tint = Color.White,
+                modifier = Modifier.size(50.dp)
+            )
+        })
+    }
+}
+
+@Composable
+fun NormalToast(
     text: String,
     position: ToastPosition = ToastPosition.Center
 ) {
@@ -52,8 +90,52 @@ fun Toast(
 }
 
 @Composable
-fun LoadingToast(
-    text: String? = null,
+fun IconToast(
+    text: String,
+    forbidClick: Boolean = false,
+    icon: @Composable () -> Unit,
 ) {
+    val modifier = Modifier
+        .fillMaxSize()
+    if (forbidClick) {
+        modifier.pointerInput(Unit) {
+            // 拦截外部的点击
+            detectTapGestures { }
+        }
+    }
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            modifier = Modifier
+                .size(150.dp)
+                .background(Color.Black.copy(alpha = 0.7f), shape = AppShape.RC.v8),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            icon()
+            if (text.isNotEmpty()) Text(
+                text = text,
+                color = Color.White,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+        }
+    }
+    if (forbidClick) {
+        BackHandler(true) {}
+    }
+}
 
+@Composable
+fun LoadingToast(
+    text: String = "",
+) {
+    IconToast(text = text, forbidClick = true, icon = {
+        CircularProgressIndicator(
+            color = Color.White,
+            strokeCap = StrokeCap.Round,
+            strokeWidth = 1.5.dp
+        )
+    })
 }

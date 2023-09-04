@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.d10ng.compose.demo.PageTransitions
 import com.d10ng.compose.demo.pages.destinations.ButtonScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CellScreenDestination
+import com.d10ng.compose.demo.pages.destinations.ToastScreenDestination
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.base.Cell
@@ -40,6 +41,9 @@ fun HomeScreen(
         },
         onClickCell = {
             nav.navigate(CellScreenDestination)
+        },
+        onClickToast = {
+            nav.navigate(ToastScreenDestination)
         }
     )
 }
