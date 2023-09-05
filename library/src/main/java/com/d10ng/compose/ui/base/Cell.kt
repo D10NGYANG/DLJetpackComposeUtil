@@ -53,7 +53,11 @@ fun CellGroup(
             .fillMaxWidth()
     ) {
         if (title.isNotEmpty()) {
-            Text(text = title, color = AppColor.Neutral.tips, modifier = Modifier.padding(16.dp))
+            Text(
+                text = title,
+                style = AppText.Normal.Tips.default,
+                modifier = Modifier.padding(16.dp)
+            )
         }
         val shape = if (inset) AppShape.RC.v8 else AppShape.RC.v0
         Column(
@@ -121,13 +125,13 @@ fun Cell(
             if (required) {
                 Text(
                     text = "*",
-                    color = AppColor.Func.error,
+                    style = AppText.Normal.Error.default,
                     modifier = Modifier.padding(start = if (icon != null) 8.dp else 0.dp)
                 )
             }
             Text(
                 text = title,
-                color = AppColor.Neutral.title,
+                style = AppText.Normal.Title.default,
                 modifier = Modifier
                     .padding(start = if (icon != null && !required) 8.dp else 0.dp)
             )
@@ -136,7 +140,7 @@ fun Cell(
             if (value.isNotEmpty()) {
                 Text(
                     text = value,
-                    color = AppColor.Neutral.body
+                    style = AppText.Normal.Body.default
                 )
             }
             afterValue?.invoke()
@@ -153,7 +157,7 @@ fun Cell(
         if (label.isNotEmpty()) {
             Text(
                 text = label,
-                style = AppText.Normal.Tips.v12,
+                style = AppText.Normal.Tips.small,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
         }

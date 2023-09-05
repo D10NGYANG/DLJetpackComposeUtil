@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.d10ng.compose.demo.PageTransitions
+import com.d10ng.compose.demo.R
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.form.Field
@@ -88,6 +89,58 @@ private fun FieldScreenView(
                         onValueChange = { value5 = it },
                         label = "密码",
                         type = KeyboardType.Password
+                    )
+                }
+                CellGroup(
+                    title = "禁用输入框", inset = true
+                ) {
+                    var value1 by remember { mutableStateOf("输入框只读") }
+                    var value2 by remember { mutableStateOf("输入框已禁用") }
+                    Field(
+                        value = value1,
+                        onValueChange = { value1 = it },
+                        label = "文本",
+                        readonly = true
+                    )
+                    Field(
+                        value = value2,
+                        onValueChange = { value2 = it },
+                        label = "文本",
+                        disabled = true,
+                        border = false
+                    )
+                }
+                CellGroup(
+                    title = "显示图标", inset = true
+                ) {
+                    var value1 by remember { mutableStateOf("显示图标") }
+                    var value2 by remember { mutableStateOf("显示清除图标") }
+                    Field(
+                        value = value1,
+                        onValueChange = { value1 = it },
+                        label = "文本",
+                        leftIconId = R.drawable.round_mood_24
+                    )
+                    Field(
+                        value = value2,
+                        onValueChange = { value2 = it },
+                        label = "文本",
+                        leftIconId = R.drawable.round_mood_24,
+                        canClear = true,
+                        border = false
+                    )
+                }
+                CellGroup(
+                    title = "错误提示", inset = true
+                ) {
+                    var value1 by remember { mutableStateOf("") }
+                    var value2 by remember { mutableStateOf("") }
+                    Field(
+                        value = value1,
+                        onValueChange = { value1 = it },
+                        label = "用户名",
+                        required = true,
+                        error = "错误提示"
                     )
                 }
             }

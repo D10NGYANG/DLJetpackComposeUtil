@@ -19,9 +19,9 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
+import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.utils.isDark
 import com.d10ng.compose.utils.next
 
@@ -50,16 +50,16 @@ enum class ButtonType(val color: Color, val border: Color) {
 
 enum class ButtonSize(val textSize: TextUnit, val paddingValues: PaddingValues, val height: Dp) {
     // 默认
-    NORMAL(14.sp, ButtonDefaults.ContentPadding, 40.dp),
+    NORMAL(AppText.Normal.White.default.fontSize, ButtonDefaults.ContentPadding, 40.dp),
 
     // 迷你
-    MINI(10.sp, PaddingValues(6.dp, 2.dp), 28.dp),
+    MINI(AppText.Normal.White.mini.fontSize, PaddingValues(6.dp, 2.dp), 28.dp),
 
     // 小
-    SMALL(12.sp, PaddingValues(12.dp, 4.dp), 36.dp),
+    SMALL(AppText.Normal.White.small.fontSize, PaddingValues(12.dp, 4.dp), 36.dp),
 
     // 大
-    LARGE(18.sp, PaddingValues(36.dp, 12.dp), 64.dp),
+    LARGE(AppText.Normal.White.large.fontSize, PaddingValues(36.dp, 12.dp), 64.dp),
 }
 
 /**

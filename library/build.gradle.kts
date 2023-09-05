@@ -70,6 +70,8 @@ dependencies {
     debugApi("androidx.compose.ui:ui-test-manifest")
     // Integration with activities
     api("androidx.activity:activity-compose:1.7.2")
+    // constraintlayout
+    api("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha12")
 
     // startup
     implementation("androidx.startup:startup-runtime:1.1.1")

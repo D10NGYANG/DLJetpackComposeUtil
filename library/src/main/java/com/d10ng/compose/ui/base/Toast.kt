@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.R
 import com.d10ng.compose.ui.AppShape
+import com.d10ng.compose.ui.AppText
 
 /**
  * 轻提示组件
@@ -41,6 +42,13 @@ enum class ToastType(val iconId: Int?) {
     Fail(R.drawable.ic_false_102)
 }
 
+/**
+ * 轻提示
+ * @param text String 提示文本
+ * @param position ToastPosition 显示位置
+ * @param forbidClick Boolean 是否禁止点击
+ * @param type ToastType 提示类型
+ */
 @Composable
 fun Toast(
     text: String,
@@ -83,7 +91,7 @@ fun NormalToast(
                     .background(Color.Black.copy(alpha = 0.7f), shape = AppShape.RC.v8)
                     .padding(horizontal = 24.dp, vertical = 8.dp)
             ) {
-                Text(text = text, color = Color.White)
+                Text(text = text, style = AppText.Normal.White.default)
             }
         }
     }
@@ -95,10 +103,10 @@ fun IconToast(
     forbidClick: Boolean = false,
     icon: @Composable () -> Unit,
 ) {
-    val modifier = Modifier
+    var modifier = Modifier
         .fillMaxSize()
     if (forbidClick) {
-        modifier.pointerInput(Unit) {
+        modifier = modifier.pointerInput(Unit) {
             // 拦截外部的点击
             detectTapGestures { }
         }
@@ -117,7 +125,7 @@ fun IconToast(
             icon()
             if (text.isNotEmpty()) Text(
                 text = text,
-                color = Color.White,
+                style = AppText.Normal.White.default,
                 modifier = Modifier.padding(top = 16.dp)
             )
         }
