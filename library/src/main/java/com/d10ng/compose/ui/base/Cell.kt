@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -30,16 +29,6 @@ import com.d10ng.compose.ui.AppText
  * @Author d10ng
  * @Date 2023/9/4 10:07
  */
-
-@Composable
-private fun Border() {
-    Spacer(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(0.5.dp)
-            .background(AppColor.Neutral.border)
-    )
-}
 
 /**
  * 单元格组
@@ -95,7 +84,7 @@ enum class CellArrowDirection(val degrees: Float) {
  * @param label String 描述信息
  * @param icon [@androidx.compose.runtime.Composable] Function0<Unit>? 图标
  * @param border Boolean 是否显示边框
- * @param isLink Boolean 是否展示右侧箭头并开启点击反馈
+ * @param link Boolean 是否展示右侧箭头并开启点击反馈
  * @param required Boolean 是否显示必填标记
  * @param arrowDirection CellArrowDirection 箭头方向
  * @param onClick Function0<Unit>? 点击事件
@@ -110,7 +99,7 @@ fun Cell(
     label: String = "",
     icon: @Composable (() -> Unit)? = null,
     border: Boolean = true,
-    isLink: Boolean = false,
+    link: Boolean = false,
     required: Boolean = false,
     arrowDirection: CellArrowDirection = CellArrowDirection.RIGHT,
     onClick: (() -> Unit)? = null,
@@ -151,7 +140,7 @@ fun Cell(
                 )
             }
             afterValue?.invoke()
-            if (isLink) Icon(
+            if (link) Icon(
                 painter = painterResource(id = R.drawable.ic_round_arrow_forward_ios_24),
                 contentDescription = "箭头",
                 modifier = Modifier
@@ -176,14 +165,14 @@ fun Cell(
  * @param modifier Modifier
  * @param border Boolean
  * @param onClick Function0<Unit>?
- * @param content [@androidx.compose.runtime.Composable] Function0<Unit>
+ * @param content [@androidx.compose.runtime.Composable] [@kotlin.ExtensionFunctionType] Function1<ColumnScope, Unit>
  */
 @Composable
 fun BaseCell(
     modifier: Modifier = Modifier,
     border: Boolean = true,
     onClick: (() -> Unit)? = null,
-    content: @Composable () -> Unit
+    content: @Composable ColumnScope.() -> Unit
 ) {
     Column(
         modifier = modifier

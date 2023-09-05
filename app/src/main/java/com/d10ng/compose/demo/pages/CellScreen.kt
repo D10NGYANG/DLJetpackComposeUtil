@@ -65,7 +65,7 @@ private fun CellScreenView(
             }
             item {
                 CellGroup(inset = true, title = "卡片风格") {
-                    Cell(title = "单元格", isLink = true)
+                    Cell(title = "单元格", link = true)
                     Cell(title = "单元格", value = "内容")
                     Cell(title = "单元格", value = "内容", label = "描述信息", border = false)
                 }
@@ -95,12 +95,12 @@ private fun CellScreenView(
             }
             item {
                 CellGroup(title = "展示箭头") {
-                    Cell(title = "单元格", isLink = true)
-                    Cell(title = "单元格", value = "内容", isLink = true)
+                    Cell(title = "单元格", link = true)
+                    Cell(title = "单元格", value = "内容", link = true)
                     Cell(
                         title = "单元格",
                         value = "内容",
-                        isLink = true,
+                        link = true,
                         arrowDirection = CellArrowDirection.DOWN
                     )
                     Cell(
@@ -108,20 +108,20 @@ private fun CellScreenView(
                         value = "内容",
                         label = "描述信息",
                         border = false,
-                        isLink = true
+                        link = true
                     )
                 }
             }
             item {
                 CellGroup(title = "点击效果") {
                     val ctx = LocalContext.current
-                    Cell(title = "单元格", value = "内容", isLink = true, onClick = {
+                    Cell(title = "单元格", value = "内容", link = true, onClick = {
                         Toast.makeText(ctx, "点击了单元格", Toast.LENGTH_SHORT).show()
                     })
                     Cell(
                         title = "单元格",
                         value = "内容",
-                        isLink = true,
+                        link = true,
                         label = "描述信息",
                         border = false,
                         onClick = {

@@ -54,16 +54,16 @@ private fun ToastScreenView(
                 CellGroup(title = "基础用法", inset = true) {
                     Cell(
                         title = "文字提示",
-                        isLink = true,
+                        link = true,
                         onClick = { UiViewModelManager.showToast("提示内容") })
-                    Cell(title = "加载提示", isLink = true, onClick = {
+                    Cell(title = "加载提示", link = true, onClick = {
                         UiViewModelManager.showLoading("加载中...")
                         CoroutineScope(Dispatchers.IO).launch {
                             delay(1500)
                             UiViewModelManager.hideLoading()
                         }
                     })
-                    Cell(title = "无文本加载提示", isLink = true, onClick = {
+                    Cell(title = "无文本加载提示", link = true, onClick = {
                         UiViewModelManager.showLoading()
                         CoroutineScope(Dispatchers.IO).launch {
                             delay(1500)
@@ -72,12 +72,12 @@ private fun ToastScreenView(
                     })
                     Cell(
                         title = "成功提示",
-                        isLink = true,
+                        link = true,
                         onClick = { UiViewModelManager.showSuccessToast("成功文案") })
                     Cell(
                         title = "失败提示",
                         label = "提示文案不建议8个字符",
-                        isLink = true,
+                        link = true,
                         onClick = { UiViewModelManager.showFailToast("失败文案失败文案") })
                 }
             }
@@ -85,7 +85,7 @@ private fun ToastScreenView(
                 CellGroup(title = "自定义位置", inset = true) {
                     Cell(
                         title = "顶部展示",
-                        isLink = true,
+                        link = true,
                         onClick = {
                             UiViewModelManager.showToast(
                                 "提示内容",
@@ -94,7 +94,7 @@ private fun ToastScreenView(
                         })
                     Cell(
                         title = "底部展示",
-                        isLink = true,
+                        link = true,
                         onClick = {
                             UiViewModelManager.showToast(
                                 "提示内容",
@@ -105,7 +105,7 @@ private fun ToastScreenView(
             }
             item {
                 CellGroup(title = "动态更新提示", inset = true) {
-                    Cell(title = "动态更新提示", isLink = true, onClick = {
+                    Cell(title = "动态更新提示", link = true, onClick = {
                         var wait = 3
                         UiViewModelManager.showLoading("等待${wait}秒...")
                         CoroutineScope(Dispatchers.IO).launch {

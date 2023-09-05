@@ -83,6 +83,7 @@ fun Input(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     singleLine: Boolean = false,
     maxLines: Int = Int.MAX_VALUE,
+    minLines: Int = 1,
     cursorColor: Color = AppColor.Main.primary,
     isFocus: Boolean = false
 ) {
@@ -111,6 +112,7 @@ fun Input(
         visualTransformation = visualTransformation,
         singleLine = singleLine,
         maxLines = maxLines,
+        minLines = minLines,
         cursorBrush = SolidColor(cursorColor)
     )
     SideEffect {

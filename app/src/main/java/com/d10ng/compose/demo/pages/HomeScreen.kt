@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.d10ng.compose.demo.PageTransitions
 import com.d10ng.compose.demo.pages.destinations.ButtonScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CellScreenDestination
+import com.d10ng.compose.demo.pages.destinations.FieldScreenDestination
 import com.d10ng.compose.demo.pages.destinations.ToastScreenDestination
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
@@ -23,6 +24,7 @@ import com.d10ng.compose.ui.base.CellGroup
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.ramcosta.composedestinations.spec.Direction
 
 /**
  * 首页
@@ -36,23 +38,15 @@ fun HomeScreen(
     nav: DestinationsNavigator
 ) {
     HomeScreenView(
-        onClickButton = {
-            nav.navigate(ButtonScreenDestination)
-        },
-        onClickCell = {
-            nav.navigate(CellScreenDestination)
-        },
-        onClickToast = {
-            nav.navigate(ToastScreenDestination)
+        onClick = {
+            nav.navigate(it)
         }
     )
 }
 
 @Composable
 private fun HomeScreenView(
-    onClickButton: () -> Unit = {},
-    onClickCell: () -> Unit = {},
-    onClickToast: () -> Unit = {},
+    onClick: (Direction) -> Unit = {},
 ) {
     LazyColumn(
         modifier = Modifier
@@ -77,9 +71,27 @@ private fun HomeScreenView(
         }
         item {
             CellGroup(title = "基础组件", inset = true) {
-                Cell(title = "Button 按钮", isLink = true, onClick = onClickButton)
-                Cell(title = "Cell 单元格", isLink = true, onClick = onClickCell)
-                Cell(title = "Toast 轻提示", isLink = true, onClick = onClickToast)
+                Cell(
+                    title = "Button 按钮",
+                    link = true,
+                    onClick = { onClick(ButtonScreenDestination) })
+                Cell(
+                    title = "Cell 单元格",
+                    link = true,
+                    onClick = { onClick(CellScreenDestination) })
+                Cell(
+                    title = "Toast 轻提示",
+                    link = true,
+                    border = false,
+                    onClick = { onClick(ToastScreenDestination) })
+            }
+        }
+        item {
+            CellGroup(title = "表单组件", inset = true) {
+                Cell(
+                    title = "Field 输入框",
+                    link = true,
+                    onClick = { onClick(FieldScreenDestination) })
             }
         }
     }
