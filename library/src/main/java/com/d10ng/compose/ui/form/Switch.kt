@@ -1,41 +1,21 @@
 package com.d10ng.compose.ui.form
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.utils.next
-
-@Preview
-@Composable
-fun SwitchTest() {
-    Column {
-        var value by remember {
-            mutableStateOf(false)
-        }
-        Switch(checked = false, onCheckedChange = {value = it})
-        Switch(checked = true, onCheckedChange = {value = it})
-        Switch(checked = false, onCheckedChange = {value = it}, disabled = true)
-        Switch(checked = true, onCheckedChange = {value = it}, disabled = true)
-    }
-}
 
 /**
  * Switch 开关
@@ -43,6 +23,18 @@ fun SwitchTest() {
  * @Date 2023/9/6 14:22
  */
 
+/**
+ * Switch 开关
+ * @param modifier Modifier
+ * @param checked Boolean 是否选中
+ * @param onCheckedChange Function1<Boolean, Unit> 选中状态变化
+ * @param disabled Boolean 是否禁用
+ * @param loading Boolean 是否加载中
+ * @param activeColor Color 选中颜色
+ * @param inactiveColor Color 未选中颜色
+ * @param iconId Int? 图标ID
+ * @param size Dp 大小
+ */
 @Composable
 fun Switch(
     modifier: Modifier = Modifier,

@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.d10ng.compose.demo.PageTransitions
 import com.d10ng.compose.demo.pages.destinations.ButtonScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CellScreenDestination
+import com.d10ng.compose.demo.pages.destinations.CheckButtonScreenDestination
 import com.d10ng.compose.demo.pages.destinations.FieldScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NavBarScreenDestination
 import com.d10ng.compose.demo.pages.destinations.SwitchScreenDestination
@@ -95,6 +96,10 @@ private fun HomeScreenView(
                 title = "Switch 开关",
                 link = true,
                 onClick = { onClick(SwitchScreenDestination) })
+            Cell(
+                title = "CheckButton 选择按钮",
+                link = true,
+                onClick = { onClick(CheckButtonScreenDestination) })
         }
         CellGroup(title = "导航组件", inset = true) {
             Cell(
