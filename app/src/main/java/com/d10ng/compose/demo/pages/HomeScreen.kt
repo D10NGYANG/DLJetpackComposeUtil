@@ -6,7 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -48,51 +49,46 @@ fun HomeScreen(
 private fun HomeScreenView(
     onClick: (Direction) -> Unit = {},
 ) {
-    LazyColumn(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
             .statusBarsPadding()
+            .verticalScroll(rememberScrollState())
     ) {
         // 标题
-        item {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Text(text = "DLJetpackComposeUtil", style = AppText.Bold.Title.v24)
-                Text(
-                    text = "Jetpack Compose UI 组件库",
-                    style = AppText.Normal.Body.v14,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
-            }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text(text = "DLJetpackComposeUtil", style = AppText.Bold.Title.v24)
+            Text(
+                text = "Jetpack Compose UI 组件库",
+                style = AppText.Normal.Body.v14,
+                modifier = Modifier.padding(top = 8.dp)
+            )
         }
-        item {
-            CellGroup(title = "基础组件", inset = true) {
-                Cell(
-                    title = "Button 按钮",
-                    link = true,
-                    onClick = { onClick(ButtonScreenDestination) })
-                Cell(
-                    title = "Cell 单元格",
-                    link = true,
-                    onClick = { onClick(CellScreenDestination) })
-                Cell(
-                    title = "Toast 轻提示",
-                    link = true,
-                    border = false,
-                    onClick = { onClick(ToastScreenDestination) })
-            }
+        CellGroup(title = "基础组件", inset = true) {
+            Cell(
+                title = "Button 按钮",
+                link = true,
+                onClick = { onClick(ButtonScreenDestination) })
+            Cell(
+                title = "Cell 单元格",
+                link = true,
+                onClick = { onClick(CellScreenDestination) })
+            Cell(
+                title = "Toast 轻提示",
+                link = true,
+                border = false,
+                onClick = { onClick(ToastScreenDestination) })
         }
-        item {
-            CellGroup(title = "表单组件", inset = true) {
-                Cell(
-                    title = "Field 输入框",
-                    link = true,
-                    onClick = { onClick(FieldScreenDestination) })
-            }
+        CellGroup(title = "表单组件", inset = true) {
+            Cell(
+                title = "Field 输入框",
+                link = true,
+                onClick = { onClick(FieldScreenDestination) })
         }
     }
 }

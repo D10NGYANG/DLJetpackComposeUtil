@@ -28,6 +28,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -68,6 +69,8 @@ dependencies {
     implementation("io.github.raamcosta.compose-destinations:animations-core:$compose_destinations_ver")
     ksp("io.github.raamcosta.compose-destinations:ksp:$compose_destinations_ver")
 
+    // 公共工具
+    implementation("com.github.D10NGYANG:DLCommonUtil:0.0.2")
     // APP通用工具
     implementation("com.github.D10NGYANG:DLAppUtil:2.4.3")
     // 时间工具

@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -56,7 +54,7 @@ fun NavBar(
             .background(background)
     ) {
         if (withStatusBar) {
-            Spacer(
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .windowInsetsTopHeight(WindowInsets.statusBars)
@@ -75,13 +73,12 @@ fun NavBar(
                 // 返回按钮
                 if (onClickBack != null) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_round_arrow_forward_ios_24),
+                        painter = painterResource(id = R.drawable.ic_round_arrow_back_ios_new_24),
                         contentDescription = "back",
                         tint = AppColor.Neutral.tips,
                         modifier = Modifier
                             .padding(start = 8.dp)
                             .size(46.dp)
-                            .rotate(180f)
                             .clip(AppShape.RC.Cycle)
                             .clickable { onClickBack() }
                             .padding(10.dp)

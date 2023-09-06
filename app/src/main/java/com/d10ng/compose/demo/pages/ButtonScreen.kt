@@ -9,7 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
@@ -56,209 +57,192 @@ private fun ButtonScreenView(
             .background(AppColor.Neutral.bg)
     ) {
         NavBar(title = "Button", onClickBack = onClickBack)
-        LazyColumn(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
         ) {
-            item {
-                Text(text = "按钮类型", color = AppColor.Neutral.tips)
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Button(text = "主要按钮", type = ButtonType.PRIMARY) {}
-                    Button(text = "成功按钮", type = ButtonType.SUCCESS) {}
-                    Button(text = "默认按钮") {}
-                    Button(text = "警告按钮", type = ButtonType.WARNING) {}
-                    Button(text = "危险按钮", type = ButtonType.DANGER) {}
-                }
+            Text(text = "按钮类型", color = AppColor.Neutral.tips)
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(text = "主要按钮", type = ButtonType.PRIMARY) {}
+                Button(text = "成功按钮", type = ButtonType.SUCCESS) {}
+                Button(text = "默认按钮") {}
+                Button(text = "警告按钮", type = ButtonType.WARNING) {}
+                Button(text = "危险按钮", type = ButtonType.DANGER) {}
             }
-            item {
-                Text(
-                    text = "朴素按钮",
-                    color = AppColor.Neutral.tips,
-                    modifier = Modifier.padding(top = 16.dp)
-                )
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Button(text = "主要按钮", type = ButtonType.PRIMARY, plain = true) {}
-                    Button(text = "成功按钮", type = ButtonType.SUCCESS, plain = true) {}
-                    Button(text = "默认按钮", plain = true) {}
-                }
+            Text(
+                text = "朴素按钮",
+                color = AppColor.Neutral.tips,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(text = "主要按钮", type = ButtonType.PRIMARY, plain = true) {}
+                Button(text = "成功按钮", type = ButtonType.SUCCESS, plain = true) {}
+                Button(text = "默认按钮", plain = true) {}
             }
-            item {
-                Text(
-                    text = "细边框",
-                    color = AppColor.Neutral.tips,
-                    modifier = Modifier.padding(top = 16.dp)
-                )
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Button(
-                        text = "主要按钮",
-                        type = ButtonType.PRIMARY,
-                        plain = true,
-                        hairline = true
-                    ) {}
-                    Button(
-                        text = "成功按钮",
-                        type = ButtonType.SUCCESS,
-                        plain = true,
-                        hairline = true
-                    ) {}
-                    Button(text = "默认按钮", plain = true, hairline = true) {}
-                }
+            Text(
+                text = "细边框",
+                color = AppColor.Neutral.tips,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(
+                    text = "主要按钮",
+                    type = ButtonType.PRIMARY,
+                    plain = true,
+                    hairline = true
+                ) {}
+                Button(
+                    text = "成功按钮",
+                    type = ButtonType.SUCCESS,
+                    plain = true,
+                    hairline = true
+                ) {}
+                Button(text = "默认按钮", plain = true, hairline = true) {}
             }
-            item {
-                Text(
-                    text = "禁用状态",
-                    color = AppColor.Neutral.tips,
-                    modifier = Modifier.padding(top = 16.dp)
-                )
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Button(text = "主要按钮", type = ButtonType.PRIMARY, disabled = true) {}
-                    Button(text = "成功按钮", type = ButtonType.SUCCESS, disabled = true) {}
-                    Button(text = "默认按钮", plain = true, disabled = true) {}
-                }
+            Text(
+                text = "禁用状态",
+                color = AppColor.Neutral.tips,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(text = "主要按钮", type = ButtonType.PRIMARY, disabled = true) {}
+                Button(text = "成功按钮", type = ButtonType.SUCCESS, disabled = true) {}
+                Button(text = "默认按钮", plain = true, disabled = true) {}
             }
-            item {
-                Text(
-                    text = "加载状态",
-                    color = AppColor.Neutral.tips,
-                    modifier = Modifier.padding(top = 16.dp)
-                )
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Button(text = "主要按钮", type = ButtonType.PRIMARY, loading = true) {}
-                    Button(text = "成功按钮", type = ButtonType.SUCCESS, loading = true) {}
-                    Button(text = "默认按钮", plain = true, loading = true) {}
-                }
+            Text(
+                text = "加载状态",
+                color = AppColor.Neutral.tips,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(text = "主要按钮", type = ButtonType.PRIMARY, loading = true) {}
+                Button(text = "成功按钮", type = ButtonType.SUCCESS, loading = true) {}
+                Button(text = "默认按钮", plain = true, loading = true) {}
             }
-            item {
-                Text(
-                    text = "按钮形状",
-                    color = AppColor.Neutral.tips,
-                    modifier = Modifier.padding(top = 16.dp)
-                )
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Button(
-                        text = "圆形按钮",
-                        type = ButtonType.PRIMARY,
-                        shape = AppShape.RC.Cycle
-                    ) {}
-                    Button(text = "圆角按钮", type = ButtonType.SUCCESS, shape = AppShape.RC.v8) {}
-                    Button(text = "方形按钮", plain = true, shape = AppShape.RC.v0) {}
-                }
+            Text(
+                text = "按钮形状",
+                color = AppColor.Neutral.tips,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(
+                    text = "圆形按钮",
+                    type = ButtonType.PRIMARY,
+                    shape = AppShape.RC.Cycle
+                ) {}
+                Button(text = "圆角按钮", type = ButtonType.SUCCESS, shape = AppShape.RC.v8) {}
+                Button(text = "方形按钮", plain = true, shape = AppShape.RC.v0) {}
             }
-            item {
-                Text(
-                    text = "图标按钮",
-                    color = AppColor.Neutral.tips,
-                    modifier = Modifier.padding(top = 16.dp)
-                )
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Button(text = "", type = ButtonType.PRIMARY, icon = {
-                        Icon(
-                            Icons.Default.Add,
-                            contentDescription = "",
-                            modifier = Modifier.size(18.dp)
-                        )
-                    }) {}
-                    Button(text = "按钮", type = ButtonType.SUCCESS, icon = {
-                        Icon(
-                            Icons.Default.Add,
-                            contentDescription = "",
-                            modifier = Modifier.size(18.dp)
-                        )
-                    }) {}
-                    Button(text = "图标按钮", plain = true, icon = {
-                        Icon(
-                            Icons.Default.AccountCircle,
-                            contentDescription = "",
-                            modifier = Modifier.size(18.dp)
-                        )
-                    }) {}
-                }
+            Text(
+                text = "图标按钮",
+                color = AppColor.Neutral.tips,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(text = "", type = ButtonType.PRIMARY, icon = {
+                    Icon(
+                        Icons.Default.Add,
+                        contentDescription = "",
+                        modifier = Modifier.size(18.dp)
+                    )
+                }) {}
+                Button(text = "按钮", type = ButtonType.SUCCESS, icon = {
+                    Icon(
+                        Icons.Default.Add,
+                        contentDescription = "",
+                        modifier = Modifier.size(18.dp)
+                    )
+                }) {}
+                Button(text = "图标按钮", plain = true, icon = {
+                    Icon(
+                        Icons.Default.AccountCircle,
+                        contentDescription = "",
+                        modifier = Modifier.size(18.dp)
+                    )
+                }) {}
             }
-            item {
-                Text(
-                    text = "按钮尺寸",
-                    color = AppColor.Neutral.tips,
-                    modifier = Modifier.padding(top = 16.dp)
-                )
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Button(text = "迷你按钮", type = ButtonType.PRIMARY, size = ButtonSize.MINI) {}
-                    Button(text = "小型按钮", type = ButtonType.SUCCESS, size = ButtonSize.SMALL) {}
-                    Button(text = "默认按钮", plain = true, size = ButtonSize.NORMAL) {}
-                    Button(text = "大型按钮", type = ButtonType.WARNING, size = ButtonSize.LARGE) {}
-                }
+            Text(
+                text = "按钮尺寸",
+                color = AppColor.Neutral.tips,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(text = "迷你按钮", type = ButtonType.PRIMARY, size = ButtonSize.MINI) {}
+                Button(text = "小型按钮", type = ButtonType.SUCCESS, size = ButtonSize.SMALL) {}
+                Button(text = "默认按钮", plain = true, size = ButtonSize.NORMAL) {}
+                Button(text = "大型按钮", type = ButtonType.WARNING, size = ButtonSize.LARGE) {}
             }
-            item {
-                Text(
-                    text = "自定义颜色",
-                    color = AppColor.Neutral.tips,
-                    modifier = Modifier.padding(top = 16.dp)
-                )
-                FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    val color = Color(0xFF9C27B0)
-                    Button(text = "主要按钮", type = ButtonType.PRIMARY, color = color) {}
-                    Button(text = "默认按钮", plain = true, color = color) {}
-                    Button(
-                        text = "主要按钮",
-                        type = ButtonType.PRIMARY,
-                        color = color,
-                        disabled = true
-                    ) {}
-                }
+            Text(
+                text = "自定义颜色",
+                color = AppColor.Neutral.tips,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                val color = Color(0xFF9C27B0)
+                Button(text = "主要按钮", type = ButtonType.PRIMARY, color = color) {}
+                Button(text = "默认按钮", plain = true, color = color) {}
+                Button(
+                    text = "主要按钮",
+                    type = ButtonType.PRIMARY,
+                    color = color,
+                    disabled = true
+                ) {}
             }
         }
     }
