@@ -18,6 +18,7 @@ import com.d10ng.compose.demo.pages.destinations.ButtonScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CellScreenDestination
 import com.d10ng.compose.demo.pages.destinations.FieldScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NavBarScreenDestination
+import com.d10ng.compose.demo.pages.destinations.SwitchScreenDestination
 import com.d10ng.compose.demo.pages.destinations.ToastScreenDestination
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
@@ -90,6 +91,10 @@ private fun HomeScreenView(
                 title = "Field 输入框",
                 link = true,
                 onClick = { onClick(FieldScreenDestination) })
+            Cell(
+                title = "Switch 开关",
+                link = true,
+                onClick = { onClick(SwitchScreenDestination) })
         }
         CellGroup(title = "导航组件", inset = true) {
             Cell(

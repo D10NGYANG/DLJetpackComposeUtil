@@ -1,0 +1,110 @@
+package com.d10ng.compose.ui.form
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.SwitchDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import com.d10ng.compose.ui.AppColor
+import com.d10ng.compose.utils.next
+
+@Preview
+@Composable
+fun SwitchTest() {
+    Column {
+        var value by remember {
+            mutableStateOf(false)
+        }
+        Switch(checked = false, onCheckedChange = {value = it})
+        Switch(checked = true, onCheckedChange = {value = it})
+        Switch(checked = false, onCheckedChange = {value = it}, disabled = true)
+        Switch(checked = true, onCheckedChange = {value = it}, disabled = true)
+    }
+}
+
+/**
+ * Switch 开关
+ * @Author d10ng
+ * @Date 2023/9/6 14:22
+ */
+
+@Composable
+fun Switch(
+    modifier: Modifier = Modifier,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    disabled: Boolean = false,
+    loading: Boolean = false,
+    activeColor: Color = AppColor.Main.primary,
+    inactiveColor: Color = AppColor.Neutral.line,
+    iconId: Int? = null,
+    size: Dp = 32.dp
+) {
+    val color = SwitchDefaults.colors(
+        checkedThumbColor = Color.White,
+        uncheckedThumbColor = Color.White,
+        disabledCheckedThumbColor = Color.White.next(0.2),
+        disabledUncheckedThumbColor = Color.White.next(0.2),
+        checkedTrackColor = activeColor,
+        uncheckedTrackColor = inactiveColor,
+        disabledCheckedTrackColor = activeColor.next(0.2),
+        disabledUncheckedTrackColor = inactiveColor.next(0.2),
+        checkedBorderColor = activeColor,
+        uncheckedBorderColor = inactiveColor,
+        disabledCheckedBorderColor = activeColor.next(0.2),
+        disabledUncheckedBorderColor = inactiveColor.next(0.2),
+        checkedIconColor = activeColor,
+        uncheckedIconColor = inactiveColor,
+        disabledCheckedIconColor = activeColor.next(0.2),
+        disabledUncheckedIconColor = inactiveColor.next(0.2),
+    )
+    val loadingColor = remember(checked, disabled, activeColor, inactiveColor) {
+        val cc = if (checked) activeColor else inactiveColor
+        if (disabled) cc.next(0.2) else cc
+    }
+    val scale = remember(size) {
+        size.value / 32f
+    }
+    androidx.compose.material3.Switch(
+        modifier = modifier
+            .scale(scale)
+            .height(size),
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        colors = color,
+        enabled = !disabled && !loading,
+        thumbContent = {
+            if (loading && iconId == null) {
+                CircularProgressIndicator(
+                    modifier = Modifier.padding(5.dp),
+                    color = loadingColor,
+                    strokeCap = StrokeCap.Round,
+                    strokeWidth = 1.5.dp
+                )
+            }
+            if (iconId != null) {
+                Icon(
+                    painter = painterResource(id = iconId),
+                    contentDescription = null,
+                    tint = loadingColor,
+                    modifier = Modifier.padding(5.dp),
+                )
+            }
+        }
+    )
+}

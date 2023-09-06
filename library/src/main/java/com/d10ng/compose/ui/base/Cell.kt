@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -29,6 +30,23 @@ import com.d10ng.compose.ui.AppText
  * @Author d10ng
  * @Date 2023/9/4 10:07
  */
+
+/**
+ * 单元格标题
+ * @param modifier Modifier
+ * @param title String 标题
+ */
+@Composable
+fun CellTitle(
+    modifier: Modifier = Modifier,
+    title: String
+) {
+    Text(
+        text = title,
+        style = AppText.Normal.Tips.default,
+        modifier = modifier.padding(16.dp)
+    )
+}
 
 /**
  * 单元格组
@@ -53,11 +71,7 @@ fun CellGroup(
             .fillMaxWidth()
     ) {
         if (title.isNotEmpty()) {
-            Text(
-                text = title,
-                style = AppText.Normal.Tips.default,
-                modifier = Modifier.padding(16.dp)
-            )
+            CellTitle(title = title)
         }
         val shape = if (inset) AppShape.RC.v8 else AppShape.RC.v0
         Column(
@@ -178,17 +192,14 @@ fun BaseCell(
     onClick: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable(
-                enabled = onClick != null,
-                role = Role.Button
-            ) {
-                onClick?.invoke()
-            }
-            .padding(horizontal = 16.dp),
-    ) {
+    val mod = remember(modifier, onClick) {
+        if (onClick != null) {
+            modifier.clickable { onClick() }
+        } else {
+            modifier
+        }
+    }
+    Column(modifier = mod.padding(horizontal = 16.dp)) {
         content()
         if (border) Border()
     }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.FlowRowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -27,6 +28,7 @@ import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.base.Button
 import com.d10ng.compose.ui.base.ButtonSize
 import com.d10ng.compose.ui.base.ButtonType
+import com.d10ng.compose.ui.base.CellTitle
 import com.d10ng.compose.ui.navigation.NavBar
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
@@ -63,48 +65,22 @@ private fun ButtonScreenView(
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
-            Text(text = "按钮类型", color = AppColor.Neutral.tips)
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            CellTitle(title = "按钮类型")
+            CustomFlowRow {
                 Button(text = "主要按钮", type = ButtonType.PRIMARY) {}
                 Button(text = "成功按钮", type = ButtonType.SUCCESS) {}
                 Button(text = "默认按钮") {}
                 Button(text = "警告按钮", type = ButtonType.WARNING) {}
                 Button(text = "危险按钮", type = ButtonType.DANGER) {}
             }
-            Text(
-                text = "朴素按钮",
-                color = AppColor.Neutral.tips,
-                modifier = Modifier.padding(top = 16.dp)
-            )
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            CellTitle(title = "朴素按钮")
+            CustomFlowRow {
                 Button(text = "主要按钮", type = ButtonType.PRIMARY, plain = true) {}
                 Button(text = "成功按钮", type = ButtonType.SUCCESS, plain = true) {}
                 Button(text = "默认按钮", plain = true) {}
             }
-            Text(
-                text = "细边框",
-                color = AppColor.Neutral.tips,
-                modifier = Modifier.padding(top = 16.dp)
-            )
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            CellTitle(title = "细边框")
+            CustomFlowRow {
                 Button(
                     text = "主要按钮",
                     type = ButtonType.PRIMARY,
@@ -119,50 +95,20 @@ private fun ButtonScreenView(
                 ) {}
                 Button(text = "默认按钮", plain = true, hairline = true) {}
             }
-            Text(
-                text = "禁用状态",
-                color = AppColor.Neutral.tips,
-                modifier = Modifier.padding(top = 16.dp)
-            )
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            CellTitle(title = "禁用状态")
+            CustomFlowRow {
                 Button(text = "主要按钮", type = ButtonType.PRIMARY, disabled = true) {}
                 Button(text = "成功按钮", type = ButtonType.SUCCESS, disabled = true) {}
                 Button(text = "默认按钮", plain = true, disabled = true) {}
             }
-            Text(
-                text = "加载状态",
-                color = AppColor.Neutral.tips,
-                modifier = Modifier.padding(top = 16.dp)
-            )
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            CellTitle(title = "加载状态")
+            CustomFlowRow {
                 Button(text = "主要按钮", type = ButtonType.PRIMARY, loading = true) {}
                 Button(text = "成功按钮", type = ButtonType.SUCCESS, loading = true) {}
                 Button(text = "默认按钮", plain = true, loading = true) {}
             }
-            Text(
-                text = "按钮形状",
-                color = AppColor.Neutral.tips,
-                modifier = Modifier.padding(top = 16.dp)
-            )
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            CellTitle(title = "按钮形状")
+            CustomFlowRow {
                 Button(
                     text = "圆形按钮",
                     type = ButtonType.PRIMARY,
@@ -171,18 +117,8 @@ private fun ButtonScreenView(
                 Button(text = "圆角按钮", type = ButtonType.SUCCESS, shape = AppShape.RC.v8) {}
                 Button(text = "方形按钮", plain = true, shape = AppShape.RC.v0) {}
             }
-            Text(
-                text = "图标按钮",
-                color = AppColor.Neutral.tips,
-                modifier = Modifier.padding(top = 16.dp)
-            )
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            CellTitle(title = "图标按钮")
+            CustomFlowRow {
                 Button(text = "", type = ButtonType.PRIMARY, icon = {
                     Icon(
                         Icons.Default.Add,
@@ -205,35 +141,15 @@ private fun ButtonScreenView(
                     )
                 }) {}
             }
-            Text(
-                text = "按钮尺寸",
-                color = AppColor.Neutral.tips,
-                modifier = Modifier.padding(top = 16.dp)
-            )
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            CellTitle(title = "按钮尺寸")
+            CustomFlowRow {
                 Button(text = "迷你按钮", type = ButtonType.PRIMARY, size = ButtonSize.MINI) {}
                 Button(text = "小型按钮", type = ButtonType.SUCCESS, size = ButtonSize.SMALL) {}
                 Button(text = "默认按钮", plain = true, size = ButtonSize.NORMAL) {}
                 Button(text = "大型按钮", type = ButtonType.WARNING, size = ButtonSize.LARGE) {}
             }
-            Text(
-                text = "自定义颜色",
-                color = AppColor.Neutral.tips,
-                modifier = Modifier.padding(top = 16.dp)
-            )
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            CellTitle(title = "自定义颜色")
+            CustomFlowRow {
                 val color = Color(0xFF9C27B0)
                 Button(text = "主要按钮", type = ButtonType.PRIMARY, color = color) {}
                 Button(text = "默认按钮", plain = true, color = color) {}
@@ -246,6 +162,21 @@ private fun ButtonScreenView(
             }
         }
     }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun CustomFlowRow(
+    content: @Composable FlowRowScope.() -> Unit
+) {
+    FlowRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        content = content
+    )
 }
 
 @Preview(device = "spec:width=1080px,height=3500px,dpi=440")
