@@ -54,7 +54,7 @@ class BasicTextFontSize(style: TextStyle) {
     val v8 = style.copy(fontSize = 8.sp)
 
     // 大
-    val large = style.copy(fontSize = 20.sp)
+    val large = style.copy(fontSize = 22.sp)
 
     // 默认
     val default = style.copy(fontSize = 16.sp)

@@ -26,6 +26,7 @@ import com.d10ng.compose.R
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
+import com.d10ng.compose.ui.base.Border
 
 /**
  * 导航栏
@@ -37,14 +38,18 @@ import com.d10ng.compose.ui.AppText
  * 导航栏
  * @param title String 标题
  * @param background Color 背景色
+ * @param withStatusBar Boolean 是否包含系统状态栏
+ * @param border Boolean 是否包含底部边框
  * @param onClickBack Function0<Unit>? 点击返回
  * @param right [@androidx.compose.runtime.Composable] Function0<Unit>? 右侧自定义
  */
 @Composable
 fun NavBar(
     title: String,
+    titleAlignment: Alignment = Alignment.Center,
     background: Color = Color.White,
     withStatusBar: Boolean = true,
+    border: Boolean = false,
     onClickBack: (() -> Unit)? = null,
     right: @Composable (() -> Unit)? = null
 ) {
@@ -53,6 +58,7 @@ fun NavBar(
             .fillMaxWidth()
             .background(background)
     ) {
+        // 系统状态栏
         if (withStatusBar) {
             Box(
                 modifier = Modifier
@@ -64,7 +70,6 @@ fun NavBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
-                .background(background)
         ) {
             Row(
                 modifier = Modifier.fillMaxSize(),
@@ -93,14 +98,17 @@ fun NavBar(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(horizontal = 62.dp)
                     .align(Alignment.Center),
-                contentAlignment = Alignment.Center
+                contentAlignment = titleAlignment
             ) {
                 Text(
                     text = title,
-                    style = AppText.Bold.Title.v18
+                    style = AppText.Bold.Title.large
                 )
             }
         }
+        // 底部边框
+        if (border) Border()
     }
 }
