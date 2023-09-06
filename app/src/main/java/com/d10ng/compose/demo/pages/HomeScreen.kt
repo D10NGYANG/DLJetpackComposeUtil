@@ -19,6 +19,7 @@ import com.d10ng.compose.demo.pages.destinations.CellScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CheckButtonScreenDestination
 import com.d10ng.compose.demo.pages.destinations.FieldScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NavBarScreenDestination
+import com.d10ng.compose.demo.pages.destinations.StepperScreenDestination
 import com.d10ng.compose.demo.pages.destinations.SwitchScreenDestination
 import com.d10ng.compose.demo.pages.destinations.ToastScreenDestination
 import com.d10ng.compose.ui.AppColor
@@ -100,6 +101,10 @@ private fun HomeScreenView(
                 title = "CheckButton 选择按钮",
                 link = true,
                 onClick = { onClick(CheckButtonScreenDestination) })
+            Cell(
+                title = "Stepper 步进器",
+                link = true,
+                onClick = { onClick(StepperScreenDestination) })
         }
         CellGroup(title = "导航组件", inset = true) {
             Cell(
