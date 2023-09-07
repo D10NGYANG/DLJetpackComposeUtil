@@ -20,6 +20,7 @@ import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
+import com.d10ng.compose.ui.dialog.builder.ConfirmDialogBuilder
 import com.d10ng.compose.ui.dialog.builder.TipsDialogBuilder
 import com.d10ng.compose.ui.navigation.NavBar
 import com.ramcosta.composedestinations.annotation.Destination
@@ -73,6 +74,33 @@ private fun DialogScreenView(
                         buttonText = "去开启",
                         onButtonClick = {
                             UiViewModelManager.showToast("点击了去开启")
+                            true
+                        }
+                    ))
+                })
+                Cell(title = "确认弹窗", link = true, onClick = {
+                    UiViewModelManager.showDialog(ConfirmDialogBuilder(
+                        content = "如果解决方法是丑陋的，那就肯定还有更好的解决方法，只是还没有发现而已。",
+                        onConfirmClick = {
+                            UiViewModelManager.showToast("点击了确定")
+                            true
+                        },
+                        onCancelClick = {
+                            UiViewModelManager.showToast("点击了取消")
+                            true
+                        }
+                    ))
+                })
+                Cell(title = "确认警告弹窗", link = true, onClick = {
+                    UiViewModelManager.showDialog(ConfirmDialogBuilder(
+                        type = ConfirmDialogBuilder.Type.Danger,
+                        content = "您确定退出当前登录账号吗？",
+                        onConfirmClick = {
+                            UiViewModelManager.showToast("点击了确定")
+                            true
+                        },
+                        onCancelClick = {
+                            UiViewModelManager.showToast("点击了取消")
                             true
                         }
                     ))

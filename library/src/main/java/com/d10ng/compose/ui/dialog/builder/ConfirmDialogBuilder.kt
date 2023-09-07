@@ -92,26 +92,26 @@ class ConfirmDialogBuilder(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Button(
-                        text = confirmText,
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        shape = AppShape.RC.Cycle,
-                        type = type.confirmButtonType
-                    ) {
-                        scope.launch {
-                            if (onConfirmClick(this)) dismiss(id)
-                        }
-                    }
-                    Box(modifier = Modifier.width(32.dp))
-                    Button(
                         text = cancelText,
                         modifier = Modifier
-                            .fillMaxWidth(),
+                            .weight(1f),
                         shape = AppShape.RC.Cycle,
                         type = type.cancelButtonType
                     ) {
                         scope.launch {
                             if (onCancelClick(this)) dismiss(id)
+                        }
+                    }
+                    Box(modifier = Modifier.width(32.dp))
+                    Button(
+                        text = confirmText,
+                        modifier = Modifier
+                            .weight(1f),
+                        shape = AppShape.RC.Cycle,
+                        type = type.confirmButtonType
+                    ) {
+                        scope.launch {
+                            if (onConfirmClick(this)) dismiss(id)
                         }
                     }
                 }
