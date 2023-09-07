@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -63,7 +63,7 @@ fun NavBar(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .windowInsetsTopHeight(WindowInsets.statusBars)
+                    .windowInsetsTopHeight(WindowInsets.systemBars)
             )
         }
         Box(

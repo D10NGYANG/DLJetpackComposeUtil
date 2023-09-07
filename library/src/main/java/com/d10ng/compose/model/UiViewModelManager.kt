@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import com.d10ng.compose.dialog.builder.DialogBuilder
 import com.d10ng.compose.ui.base.ToastPosition
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * UI ViewModel 管理器
@@ -93,5 +94,18 @@ object UiViewModelManager : IUiViewModel {
 
     override fun hideDialog() {
         getTopVM()?.hideDialog()
+    }
+
+    // 弹窗ID自增
+    private val dialogId = AtomicInteger(0)
+
+    fun showDialog(builder: com.d10ng.compose.ui.dialog.builder.DialogBuilder): Int {
+        val id = dialogId.incrementAndGet()
+        getTopVM()?.showDialog(builder, id)
+        return id
+    }
+
+    fun hideDialog(id: Int) {
+        modelMap.values.forEach { it.hideDialog(id) }
     }
 }

@@ -92,7 +92,7 @@ fun ListItem(
 private fun ListItem_Test() {
     Column(modifier = Modifier.fillMaxWidth()) {
         ListItem(
-            iconId = R.drawable.ic_baseline_admin_panel_settings_24,
+            iconId = R.drawable.ic_round_add_circle_24,
             iconSizeDp = 32.dp,
             title = "测试标题",
             note = "描述信息ABCDEFG1234567。",
@@ -100,26 +100,26 @@ private fun ListItem_Test() {
         )
         Divider()
         ListItem(
-            iconId = R.drawable.ic_baseline_admin_panel_settings_24,
+            iconId = R.drawable.ic_round_add_circle_24,
             title = "测试标题",
             note = "描述信息ABCDEFG1234567。",
             right = "版本1.2.3(11)"
         )
         Divider()
         ListItem(
-            iconId = R.drawable.ic_baseline_admin_panel_settings_24,
+            iconId = R.drawable.ic_round_add_circle_24,
             title = "测试标题",
             right = "版本1.2.3(11)"
         )
         Divider()
         ListItem(
-            iconId = R.drawable.ic_baseline_admin_panel_settings_24,
+            iconId = R.drawable.ic_round_add_circle_24,
             title = "测试标题",
             note = "描述信息ABCDEFG1234567。"
         )
         Divider()
         ListItem(
-            iconId = R.drawable.ic_baseline_admin_panel_settings_24,
+            iconId = R.drawable.ic_round_add_circle_24,
             title = "测试标题",
             right = "版本1.2.3(11)",
             isShowArrow = false

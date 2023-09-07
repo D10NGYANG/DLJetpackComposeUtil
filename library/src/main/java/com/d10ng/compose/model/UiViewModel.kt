@@ -43,6 +43,7 @@ class UiViewModel : ViewModel(), IUiViewModel {
 
     // dialog
     private val dialogBuilderFlow: MutableStateFlow<DialogBuilder?> = MutableStateFlow(null)
+    private val dialogBuilderMapFlow = MutableStateFlow(mapOf<Int, com.d10ng.compose.ui.dialog.builder.DialogBuilder>())
 
     @Composable
     fun Init() {
@@ -76,6 +77,12 @@ class UiViewModel : ViewModel(), IUiViewModel {
             ) {
                 it.Build()
             }
+        }
+
+        val dialogBuilderMap by dialogBuilderMapFlow.collectAsState()
+        dialogBuilderMap.forEach { (id, builder) ->
+            println("test, buildDialog = $id")
+            com.d10ng.compose.ui.dialog.Dialog(id = id, builder = builder)
         }
     }
 
@@ -134,5 +141,17 @@ class UiViewModel : ViewModel(), IUiViewModel {
 
     override fun hideDialog() {
         dialogBuilderFlow.value = null
+    }
+
+    fun showDialog(builder: com.d10ng.compose.ui.dialog.builder.DialogBuilder, id: Int) {
+        val map = dialogBuilderMapFlow.value.toMutableMap()
+        map[id] = builder
+        dialogBuilderMapFlow.value = map
+    }
+
+    fun hideDialog(id: Int) {
+        val map = dialogBuilderMapFlow.value.toMutableMap()
+        map.remove(id)
+        dialogBuilderMapFlow.value = map
     }
 }

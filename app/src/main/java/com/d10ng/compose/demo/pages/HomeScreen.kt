@@ -13,10 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavOptions
 import com.d10ng.compose.demo.PageTransitions
 import com.d10ng.compose.demo.pages.destinations.ButtonScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CellScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CheckButtonScreenDestination
+import com.d10ng.compose.demo.pages.destinations.DialogScreenDestination
 import com.d10ng.compose.demo.pages.destinations.FieldScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NavBarScreenDestination
 import com.d10ng.compose.demo.pages.destinations.StepperScreenDestination
@@ -45,7 +47,7 @@ fun HomeScreen(
 ) {
     HomeScreenView(
         onClick = {
-            nav.navigate(it)
+            nav.navigate(it, navOptions = NavOptions.Builder().setLaunchSingleTop(true).build())
         }
     )
 }
@@ -106,6 +108,12 @@ private fun HomeScreenView(
                 title = "Stepper 步进器",
                 link = true,
                 onClick = { onClick(StepperScreenDestination) })
+        }
+        CellGroup(title = "反馈组件", inset = true) {
+            Cell(
+                title = "Dialog 弹出框",
+                link = true,
+                onClick = { onClick(DialogScreenDestination) })
         }
         CellGroup(title = "展示组件", inset = true) {
             Cell(
