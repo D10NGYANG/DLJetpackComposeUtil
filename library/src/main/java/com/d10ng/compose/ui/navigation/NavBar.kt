@@ -26,7 +26,7 @@ import com.d10ng.compose.R
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
-import com.d10ng.compose.ui.base.Border
+import com.d10ng.compose.ui.show.Border
 
 /**
  * 导航栏

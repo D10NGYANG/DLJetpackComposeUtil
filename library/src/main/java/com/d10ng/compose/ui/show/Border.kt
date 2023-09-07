@@ -1,4 +1,4 @@
-package com.d10ng.compose.ui.base
+package com.d10ng.compose.ui.show
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer

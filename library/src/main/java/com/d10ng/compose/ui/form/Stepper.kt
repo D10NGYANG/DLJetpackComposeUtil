@@ -45,6 +45,10 @@ fun StepperTest() {
         Stepper(value = 1, onValueChange = {})
         Box(modifier = Modifier.size(16.dp))
         Stepper(value = 1, onValueChange = {}, disabled = true)
+        Box(modifier = Modifier.size(16.dp))
+        Stepper(value = 1, onValueChange = {}, style = StepperStyle.Round)
+        Box(modifier = Modifier.size(16.dp))
+        Stepper(value = 1, onValueChange = {}, disabled = true, style = StepperStyle.Round)
     }
 }
 

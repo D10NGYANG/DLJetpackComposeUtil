@@ -21,6 +21,7 @@ import com.d10ng.compose.demo.pages.destinations.FieldScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NavBarScreenDestination
 import com.d10ng.compose.demo.pages.destinations.StepperScreenDestination
 import com.d10ng.compose.demo.pages.destinations.SwitchScreenDestination
+import com.d10ng.compose.demo.pages.destinations.TagScreenDestination
 import com.d10ng.compose.demo.pages.destinations.ToastScreenDestination
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
@@ -105,6 +106,12 @@ private fun HomeScreenView(
                 title = "Stepper 步进器",
                 link = true,
                 onClick = { onClick(StepperScreenDestination) })
+        }
+        CellGroup(title = "展示组件", inset = true) {
+            Cell(
+                title = "Tag 标签",
+                link = true,
+                onClick = { onClick(TagScreenDestination) })
         }
         CellGroup(title = "导航组件", inset = true) {
             Cell(
