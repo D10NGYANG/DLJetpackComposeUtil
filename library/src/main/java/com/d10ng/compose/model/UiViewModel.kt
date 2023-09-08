@@ -14,6 +14,8 @@ import com.d10ng.compose.ui.base.LoadingToast
 import com.d10ng.compose.ui.base.Toast
 import com.d10ng.compose.ui.base.ToastPosition
 import com.d10ng.compose.ui.base.ToastType
+import com.d10ng.compose.ui.sheet.Sheet
+import com.d10ng.compose.ui.sheet.builder.SheetBuilder
 import com.d10ng.compose.view.ErrorBar
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -45,6 +47,9 @@ class UiViewModel : ViewModel(), IUiViewModel {
     private val dialogBuilderFlow: MutableStateFlow<DialogBuilder?> = MutableStateFlow(null)
     private val dialogBuilderMapFlow = MutableStateFlow(mapOf<Int, com.d10ng.compose.ui.dialog.builder.DialogBuilder>())
 
+    // sheet
+    private val sheetBuilderFlow: MutableStateFlow<SheetBuilder?> = MutableStateFlow(null)
+
     @Composable
     fun Init() {
         val toast by toastFlow.collectAsState()
@@ -63,6 +68,11 @@ class UiViewModel : ViewModel(), IUiViewModel {
         val error by errorFlow.collectAsState()
         Box(modifier = Modifier.fillMaxWidth()) {
             ErrorBar(error.isNotEmpty(), error)
+        }
+
+        val sheetBuilder by sheetBuilderFlow.collectAsState()
+        sheetBuilder?.let {
+            Sheet(builder = it)
         }
 
         val dialogBuilder by dialogBuilderFlow.collectAsState()
@@ -141,6 +151,14 @@ class UiViewModel : ViewModel(), IUiViewModel {
 
     override fun hideDialog() {
         dialogBuilderFlow.value = null
+    }
+
+    override fun showSheet(builder: SheetBuilder) {
+        sheetBuilderFlow.value = builder
+    }
+
+    override fun hideSheet() {
+        sheetBuilderFlow.value = null
     }
 
     fun showDialog(builder: com.d10ng.compose.ui.dialog.builder.DialogBuilder, id: Int) {

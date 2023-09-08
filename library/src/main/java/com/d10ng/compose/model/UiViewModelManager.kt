@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import com.d10ng.compose.dialog.builder.DialogBuilder
 import com.d10ng.compose.ui.base.ToastPosition
+import com.d10ng.compose.ui.sheet.builder.SheetBuilder
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -94,6 +95,14 @@ object UiViewModelManager : IUiViewModel {
 
     override fun hideDialog() {
         getTopVM()?.hideDialog()
+    }
+
+    override fun showSheet(builder: SheetBuilder) {
+        getTopVM()?.showSheet(builder)
+    }
+
+    override fun hideSheet() {
+        getTopVM()?.hideSheet()
     }
 
     // 弹窗ID自增
