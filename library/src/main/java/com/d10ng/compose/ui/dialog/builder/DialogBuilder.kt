@@ -15,18 +15,21 @@ abstract class DialogBuilder(
     // 弹窗内容所在位置
     var contentAlignment: Alignment = Alignment.Center
 ) {
+
+    companion object {
+        /**
+         * 隐藏弹窗
+         * @param id Int 弹窗唯一标识
+         */
+        fun dismiss(id: Int) {
+            UiViewModelManager.hideDialog(id)
+        }
+    }
+
     /**
      * 构建弹窗内容
      * @param id Int 弹窗唯一标识
      */
     @Composable
     abstract fun Build(id: Int)
-
-    /**
-     * 隐藏弹窗
-     * @param id Int 弹窗唯一标识
-     */
-    fun dismiss(id: Int) {
-        UiViewModelManager.hideDialog(id)
-    }
 }

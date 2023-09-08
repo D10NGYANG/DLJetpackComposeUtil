@@ -1,12 +1,10 @@
 package com.d10ng.compose.ui.dialog.builder
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -15,7 +13,7 @@ import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.base.Button
 import com.d10ng.compose.ui.base.ButtonType
-import com.d10ng.compose.ui.dialog.DialogBox
+import com.d10ng.compose.ui.dialog.DialogColumn
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -49,48 +47,61 @@ open class TipsDialogBuilder(
     @Composable
     override fun Build(id: Int) {
         val scope = rememberCoroutineScope()
-        DialogBox {
-            Column(
+        DialogColumn {
+            // 标题
+            if (title.isNotEmpty()) {
+                TitleText(text = title, style = type.titleStyle)
+            }
+            // 内容
+            contentSlot()
+            if (content.isNotEmpty()) {
+                ContentText(text = content, style = type.contentStyle)
+            }
+            // 按钮
+            Button(
+                text = buttonText,
                 modifier = Modifier
                     .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                shape = AppShape.RC.Cycle,
+                type = type.buttonType
             ) {
-                // 标题
-                if (title.isNotEmpty()) {
-                    Text(
-                        text = title,
-                        style = type.titleStyle,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 30.dp),
-                        textAlign = TextAlign.Center
-                    )
-                }
-                // 内容
-                contentSlot()
-                if (content.isNotEmpty()) {
-                    Text(
-                        text = content,
-                        style = type.contentStyle,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 30.dp),
-                        textAlign = TextAlign.Center
-                    )
-                }
-                // 按钮
-                Button(
-                    text = buttonText,
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    shape = AppShape.RC.Cycle,
-                    type = type.buttonType
-                ) {
-                    scope.launch {
-                        if (onButtonClick(this)) dismiss(id)
-                    }
+                scope.launch {
+                    if (onButtonClick(this)) dismiss(id)
                 }
             }
+        }
+    }
+
+    companion object {
+        @Composable
+        fun TitleText(
+            text: String,
+            style: TextStyle = AppText.Bold.Title.large
+        ) {
+            BasicText(text, style)
+        }
+
+        @Composable
+        fun ContentText(
+            text: String,
+            style: TextStyle = AppText.Normal.Body.default
+        ) {
+            BasicText(text, style)
+        }
+
+        @Composable
+        private fun BasicText(
+            text: String,
+            style: TextStyle
+        ) {
+            Text(
+                text = text,
+                style = style,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 30.dp),
+                textAlign = TextAlign.Center
+            )
         }
     }
 }

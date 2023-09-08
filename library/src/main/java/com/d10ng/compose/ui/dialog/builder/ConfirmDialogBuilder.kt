@@ -4,21 +4,19 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.base.Button
 import com.d10ng.compose.ui.base.ButtonType
 import com.d10ng.compose.ui.dialog.DialogBox
+import com.d10ng.compose.ui.dialog.DialogColumn
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -55,64 +53,67 @@ class ConfirmDialogBuilder(
 
     @Composable
     override fun Build(id: Int) {
-        val scope = rememberCoroutineScope()
-        DialogBox {
-            Column(
+        DialogColumn {
+            // 标题
+            if (title.isNotEmpty()) {
+                TipsDialogBuilder.TitleText(text = title, style = type.titleStyle)
+            }
+            // 内容
+            contentSlot()
+            if (content.isNotEmpty()) {
+                TipsDialogBuilder.ContentText(text = content, style = type.contentStyle)
+            }
+            // 按钮组
+            ButtonRow(
+                id = id,
+                cancelText = cancelText,
+                confirmText = confirmText,
+                cancelButtonType = type.cancelButtonType,
+                confirmButtonType = type.confirmButtonType,
+                onCancelClick = onCancelClick,
+                onConfirmClick = onConfirmClick
+            )
+        }
+    }
+
+    companion object {
+        @Composable
+        fun ButtonRow(
+            id: Int,
+            cancelText: String = "取消",
+            confirmText: String = "确定",
+            cancelButtonType: ButtonType = ButtonType.DEFAULT,
+            confirmButtonType: ButtonType = ButtonType.PRIMARY,
+            onCancelClick: suspend CoroutineScope.() -> Boolean = { true },
+            onConfirmClick: suspend CoroutineScope.() -> Boolean = { true }
+        ) {
+            val scope = rememberCoroutineScope()
+            Row(
                 modifier = Modifier
                     .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                // 标题
-                if (title.isNotEmpty()) {
-                    Text(
-                        text = title,
-                        style = type.titleStyle,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 30.dp),
-                        textAlign = TextAlign.Center
-                    )
-                }
-                // 内容
-                contentSlot()
-                if (content.isNotEmpty()) {
-                    Text(
-                        text = content,
-                        style = type.contentStyle,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 30.dp),
-                        textAlign = TextAlign.Center
-                    )
-                }
-                // 按钮组
-                Row(
+                Button(
+                    text = cancelText,
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                        .weight(1f),
+                    shape = AppShape.RC.Cycle,
+                    type = cancelButtonType
                 ) {
-                    Button(
-                        text = cancelText,
-                        modifier = Modifier
-                            .weight(1f),
-                        shape = AppShape.RC.Cycle,
-                        type = type.cancelButtonType
-                    ) {
-                        scope.launch {
-                            if (onCancelClick(this)) dismiss(id)
-                        }
+                    scope.launch {
+                        if (onCancelClick(this)) dismiss(id)
                     }
-                    Box(modifier = Modifier.width(32.dp))
-                    Button(
-                        text = confirmText,
-                        modifier = Modifier
-                            .weight(1f),
-                        shape = AppShape.RC.Cycle,
-                        type = type.confirmButtonType
-                    ) {
-                        scope.launch {
-                            if (onConfirmClick(this)) dismiss(id)
-                        }
+                }
+                Box(modifier = Modifier.width(32.dp))
+                Button(
+                    text = confirmText,
+                    modifier = Modifier
+                        .weight(1f),
+                    shape = AppShape.RC.Cycle,
+                    type = confirmButtonType
+                ) {
+                    scope.launch {
+                        if (onConfirmClick(this)) dismiss(id)
                     }
                 }
             }

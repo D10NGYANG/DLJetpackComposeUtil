@@ -12,8 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.d10ng.common.isMobileNumber
 import com.d10ng.compose.demo.PageTransitions
 import com.d10ng.compose.demo.R
 import com.d10ng.compose.model.UiViewModelManager
@@ -21,6 +23,7 @@ import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.dialog.builder.ConfirmDialogBuilder
+import com.d10ng.compose.ui.dialog.builder.InputDialogBuilder
 import com.d10ng.compose.ui.dialog.builder.TipsDialogBuilder
 import com.d10ng.compose.ui.navigation.NavBar
 import com.ramcosta.composedestinations.annotation.Destination
@@ -122,6 +125,84 @@ private fun DialogScreenView(
                         },
                         onButtonClick = {
                             UiViewModelManager.showToast("点击了确定")
+                            true
+                        }
+                    ))
+                })
+            }
+            CellGroup(title = "输入弹窗", inset = true) {
+                Cell(title = "单个输入框", link = true, onClick = {
+                    UiViewModelManager.showDialog(InputDialogBuilder(
+                        title = "手机号",
+                        inputs = listOf(
+                            InputDialogBuilder.Input(
+                                initValue = "",
+                                label = "请输入国内手机号",
+                                keyboardType = KeyboardType.Phone,
+                                verify = { value ->
+                                    val pass = value.isMobileNumber()
+                                    InputDialogBuilder.Verify(
+                                        pass = pass,
+                                        errorText = if (pass) "" else "手机号格式不正确"
+                                    )
+                                }
+                            )
+                        ),
+                        onConfirmClick = {
+                            UiViewModelManager.showToast("输入内容：\"${it[0]}\"")
+                            true
+                        }
+                    ))
+                })
+                Cell(title = "两个输入框", link = true, onClick = {
+                    UiViewModelManager.showDialog(InputDialogBuilder(
+                        title = "经纬度",
+                        inputs = listOf(
+                            InputDialogBuilder.Input(
+                                initValue = "",
+                                label = "请输入目标纬度，-90至90，eg:22.3",
+                                keyboardType = KeyboardType.Number,
+                                verify = { value ->
+                                    val temp = value.toDoubleOrNull()
+                                    val pass = temp != null && temp in -90.0..90.0
+                                    InputDialogBuilder.Verify(
+                                        pass = pass,
+                                        errorText = if (pass) "" else "纬度格式不正确"
+                                    )
+                                }
+                            ),
+                            InputDialogBuilder.Input(
+                                initValue = "",
+                                label = "请输入目标经度，-180至180，eg:113.5",
+                                keyboardType = KeyboardType.Number,
+                                verify = { value ->
+                                    val temp = value.toDoubleOrNull()
+                                    val pass = temp != null && temp in -180.0..180.0
+                                    InputDialogBuilder.Verify(
+                                        pass = pass,
+                                        errorText = if (pass) "" else "经度格式不正确"
+                                    )
+                                }
+                            )
+                        ),
+                        onConfirmClick = {
+                            UiViewModelManager.showToast("输入内容：\"${it[0]}, ${it[1]}\"")
+                            true
+                        }
+                    ))
+                })
+                Cell(title = "多行输入框", link = true, onClick = {
+                    UiViewModelManager.showDialog(InputDialogBuilder(
+                        title = "留言",
+                        inputs = listOf(
+                            InputDialogBuilder.Input(
+                                initValue = "",
+                                label = "请输入您的留言",
+                                singleLine = false
+                            )
+                        ),
+                        onConfirmClick = {
+                            UiViewModelManager.showToast("输入内容：\"${it[0]}\"")
                             true
                         }
                     ))
