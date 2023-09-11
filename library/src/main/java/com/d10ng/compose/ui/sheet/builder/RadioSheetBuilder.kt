@@ -55,11 +55,48 @@ class RadioSheetBuilder<T>(
 
     @Composable
     override fun Build() {
-        val scope = rememberCoroutineScope()
         var selected by remember(selectedItem) {
             mutableStateOf(selectedItem)
         }
         SheetColumn {
+            // 标题栏
+            TitleBar(
+                title = title,
+                cancelText = cancelText,
+                confirmText = confirmText,
+                onCancelClick = onCancelClick,
+                onConfirmClick = { onConfirmClick(selected) }
+            )
+            // 选项
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState()),
+            ) {
+                items.forEachIndexed { index, item ->
+                    RadioCell(
+                        label = itemText(item),
+                        selected = selected == item,
+                        onClick = {
+                            selected = item
+                        },
+                        border = index != items.size - 1
+                    )
+                }
+            }
+        }
+    }
+
+    companion object {
+        @Composable
+        fun TitleBar(
+            title: String = "请选择",
+            cancelText: String = "取消",
+            confirmText: String = "确定",
+            onCancelClick: suspend CoroutineScope.() -> Boolean = { true },
+            onConfirmClick: suspend CoroutineScope.() -> Boolean = { true },
+        ) {
+            val scope = rememberCoroutineScope()
             ConstraintLayout(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -99,7 +136,7 @@ class RadioSheetBuilder<T>(
                 TextButton(
                     onClick = {
                         scope.launch {
-                            if (onConfirmClick(selected)) dismiss()
+                            if (onConfirmClick()) dismiss()
                         }
                     },
                     modifier = Modifier
@@ -110,23 +147,6 @@ class RadioSheetBuilder<T>(
                         }
                 ) {
                     Text(text = confirmText, style = AppText.Normal.Title.default)
-                }
-            }
-            // 选项
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .verticalScroll(rememberScrollState()),
-            ) {
-                items.forEachIndexed { index, item ->
-                    RadioCell(
-                        label = itemText(item),
-                        selected = selected == item,
-                        onClick = {
-                            selected = item
-                        },
-                        border = index != items.size - 1
-                    )
                 }
             }
         }

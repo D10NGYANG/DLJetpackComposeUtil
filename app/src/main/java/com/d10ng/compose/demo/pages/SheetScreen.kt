@@ -19,7 +19,9 @@ import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.navigation.NavBar
 import com.d10ng.compose.ui.sheet.builder.ActionSheetBuilder
+import com.d10ng.compose.ui.sheet.builder.MultiPickerSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.RadioSheetBuilder
+import com.d10ng.compose.ui.sheet.builder.SinglePickerSheetBuilder
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -79,12 +81,46 @@ private fun SheetScreenView(
                         }
                     ))
                 })
+                Cell(title = "单列滚轮选择面板弹窗", link = true, onClick = {
+                    UiViewModelManager.showSheet(SinglePickerSheetBuilder(
+                        title = "选择分辨率",
+                        items = Options.entries.toSet(),
+                        itemText = { it.text },
+                        selectedItem = value,
+                        onConfirmClick = {
+                            value = it
+                            UiViewModelManager.showToast("选择了${value.text}")
+                            true
+                        }
+                    ))
+                })
+                var value1 by remember {
+                    mutableStateOf(listOf(WeekType.MONDAY, DayTimeType.AM))
+                }
+                Cell(title = "多列滚轮选择面板弹窗", link = true, onClick = {
+                    UiViewModelManager.showSheet(MultiPickerSheetBuilder(
+                        title = "选择",
+                        items = listOf(WeekType.entries.toSet(), DayTimeType.entries.toSet()),
+                        itemText = { it.text },
+                        selectedItems = value1,
+                        onConfirmClick = {
+                            value1 = it
+                            UiViewModelManager.showToast("选择了 ${value1[0].text}:${value1[1].text}")
+                            true
+                        }
+                    ))
+                })
             }
         }
     }
 }
 
-enum class Options(val text: String) {
+private interface BaseOption {
+    val text: String
+}
+
+// 分辨率类型
+private enum class Options(override val text: String): BaseOption {
     // 保持原图
     ORIGINAL("保持原图"),
     // 240P
@@ -101,6 +137,36 @@ enum class Options(val text: String) {
     P2K("2K"),
     // 4K
     P4K("4K"),
+}
+
+// 星期类型
+private enum class WeekType(override val text: String): BaseOption {
+    // 周一
+    MONDAY("周一"),
+    // 周二
+    TUESDAY("周二"),
+    // 周三
+    WEDNESDAY("周三"),
+    // 周四
+    THURSDAY("周四"),
+    // 周五
+    FRIDAY("周五"),
+    // 周六
+    SATURDAY("周六"),
+    // 周日
+    SUNDAY("周日"),
+}
+
+// 一天的时间段类型
+private enum class DayTimeType(override val text: String): BaseOption {
+    // 上午
+    AM("上午"),
+    // 中午
+    NOON("中午"),
+    // 下午
+    PM("下午"),
+    // 晚上
+    NIGHT("晚上"),
 }
 
 @Preview
