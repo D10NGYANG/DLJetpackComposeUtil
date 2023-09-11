@@ -1,8 +1,10 @@
 package com.d10ng.compose.demo.pages
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -10,13 +12,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavOptions
 import com.d10ng.compose.demo.PageTransitions
+import com.d10ng.compose.demo.R
 import com.d10ng.compose.demo.pages.destinations.ButtonScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CellScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CheckButtonScreenDestination
@@ -29,6 +36,7 @@ import com.d10ng.compose.demo.pages.destinations.SwitchScreenDestination
 import com.d10ng.compose.demo.pages.destinations.TagScreenDestination
 import com.d10ng.compose.demo.pages.destinations.ToastScreenDestination
 import com.d10ng.compose.ui.AppColor
+import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
@@ -67,17 +75,32 @@ private fun HomeScreenView(
             .verticalScroll(rememberScrollState())
     ) {
         // 标题
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "DLJetpackComposeUtil", style = AppText.Bold.Title.v24)
-            Text(
-                text = "Jetpack Compose UI 组件库",
-                style = AppText.Normal.Body.v14,
-                modifier = Modifier.padding(top = 8.dp)
+            Icon(
+                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                contentDescription = null,
+                tint = AppColor.Main.primary,
+                modifier = Modifier
+                    .height(64.dp)
+                    .background(Color.White, AppShape.RC.v24)
             )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp)
+            ) {
+                Text(text = "DLJetpackComposeUtil", style = AppText.Bold.Title.large)
+                Text(
+                    text = "Jetpack Compose UI 组件库（仿Vant）",
+                    style = AppText.Normal.Body.small,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
         }
         CellGroup(title = "基础组件", inset = true) {
             Cell(

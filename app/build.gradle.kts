@@ -78,9 +78,9 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
     // 调试工具
-    debugImplementation("com.github.simplepeng.SpiderMan:spiderman:v1.1.9") {
-        exclude(group = "androidx.appcompat")
-    }
+//    debugImplementation("com.github.simplepeng.SpiderMan:spiderman:v1.1.9") {
+//        exclude(group = "androidx.appcompat")
+//    }
     // 内存泄漏检查
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
 

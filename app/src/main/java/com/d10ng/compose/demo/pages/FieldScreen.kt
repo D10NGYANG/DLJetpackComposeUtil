@@ -181,7 +181,7 @@ private fun FieldScreenView(
                     onValueChange = { value1 = it },
                     label = "留言",
                     autoSize = true,
-                    onSizeChange = { cur, offset ->
+                    onSizeChange = { _, offset ->
                         scope.launch {
                             scrollState.scrollBy(offset.height.toFloat())
                         }
@@ -194,7 +194,7 @@ private fun FieldScreenView(
                     placeholder = "多行模式",
                     minLines = 3,
                     autoSize = true,
-                    onSizeChange = { cur, offset ->
+                    onSizeChange = { _, offset ->
                         scope.launch {
                             scrollState.scrollBy(offset.height.toFloat())
                         }

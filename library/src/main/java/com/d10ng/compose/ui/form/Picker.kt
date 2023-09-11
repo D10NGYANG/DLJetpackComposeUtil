@@ -15,11 +15,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,24 +41,19 @@ import kotlinx.coroutines.launch
 
 /**
  * 单列滚轮选择器
- * @param items Set<T>
- * @param itemText Function1<T, String>
- * @param textStyle TextStyle
- * @param selectedItem T
- * @param onValueChange Function1<T, Unit>
+ * @param items Set<T> 选项
+ * @param itemText Function1<T, String> 选项文本
+ * @param textStyle TextStyle 文本样式
+ * @param selectedItem T 选中的项
+ * @param onValueChange Function1<T, Unit> 选项切换事件
  */
 @Composable
 fun <T> Picker(
-    // 选项
     items: Set<T>,
-    // 选项文本
     itemText: (T) -> String = { it.toString() },
-    // 文本样式
     textStyle: TextStyle = AppText.Normal.Title.default,
-    // 选中的项
     selectedItem: T = items.first(),
-    // 选项切换事件
-    onValueChange: (T) -> Unit = {},
+    onValueChange: (T) -> Unit = {}
 ) {
     // 可见的选项数量
     val visibleItemCount = 5
@@ -77,7 +69,7 @@ fun <T> Picker(
     val onValueChangeEvent by rememberUpdatedState(newValue = onValueChange)
 
     // 滚动粘性效果
-    LaunchedEffect(state.isScrollInProgress) {
+    LaunchedEffect(state.isScrollInProgress, itemHalfHeightToPx) {
         if (!state.isScrollInProgress && state.firstVisibleItemScrollOffset != 0) {
             if (state.firstVisibleItemScrollOffset < itemHalfHeightToPx) {
                 state.animateScrollToItem(state.firstVisibleItemIndex)
@@ -88,7 +80,7 @@ fun <T> Picker(
     }
 
     // 滚动完成事件收集
-    LaunchedEffect(state, selectedItem) {
+    LaunchedEffect(state, items, selectedItem) {
         snapshotFlow { state.isScrollInProgress }
             .filter { !it && state.firstVisibleItemScrollOffset == 0 }
             .drop(1)
@@ -99,7 +91,7 @@ fun <T> Picker(
     }
 
     // 滚动到选中项
-    LaunchedEffect(state, selectedItem) {
+    LaunchedEffect(state, items, selectedItem) {
         val index = items.indexOf(selectedItem)
         if (index >= 0) {
             state.animateScrollToItem(index)
@@ -185,24 +177,19 @@ fun <T> Picker(
 
 /**
  * 多列滚轮选择器
- * @param items List<Set<T>>
- * @param itemText Function1<T, String>
- * @param textStyle TextStyle
- * @param selectedItems List<T>
- * @param onValueChange Function1<List<T>, Unit>
+ * @param items List<Set<T>> 选项
+ * @param itemText Function2<Int, T, String> 选项文本，第一个参数为列索引，第二个参数为选项
+ * @param textStyle TextStyle 文本样式
+ * @param selectedItems List<T> 选中的项
+ * @param onValueChange Function1<List<T>, Unit> 选项切换事件
  */
 @Composable
 fun <T> MultiPicker(
-    // 选项
     items: List<Set<T>>,
-    // 选项文本
-    itemText: (T) -> String = { it.toString() },
-    // 文本样式
+    itemText: (Int, T) -> String = { _, item -> item.toString() },
     textStyle: TextStyle = AppText.Normal.Title.default,
-    // 选中的项
     selectedItems: List<T> = items.map { it.first() },
-    // 选项切换事件
-    onValueChange: (List<T>) -> Unit = {},
+    onValueChange: (List<T>) -> Unit = {}
 ) {
     Row(
         modifier = Modifier.fillMaxWidth()
@@ -211,9 +198,9 @@ fun <T> MultiPicker(
             Box(modifier = Modifier.weight(1f)) {
                 Picker(
                     items = set,
-                    itemText = itemText,
+                    itemText = { itemText(index, it) },
                     textStyle = textStyle,
-                    selectedItem = selectedItems[index]?: set.first()
+                    selectedItem = selectedItems[index] ?: set.first()
                 ) {
                     val newSelectedItems = selectedItems.toMutableList()
                     newSelectedItems[index] = it

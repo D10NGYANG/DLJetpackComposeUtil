@@ -5,23 +5,35 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.d10ng.compose.demo.PageTransitions
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
+import com.d10ng.compose.ui.form.DatePickerMode
 import com.d10ng.compose.ui.navigation.NavBar
 import com.d10ng.compose.ui.sheet.builder.ActionSheetBuilder
+import com.d10ng.compose.ui.sheet.builder.DatePickerSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.MultiPickerSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.RadioSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.SinglePickerSheetBuilder
+import com.d10ng.datelib.curTime
+import com.d10ng.datelib.toDateStr
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -55,7 +67,7 @@ private fun SheetScreenView(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            CellGroup(title = "使用方式", inset = true) {
+            CellGroup(title = "基础用法", inset = true) {
                 var value by remember {
                     mutableStateOf(Options.ORIGINAL)
                 }
@@ -81,10 +93,33 @@ private fun SheetScreenView(
                         }
                     ))
                 })
+                var state by remember { mutableIntStateOf(0) }
+                val titles = listOf("Tab 1", "Tab 2", "Tab 3 with lots of text")
+                Column {
+                    TabRow(selectedTabIndex = state, divider = {}) {
+                        titles.forEachIndexed { index, title ->
+                            Tab(
+                                selected = state == index,
+                                onClick = { state = index },
+                                text = { Text(text = title, maxLines = 2, overflow = TextOverflow.Ellipsis) }
+                            )
+                        }
+                    }
+                    Text(
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        text = "Text tab ${state + 1} selected",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+            }
+            CellGroup(title = "滚轮选择", inset = true) {
+                var value by remember {
+                    mutableStateOf(WeekType.entries.first())
+                }
                 Cell(title = "单列滚轮选择面板弹窗", link = true, onClick = {
                     UiViewModelManager.showSheet(SinglePickerSheetBuilder(
-                        title = "选择分辨率",
-                        items = Options.entries.toSet(),
+                        title = "选择时间",
+                        items = WeekType.entries.toSet(),
                         itemText = { it.text },
                         selectedItem = value,
                         onConfirmClick = {
@@ -101,11 +136,42 @@ private fun SheetScreenView(
                     UiViewModelManager.showSheet(MultiPickerSheetBuilder(
                         title = "选择",
                         items = listOf(WeekType.entries.toSet(), DayTimeType.entries.toSet()),
-                        itemText = { it.text },
+                        itemText = { _, item -> item.text },
                         selectedItems = value1,
                         onConfirmClick = {
                             value1 = it
                             UiViewModelManager.showToast("选择了 ${value1[0].text}:${value1[1].text}")
+                            true
+                        }
+                    ))
+                })
+            }
+            CellGroup(title = "日期时间选择", inset = true) {
+                var value1 by remember {
+                    mutableLongStateOf(curTime)
+                }
+                Cell(title = "日期选择面板弹窗(年月日)", link = true, onClick = {
+                    UiViewModelManager.showSheet(DatePickerSheetBuilder(
+                        title = "选择日期",
+                        value = value1,
+                        onConfirmClick = {
+                            value1 = it
+                            UiViewModelManager.showToast("选择了 ${it.toDateStr("yyyy-MM-dd")}")
+                            true
+                        }
+                    ))
+                })
+                var value2 by remember {
+                    mutableLongStateOf(curTime)
+                }
+                Cell(title = "日期选择面板弹窗(年月)", link = true, onClick = {
+                    UiViewModelManager.showSheet(DatePickerSheetBuilder(
+                        title = "选择日期",
+                        value = value2,
+                        mode = DatePickerMode.YM,
+                        onConfirmClick = {
+                            value2 = it
+                            UiViewModelManager.showToast("选择了 ${it.toDateStr("yyyy-MM")}")
                             true
                         }
                     ))
