@@ -166,7 +166,7 @@ private fun SheetScreenView(
                 }
                 Cell(title = "日期选择面板弹窗(年月)", link = true, onClick = {
                     UiViewModelManager.showSheet(DatePickerSheetBuilder(
-                        title = "选择日期",
+                        title = "选择年月",
                         value = value2,
                         mode = DatePickerMode.YM,
                         onConfirmClick = {
@@ -181,7 +181,7 @@ private fun SheetScreenView(
                 }
                 Cell(title = "日期选择面板弹窗(年)", link = true, onClick = {
                     UiViewModelManager.showSheet(DatePickerSheetBuilder(
-                        title = "选择日期",
+                        title = "选择年份",
                         value = value3,
                         mode = DatePickerMode.Y,
                         onConfirmClick = {
@@ -189,6 +189,44 @@ private fun SheetScreenView(
                             UiViewModelManager.showToast("选择了 ${it.toDateStr("yyyy")}")
                             true
                         }
+                    ))
+                })
+                var value4 by remember {
+                    mutableLongStateOf(curTime)
+                }
+                Cell(title = "日期选择面板弹窗(月日)", link = true, onClick = {
+                    UiViewModelManager.showSheet(DatePickerSheetBuilder(
+                        title = "选择月日",
+                        value = value4,
+                        mode = DatePickerMode.MD,
+                        onConfirmClick = {
+                            value4 = it
+                            UiViewModelManager.showToast("选择了 ${it.toDateStr("MM-dd")}")
+                            true
+                        },
+                        itemText = { i, item ->
+                            when (i) {
+                                0 -> "${item}月"
+                                1 -> "${item}日"
+                                else -> item
+                            }
+                        }
+                    ))
+                })
+                var value5 by remember {
+                    mutableLongStateOf(curTime)
+                }
+                Cell(title = "日期选择面板弹窗(月)", link = true, onClick = {
+                    UiViewModelManager.showSheet(DatePickerSheetBuilder(
+                        title = "选择月份",
+                        value = value5,
+                        mode = DatePickerMode.M,
+                        onConfirmClick = {
+                            value5 = it
+                            UiViewModelManager.showToast("选择了 ${it.toDateStr("MM")}")
+                            true
+                        },
+                        itemText = { _, item -> "${item}月" }
                     ))
                 })
             }

@@ -31,6 +31,8 @@ class DatePickerSheetBuilder(
     private val textStyle: TextStyle = AppText.Normal.Title.default,
     // 选择器模式
     private val mode: DatePickerMode = DatePickerMode.YMD,
+    // 选项文本
+    private val itemText: (Int, String) -> String = { _, item -> item },
     // 取消文本
     private val cancelText: String = "取消",
     // 确定文本
@@ -61,7 +63,8 @@ class DatePickerSheetBuilder(
                 start = start,
                 endInclude = endInclude,
                 textStyle = textStyle,
-                mode = mode
+                mode = mode,
+                itemText = itemText
             )
         }
     }
