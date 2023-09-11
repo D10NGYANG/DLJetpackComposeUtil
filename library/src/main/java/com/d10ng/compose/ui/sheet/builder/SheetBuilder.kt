@@ -10,7 +10,7 @@ import com.d10ng.compose.model.UiViewModelManager
  */
 abstract class SheetBuilder(
     // 是否允许点击外部隐藏弹窗
-    var clickOutsideDismiss: Boolean = false,
+    var clickOutsideDismiss: Boolean = true,
 ) {
 
     companion object {

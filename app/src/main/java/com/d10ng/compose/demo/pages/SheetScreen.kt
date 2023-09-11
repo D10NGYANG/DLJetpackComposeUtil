@@ -18,6 +18,7 @@ import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.navigation.NavBar
+import com.d10ng.compose.ui.sheet.builder.ActionSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.RadioSheetBuilder
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
@@ -67,7 +68,16 @@ private fun SheetScreenView(
                             UiViewModelManager.showToast("选择了${it.text}")
                             true
                         }
-                    ).apply { clickOutsideDismiss = true })
+                    ))
+                })
+                Cell(title = "动作面板弹窗", link = true, onClick = {
+                    UiViewModelManager.showSheet(ActionSheetBuilder(
+                        items = Options.entries.toSet(),
+                        itemText = { it.text },
+                        onItemClick = {
+                            UiViewModelManager.showToast("选择了${it.text}")
+                        }
+                    ))
                 })
             }
         }

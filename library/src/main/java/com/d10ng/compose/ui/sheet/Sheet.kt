@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
@@ -64,6 +65,7 @@ fun SheetBox(
             .fillMaxWidth()
             .heightIn(min = screenHeight * 0.3f, max = screenHeight * 0.7f)
             .background(color, shape)
+            .clip(shape),
     ) {
         content()
     }
