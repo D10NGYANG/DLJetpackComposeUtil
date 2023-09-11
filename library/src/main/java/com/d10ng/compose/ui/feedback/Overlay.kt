@@ -1,5 +1,6 @@
 package com.d10ng.compose.ui.feedback
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
@@ -40,4 +41,7 @@ fun Overlay(
         content = content,
         contentAlignment = contentAlignment
     )
+    BackHandler {
+        onDismiss.invoke()
+    }
 }

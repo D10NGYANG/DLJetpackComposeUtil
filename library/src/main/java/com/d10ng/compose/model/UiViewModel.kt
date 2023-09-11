@@ -71,9 +71,7 @@ class UiViewModel : ViewModel(), IUiViewModel {
         }
 
         val sheetBuilder by sheetBuilderFlow.collectAsState()
-        sheetBuilder?.let {
-            Sheet(builder = it)
-        }
+        Sheet(builder = sheetBuilder)
 
         val dialogBuilder by dialogBuilderFlow.collectAsState()
         dialogBuilder?.let {

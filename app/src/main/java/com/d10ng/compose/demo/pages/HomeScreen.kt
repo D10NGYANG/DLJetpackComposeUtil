@@ -23,6 +23,7 @@ import com.d10ng.compose.demo.pages.destinations.CheckButtonScreenDestination
 import com.d10ng.compose.demo.pages.destinations.DialogScreenDestination
 import com.d10ng.compose.demo.pages.destinations.FieldScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NavBarScreenDestination
+import com.d10ng.compose.demo.pages.destinations.SheetScreenDestination
 import com.d10ng.compose.demo.pages.destinations.StepperScreenDestination
 import com.d10ng.compose.demo.pages.destinations.SwitchScreenDestination
 import com.d10ng.compose.demo.pages.destinations.TagScreenDestination
@@ -116,6 +117,10 @@ private fun HomeScreenView(
                 title = "Dialog 弹出框",
                 link = true,
                 onClick = { onClick(DialogScreenDestination) })
+            Cell(
+                title = "Sheet 操作面板",
+                link = true,
+                onClick = { onClick(SheetScreenDestination) })
         }
         CellGroup(title = "展示组件", inset = true) {
             Cell(
