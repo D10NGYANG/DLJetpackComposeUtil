@@ -94,7 +94,7 @@ fun <T> Picker(
     LaunchedEffect(state, items, selectedItem) {
         val index = items.indexOf(selectedItem)
         if (index >= 0) {
-            state.animateScrollToItem(index)
+            state.scrollToItem(index)
         }
     }
 

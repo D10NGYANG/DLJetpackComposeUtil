@@ -1,7 +1,6 @@
 package com.d10ng.compose.ui.dialog.builder
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
@@ -15,7 +14,6 @@ import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.base.Button
 import com.d10ng.compose.ui.base.ButtonType
-import com.d10ng.compose.ui.dialog.DialogBox
 import com.d10ng.compose.ui.dialog.DialogColumn
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

@@ -176,6 +176,21 @@ private fun SheetScreenView(
                         }
                     ))
                 })
+                var value3 by remember {
+                    mutableLongStateOf(curTime)
+                }
+                Cell(title = "日期选择面板弹窗(年)", link = true, onClick = {
+                    UiViewModelManager.showSheet(DatePickerSheetBuilder(
+                        title = "选择日期",
+                        value = value3,
+                        mode = DatePickerMode.Y,
+                        onConfirmClick = {
+                            value3 = it
+                            UiViewModelManager.showToast("选择了 ${it.toDateStr("yyyy")}")
+                            true
+                        }
+                    ))
+                })
             }
         }
     }
