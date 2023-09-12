@@ -17,6 +17,7 @@ import com.d10ng.compose.demo.PageTransitions
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.form.CheckButtonGroup
+import com.d10ng.compose.ui.form.CheckButtonMode
 import com.d10ng.compose.ui.navigation.NavBar
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
@@ -91,6 +92,21 @@ private fun CheckButtonScreenView(
                     checked = checked,
                     onCheckedChange = { checked = it },
                     activeColor = Color(0xFF2ABF55)
+                )
+            }
+            CellGroup(title = "按钮样式", border = false) {
+                val items = remember {
+                    setOf("1min", "5min", "10min", "30min", "60min")
+                }
+                var checked by remember {
+                    mutableStateOf(items.first())
+                }
+                CheckButtonGroup(
+                    items = items,
+                    checked = checked,
+                    onCheckedChange = { checked = it },
+                    activeColor = Color.Red,
+                    mode = CheckButtonMode.Button
                 )
             }
         }

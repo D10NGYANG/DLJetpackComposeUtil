@@ -87,7 +87,7 @@ fun ListItem(
     }
 }
 
-@Preview(showBackground = true)
+@Preview()
 @Composable
 private fun ListItem_Test() {
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -229,7 +229,7 @@ fun ListItem(
     )
 }
 
-@Preview(showBackground = true)
+@Preview()
 @Composable
 private fun ListInputItem_Test() {
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -390,7 +390,7 @@ fun ListInputItem(
     }
 }
 
-@Preview(showBackground = true)
+@Preview()
 @Composable
 private fun ListMenuItem_Test() {
     Column(modifier = Modifier.fillMaxWidth()) {

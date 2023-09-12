@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -34,10 +35,10 @@ import com.d10ng.compose.utils.next
 @Composable
 fun CheckButtonTest() {
     Column {
-        CheckButton(text = "测试", checked = true, onCheckedChange = {})
-        CheckButton(text = "测试", checked = false, onCheckedChange = {})
-        CheckButton(text = "测试", checked = true, onCheckedChange = {}, disabled = true)
-        CheckButton(text = "测试", checked = false, onCheckedChange = {}, disabled = true)
+        CheckButton(text = "60min", checked = true, onCheckedChange = {})
+        CheckButton(text = "60min", checked = false, onCheckedChange = {})
+        CheckButton(text = "60min", checked = true, onCheckedChange = {}, disabled = true)
+        CheckButton(text = "60min", checked = false, onCheckedChange = {}, disabled = true)
     }
 }
 
@@ -47,20 +48,21 @@ fun CheckButtonTest() {
  * @param items Set<String> 选项列表
  * @param checked String 选中的选项
  * @param onCheckedChange Function1<String, Unit> 选中状态切换
+ * @param mode CheckButtonMode 选择按钮模式
  * @param disabled Set<String> 禁用的选项
  * @param activeColor Color 选中颜色
  * @param inactiveColor Color 未选中颜色
  */
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CheckButtonGroup(
     modifier: Modifier = Modifier,
     items: Set<String>,
     checked: String,
     onCheckedChange: (String) -> Unit,
+    mode: CheckButtonMode = CheckButtonMode.Clip,
     disabled: Set<String> = setOf(),
-    activeColor: Color = AppColor.Main.primary,
-    inactiveColor: Color = AppColor.Neutral.body,
+    activeColor: Color = mode.activeColor,
+    inactiveColor: Color = mode.inactiveColor,
 ) {
     CheckButtonGroup(
         modifier = modifier,
@@ -68,9 +70,10 @@ fun CheckButtonGroup(
         checked = setOf(checked),
         onCheckedChange = {
             val newCheck = if (it.size > 1) it.find { c -> c.contentEquals(checked).not() }!!
-            else it.firstOrNull()?: checked
+            else it.firstOrNull() ?: checked
             onCheckedChange(newCheck)
         },
+        mode = mode,
         disabled = disabled,
         activeColor = activeColor,
         inactiveColor = inactiveColor
@@ -83,6 +86,7 @@ fun CheckButtonGroup(
  * @param items Set<String> 选项列表
  * @param checked Set<String> 选中的选项
  * @param onCheckedChange Function1<Set<String>, Unit> 选中状态切换
+ * @param mode CheckButtonMode 选择按钮模式
  * @param disabled Set<String> 禁用的选项
  * @param activeColor Color 选中颜色
  * @param inactiveColor Color 未选中颜色
@@ -94,9 +98,10 @@ fun CheckButtonGroup(
     items: Set<String>,
     checked: Set<String>,
     onCheckedChange: (Set<String>) -> Unit,
+    mode: CheckButtonMode = CheckButtonMode.Clip,
     disabled: Set<String> = setOf(),
-    activeColor: Color = AppColor.Main.primary,
-    inactiveColor: Color = AppColor.Neutral.body,
+    activeColor: Color = mode.activeColor,
+    inactiveColor: Color = mode.inactiveColor,
 ) {
     FlowRow(
         modifier = modifier
@@ -118,6 +123,7 @@ fun CheckButtonGroup(
                     }
                     onCheckedChange(newChecked)
                 },
+                mode = mode,
                 disabled = dis,
                 activeColor = activeColor,
                 inactiveColor = inactiveColor
@@ -126,11 +132,17 @@ fun CheckButtonGroup(
     }
 }
 
+enum class CheckButtonMode(val activeColor: Color, val inactiveColor: Color) {
+    Clip(AppColor.Main.primary, AppColor.Neutral.body),
+    Button(AppColor.Main.primary, AppColor.Neutral.card)
+}
+
 /**
  * 选择按钮
  * @param text String 文本
  * @param checked Boolean 是否选中
  * @param onCheckedChange Function1<Boolean, Unit> 选中状态切换
+ * @param mode CheckButtonMode 选择按钮模式
  * @param disabled Boolean 是否禁用
  * @param activeColor Color 选中颜色
  * @param inactiveColor Color 未选中颜色
@@ -140,9 +152,10 @@ fun CheckButton(
     text: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
+    mode: CheckButtonMode = CheckButtonMode.Clip,
     disabled: Boolean = false,
-    activeColor: Color = AppColor.Main.primary,
-    inactiveColor: Color = AppColor.Neutral.body,
+    activeColor: Color = mode.activeColor,
+    inactiveColor: Color = mode.inactiveColor,
 ) {
     val acColor = remember(disabled) {
         if (disabled) activeColor.next(0.2) else activeColor
@@ -150,24 +163,45 @@ fun CheckButton(
     val inColor = remember(disabled) {
         if (disabled) inactiveColor.next(0.2) else inactiveColor
     }
-    Box(
-        modifier = Modifier
-            .then(
-                if (!checked) Modifier.dashBorder(
-                    color = inColor,
-                    cornerRadiusDp = 16.dp
-                ) else Modifier
-            )
-            .clip(AppShape.RC.v16)
-            .background(if (checked) acColor else Color.Transparent)
-            .clickable(enabled = !disabled) { onCheckedChange(!checked) }
-            .padding(horizontal = 12.dp, vertical = 4.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = text,
-            style = AppText.Normal.Body.small,
-            color = if (checked) Color.White else inColor
-        )
+    when (mode) {
+        CheckButtonMode.Button -> {
+            Box(
+                modifier = Modifier
+                    .size(62.dp, 42.dp)
+                    .clip(AppShape.RC.v6)
+                    .background(if (checked) acColor else inColor)
+                    .clickable(enabled = !disabled) { onCheckedChange(!checked) },
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = text,
+                    style = AppText.Normal.Body.default,
+                    color = if (checked) Color.White else inColor.next(-0.5)
+                )
+            }
+        }
+
+        CheckButtonMode.Clip -> {
+            Box(
+                modifier = Modifier
+                    .then(
+                        if (!checked) Modifier.dashBorder(
+                            color = inColor,
+                            cornerRadiusDp = 16.dp
+                        ) else Modifier
+                    )
+                    .clip(AppShape.RC.v16)
+                    .background(if (checked) acColor else Color.Transparent)
+                    .clickable(enabled = !disabled) { onCheckedChange(!checked) }
+                    .padding(horizontal = 12.dp, vertical = 4.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = text,
+                    style = AppText.Normal.Body.small,
+                    color = if (checked) Color.White else inColor
+                )
+            }
+        }
     }
 }
