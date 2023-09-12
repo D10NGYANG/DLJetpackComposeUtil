@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
@@ -294,60 +293,5 @@ fun HollowButtonWithImageText(
                 style = AppText.Bold.Primary.v16
             )
         }
-    }
-}
-
-@Composable
-fun DialogSureButton(
-    modifier: Modifier = Modifier,
-    text: String = "确定",
-    color: Color = Color.White,
-    containerColor: Color = AppColor.Main.primary,
-    onClick: () -> Unit
-) {
-    Button(
-        onClick = onClick,
-        shape = AppShape.RC.v8,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = containerColor,
-            disabledContainerColor = containerColor,
-            contentColor = color,
-            disabledContentColor = color
-        ),
-        elevation = null,
-        modifier = modifier.fillMaxWidth()
-    ) {
-        Text(
-            text = text,
-            style = AppText.Normal.White.v14,
-            color = color
-        )
-    }
-}
-
-@Composable
-fun DialogCancelButton(
-    modifier: Modifier = Modifier,
-    text: String = "取消",
-    color: Color = AppColor.Neutral.body,
-    onClick: () -> Unit
-) {
-    OutlinedButton(
-        onClick = onClick,
-        shape = AppShape.RC.v8,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Transparent,
-            disabledContainerColor = Color.Transparent,
-            contentColor = color,
-            disabledContentColor = color
-        ),
-        border = BorderStroke(1.dp, color),
-        modifier = modifier.fillMaxWidth()
-    ) {
-        Text(
-            text = text,
-            style = AppText.Normal.Body.v14,
-            color = color
-        )
     }
 }
