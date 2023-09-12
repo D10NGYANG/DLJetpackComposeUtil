@@ -26,12 +26,14 @@ import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.form.DatePickerMode
+import com.d10ng.compose.ui.form.TimePickerMode
 import com.d10ng.compose.ui.navigation.NavBar
 import com.d10ng.compose.ui.sheet.builder.ActionSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.DatePickerSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.MultiPickerSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.RadioSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.SinglePickerSheetBuilder
+import com.d10ng.compose.ui.sheet.builder.TimePickerSheetBuilder
 import com.d10ng.datelib.curTime
 import com.d10ng.datelib.toDateStr
 import com.ramcosta.composedestinations.annotation.Destination
@@ -146,17 +148,18 @@ private fun SheetScreenView(
                     ))
                 })
             }
-            CellGroup(title = "日期时间选择", inset = true) {
+            CellGroup(title = "日期选择", inset = true) {
                 var value1 by remember {
                     mutableLongStateOf(curTime)
                 }
                 Cell(title = "日期选择面板弹窗(年月日)", link = true, onClick = {
-                    UiViewModelManager.showSheet(DatePickerSheetBuilder(
-                        title = "选择日期",
-                        value = value1,
-                        onConfirmClick = {
-                            value1 = it
-                            UiViewModelManager.showToast("选择了 ${it.toDateStr("yyyy-MM-dd")}")
+                    UiViewModelManager.showSheet(
+                        DatePickerSheetBuilder(
+                            title = "选择日期",
+                            value = value1,
+                            onConfirmClick = {
+                                value1 = it
+                                UiViewModelManager.showToast("选择了 ${it.toDateStr("yyyy-MM-dd")}")
                             true
                         }
                     ))
@@ -228,6 +231,53 @@ private fun SheetScreenView(
                         },
                         itemText = { _, item -> "${item}月" }
                     ))
+                })
+            }
+            CellGroup(title = "时间选择", inset = true) {
+                var value1 by remember {
+                    mutableIntStateOf(0)
+                }
+                Cell(title = "时间选择面板弹窗(时分秒)", link = true, onClick = {
+                    UiViewModelManager.showSheet(TimePickerSheetBuilder(
+                        title = "选择时间",
+                        value = value1,
+                        onConfirmClick = { v, l ->
+                            value1 = v
+                            UiViewModelManager.showToast("选择了 $l}")
+                            true
+                        }
+                    ))
+                })
+                var value2 by remember {
+                    mutableIntStateOf(0)
+                }
+                Cell(title = "时间选择面板弹窗(时分)", link = true, onClick = {
+                    UiViewModelManager.showSheet(TimePickerSheetBuilder(
+                        title = "选择时间",
+                        value = value2,
+                        mode = TimePickerMode.HM,
+                        itemText = { i, item ->
+                            when (i) {
+                                0 -> "${item}时"
+                                1 -> "${item}分"
+                                else -> item
+                            }
+                        },
+                        onConfirmClick = { v, l ->
+                            value2 = v
+                            UiViewModelManager.showToast("选择了 $l}")
+                            true
+                        }
+                    ))
+                })
+                Cell(title = "时间选择面板弹窗(默认当前时间)", link = true, onClick = {
+                    UiViewModelManager.showSheet(TimePickerSheetBuilder(
+                        title = "选择时间",
+                        onConfirmClick = { _, l ->
+                            UiViewModelManager.showToast("选择了 $l}")
+                            true
+                        }
+                    ).apply { setCurrentTime() })
                 })
             }
         }

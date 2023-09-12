@@ -8,12 +8,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.d10ng.compose.dialog.Dialog
-import com.d10ng.compose.dialog.builder.DialogBuilder
 import com.d10ng.compose.ui.base.LoadingToast
 import com.d10ng.compose.ui.base.Toast
 import com.d10ng.compose.ui.base.ToastPosition
 import com.d10ng.compose.ui.base.ToastType
+import com.d10ng.compose.ui.dialog.builder.DialogBuilder
 import com.d10ng.compose.ui.sheet.Sheet
 import com.d10ng.compose.ui.sheet.builder.SheetBuilder
 import com.d10ng.compose.view.ErrorBar
@@ -44,8 +43,7 @@ class UiViewModel : ViewModel(), IUiViewModel {
     private var cancelErrorJob: Job? = null
 
     // dialog
-    private val dialogBuilderFlow: MutableStateFlow<DialogBuilder?> = MutableStateFlow(null)
-    private val dialogBuilderMapFlow = MutableStateFlow(mapOf<Int, com.d10ng.compose.ui.dialog.builder.DialogBuilder>())
+    private val dialogBuilderMapFlow = MutableStateFlow(mapOf<Int, DialogBuilder>())
 
     // sheet
     private val sheetBuilderFlow: MutableStateFlow<SheetBuilder?> = MutableStateFlow(null)
@@ -72,20 +70,6 @@ class UiViewModel : ViewModel(), IUiViewModel {
 
         val sheetBuilder by sheetBuilderFlow.collectAsState()
         Sheet(builder = sheetBuilder)
-
-        val dialogBuilder by dialogBuilderFlow.collectAsState()
-        dialogBuilder?.let {
-            Dialog(
-                onDismiss = {
-                    if (it.isClickOutsideDismiss) {
-                        hideDialog()
-                    }
-                },
-                contentAlignment = it.contentAlignment
-            ) {
-                it.Build()
-            }
-        }
 
         val dialogBuilderMap by dialogBuilderMapFlow.collectAsState()
         dialogBuilderMap.forEach { (id, builder) ->
@@ -143,14 +127,6 @@ class UiViewModel : ViewModel(), IUiViewModel {
         }
     }
 
-    override fun showDialog(builder: DialogBuilder) {
-        dialogBuilderFlow.value = builder
-    }
-
-    override fun hideDialog() {
-        dialogBuilderFlow.value = null
-    }
-
     override fun showSheet(builder: SheetBuilder) {
         sheetBuilderFlow.value = builder
     }
@@ -159,14 +135,14 @@ class UiViewModel : ViewModel(), IUiViewModel {
         sheetBuilderFlow.value = null
     }
 
-    fun showDialog(builder: com.d10ng.compose.ui.dialog.builder.DialogBuilder, id: Int) {
+    fun showDialog(id: Int, builder: DialogBuilder) {
         val map = dialogBuilderMapFlow.value.toMutableMap()
         map[id] = builder
         dialogBuilderMapFlow.value = map
     }
 
-    fun updateDialog(id: Int, builder: com.d10ng.compose.ui.dialog.builder.DialogBuilder) {
-        if (dialogBuilderMapFlow.value.containsKey(id)) showDialog(builder, id)
+    fun updateDialog(id: Int, builder: DialogBuilder) {
+        if (dialogBuilderMapFlow.value.containsKey(id)) showDialog(id, builder)
     }
 
     fun hideDialog(id: Int) {

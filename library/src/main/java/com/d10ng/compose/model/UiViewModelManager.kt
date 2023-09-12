@@ -6,8 +6,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
-import com.d10ng.compose.dialog.builder.DialogBuilder
 import com.d10ng.compose.ui.base.ToastPosition
+import com.d10ng.compose.ui.dialog.builder.DialogBuilder
 import com.d10ng.compose.ui.sheet.builder.SheetBuilder
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -89,14 +89,6 @@ object UiViewModelManager : IUiViewModel {
         getTopVM()?.showError(msg)
     }
 
-    override fun showDialog(builder: DialogBuilder) {
-        getTopVM()?.showDialog(builder)
-    }
-
-    override fun hideDialog() {
-        getTopVM()?.hideDialog()
-    }
-
     override fun showSheet(builder: SheetBuilder) {
         getTopVM()?.showSheet(builder)
     }
@@ -108,13 +100,13 @@ object UiViewModelManager : IUiViewModel {
     // 弹窗ID自增
     private val dialogId = AtomicInteger(0)
 
-    fun showDialog(builder: com.d10ng.compose.ui.dialog.builder.DialogBuilder): Int {
+    fun showDialog(builder: DialogBuilder): Int {
         val id = dialogId.incrementAndGet()
-        getTopVM()?.showDialog(builder, id)
+        getTopVM()?.showDialog(id, builder)
         return id
     }
 
-    fun updateDialog(id: Int, builder: com.d10ng.compose.ui.dialog.builder.DialogBuilder) {
+    fun updateDialog(id: Int, builder: DialogBuilder) {
         modelMap.values.forEach { it.updateDialog(id, builder) }
     }
 

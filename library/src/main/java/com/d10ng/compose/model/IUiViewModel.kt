@@ -1,6 +1,5 @@
 package com.d10ng.compose.model
 
-import com.d10ng.compose.dialog.builder.DialogBuilder
 import com.d10ng.compose.ui.base.ToastPosition
 import com.d10ng.compose.ui.sheet.builder.SheetBuilder
 
@@ -53,17 +52,6 @@ interface IUiViewModel {
      * @param msg String
      */
     fun showError(msg: String)
-
-    /**
-     * 显示对话框
-     * @param builder DialogBuilder
-     */
-    fun showDialog(builder: DialogBuilder)
-
-    /**
-     * 隐藏对话框
-     */
-    fun hideDialog()
 
     /**
      * 显示底部弹窗

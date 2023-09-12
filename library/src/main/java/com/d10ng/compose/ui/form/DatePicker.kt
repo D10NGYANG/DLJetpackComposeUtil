@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.TextStyle
 import com.d10ng.compose.ui.AppText
-import com.d10ng.compose.utils.up2Length
 import com.d10ng.datelib.curTime
 import com.d10ng.datelib.getDateDay
 import com.d10ng.datelib.getDateMonth
@@ -83,7 +82,7 @@ fun DatePicker(
     val months = remember(year, start, endInclude) {
         val startMonth = if (year == start.getDateYear()) start.getDateMonth() else 1
         val endMonth = if (year == endInclude.getDateYear()) endInclude.getDateMonth() else 12
-        (startMonth..endMonth).map { it.toString().up2Length(2) }.toSet()
+        (startMonth..endMonth).map { it.toString().padStart(2) }.toSet()
     }
     // 选择的月份
     val month = remember(value) {
@@ -96,7 +95,7 @@ fun DatePicker(
         val endDay =
             if (year == endInclude.getDateYear() && month == endInclude.getDateMonth()) endInclude.getDateDay()
             else getDaysOfMonth(value.getDateYear(), value.getDateMonth())
-        (startDay..endDay).map { it.toString().up2Length(2) }.toSet()
+        (startDay..endDay).map { it.toString().padStart(2) }.toSet()
     }
     // 选择的日期
     val day = remember(value) {
@@ -108,8 +107,8 @@ fun DatePicker(
     val selectedItems = remember(mode, year, month, day) {
         mode.getSelectedItems(
             year.toString(),
-            month.toString().up2Length(2),
-            day.toString().up2Length(2)
+            month.toString().padStart(2),
+            day.toString().padStart(2)
         )
     }
     MultiPicker(
