@@ -1,6 +1,7 @@
 package com.d10ng.compose.utils
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -10,14 +11,7 @@ import kotlin.math.roundToInt
  * @receiver Color
  * @return Boolean
  */
-fun Color.isDark(): Boolean {
-    val red = this.red * 255
-    val green = this.green * 255
-    val blue = this.blue * 255
-    val grayLevel = red * 0.299 + green * 0.587 + blue * 0.114
-    println("grayLevel: $grayLevel")
-    return grayLevel < 192
-}
+fun Color.isDark() = luminance() <= 0.5f
 
 /**
  * 获取颜色的深色或浅色

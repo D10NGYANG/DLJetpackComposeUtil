@@ -517,22 +517,6 @@ fun ListMenuItem(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun ListChatItem_Test() {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        ListChatItem(
-            icon = {
-                NameAvatar(name = "杨")
-            },
-            badgeNumber = 9,
-            name = "杨迪龙",
-            message = "这是一条测试消息。很长的消息，非常长的中文消息。你能收到吗？",
-            time = 1646014315258,
-        )
-    }
-}
-
 @Composable
 fun ListChatItem(
     modifier: Modifier = Modifier,

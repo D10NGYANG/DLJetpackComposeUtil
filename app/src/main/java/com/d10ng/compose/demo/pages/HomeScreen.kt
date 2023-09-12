@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavOptions
 import com.d10ng.compose.demo.PageTransitions
 import com.d10ng.compose.demo.R
+import com.d10ng.compose.demo.pages.destinations.AvatarScreenDestination
 import com.d10ng.compose.demo.pages.destinations.BadgeScreenDestination
 import com.d10ng.compose.demo.pages.destinations.ButtonScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CellScreenDestination
@@ -154,6 +155,10 @@ private fun HomeScreenView(
                 title = "Badge 徽标",
                 link = true,
                 onClick = { onClick(BadgeScreenDestination) })
+            Cell(
+                title = "Avatar 头像",
+                link = true,
+                onClick = { onClick(AvatarScreenDestination) })
         }
         CellGroup(title = "导航组件", inset = true) {
             Cell(
