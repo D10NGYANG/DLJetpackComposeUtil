@@ -1,14 +1,12 @@
 package com.d10ng.compose.view
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -44,7 +42,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import com.d10ng.compose.R
-import com.d10ng.compose.dialog.builder.InputDialogBuilder
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
@@ -120,40 +117,6 @@ fun Input(
             focusRequester.requestFocus()
         }
     }
-}
-
-@Composable
-fun DialogInput(
-    input: InputDialogBuilder.Input,
-    value: String,
-    errorText: String = "",
-    onValueChange: (String) -> Unit
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(if (input.singleLine) 30.dp else 90.dp)
-            .border(
-                1.dp,
-                if (errorText.isEmpty()) AppColor.Neutral.body else AppColor.Func.error,
-                AppShape.RC.v8
-            )
-            .padding(horizontal = 8.dp),
-        contentAlignment = Alignment.CenterStart
-    ) {
-        Input(
-            modifier = Modifier
-                .fillMaxWidth(),
-            value = value,
-            onValueChange = onValueChange,
-            textStyle = AppText.Normal.Body.v14,
-            placeholder = input.placeholder,
-            placeholderStyle = AppText.Normal.Hint.v14,
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = input.keyboardType),
-            singleLine = input.singleLine
-        )
-    }
-    Text(text = errorText, style = AppText.Normal.Error.v12)
 }
 
 @Composable

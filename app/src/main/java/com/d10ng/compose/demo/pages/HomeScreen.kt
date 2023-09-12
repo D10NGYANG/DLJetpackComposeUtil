@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavOptions
 import com.d10ng.compose.demo.PageTransitions
 import com.d10ng.compose.demo.R
+import com.d10ng.compose.demo.pages.destinations.BadgeScreenDestination
 import com.d10ng.compose.demo.pages.destinations.ButtonScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CellScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CheckButtonScreenDestination
@@ -149,6 +150,10 @@ private fun HomeScreenView(
                 title = "Tag 标签",
                 link = true,
                 onClick = { onClick(TagScreenDestination) })
+            Cell(
+                title = "Badge 徽标",
+                link = true,
+                onClick = { onClick(BadgeScreenDestination) })
         }
         CellGroup(title = "导航组件", inset = true) {
             Cell(
