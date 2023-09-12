@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -33,11 +32,7 @@ import kotlin.math.max
 @Preview
 @Composable
 private fun BDSignalBeamBoxTest() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AppColor.Neutral.bg)
-    ) {
+    Column {
         BDSignalBeamBox(
             beams = listOf(
                 1 to 15,
@@ -52,16 +47,37 @@ private fun BDSignalBeamBoxTest() {
                 10 to 1
             )
         )
+        BDSignalBeamBox(
+            beams = listOf(
+                1 to 15,
+                2 to 30,
+                3 to 45,
+                4 to 60,
+                5 to 14,
+                6 to 44,
+                7 to 12,
+                8 to 5,
+                9 to 38,
+                10 to 1
+            ),
+            color = Color.Red
+        )
     }
 }
 
 /**
  * 北斗信号强度展示
  * @param beams List<Pair<Int, Int>> 信号强度列表，第一个参数为序号，第二个参数为强度值，范围0-60
+ * @param color Color 信号强度颜色
+ * @param title String 标题
+ * @param tips String 提示文本
  */
 @Composable
 fun BDSignalBeamBox(
-    beams: List<Pair<Int, Int>>
+    beams: List<Pair<Int, Int>>,
+    color: Color = AppColor.Main.primary,
+    title: String = "北斗通讯卫星信号",
+    tips: String = "遮挡物会影响卫星信号的接收，使用时应将终端置于室外空旷开阔的地方，并将天线区朝南。北斗卫星在赤道上空，高纬度地区可再倾斜适当角度以获取更好的卫星信号。"
 ) {
     Column(
         modifier = Modifier
@@ -69,7 +85,7 @@ fun BDSignalBeamBox(
             .background(Color.White)
     ) {
         // 标题
-        Title()
+        Title(text = title)
         // 信号展示区域
         Box(
             modifier = Modifier.fillMaxWidth(),
@@ -85,13 +101,13 @@ fun BDSignalBeamBox(
                 val size = max(beams.size, 10)
                 (0 until size).forEach { index ->
                     val value = if (beams.size <= index) 0 to 0 else beams[index]
-                    BeamItem(index = value.first, value = value.second)
+                    BeamItem(index = value.first, value = value.second, color = color)
                 }
             }
         }
         // 提示文本
         Text(
-            text = "遮挡物会影响卫星信号的接收，使用时应将终端置于室外空旷开阔的地方，并将天线区朝南。北斗卫星在赤道上空，高纬度地区可再倾斜适当角度以获取更好的卫星信号。",
+            text = tips,
             style = AppText.Normal.Body.mini,
             modifier = Modifier
                 .fillMaxWidth()
@@ -101,7 +117,9 @@ fun BDSignalBeamBox(
 }
 
 @Composable
-private fun Title() {
+private fun Title(
+    text: String
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -109,7 +127,7 @@ private fun Title() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "北斗通讯卫星信号",
+            text = text,
             style = AppText.Normal.Title.default
         )
     }
@@ -187,7 +205,8 @@ private fun LineLevelView() {
 @Composable
 private fun BeamItem(
     index: Int,
-    value: Int
+    value: Int,
+    color: Color
 ) {
     Column(
         modifier = Modifier
@@ -200,7 +219,8 @@ private fun BeamItem(
             modifier = Modifier
                 .weight(1f)
                 .width(12.dp)
-                .padding(top = 6.dp)
+                .padding(top = 6.dp),
+            color = color
         )
     }
 }
@@ -208,7 +228,8 @@ private fun BeamItem(
 @Composable
 private fun Progress(
     progress: Float,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    color: Color
 ) {
     Box(
         modifier = modifier
@@ -219,7 +240,7 @@ private fun Progress(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(progress)
-                .background(AppColor.Main.primary)
+                .background(color)
         )
     }
 }
