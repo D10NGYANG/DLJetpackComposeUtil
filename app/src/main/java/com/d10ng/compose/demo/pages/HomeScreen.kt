@@ -31,6 +31,7 @@ import com.d10ng.compose.demo.pages.destinations.CheckButtonScreenDestination
 import com.d10ng.compose.demo.pages.destinations.DialogScreenDestination
 import com.d10ng.compose.demo.pages.destinations.FieldScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NavBarScreenDestination
+import com.d10ng.compose.demo.pages.destinations.NotifyScreenDestination
 import com.d10ng.compose.demo.pages.destinations.SheetScreenDestination
 import com.d10ng.compose.demo.pages.destinations.StepperScreenDestination
 import com.d10ng.compose.demo.pages.destinations.SwitchScreenDestination
@@ -145,6 +146,10 @@ private fun HomeScreenView(
                 title = "Sheet 操作面板",
                 link = true,
                 onClick = { onClick(SheetScreenDestination) })
+            Cell(
+                title = "Notify 消息提示",
+                link = true,
+                onClick = { onClick(NotifyScreenDestination) })
         }
         CellGroup(title = "展示组件", inset = true) {
             Cell(

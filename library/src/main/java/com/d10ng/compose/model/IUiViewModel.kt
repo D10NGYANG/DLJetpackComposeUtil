@@ -1,6 +1,7 @@
 package com.d10ng.compose.model
 
 import com.d10ng.compose.ui.base.ToastPosition
+import com.d10ng.compose.ui.feedback.NotifyType
 import com.d10ng.compose.ui.sheet.builder.SheetBuilder
 
 /**
@@ -48,10 +49,19 @@ interface IUiViewModel {
     fun hideLoading()
 
     /**
-     * 显示错误提示
-     * @param msg String
+     * 显示提示
+     * @param type NotifyType
+     * @param text String
+     * @param duration Long
      */
-    fun showError(msg: String)
+    fun showNotify(type: NotifyType, text: String, duration: Long = 1500)
+
+    /**
+     * 显示错误提示
+     * @param text String
+     * @param duration Long
+     */
+    fun showErrorNotify(text: String, duration: Long = 1500)
 
     /**
      * 显示底部弹窗

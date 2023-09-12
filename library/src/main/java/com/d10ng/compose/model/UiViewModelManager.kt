@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import com.d10ng.compose.ui.base.ToastPosition
 import com.d10ng.compose.ui.dialog.builder.DialogBuilder
+import com.d10ng.compose.ui.feedback.NotifyType
 import com.d10ng.compose.ui.sheet.builder.SheetBuilder
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -85,8 +86,12 @@ object UiViewModelManager : IUiViewModel {
         getTopVM()?.hideLoading()
     }
 
-    override fun showError(msg: String) {
-        getTopVM()?.showError(msg)
+    override fun showNotify(type: NotifyType, text: String, duration: Long) {
+        getTopVM()?.showNotify(type, text, duration)
+    }
+
+    override fun showErrorNotify(text: String, duration: Long) {
+        getTopVM()?.showErrorNotify(text, duration)
     }
 
     override fun showSheet(builder: SheetBuilder) {
