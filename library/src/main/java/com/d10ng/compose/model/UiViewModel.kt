@@ -165,6 +165,10 @@ class UiViewModel : ViewModel(), IUiViewModel {
         dialogBuilderMapFlow.value = map
     }
 
+    fun updateDialog(id: Int, builder: com.d10ng.compose.ui.dialog.builder.DialogBuilder) {
+        if (dialogBuilderMapFlow.value.containsKey(id)) showDialog(builder, id)
+    }
+
     fun hideDialog(id: Int) {
         val map = dialogBuilderMapFlow.value.toMutableMap()
         map.remove(id)

@@ -114,6 +114,10 @@ object UiViewModelManager : IUiViewModel {
         return id
     }
 
+    fun updateDialog(id: Int, builder: com.d10ng.compose.ui.dialog.builder.DialogBuilder) {
+        modelMap.values.forEach { it.updateDialog(id, builder) }
+    }
+
     fun hideDialog(id: Int) {
         modelMap.values.forEach { it.hideDialog(id) }
     }

@@ -24,11 +24,16 @@ import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.dialog.builder.ConfirmDialogBuilder
 import com.d10ng.compose.ui.dialog.builder.InputDialogBuilder
+import com.d10ng.compose.ui.dialog.builder.ProgressDialogBuilder
 import com.d10ng.compose.ui.dialog.builder.TipsDialogBuilder
 import com.d10ng.compose.ui.navigation.NavBar
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * 弹窗
@@ -208,7 +213,37 @@ private fun DialogScreenView(
                     ))
                 })
             }
+            CellGroup(title = "进度弹窗", inset = true) {
+                Cell(title = "展示百分比进度", link = true, onClick = {
+                    showProgressDialog(ProgressDialogBuilder.Type.PERCENTAGE)
+                })
+                Cell(title = "展示具体进度", link = true, onClick = {
+                    showProgressDialog(ProgressDialogBuilder.Type.PROGRESS_AND_MAX)
+                })
+                Cell(title = "不展示进度文本", link = true, onClick = {
+                    showProgressDialog(ProgressDialogBuilder.Type.NONE)
+                })
+            }
         }
+    }
+}
+
+private fun showProgressDialog(type: ProgressDialogBuilder.Type) {
+    val max = 30L
+    val builder = ProgressDialogBuilder(
+        title = "发送中",
+        progress = 0,
+        max = max,
+        type = type
+    )
+    val id = UiViewModelManager.showDialog(builder)
+    CoroutineScope(Dispatchers.IO).launch {
+        for (i in 0..max) {
+            val temp = builder.copy(progress = i)
+            UiViewModelManager.updateDialog(id, temp)
+            delay(100)
+        }
+        UiViewModelManager.hideDialog(id)
     }
 }
 
