@@ -82,7 +82,7 @@ fun DatePicker(
     val months = remember(year, start, endInclude) {
         val startMonth = if (year == start.getDateYear()) start.getDateMonth() else 1
         val endMonth = if (year == endInclude.getDateYear()) endInclude.getDateMonth() else 12
-        (startMonth..endMonth).map { it.toString().padStart(2) }.toSet()
+        (startMonth..endMonth).map { it.toString().padStart(2, '0') }.toSet()
     }
     // 选择的月份
     val month = remember(value) {
@@ -95,7 +95,7 @@ fun DatePicker(
         val endDay =
             if (year == endInclude.getDateYear() && month == endInclude.getDateMonth()) endInclude.getDateDay()
             else getDaysOfMonth(value.getDateYear(), value.getDateMonth())
-        (startDay..endDay).map { it.toString().padStart(2) }.toSet()
+        (startDay..endDay).map { it.toString().padStart(2, '0') }.toSet()
     }
     // 选择的日期
     val day = remember(value) {
@@ -107,8 +107,8 @@ fun DatePicker(
     val selectedItems = remember(mode, year, month, day) {
         mode.getSelectedItems(
             year.toString(),
-            month.toString().padStart(2),
-            day.toString().padStart(2)
+            month.toString().padStart(2, '0'),
+            day.toString().padStart(2, '0')
         )
     }
     MultiPicker(
