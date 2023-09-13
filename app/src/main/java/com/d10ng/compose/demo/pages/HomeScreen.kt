@@ -34,6 +34,7 @@ import com.d10ng.compose.demo.pages.destinations.NavBarScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NotifyScreenDestination
 import com.d10ng.compose.demo.pages.destinations.SheetScreenDestination
 import com.d10ng.compose.demo.pages.destinations.StepperScreenDestination
+import com.d10ng.compose.demo.pages.destinations.StepsScreenDestination
 import com.d10ng.compose.demo.pages.destinations.SwitchScreenDestination
 import com.d10ng.compose.demo.pages.destinations.TagScreenDestination
 import com.d10ng.compose.demo.pages.destinations.ToastScreenDestination
@@ -164,6 +165,10 @@ private fun HomeScreenView(
                 title = "Avatar 头像",
                 link = true,
                 onClick = { onClick(AvatarScreenDestination) })
+            Cell(
+                title = "Steps 步骤条",
+                link = true,
+                onClick = { onClick(StepsScreenDestination) })
         }
         CellGroup(title = "导航组件", inset = true) {
             Cell(
