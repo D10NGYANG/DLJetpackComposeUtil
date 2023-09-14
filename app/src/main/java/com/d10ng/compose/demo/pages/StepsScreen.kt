@@ -19,7 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.PageTransitions
-import com.d10ng.compose.ui.base.BaseCell
 import com.d10ng.compose.ui.base.Button
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.navigation.NavBar
@@ -61,28 +60,26 @@ private fun StepsScreenView(
                 mutableIntStateOf(0)
             }
             CellGroup(title = "基础用法", border = false) {
-                BaseCell(border = false) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp)
-                    ) {
-                        Steps(
-                            items = setOf("步骤一", "步骤二", "步骤三", "步骤四"),
-                            runningIndex = index
-                        )
-                    }
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp)
-                    ) {
-                        Steps(
-                            items = setOf("步骤一", "步骤二", "步骤三", "步骤四"),
-                            runningIndex = index,
-                            runningColor = Color.Red
-                        )
-                    }
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp)
+                ) {
+                    Steps(
+                        items = setOf("步骤一", "步骤二", "步骤三", "步骤四"),
+                        runningIndex = index
+                    )
+                }
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp)
+                ) {
+                    Steps(
+                        items = setOf("步骤一", "步骤二", "步骤三", "步骤四"),
+                        runningIndex = index,
+                        runningColor = Color.Red
+                    )
                 }
             }
             Button(text = "下一步") {

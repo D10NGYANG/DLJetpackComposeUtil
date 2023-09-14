@@ -1,6 +1,7 @@
 package com.d10ng.compose.ui.form
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,8 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
-import com.d10ng.compose.ui.base.BaseCell
 import com.d10ng.compose.ui.base.CellGroup
+import com.d10ng.compose.ui.show.Border
 import com.d10ng.compose.utils.next
 
 /**
@@ -63,10 +64,10 @@ fun RadioCell(
     border: Boolean = true,
     onClick: () -> Unit = {}
 ) {
-    BaseCell(
-        modifier = modifier,
-        border = border,
-        onClick = onClick
+    Column(
+        modifier = modifier
+            .clickable { onClick() }
+            .padding(horizontal = 16.dp)
     ) {
         Row(
             modifier = Modifier
@@ -96,5 +97,6 @@ fun RadioCell(
                 modifier = Modifier.size(18.dp)
             )
         }
+        if (border) Border()
     }
 }

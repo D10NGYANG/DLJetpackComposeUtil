@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -124,10 +123,10 @@ fun Cell(
     afterTitle: @Composable (() -> Unit)? = null,
     afterValue: @Composable (() -> Unit)? = null
 ) {
-    BaseCell(
-        modifier = modifier,
-        border = border,
-        onClick = onClick
+    Column(
+        modifier = modifier
+            .clickable(enabled = onClick != null) { onClick?.invoke() }
+            .padding(horizontal = 16.dp),
     ) {
         Row(
             modifier = Modifier
@@ -175,32 +174,6 @@ fun Cell(
                 modifier = Modifier.padding(bottom = 16.dp)
             )
         }
-    }
-}
-
-/**
- * 基础单元格
- * @param modifier Modifier
- * @param border Boolean
- * @param onClick Function0<Unit>?
- * @param content [@androidx.compose.runtime.Composable] [@kotlin.ExtensionFunctionType] Function1<ColumnScope, Unit>
- */
-@Composable
-fun BaseCell(
-    modifier: Modifier = Modifier,
-    border: Boolean = true,
-    onClick: (() -> Unit)? = null,
-    content: @Composable ColumnScope.() -> Unit
-) {
-    val mod = remember(modifier, onClick) {
-        if (onClick != null) {
-            modifier.clickable { onClick() }
-        } else {
-            modifier
-        }
-    }
-    Column(modifier = mod.padding(horizontal = 16.dp)) {
-        content()
         if (border) Border()
     }
 }
