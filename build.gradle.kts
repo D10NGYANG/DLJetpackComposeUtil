@@ -4,7 +4,7 @@ plugins {
     id("com.android.library") version android_build_ver apply false
     id("org.jetbrains.kotlin.android") version kotlin_ver apply false
     id("com.google.devtools.ksp") version ksp_ver apply false
-    id("com.github.ben-manes.versions") version "0.47.0"
+    id("com.github.ben-manes.versions") version "0.48.0"
 }
 
 fun isNonStable(version: String): Boolean {

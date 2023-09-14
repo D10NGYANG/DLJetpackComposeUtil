@@ -49,7 +49,7 @@ android {
 
 dependencies {
     // Android
-    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.core:core-ktx:1.12.0")
 
     // 单元测试（可选）
     testImplementation("junit:junit:4.13.2")
@@ -88,7 +88,7 @@ dependencies {
     implementation("io.github.raamcosta.compose-destinations:animations-core:$compose_destinations_ver")
 
     // 时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.5")
+    implementation("com.github.D10NGYANG:DLDateUtil:1.8.5")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 }
 

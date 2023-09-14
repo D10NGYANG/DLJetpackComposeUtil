@@ -48,7 +48,7 @@ android {
 
 dependencies {
     // Android
-    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.core:core-ktx:1.12.0")
 
     // 单元测试（可选）
     testImplementation("junit:junit:4.13.2")
@@ -77,10 +77,6 @@ dependencies {
     implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.5")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
-    // 调试工具
-//    debugImplementation("com.github.simplepeng.SpiderMan:spiderman:v1.1.9") {
-//        exclude(group = "androidx.appcompat")
-//    }
     // 内存泄漏检查
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
 
