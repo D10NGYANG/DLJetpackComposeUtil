@@ -2,7 +2,6 @@ package com.d10ng.compose.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -74,7 +73,6 @@ fun Input(
     placeholder: String = "",
     placeholderStyle: TextStyle = AppText.Normal.Hint.default,
     textAlign: TextAlign = TextAlign.Start,
-    contentAlignment: Alignment = Alignment.TopStart,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -95,14 +93,14 @@ fun Input(
         readOnly = readOnly,
         textStyle = textStyle.copy(textAlign = textAlign),
         decorationBox = { innerTextField ->
-            Box (
-                contentAlignment = contentAlignment
-            ) {
-                if (value.isEmpty()) {
-                    Text(text = placeholder, style = placeholderStyle.copy(textAlign = textAlign))
-                }
-                innerTextField()
+            if (value.isEmpty()) {
+                Text(
+                    text = placeholder,
+                    style = placeholderStyle.copy(textAlign = textAlign),
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
+            innerTextField()
         },
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
@@ -167,9 +165,11 @@ fun MenuInput(
         modifier = modifier
             .fillMaxWidth()
     ) {
-        Spacer(modifier = Modifier
-            .fillMaxWidth()
-            .weight(1f))
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        )
         Column(
             modifier = inputModifier
         ) {
@@ -197,7 +197,8 @@ fun MenuInput(
                     placeholder = placeholder,
                     placeholderStyle = placeholderStyle,
                     keyboardOptions = KeyboardOptions().copy(
-                        keyboardType = keyboardType, imeAction = ImeAction.Next),
+                        keyboardType = keyboardType, imeAction = ImeAction.Next
+                    ),
                     keyboardActions = KeyboardActions { onClickNext.invoke() },
                     visualTransformation = visualTransformation,
                     singleLine = maxLines == 1,
@@ -217,7 +218,7 @@ fun MenuInput(
                 }
                 if (isPassword) {
                     Icon(
-                        painter = painterResource(id = if (isPasswordVisible) R.drawable.ic_baseline_visibility_24 else R.drawable.ic_baseline_visibility_off_24) ,
+                        painter = painterResource(id = if (isPasswordVisible) R.drawable.ic_baseline_visibility_24 else R.drawable.ic_baseline_visibility_off_24),
                         contentDescription = if (isPasswordVisible) "点击隐藏" else "点击显示",
                         tint = textStyle.color,
                         modifier = Modifier

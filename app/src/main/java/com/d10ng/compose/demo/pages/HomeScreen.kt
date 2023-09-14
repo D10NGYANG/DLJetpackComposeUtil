@@ -31,6 +31,7 @@ import com.d10ng.compose.demo.pages.destinations.DialogScreenDestination
 import com.d10ng.compose.demo.pages.destinations.FieldScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NavBarScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NotifyScreenDestination
+import com.d10ng.compose.demo.pages.destinations.SearchScreenDestination
 import com.d10ng.compose.demo.pages.destinations.SheetScreenDestination
 import com.d10ng.compose.demo.pages.destinations.StepperScreenDestination
 import com.d10ng.compose.demo.pages.destinations.StepsScreenDestination
@@ -137,6 +138,10 @@ private fun HomeScreenView(
                 title = "Stepper 步进器",
                 link = true,
                 onClick = { onClick(StepperScreenDestination) })
+            Cell(
+                title = "Search 搜索",
+                link = true,
+                onClick = { onClick(SearchScreenDestination) })
         }
         CellGroup(title = "反馈组件", inset = true) {
             Cell(
