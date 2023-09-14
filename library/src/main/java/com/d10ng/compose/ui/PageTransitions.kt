@@ -1,10 +1,9 @@
-package com.d10ng.compose.demo
+package com.d10ng.compose.ui
 
 import androidx.compose.animation.*
 import androidx.navigation.NavBackStackEntry
 import com.ramcosta.composedestinations.spec.DestinationStyle
 
-@OptIn(ExperimentalAnimationApi::class)
 object PageTransitions : DestinationStyle.Animated {
 
     override fun AnimatedContentTransitionScope<NavBackStackEntry>.enterTransition(): EnterTransition {

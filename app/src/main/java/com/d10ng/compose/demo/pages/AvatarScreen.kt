@@ -21,10 +21,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.d10ng.compose.demo.PageTransitions
 import com.d10ng.compose.demo.R
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
+import com.d10ng.compose.ui.PageTransitions
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.navigation.NavBar
 import com.d10ng.compose.ui.show.Avatar

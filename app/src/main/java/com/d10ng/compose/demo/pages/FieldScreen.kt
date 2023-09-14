@@ -16,9 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.d10ng.common.isMobileNumber
-import com.d10ng.compose.demo.PageTransitions
 import com.d10ng.compose.demo.R
 import com.d10ng.compose.ui.AppColor
+import com.d10ng.compose.ui.PageTransitions
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.form.Field
 import com.d10ng.compose.ui.form.FieldLabelAlign

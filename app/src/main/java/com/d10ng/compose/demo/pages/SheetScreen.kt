@@ -14,9 +14,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.d10ng.compose.demo.PageTransitions
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
+import com.d10ng.compose.ui.PageTransitions
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.form.DatePickerMode

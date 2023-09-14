@@ -84,6 +84,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_ver")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
+    // 导航路由
+    implementation("io.github.raamcosta.compose-destinations:animations-core:$compose_destinations_ver")
+
     // 时间工具
     implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.5")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
