@@ -59,31 +59,7 @@ jetpack compose android UI组件库，参考[Vant4](https://vant-contrib.gitee.i
 
 # 预览
 
-<img src="./assets/README-1694760944930.png" width="150"/>
-<img src="./assets/README-1694760970339.png" width="150"/>
-<img src="./assets/README-1694760988013.png" width="150"/>
-<img src="./assets/README-1694761011108.png" width="150"/>
-<img src="./assets/README-1694761027566.png" width="150"/>
-<img src="./assets/README-1694761047018.png" width="150"/>
-<img src="./assets/README-1694761064088.png" width="150"/>
-<img src="./assets/README-1694761078652.png" width="150"/>
-<img src="./assets/README-1694761092281.png" width="150"/>
-<img src="./assets/README-1694761109048.png" width="150"/>
-<img src="./assets/README-1694761141336.png" width="150"/>
-<img src="./assets/README-1694761156261.png" width="150"/>
-<img src="./assets/README-1694761168947.png" width="150"/>
-<img src="./assets/README-1694761186436.png" width="150"/>
-<img src="./assets/README-1694761200018.png" width="150"/>
-<img src="./assets/README-1694761212609.png" width="150"/>
-<img src="./assets/README-1694761228956.png" width="150"/>
-<img src="./assets/README-1694761246066.png" width="150"/>
-<img src="./assets/README-1694761269373.png" width="150"/>
-<img src="./assets/README-1694761281447.png" width="150"/>
-<img src="./assets/README-1694761297424.png" width="150"/>
-<img src="./assets/README-1694761310493.png" width="150"/>
-<img src="./assets/README-1694761325195.png" width="150"/>
-<img src="./assets/README-1694761338056.png" width="150"/>
-
+<img src="./assets/README-1694760944930.png" width="150"/> <img src="./assets/README-1694760970339.png" width="150"/> <img src="./assets/README-1694760988013.png" width="150"/> <img src="./assets/README-1694761011108.png" width="150"/> <img src="./assets/README-1694761027566.png" width="150"/> <img src="./assets/README-1694761047018.png" width="150"/> <img src="./assets/README-1694761064088.png" width="150"/> <img src="./assets/README-1694761078652.png" width="150"/> <img src="./assets/README-1694761092281.png" width="150"/> <img src="./assets/README-1694761109048.png" width="150"/> <img src="./assets/README-1694761141336.png" width="150"/> <img src="./assets/README-1694761156261.png" width="150"/> <img src="./assets/README-1694761168947.png" width="150"/> <img src="./assets/README-1694761186436.png" width="150"/> <img src="./assets/README-1694761200018.png" width="150"/> <img src="./assets/README-1694761212609.png" width="150"/> <img src="./assets/README-1694761228956.png" width="150"/> <img src="./assets/README-1694761246066.png" width="150"/> <img src="./assets/README-1694761269373.png" width="150"/> <img src="./assets/README-1694761281447.png" width="150"/> <img src="./assets/README-1694761297424.png" width="150"/> <img src="./assets/README-1694761310493.png" width="150"/> <img src="./assets/README-1694761325195.png" width="150"/> <img src="./assets/README-1694761338056.png" width="150"/> 
 ## demo运行
 
 # 使用
