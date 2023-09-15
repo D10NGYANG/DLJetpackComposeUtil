@@ -63,7 +63,7 @@ fun SheetBox(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(min = screenHeight * 0.3f, max = screenHeight * 0.7f)
+            .heightIn(min = screenHeight * 0.1f, max = screenHeight * 0.7f)
             .background(color, shape)
             .clip(shape),
     ) {

@@ -89,6 +89,14 @@ private fun SheetScreenView(
                         }
                     ))
                 })
+                Cell(title = "动作面板弹窗2", link = true, onClick = {
+                    UiViewModelManager.showSheet(ActionSheetBuilder(
+                        items = setOf("高德地图", "百度地图"),
+                        onItemClick = {
+                            UiViewModelManager.showToast("选择了${it}")
+                        }
+                    ))
+                })
             }
             CellGroup(title = "滚轮选择", inset = true) {
                 var value by remember {
