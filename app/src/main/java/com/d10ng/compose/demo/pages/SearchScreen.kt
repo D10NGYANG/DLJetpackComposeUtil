@@ -25,6 +25,11 @@ import com.d10ng.compose.ui.navigation.NavBar
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * 搜索
@@ -67,16 +72,22 @@ private fun SearchScreenView(
                 )
                 Search(value = value1, onValueChange = { value1 = it }, label = "地址")
             }
-            CellGroup(title = "取消按钮") {
+            CellGroup(title = "动作按钮") {
                 var value1 by remember {
                     mutableStateOf("")
                 }
-                Search(value = value1, onValueChange = { value1 = it }, onClickCancel = {})
+                Search(value = value1, onValueChange = { value1 = it }, onClickAction = {})
                 Search(
                     value = value1,
                     onValueChange = { value1 = it },
-                    onClickCancel = {},
-                    cancelText = "cancel"
+                    onClickAction = {},
+                    actionText = "cancel"
+                )
+                Search(
+                    value = value1,
+                    onValueChange = { value1 = it },
+                    onClickAction = {},
+                    actionText = "搜索"
                 )
             }
             CellGroup(title = "中心对齐") {
@@ -90,6 +101,46 @@ private fun SearchScreenView(
                     mutableStateOf("")
                 }
                 Search(value = value1, onValueChange = { value1 = it }, disabled = true)
+            }
+            CellGroup(title = "输入加载") {
+                var value1 by remember {
+                    mutableStateOf("")
+                }
+                var loading by remember {
+                    mutableStateOf(false)
+                }
+                var loadingJob by remember {
+                    mutableStateOf<Job?>(null)
+                }
+                Search(
+                    value = value1,
+                    onValueChange = {
+                        value1 = it
+                    },
+                    loading = loading,
+                    actionText = "搜索",
+                    onClickAction = {
+                        loading = true
+                        loadingJob?.cancel()
+                        loadingJob = CoroutineScope(Dispatchers.IO).launch {
+                            delay(1000)
+                            loading = false
+                        }
+                    }
+                )
+                Search(
+                    value = value1,
+                    onValueChange = {
+                        value1 = it
+                        loading = true
+                        loadingJob?.cancel()
+                        loadingJob = CoroutineScope(Dispatchers.IO).launch {
+                            delay(1000)
+                            loading = false
+                        }
+                    },
+                    loading = loading
+                )
             }
             CellGroup(title = "自定义样式") {
                 var value1 by remember {

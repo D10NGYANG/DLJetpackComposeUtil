@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -63,7 +65,7 @@ private fun SearchTest() {
                 value = "ashdgahjsd",
                 label = "地址",
                 shape = AppShape.RC.v6,
-                onClickCancel = {}
+                onClickAction = {}
             )
         }
     }
@@ -79,8 +81,8 @@ private fun SearchTest() {
  * @param disabled Boolean 是否禁用
  * @param shape RoundedCornerShape 圆角
  * @param backgroundColor Color 背景色
- * @param cancelText String 取消按钮文本
- * @param onClickCancel Function0<Unit>? 取消按钮点击回调
+ * @param actionText String 动作按钮文本
+ * @param onClickAction Function0<Unit>? 动作按钮点击回调
  */
 @Composable
 fun Search(
@@ -90,10 +92,11 @@ fun Search(
     placeholder: String = "请输入搜索关键词",
     align: TextAlign = TextAlign.Start,
     disabled: Boolean = false,
+    loading: Boolean = false,
     shape: RoundedCornerShape = AppShape.RC.v6,
     backgroundColor: Color = AppColor.Neutral.card,
-    cancelText: String = "取消",
-    onClickCancel: (() -> Unit)? = null,
+    actionText: String = "取消",
+    onClickAction: (() -> Unit)? = null,
 ) {
     Row(
         modifier = Modifier
@@ -149,7 +152,7 @@ fun Search(
                     .weight(1f)
                     .onFocusChanged { isFocus = it.isFocused }
             )
-            if (isShowClear) {
+            if (isShowClear && !disabled && !loading) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_round_cancel_24),
                     contentDescription = "清除",
@@ -160,14 +163,24 @@ fun Search(
                         .clickable { onValueChange("") }
                 )
             }
+            if (loading) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .size(20.dp)
+                        .padding(2.dp),
+                    color = AppColor.Main.primary,
+                    strokeWidth = 1.dp,
+                    strokeCap = StrokeCap.Round
+                )
+            }
         }
-        // 取消按钮
-        if (onClickCancel != null) {
+        // 动作按钮
+        if (onClickAction != null) {
             TextButton(
                 modifier = Modifier.padding(horizontal = 8.dp),
-                onClick = onClickCancel
+                onClick = onClickAction
             ) {
-                Text(text = cancelText, style = AppText.Normal.Title.default)
+                Text(text = actionText, style = AppText.Normal.Title.default)
             }
         } else {
             Box(modifier = Modifier.width(16.dp))
