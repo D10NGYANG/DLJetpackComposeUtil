@@ -60,7 +60,9 @@ jetpack compose android UI组件库，参考[Vant4](https://vant-contrib.gitee.i
 # 预览
 
 <img src="./assets/README-1694760944930.png" width="150"/> <img src="./assets/README-1694760970339.png" width="150"/> <img src="./assets/README-1694760988013.png" width="150"/> <img src="./assets/README-1694761011108.png" width="150"/> <img src="./assets/README-1694761027566.png" width="150"/> <img src="./assets/README-1694761047018.png" width="150"/> <img src="./assets/README-1694761064088.png" width="150"/> <img src="./assets/README-1694761078652.png" width="150"/> <img src="./assets/README-1694761092281.png" width="150"/> <img src="./assets/README-1694761109048.png" width="150"/> <img src="./assets/README-1694761141336.png" width="150"/> <img src="./assets/README-1694761156261.png" width="150"/> <img src="./assets/README-1694761168947.png" width="150"/> <img src="./assets/README-1694761186436.png" width="150"/> <img src="./assets/README-1694761200018.png" width="150"/> <img src="./assets/README-1694761212609.png" width="150"/> <img src="./assets/README-1694761228956.png" width="150"/> <img src="./assets/README-1694761246066.png" width="150"/> <img src="./assets/README-1694761269373.png" width="150"/> <img src="./assets/README-1694761281447.png" width="150"/> <img src="./assets/README-1694761297424.png" width="150"/> <img src="./assets/README-1694761310493.png" width="150"/> <img src="./assets/README-1694761325195.png" width="150"/> <img src="./assets/README-1694761338056.png" width="150"/> 
+
 ## demo运行
+> 下载APK安装测试，[点击这里下载APK](./app/app-release.apk)
 
 # 使用
 
@@ -81,7 +83,24 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation 'com.github.D10NGYANG:DLJetpackComposeUtil:$ver'
+    implementation("com.github.D10NGYANG:DLJetpackComposeUtil:$ver")
+    // 必须：startup
+    implementation("androidx.startup:startup-runtime:1.1.1")
+
+    // 可选：Lifecycle
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$jetpack_lifecycle_ver")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$jetpack_lifecycle_ver")
+
+    // 可选：Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_ver")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
+
+    // 可选：导航路由
+    implementation("io.github.raamcosta.compose-destinations:animations-core:$compose_destinations_ver")
+
+    // 可选：时间工具
+    implementation("com.github.D10NGYANG:DLDateUtil:1.8.5")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 }
 ```
 
@@ -93,4 +112,5 @@ dependencies {
 ```
 
 4 代码演示
-> 直接查看demo中app模块里代码`/app/src/main/java/com/d10ng/compose/demo/pages/`
+
+> 直接查看demo中app模块里代码[/app/src/main/java/com/d10ng/compose/demo/pages/](./app/src/main/java/com/d10ng/compose/demo/pages/HomeScreen.kt)
