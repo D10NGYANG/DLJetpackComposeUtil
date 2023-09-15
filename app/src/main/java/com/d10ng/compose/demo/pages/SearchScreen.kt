@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
+import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.PageTransitions
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.form.Search
@@ -88,6 +89,13 @@ private fun SearchScreenView(
                     onValueChange = { value1 = it },
                     onClickAction = {},
                     actionText = "搜索"
+                )
+                Search(
+                    value = value1,
+                    onValueChange = { value1 = it },
+                    onClickAction = {},
+                    actionText = "搜索",
+                    actionTextStyle = AppText.Normal.Primary.default
                 )
             }
             CellGroup(title = "中心对齐") {

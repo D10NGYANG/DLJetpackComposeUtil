@@ -28,6 +28,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -79,9 +80,11 @@ private fun SearchTest() {
  * @param placeholder String 占位文本
  * @param align TextAlign 对齐方式
  * @param disabled Boolean 是否禁用
+ * @param loading Boolean 是否显示加载中
  * @param shape RoundedCornerShape 圆角
  * @param backgroundColor Color 背景色
  * @param actionText String 动作按钮文本
+ * @param actionTextStyle TextStyle 动作按钮文本样式
  * @param onClickAction Function0<Unit>? 动作按钮点击回调
  */
 @Composable
@@ -96,6 +99,7 @@ fun Search(
     shape: RoundedCornerShape = AppShape.RC.v6,
     backgroundColor: Color = AppColor.Neutral.card,
     actionText: String = "取消",
+    actionTextStyle: TextStyle = AppText.Normal.Title.default,
     onClickAction: (() -> Unit)? = null,
 ) {
     Row(
@@ -180,7 +184,7 @@ fun Search(
                 modifier = Modifier.padding(horizontal = 8.dp),
                 onClick = onClickAction
             ) {
-                Text(text = actionText, style = AppText.Normal.Title.default)
+                Text(text = actionText, style = actionTextStyle)
             }
         } else {
             Box(modifier = Modifier.width(16.dp))
