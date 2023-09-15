@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -37,7 +36,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -45,10 +43,6 @@ import com.d10ng.compose.R
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
-import com.d10ng.datelib.curTime
-import com.d10ng.datelib.isToday
-import com.d10ng.datelib.isYesterday
-import com.d10ng.datelib.toDateStr
 
 @Composable
 fun ListItem(
@@ -515,73 +509,4 @@ fun ListMenuItem(
             }
         }
     }
-}
-
-@Composable
-fun ListChatItem(
-    modifier: Modifier = Modifier,
-    horizontalArrangement: Arrangement.Horizontal = Arrangement.Start,
-    verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
-    icon: @Composable BoxScope.() -> Unit = {},
-    badgeNumber: Int = 0,
-    name: String,
-    nameStyle: TextStyle = AppText.Normal.Title.v16,
-    message: String = "",
-    messageStyle: TextStyle = AppText.Normal.Body.v12,
-    time: Long = curTime,
-    timeStyle: TextStyle = AppText.Normal.Hint.v12,
-    onClick: () -> Unit = {}
-) {
-    ListItem(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp, 10.dp),
-        horizontalArrangement = horizontalArrangement,
-        verticalAlignment = verticalAlignment,
-        onClick = onClick,
-        icon = {
-            Box(
-                modifier = Modifier
-                    .wrapContentSize()
-            ) {
-                icon()
-                if (badgeNumber > 0) {
-                    BadgeText(
-                        modifier = Modifier.align(Alignment.TopEnd),
-                        number = badgeNumber,
-                        size = 22.dp
-                    )
-                }
-            }
-        },
-        title = {
-            Row(
-                modifier = Modifier.padding(start = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = name, style = nameStyle)
-                Spacer(modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f))
-                Text(
-                    text = when {
-                        time.isToday() -> time.toDateStr("HH:mm")
-                        time.isYesterday() -> "昨天 ${time.toDateStr("HH:mm")}"
-                        else -> time.toDateStr("yyyy-MM-dd HH:mm")
-                    },
-                    style = timeStyle
-                )
-            }
-        },
-        note = {
-            Text(
-                text = message,
-                style = messageStyle,
-                modifier = Modifier
-                    .padding(start = 16.dp),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
-    )
 }
