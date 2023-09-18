@@ -1,5 +1,6 @@
 package com.d10ng.compose.ui.navigation
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -13,13 +14,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsTopHeight
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.R
@@ -77,10 +79,11 @@ fun NavBar(
             ) {
                 // 返回按钮
                 if (onClickBack != null) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_round_arrow_back_ios_new_24),
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_round_back_22),
                         contentDescription = "back",
-                        tint = AppColor.Neutral.tips,
+                        colorFilter = ColorFilter.tint(AppColor.Neutral.tips),
+                        contentScale = ContentScale.Inside,
                         modifier = Modifier
                             .padding(start = 8.dp)
                             .size(46.dp)

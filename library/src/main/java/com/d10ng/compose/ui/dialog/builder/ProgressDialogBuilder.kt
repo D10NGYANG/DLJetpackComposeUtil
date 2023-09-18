@@ -3,8 +3,8 @@ package com.d10ng.compose.ui.dialog.builder
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -62,15 +62,15 @@ data class ProgressDialogBuilder(
             }
             // 内容
             if (content.isNotEmpty()) {
-                Text(text = content, style = AppText.Normal.Body.default)
+                Text(text = content, style = AppText.Normal.Body.big)
             }
             // 进度
             LinearProgressIndicator(
                 progress = (progress * 1.0f) / max,
                 modifier = Modifier
+                    .padding(top = 16.dp)
                     .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(top = 16.dp),
+                    .height(12.dp),
                 color = AppColor.Main.primary,
                 trackColor = AppColor.Neutral.line,
                 strokeCap = StrokeCap.Round

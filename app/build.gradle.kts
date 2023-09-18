@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -65,6 +66,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_ver")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
 
+    // kotlinx.serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlin_serialization_json")
+
     // 导航路由
     implementation("io.github.raamcosta.compose-destinations:animations-core:$compose_destinations_ver")
     ksp("io.github.raamcosta.compose-destinations:ksp:$compose_destinations_ver")
@@ -72,7 +76,7 @@ dependencies {
     // 公共工具
     implementation("com.github.D10NGYANG:DLCommonUtil:0.0.2")
     // APP通用工具
-    implementation("com.github.D10NGYANG:DLAppUtil:2.4.3")
+    implementation("com.github.D10NGYANG:DLAppUtil:2.4.6")
     // 时间工具
     implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.5")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")

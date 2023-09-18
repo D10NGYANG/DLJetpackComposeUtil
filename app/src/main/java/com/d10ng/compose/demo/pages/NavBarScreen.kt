@@ -104,7 +104,7 @@ private fun NavBarScreenView(
                             modifier = Modifier
                                 .padding(end = 16.dp),
                             type = ButtonType.PRIMARY,
-                            size = ButtonSize.MINI
+                            size = ButtonSize.SMALL
                         ) {}
                     })
                 NavBar(
@@ -119,7 +119,7 @@ private fun NavBarScreenView(
                             modifier = Modifier
                                 .padding(end = 16.dp),
                             type = ButtonType.DANGER,
-                            size = ButtonSize.MINI,
+                            size = ButtonSize.SMALL,
                             plain = true
                         ) {}
                     })

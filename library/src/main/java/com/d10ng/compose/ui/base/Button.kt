@@ -58,6 +58,9 @@ enum class ButtonSize(val textSize: TextUnit, val paddingValues: PaddingValues, 
     // 小
     SMALL(AppText.Normal.White.small.fontSize, PaddingValues(12.dp, 4.dp), 36.dp),
 
+    // 小
+    BIG(AppText.Normal.White.big.fontSize, PaddingValues(21.dp, 7.dp), 44.dp),
+
     // 大
     LARGE(AppText.Normal.White.large.fontSize, PaddingValues(36.dp, 12.dp), 64.dp),
 }

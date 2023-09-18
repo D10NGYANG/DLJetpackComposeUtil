@@ -61,7 +61,6 @@ private fun ButtonScreenView(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
             CellTitle(title = "按钮类型")
@@ -145,7 +144,8 @@ private fun ButtonScreenView(
                 Button(text = "迷你按钮", type = ButtonType.PRIMARY, size = ButtonSize.MINI) {}
                 Button(text = "小型按钮", type = ButtonType.SUCCESS, size = ButtonSize.SMALL) {}
                 Button(text = "默认按钮", plain = true, size = ButtonSize.NORMAL) {}
-                Button(text = "大型按钮", type = ButtonType.WARNING, size = ButtonSize.LARGE) {}
+                Button(text = "大型按钮", type = ButtonType.WARNING, size = ButtonSize.BIG) {}
+                Button(text = "巨大按钮", type = ButtonType.PRIMARY, size = ButtonSize.LARGE) {}
             }
             CellTitle(title = "自定义颜色")
             CustomFlowRow {
@@ -171,7 +171,7 @@ private fun CustomFlowRow(
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 16.dp),
+            .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         content = content

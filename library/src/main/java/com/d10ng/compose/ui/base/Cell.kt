@@ -1,5 +1,6 @@
 package com.d10ng.compose.ui.base
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -9,13 +10,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.R
@@ -157,15 +159,18 @@ fun Cell(
                 )
             }
             afterValue?.invoke()
-            if (link) Icon(
-                painter = painterResource(id = R.drawable.ic_round_arrow_forward_ios_24),
-                contentDescription = "箭头",
-                modifier = Modifier
-                    .padding(start = 8.dp)
-                    .size(18.dp)
-                    .rotate(arrowDirection.degrees),
-                tint = AppColor.Neutral.body
-            )
+            if (link) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_round_forward_16),
+                    contentDescription = "箭头",
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                        .size(18.dp)
+                        .rotate(arrowDirection.degrees),
+                    colorFilter = ColorFilter.tint(AppColor.Neutral.body),
+                    contentScale = ContentScale.Inside
+                )
+            }
         }
         if (label.isNotEmpty()) {
             Text(

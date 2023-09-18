@@ -29,6 +29,7 @@ import com.d10ng.compose.demo.pages.destinations.CellScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CheckButtonScreenDestination
 import com.d10ng.compose.demo.pages.destinations.DialogScreenDestination
 import com.d10ng.compose.demo.pages.destinations.FieldScreenDestination
+import com.d10ng.compose.demo.pages.destinations.IndexBarScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NavBarScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NotifyScreenDestination
 import com.d10ng.compose.demo.pages.destinations.SearchScreenDestination
@@ -180,6 +181,10 @@ private fun HomeScreenView(
                 title = "NavBar 导航栏",
                 link = true,
                 onClick = { onClick(NavBarScreenDestination) })
+            Cell(
+                title = "IndexBar 索引栏",
+                link = true,
+                onClick = { onClick(IndexBarScreenDestination) })
         }
         Box(modifier = Modifier.height(32.dp))
     }

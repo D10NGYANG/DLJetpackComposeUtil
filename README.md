@@ -49,7 +49,7 @@
 | 导航组件 | ActionBar 动作栏     | 🚫   |                 |
 |      | BackTop 回到顶部      | 🚫   |                 |
 |      | Grid 宫格           | 🚫   |                 |
-|      | IndexBar 索引栏      | ℹ️   | TODO            |
+|      | IndexBar 索引栏      | ✅    |                 |
 |      | NavBar 导航栏        | ✅    |                 |
 |      | Pagination 分页     | ℹ️   | TODO            |
 |      | Sidebar 侧边导航      | ℹ️   | TODO            |
@@ -59,14 +59,14 @@
 
 # 预览
 
-<img src="./assets/README-1694760944930.png" width="150"/> <img src="./assets/README-1694760970339.png" width="150"/> <img src="./assets/README-1694760988013.png" width="150"/> <img src="./assets/README-1694761011108.png" width="150"/> <img src="./assets/README-1694761027566.png" width="150"/> <img src="./assets/README-1694761047018.png" width="150"/> <img src="./assets/README-1694761064088.png" width="150"/> <img src="./assets/README-1694761078652.png" width="150"/> <img src="./assets/README-1694761092281.png" width="150"/> <img src="./assets/README-1694761109048.png" width="150"/> <img src="./assets/README-1694761141336.png" width="150"/> <img src="./assets/README-1694761156261.png" width="150"/> <img src="./assets/README-1694761168947.png" width="150"/> <img src="./assets/README-1694761186436.png" width="150"/> <img src="./assets/README-1694761200018.png" width="150"/> <img src="./assets/README-1694761212609.png" width="150"/> <img src="./assets/README-1694761228956.png" width="150"/> <img src="./assets/README-1694761246066.png" width="150"/> <img src="./assets/README-1694761269373.png" width="150"/> <img src="./assets/README-1694761281447.png" width="150"/> <img src="./assets/README-1694761297424.png" width="150"/> <img src="./assets/README-1694761310493.png" width="150"/> <img src="./assets/README-1694761325195.png" width="150"/> <img src="./assets/README-1694761338056.png" width="150"/> 
+<img src="./assets/README-1694760944930.png" width="150"/> <img src="./assets/README-1695008536384.png" width="150"/> <img src="./assets/README-1694760988013.png" width="150"/> <img src="./assets/README-1694761011108.png" width="150"/> <img src="./assets/README-1694761027566.png" width="150"/> <img src="./assets/README-1694761047018.png" width="150"/> <img src="./assets/README-1694761064088.png" width="150"/> <img src="./assets/README-1694761078652.png" width="150"/> <img src="./assets/README-1694761092281.png" width="150"/> <img src="./assets/README-1694761109048.png" width="150"/> <img src="./assets/README-1694761141336.png" width="150"/> <img src="./assets/README-1694761156261.png" width="150"/> <img src="./assets/README-1695008618393.png" width="150"/> <img src="./assets/README-1694761186436.png" width="150"/> <img src="./assets/README-1694761200018.png" width="150"/> <img src="./assets/README-1694761212609.png" width="150"/> <img src="./assets/README-1694761228956.png" width="150"/> <img src="./assets/README-1694761246066.png" width="150"/> <img src="./assets/README-1694761269373.png" width="150"/> <img src="./assets/README-1694761281447.png" width="150"/> <img src="./assets/README-1694761297424.png" width="150"/> <img src="./assets/README-1694761310493.png" width="150"/> <img src="./assets/README-1694761325195.png" width="150"/> <img src="./assets/README-1694761338056.png" width="150"/> <img src="./assets/README-1695008769019.png" width="150"/> <img src="./assets/README-1695008786789.png" width="150"/> 
 
 ## demo运行
 > 下载APK安装测试，[点击这里下载APK](./app/app-release.apk)
 
 # 使用
 
-> 最新版本 *ver = `2.0.1`*
+> 最新版本 *ver = `2.0.2`*
 
 1 添加仓库
 
@@ -84,8 +84,6 @@ allprojects {
 ```gradle
 dependencies {
     implementation("com.github.D10NGYANG:DLJetpackComposeUtil:$ver")
-    // 必须：startup
-    implementation("androidx.startup:startup-runtime:1.1.1")
 
     // 可选：Lifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$jetpack_lifecycle_ver")
