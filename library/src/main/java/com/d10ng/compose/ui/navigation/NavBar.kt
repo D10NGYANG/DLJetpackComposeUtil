@@ -71,7 +71,7 @@ fun NavBar(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(60.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxSize(),

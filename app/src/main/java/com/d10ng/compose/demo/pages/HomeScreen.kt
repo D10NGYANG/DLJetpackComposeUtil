@@ -32,6 +32,7 @@ import com.d10ng.compose.demo.pages.destinations.FieldScreenDestination
 import com.d10ng.compose.demo.pages.destinations.IndexBarScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NavBarScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NotifyScreenDestination
+import com.d10ng.compose.demo.pages.destinations.PopoverScreenDestination
 import com.d10ng.compose.demo.pages.destinations.SearchScreenDestination
 import com.d10ng.compose.demo.pages.destinations.SheetScreenDestination
 import com.d10ng.compose.demo.pages.destinations.StepperScreenDestination
@@ -175,6 +176,10 @@ private fun HomeScreenView(
                 title = "Steps 步骤条",
                 link = true,
                 onClick = { onClick(StepsScreenDestination) })
+            Cell(
+                title = "Popover 气泡弹出框",
+                link = true,
+                onClick = { onClick(PopoverScreenDestination) })
         }
         CellGroup(title = "导航组件", inset = true) {
             Cell(
