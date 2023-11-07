@@ -2,7 +2,7 @@ package com.d10ng.compose.demo.stores
 
 import com.d10ng.app.base.ActivityManager
 import com.d10ng.app.resource.getAssetsJSONArray
-import com.d10ng.common.toPinYin
+import com.d10ng.common.transform.toPinYin
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json

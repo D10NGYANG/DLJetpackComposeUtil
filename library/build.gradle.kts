@@ -69,9 +69,9 @@ dependencies {
     androidTestApi("androidx.compose.ui:ui-test-junit4")
     debugApi("androidx.compose.ui:ui-test-manifest")
     // Integration with activities
-    api("androidx.activity:activity-compose:1.7.2")
+    api("androidx.activity:activity-compose:1.8.0")
     // constraintlayout
-    api("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha12")
+    api("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha13")
 
     // startup
     implementation("androidx.startup:startup-runtime:1.1.1")
@@ -88,8 +88,11 @@ dependencies {
     implementation("io.github.raamcosta.compose-destinations:animations-core:$compose_destinations_ver")
 
     // 时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil:1.8.5")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+    implementation("com.github.D10NGYANG:DLDateUtil:1.8.6")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+
+    // 公共工具
+    implementation("com.github.D10NGYANG:DLCommonUtil:0.0.3")
 }
 
 val bds100MavenUsername: String by project

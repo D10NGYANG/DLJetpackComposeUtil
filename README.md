@@ -99,6 +99,8 @@ dependencies {
     // 可选：时间工具
     implementation("com.github.D10NGYANG:DLDateUtil:1.8.5")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+    // 必须：公共工具
+    implementation("com.github.D10NGYANG:DLCommonUtil:0.0.3")
 }
 ```
 

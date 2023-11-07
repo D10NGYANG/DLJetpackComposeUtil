@@ -15,7 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import com.d10ng.common.isMobileNumber
+import com.d10ng.common.calculate.isMobileNumber
 import com.d10ng.compose.demo.R
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.PageTransitions

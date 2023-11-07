@@ -15,7 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.d10ng.common.isMobileNumber
+import com.d10ng.common.calculate.isMobileNumber
 import com.d10ng.compose.demo.R
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
