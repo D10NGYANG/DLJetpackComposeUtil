@@ -33,6 +33,7 @@ import com.d10ng.compose.demo.pages.destinations.IndexBarScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NavBarScreenDestination
 import com.d10ng.compose.demo.pages.destinations.NotifyScreenDestination
 import com.d10ng.compose.demo.pages.destinations.PopoverScreenDestination
+import com.d10ng.compose.demo.pages.destinations.PullRefreshScreenDestination
 import com.d10ng.compose.demo.pages.destinations.SearchScreenDestination
 import com.d10ng.compose.demo.pages.destinations.SheetScreenDestination
 import com.d10ng.compose.demo.pages.destinations.StepperScreenDestination
@@ -158,6 +159,10 @@ private fun HomeScreenView(
                 title = "Notify 消息提示",
                 link = true,
                 onClick = { onClick(NotifyScreenDestination) })
+            Cell(
+                title = "PullRefresh 下拉刷新",
+                link = true,
+                onClick = { onClick(PullRefreshScreenDestination) })
         }
         CellGroup(title = "展示组件", inset = true) {
             Cell(

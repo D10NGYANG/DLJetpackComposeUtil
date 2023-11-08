@@ -33,6 +33,7 @@
 |      | Overlay 遮罩层       | ✅    |                                                                  |
 |      | ShareSheet 分享面板   | ℹ️   | TODO                                                             |
 |      | SwipeCell 滑动单元格   | ℹ️   | TODO                                                             |
+|      | PullRefresh 下拉刷新  | ✅    |                                                                  |
 | 展示组件 | Badge 徽标          | ✅    |                                                                  |
 |      | Collapse 折叠面板     | ℹ️   | TODO                                                             |
 |      | CountDown 倒计时     | ℹ️   | TODO                                                             |
@@ -66,7 +67,7 @@
 
 # 使用
 
-> 最新版本 *ver = `2.0.3`*
+> 最新版本 *ver = `2.0.4`*
 
 1 添加仓库
 
