@@ -1,6 +1,11 @@
 package com.d10ng.compose.ui
 
+import androidx.compose.foundation.clickable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
@@ -9,6 +14,8 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * 虚线边框
@@ -49,5 +56,31 @@ fun Modifier.dashBorder(
             cornerRadiusDp.toPx(),
             paint
         )
+    }
+}
+
+/**
+ * 防抖点击
+ * @receiver Modifier
+ * @param onClick Function0<Unit>
+ * @param delayMillis Long
+ * @return Modifier
+ */
+fun Modifier.debounceClick(
+    onClick: () -> Unit,
+    delayMillis: Long = 1000L
+): Modifier = composed {
+    val scope = rememberCoroutineScope()
+    val clickEnabled = remember { mutableStateOf(true) }
+
+    clickable {
+        if (clickEnabled.value) {
+            clickEnabled.value = false
+            onClick()
+            scope.launch {
+                delay(delayMillis)
+                clickEnabled.value = true
+            }
+        }
     }
 }
