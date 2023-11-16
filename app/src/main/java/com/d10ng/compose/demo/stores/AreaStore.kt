@@ -1,6 +1,5 @@
 package com.d10ng.compose.demo.stores
 
-import com.d10ng.app.base.ActivityManager
 import com.d10ng.app.resource.getAssetsJSONArray
 import com.d10ng.common.transform.toPinYin
 import kotlinx.serialization.SerialName
@@ -47,7 +46,7 @@ object AreaStore {
     var list: List<Info>
 
     init {
-        val jsonObj = ActivityManager.top().value!!.getAssetsJSONArray("area_phone_code.json").toString()
+        val jsonObj = getAssetsJSONArray("area_phone_code.json").toString()
         val ls: MutableList<Info> = json.decodeFromString(jsonObj)
         ls.forEach { item -> item.py = item.zh.toPinYin() }
         list = ls.sortedBy { it.py }

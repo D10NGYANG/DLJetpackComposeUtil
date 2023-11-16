@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "2.0.5"
+version = "2.0.6"
 
 android {
     namespace = "com.d10ng.compose"
@@ -88,11 +88,11 @@ dependencies {
     implementation("io.github.raamcosta.compose-destinations:animations-core:$compose_destinations_ver")
 
     // 时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil:1.8.6")
+    implementation("com.github.D10NGYANG:DLDateUtil:1.8.7")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 
     // 公共工具
-    implementation("com.github.D10NGYANG:DLCommonUtil:0.0.3")
+    implementation("com.github.D10NGYANG:DLCommonUtil:0.0.4")
 }
 
 val bds100MavenUsername: String by project

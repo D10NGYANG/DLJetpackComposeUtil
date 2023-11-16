@@ -27,6 +27,7 @@ import com.d10ng.compose.demo.pages.destinations.BadgeScreenDestination
 import com.d10ng.compose.demo.pages.destinations.ButtonScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CellScreenDestination
 import com.d10ng.compose.demo.pages.destinations.CheckButtonScreenDestination
+import com.d10ng.compose.demo.pages.destinations.CheckboxScreenDestination
 import com.d10ng.compose.demo.pages.destinations.DialogScreenDestination
 import com.d10ng.compose.demo.pages.destinations.FieldScreenDestination
 import com.d10ng.compose.demo.pages.destinations.IndexBarScreenDestination
@@ -125,6 +126,10 @@ private fun HomeScreenView(
                 onClick = { onClick(ToastScreenDestination) })
         }
         CellGroup(title = "表单组件", inset = true) {
+            Cell(
+                title = "Checkbox 复选框",
+                link = true,
+                onClick = { onClick(CheckboxScreenDestination) })
             Cell(
                 title = "Field 输入框",
                 link = true,

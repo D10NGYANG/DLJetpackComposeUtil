@@ -17,6 +17,7 @@
 |      | Toast 轻提示         | ✅    |                                                                  |
 | 表单组件 | Calendar 日历       | ℹ️   | TODO                                                             |
 |      | Cascader 级联选择     | ℹ️   | TODO                                                             |
+|      | Checkbox 复选框      | ✅    |                                                                  |
 |      | Field 输入框         | ✅    |                                                                  |
 |      | Picker 选择器        | ✅    |                                                                  |
 |      | PickerGroup 选择器组  | ℹ️   | TODO                                                             |
@@ -67,7 +68,7 @@
 
 # 使用
 
-> 最新版本 *ver = `2.0.5`*
+> 最新版本 *ver = `2.0.6`*
 
 1 添加仓库
 

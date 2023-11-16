@@ -74,11 +74,11 @@ dependencies {
     ksp("io.github.raamcosta.compose-destinations:ksp:$compose_destinations_ver")
 
     // 公共工具
-    implementation("com.github.D10NGYANG:DLCommonUtil:0.0.3")
+    implementation("com.github.D10NGYANG:DLCommonUtil:0.0.4")
     // APP通用工具
-    implementation("com.github.D10NGYANG:DLAppUtil:2.4.6")
+    implementation("com.github.D10NGYANG:DLAppUtil:2.4.9")
     // 时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.6")
+    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.7")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 
     // 内存泄漏检查
