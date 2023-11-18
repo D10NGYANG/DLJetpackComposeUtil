@@ -88,7 +88,7 @@ fun Field(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 19.dp)
             .onSizeChanged {
                 if (lastSize != null) {
                     onSizeChange(
