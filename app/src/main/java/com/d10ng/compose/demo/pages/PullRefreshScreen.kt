@@ -72,7 +72,7 @@ private fun PullRefreshScreenView(
         Box(modifier = Modifier.fillMaxSize()) {
             LazyColumn(
                 modifier = Modifier.pullRefresh(state),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(19.dp)
             ) {
                 items(listOf("test 1", "test 2")) {
                     CellGroup(

@@ -102,7 +102,7 @@ private fun NavBarScreenView(
                         Button(
                             text = "保存",
                             modifier = Modifier
-                                .padding(end = 16.dp),
+                                .padding(end = 19.dp),
                             type = ButtonType.PRIMARY,
                             size = ButtonSize.SMALL
                         ) {}
@@ -117,7 +117,7 @@ private fun NavBarScreenView(
                         Button(
                             text = "删除",
                             modifier = Modifier
-                                .padding(end = 16.dp),
+                                .padding(end = 19.dp),
                             type = ButtonType.DANGER,
                             size = ButtonSize.SMALL,
                             plain = true

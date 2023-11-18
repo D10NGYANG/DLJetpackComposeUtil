@@ -64,8 +64,8 @@ private fun PopoverScreenView(
         ) {
             CellTitle(title = "基础用法")
             FlowRow(
-                modifier = Modifier.fillMaxWidth().padding(start = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                modifier = Modifier.fillMaxWidth().padding(start = 19.dp),
+                horizontalArrangement = Arrangement.spacedBy(19.dp)
             ) {
                 Box {
                     var expanded by remember { mutableStateOf(false) }

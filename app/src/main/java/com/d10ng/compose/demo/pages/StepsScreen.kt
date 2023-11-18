@@ -63,7 +63,7 @@ private fun StepsScreenView(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 16.dp)
+                        .padding(vertical = 19.dp)
                 ) {
                     Steps(
                         items = setOf("步骤一", "步骤二", "步骤三", "步骤四"),
@@ -73,7 +73,7 @@ private fun StepsScreenView(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 16.dp)
+                        .padding(vertical = 19.dp)
                 ) {
                     Steps(
                         items = setOf("步骤一", "步骤二", "步骤三", "步骤四"),

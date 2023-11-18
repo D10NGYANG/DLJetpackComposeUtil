@@ -61,7 +61,7 @@ private fun BadgeScreenView(
                 FlowRow(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                        .padding(horizontal = 19.dp, vertical = 12.dp),
                     horizontalArrangement = Arrangement.Start
                 ) {
                     listOf("", "1", "5", "10", "HOT").forEach { item ->
@@ -79,7 +79,7 @@ private fun BadgeScreenView(
                 FlowRow(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                        .padding(horizontal = 19.dp, vertical = 12.dp),
                     horizontalArrangement = Arrangement.Start
                 ) {
                     listOf(10 to 9, 21 to 20, 100 to 99).forEach { item ->
@@ -97,7 +97,7 @@ private fun BadgeScreenView(
                 FlowRow(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                        .padding(horizontal = 19.dp, vertical = 12.dp),
                     horizontalArrangement = Arrangement.Start
                 ) {
                     listOf("", "1", "5", "10", "HOT").forEach { item ->

@@ -86,7 +86,7 @@ private fun HomeScreenView(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(19.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -100,7 +100,7 @@ private fun HomeScreenView(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp)
+                    .padding(start = 19.dp)
             ) {
                 Text(text = "DLJetpackComposeUtil", style = AppText.Bold.Title.large)
                 Text(

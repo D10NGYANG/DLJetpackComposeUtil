@@ -68,7 +68,7 @@ private fun AvatarScreenView(
                 FlowRow(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(19.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Avatar(char = 'A')
@@ -86,7 +86,7 @@ private fun AvatarScreenView(
                 FlowRow(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(19.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Avatar(char = 'A') {
@@ -131,7 +131,7 @@ private fun AvatarScreenView(
                 FlowRow(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(19.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     BadgeBox(badge = { Badge() }) {
@@ -149,7 +149,7 @@ private fun AvatarScreenView(
                 FlowRow(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(19.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Avatar(char = '杨', size = 48.dp)

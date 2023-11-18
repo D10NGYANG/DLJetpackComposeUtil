@@ -21,6 +21,7 @@ import com.d10ng.compose.ui.AppColor
 
 /**
  * 横向分割线
+ * @param modifier Modifier 修饰符
  * @param color Color 分割线颜色
  * @param thickness Dp 分割线高度
  * @param paddingStart Dp 左边距
@@ -28,6 +29,7 @@ import com.d10ng.compose.ui.AppColor
  */
 @Composable
 fun HorizontalDivider(
+    modifier: Modifier = Modifier,
     color: Color = AppColor.Neutral.line,
     thickness: Dp = 0.5.dp,
     paddingStart: Dp = 0.dp,
@@ -36,12 +38,13 @@ fun HorizontalDivider(
     Divider(
         color = color,
         thickness = thickness,
-        modifier = Modifier.padding(start = paddingStart, end = paddingEnd)
+        modifier = modifier.padding(start = paddingStart, end = paddingEnd)
     )
 }
 
 /**
  * 纵向分割线
+ * @param modifier Modifier 修饰符
  * @param color Color 分割线颜色
  * @param thickness Dp 分割线高度
  * @param paddingTop Dp 上边距
@@ -49,12 +52,13 @@ fun HorizontalDivider(
  */
 @Composable
 fun VerticalDivider(
+    modifier: Modifier = Modifier,
     color: Color = AppColor.Neutral.line,
     thickness: Dp = 0.5.dp,
     paddingTop: Dp = 0.dp,
     paddingBottom: Dp = 0.dp,
 ) {
-    Box(modifier = Modifier
+    Box(modifier = modifier
         .fillMaxHeight()
         .width(thickness)
         .padding(top = paddingTop, bottom = paddingBottom)

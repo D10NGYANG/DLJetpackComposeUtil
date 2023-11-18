@@ -56,7 +56,7 @@ private fun CheckboxScreenView(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            val checkboxModifier = Modifier.padding(start = 16.dp)
+            val checkboxModifier = Modifier.padding(start = 19.dp)
             var value1 by remember { mutableStateOf(true) }
             CellTitle(title = "基础用法")
             Checkbox(checked = value1, onCheckedChange = { value1 = it }, modifier = checkboxModifier)

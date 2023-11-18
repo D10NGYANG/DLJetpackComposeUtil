@@ -5,8 +5,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -18,8 +22,11 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.d10ng.compose.R
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
@@ -45,7 +52,9 @@ fun CellTitle(
     Text(
         text = title,
         style = AppText.Normal.Tips.default,
-        modifier = modifier.padding(16.dp)
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        modifier = modifier.padding(19.dp, 12.dp)
     )
 }
 
@@ -78,7 +87,7 @@ fun CellGroup(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = if (inset) 16.dp else 0.dp)
+                .padding(horizontal = if (inset) 19.dp else 0.dp)
                 .background(bgColor, shape)
         ) {
             if (border && !inset) HorizontalDivider()
@@ -128,12 +137,12 @@ fun Cell(
     Column(
         modifier = modifier
             .clickable(enabled = onClick != null) { onClick?.invoke() }
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 19.dp),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 16.dp),
+                .padding(vertical = 19.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             icon?.invoke()
@@ -176,9 +185,54 @@ fun Cell(
             Text(
                 text = label,
                 style = AppText.Normal.Tips.small,
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier.padding(bottom = 19.dp)
             )
         }
         if (border) HorizontalDivider()
+    }
+}
+
+/**
+ * 单元格行
+ * @param modifier Modifier 修饰符
+ * @param divider Boolean 是否显示分割线
+ * @param dividerPaddingValues PaddingValues 分割线内边距
+ * @param content [@androidx.compose.runtime.Composable] [@kotlin.ExtensionFunctionType] Function1<RowScope, Unit> 内容
+ */
+@Composable
+fun CellRow(
+    modifier: Modifier = Modifier,
+    divider: Boolean = true,
+    dividerPaddingValues: PaddingValues = PaddingValues(horizontal = 19.dp),
+    content: @Composable RowScope.() -> Unit
+) {
+    ConstraintLayout(
+        modifier = modifier.fillMaxWidth()
+    ) {
+        val (row, div) = createRefs()
+        Row(
+            modifier = Modifier
+                .constrainAs(row) {
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                },
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            content()
+        }
+        if (divider) {
+            HorizontalDivider(
+                modifier = Modifier
+                    .constrainAs(div) {
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    },
+                paddingStart = dividerPaddingValues.calculateStartPadding(LocalLayoutDirection.current),
+                paddingEnd = dividerPaddingValues.calculateEndPadding(LocalLayoutDirection.current)
+            )
+        }
     }
 }
