@@ -197,6 +197,7 @@ fun Cell(
  * @param modifier Modifier 修饰符
  * @param divider Boolean 是否显示分割线
  * @param dividerPaddingValues PaddingValues 分割线内边距
+ * @param contentPaddingValues PaddingValues 内容内边距
  * @param content [@androidx.compose.runtime.Composable] [@kotlin.ExtensionFunctionType] Function1<RowScope, Unit> 内容
  */
 @Composable
@@ -204,6 +205,7 @@ fun CellRow(
     modifier: Modifier = Modifier,
     divider: Boolean = true,
     dividerPaddingValues: PaddingValues = PaddingValues(horizontal = 19.dp),
+    contentPaddingValues: PaddingValues = PaddingValues(0.dp),
     content: @Composable RowScope.() -> Unit
 ) {
     ConstraintLayout(
@@ -217,7 +219,8 @@ fun CellRow(
                     bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                },
+                }
+                .padding(contentPaddingValues),
             verticalAlignment = Alignment.CenterVertically
         ) {
             content()
