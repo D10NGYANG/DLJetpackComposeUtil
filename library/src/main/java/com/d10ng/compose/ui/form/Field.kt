@@ -36,7 +36,7 @@ import com.d10ng.compose.R
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
-import com.d10ng.compose.ui.show.Border
+import com.d10ng.compose.ui.show.HorizontalDivider
 import com.d10ng.compose.view.Input
 
 /**
@@ -142,7 +142,7 @@ fun Field(
                 minLines
             )
         }
-        if (border) Border()
+        if (border) HorizontalDivider()
     }
 }
 

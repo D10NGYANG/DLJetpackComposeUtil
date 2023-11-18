@@ -24,7 +24,7 @@ import com.d10ng.compose.R
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
-import com.d10ng.compose.ui.show.Border
+import com.d10ng.compose.ui.show.HorizontalDivider
 
 /**
  * 单元格组件
@@ -81,9 +81,9 @@ fun CellGroup(
                 .padding(horizontal = if (inset) 16.dp else 0.dp)
                 .background(bgColor, shape)
         ) {
-            if (border && !inset) Border()
+            if (border && !inset) HorizontalDivider()
             content()
-            if (border && !inset) Border()
+            if (border && !inset) HorizontalDivider()
         }
     }
 }
@@ -179,6 +179,6 @@ fun Cell(
                 modifier = Modifier.padding(bottom = 16.dp)
             )
         }
-        if (border) Border()
+        if (border) HorizontalDivider()
     }
 }

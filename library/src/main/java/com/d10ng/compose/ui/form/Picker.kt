@@ -26,7 +26,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppText
-import com.d10ng.compose.ui.show.Border
+import com.d10ng.compose.ui.show.HorizontalDivider
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.filter
@@ -148,7 +148,7 @@ fun <T> Picker(
                     )
             )
             // 分割线
-            Border()
+            HorizontalDivider()
             // 中间显露选择项的区域
             Box(
                 modifier = Modifier
@@ -156,7 +156,7 @@ fun <T> Picker(
                     .fillMaxWidth()
             )
             // 分割线
-            Border()
+            HorizontalDivider()
             // 选中项下面的渐变透明遮罩
             Box(
                 modifier = Modifier

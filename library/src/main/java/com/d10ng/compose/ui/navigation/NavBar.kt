@@ -23,12 +23,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.R
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
-import com.d10ng.compose.ui.show.Border
+import com.d10ng.compose.ui.show.HorizontalDivider
 
 /**
  * 导航栏
@@ -85,11 +86,10 @@ fun NavBar(
                         colorFilter = ColorFilter.tint(AppColor.Neutral.tips),
                         contentScale = ContentScale.Inside,
                         modifier = Modifier
-                            .padding(start = 8.dp)
-                            .size(46.dp)
+                            .padding(start = 6.dp)
+                            .size(40.dp)
                             .clip(AppShape.RC.Cycle)
                             .clickable { onClickBack() }
-                            .padding(10.dp)
                     )
                 }
                 // 间隔
@@ -107,11 +107,13 @@ fun NavBar(
             ) {
                 Text(
                     text = title,
-                    style = AppText.Bold.Title.large
+                    style = AppText.Bold.Title.large,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }
         // 底部边框
-        if (border) Border()
+        if (border) HorizontalDivider()
     }
 }
