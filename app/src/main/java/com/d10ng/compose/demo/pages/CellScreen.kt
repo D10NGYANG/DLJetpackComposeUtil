@@ -54,6 +54,7 @@ private fun CellScreenView(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .weight(1f)
                 .verticalScroll(rememberScrollState())
         ) {
             CellGroup(

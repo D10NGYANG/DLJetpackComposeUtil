@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -43,6 +44,8 @@ class RadioSheetBuilder<T>(
     private val itemText: (T) -> String = { it.toString() },
     // 选中的项
     private val selectedItem: T = items.first(),
+    // 是否显示确定和取消按钮
+    private val showButton: Boolean = true,
     // 取消文本
     private val cancelText: String = "取消",
     // 确定文本
@@ -60,14 +63,28 @@ class RadioSheetBuilder<T>(
         }
         SheetColumn {
             // 标题栏
-            TitleBar(
-                title = title,
-                cancelText = cancelText,
-                confirmText = confirmText,
-                onCancelClick = onCancelClick,
-                onConfirmClick = { onConfirmClick(selected) }
-            )
+            if (showButton) {
+                TitleBar(
+                    title = title,
+                    cancelText = cancelText,
+                    confirmText = confirmText,
+                    onCancelClick = onCancelClick,
+                    onConfirmClick = { onConfirmClick(selected) }
+                )
+            } else {
+                Box(
+                    modifier = Modifier.fillMaxWidth().height(56.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = title,
+                        style = AppText.Bold.Title.large,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
             // 选项
+            val scope = rememberCoroutineScope()
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -79,6 +96,9 @@ class RadioSheetBuilder<T>(
                         selected = selected == item,
                         onClick = {
                             selected = item
+                            if (showButton.not()) {
+                                scope.launch { if (onConfirmClick(item)) dismiss() }
+                            }
                         },
                         border = index != items.size - 1
                     )
@@ -162,7 +182,7 @@ private fun BuildTest() {
             .background(Color.Gray),
         contentAlignment = Alignment.BottomCenter
     ) {
-        val builder = RadioSheetBuilder(items = setOf("1", "2", "3", "4", "5"))
+        val builder = RadioSheetBuilder(items = setOf("1", "2"), showButton = false)
         builder.Build()
     }
 }

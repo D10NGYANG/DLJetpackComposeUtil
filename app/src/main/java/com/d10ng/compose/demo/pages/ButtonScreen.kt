@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.FlowRowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -56,11 +57,13 @@ private fun ButtonScreenView(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
+            .navigationBarsPadding()
     ) {
         NavBar(title = "Button", onClickBack = onClickBack)
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .weight(1f)
                 .verticalScroll(rememberScrollState()),
         ) {
             CellTitle(title = "按钮类型")

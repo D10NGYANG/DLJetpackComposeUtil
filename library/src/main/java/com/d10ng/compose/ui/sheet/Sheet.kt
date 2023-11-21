@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -57,13 +58,15 @@ fun Sheet(
 fun SheetBox(
     color: Color = Color.White,
     shape: RoundedCornerShape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
+    minHeight: Float = 0.1f,
+    maxHeight: Float = 0.7f,
     content: @Composable () -> Unit
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(min = screenHeight * 0.1f, max = screenHeight * 0.7f)
+            .heightIn(min = screenHeight * minHeight, max = screenHeight * maxHeight)
             .background(color, shape)
             .clip(shape),
     ) {
@@ -75,15 +78,20 @@ fun SheetBox(
 fun SheetColumn(
     color: Color = Color.White,
     shape: RoundedCornerShape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
+    minHeight: Float = 0.1f,
+    maxHeight: Float = 0.7f,
     content: @Composable () -> Unit
 ) {
     SheetBox(
         color = color,
-        shape = shape
+        shape = shape,
+        minHeight = minHeight,
+        maxHeight = maxHeight
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .navigationBarsPadding()
         ) {
             content()
         }

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,6 +41,7 @@ class ActionSheetBuilder<T>(
                     .fillMaxWidth()
                     .background(AppColor.Neutral.card)
                     .padding(top = 16.dp)
+                    .navigationBarsPadding()
             ) {
                 // 选项
                 items.forEach { item ->

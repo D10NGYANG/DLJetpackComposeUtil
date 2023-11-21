@@ -25,6 +25,7 @@ import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.dialog.builder.ConfirmDialogBuilder
 import com.d10ng.compose.ui.dialog.builder.InputDialogBuilder
 import com.d10ng.compose.ui.dialog.builder.ProgressDialogBuilder
+import com.d10ng.compose.ui.dialog.builder.ResultDialogBuilder
 import com.d10ng.compose.ui.dialog.builder.TipsDialogBuilder
 import com.d10ng.compose.ui.navigation.NavBar
 import com.ramcosta.composedestinations.annotation.Destination
@@ -103,6 +104,33 @@ private fun DialogScreenView(
                     UiViewModelManager.showDialog(ConfirmDialogBuilder(
                         type = ConfirmDialogBuilder.Type.Danger,
                         content = "您确定退出当前登录账号吗？",
+                        onConfirmClick = {
+                            UiViewModelManager.showToast("点击了确定")
+                            true
+                        },
+                        onCancelClick = {
+                            UiViewModelManager.showToast("点击了取消")
+                            true
+                        }
+                    ))
+                })
+                Cell(title = "结果弹窗-成功", link = true, onClick = {
+                    UiViewModelManager.showDialog(ResultDialogBuilder(
+                        title = "发送成功",
+                        status = ResultDialogBuilder.Status.SUCCESS,
+                        content = "信息已发送成功！",
+                        showCancel = false,
+                        onConfirmClick = {
+                            UiViewModelManager.showToast("点击了确定")
+                            true
+                        }
+                    ))
+                })
+                Cell(title = "结果弹窗-失败", link = true, onClick = {
+                    UiViewModelManager.showDialog(ResultDialogBuilder(
+                        title = "发送失败",
+                        status = ResultDialogBuilder.Status.ERROR,
+                        content = "信息发送失败，是否重新发送？",
                         onConfirmClick = {
                             UiViewModelManager.showToast("点击了确定")
                             true

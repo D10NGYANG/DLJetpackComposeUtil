@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavOptions
 import com.d10ng.compose.demo.R
 import com.d10ng.compose.demo.pages.destinations.AvatarScreenDestination
 import com.d10ng.compose.demo.pages.destinations.BadgeScreenDestination
@@ -66,7 +65,7 @@ fun HomeScreen(
 ) {
     HomeScreenView(
         onClick = {
-            nav.navigate(it, navOptions = NavOptions.Builder().setLaunchSingleTop(true).build())
+            nav.navigate(it) { launchSingleTop = true }
         }
     )
 }

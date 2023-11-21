@@ -61,6 +61,7 @@ private fun SheetScreenView(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .weight(1f)
                 .verticalScroll(rememberScrollState())
         ) {
             CellGroup(title = "基础用法", inset = true) {
@@ -73,6 +74,20 @@ private fun SheetScreenView(
                         items = Options.entries.toSet(),
                         itemText = { it.text },
                         selectedItem = value,
+                        onConfirmClick = {
+                            value = it
+                            UiViewModelManager.showToast("选择了${it.text}")
+                            true
+                        }
+                    ))
+                })
+                Cell(title = "单选面板弹窗-无确定按钮", link = true, onClick = {
+                    UiViewModelManager.showSheet(RadioSheetBuilder(
+                        title = "选择分辨率",
+                        items = Options.entries.toSet(),
+                        itemText = { it.text },
+                        selectedItem = value,
+                        showButton = false,
                         onConfirmClick = {
                             value = it
                             UiViewModelManager.showToast("选择了${it.text}")

@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.d10ng.app.view.lockScreenOrientation
@@ -31,9 +30,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             DLTheme {
                 Surface(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .navigationBarsPadding()
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     val engine = rememberAnimatedNavHostEngine()
                     val navController = engine.rememberNavController()

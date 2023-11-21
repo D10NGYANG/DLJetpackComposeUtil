@@ -14,9 +14,12 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.DLBasicJetpackComposeApp.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="Theme.DLBasicJetpackComposeApp.NoActionBar" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="Theme.DLBasicJetpackComposeApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
