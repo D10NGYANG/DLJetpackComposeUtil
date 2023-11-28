@@ -168,7 +168,7 @@ private fun ButtonScreenView(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun CustomFlowRow(
+fun CustomFlowRow(
     content: @Composable FlowRowScope.() -> Unit
 ) {
     FlowRow(
