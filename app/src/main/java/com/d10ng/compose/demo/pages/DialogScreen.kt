@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.common.calculate.isMobileNumber
@@ -75,6 +76,17 @@ private fun DialogScreenView(
                         }
                     ))
                 })
+                Cell(title = "提示弹窗-内容靠左", link = true, onClick = {
+                    UiViewModelManager.showDialog(TipsDialogBuilder(
+                        titleAlign = TextAlign.Start,
+                        content = "这是一个提示弹窗，代码是写出来给人看的，附带能在机器上运行。",
+                        contentAlign = TextAlign.Start,
+                        onButtonClick = {
+                            UiViewModelManager.showToast("点击了确定")
+                            true
+                        }
+                    ))
+                })
                 Cell(title = "危险警告弹窗", link = true, onClick = {
                     UiViewModelManager.showDialog(TipsDialogBuilder(
                         type = TipsDialogBuilder.Type.Danger,
@@ -90,6 +102,21 @@ private fun DialogScreenView(
                 Cell(title = "确认弹窗", link = true, onClick = {
                     UiViewModelManager.showDialog(ConfirmDialogBuilder(
                         content = "如果解决方法是丑陋的，那就肯定还有更好的解决方法，只是还没有发现而已。",
+                        onConfirmClick = {
+                            UiViewModelManager.showToast("点击了确定")
+                            true
+                        },
+                        onCancelClick = {
+                            UiViewModelManager.showToast("点击了取消")
+                            true
+                        }
+                    ))
+                })
+                Cell(title = "确认弹窗-内容靠左", link = true, onClick = {
+                    UiViewModelManager.showDialog(ConfirmDialogBuilder(
+                        titleAlign = TextAlign.Start,
+                        content = "如果解决方法是丑陋的，那就肯定还有更好的解决方法，只是还没有发现而已。",
+                        contentAlign = TextAlign.Start,
                         onConfirmClick = {
                             UiViewModelManager.showToast("点击了确定")
                             true

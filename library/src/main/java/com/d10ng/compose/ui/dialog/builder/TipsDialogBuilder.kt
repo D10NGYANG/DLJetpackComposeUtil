@@ -25,8 +25,12 @@ import kotlinx.coroutines.launch
 open class TipsDialogBuilder(
     // 标题
     private val title: String = "提示",
+    // 标题Align
+    private val titleAlign: TextAlign = TextAlign.Center,
     // 内容
     private val content: String,
+    // 内容Align
+    private val contentAlign: TextAlign = TextAlign.Center,
     // 内容插槽
     private val contentSlot: @Composable () -> Unit = {},
     // 按钮文字
@@ -50,12 +54,12 @@ open class TipsDialogBuilder(
         DialogColumn {
             // 标题
             if (title.isNotEmpty()) {
-                TitleText(text = title, style = type.titleStyle)
+                TitleText(title, type.titleStyle, titleAlign)
             }
             // 内容
             contentSlot()
             if (content.isNotEmpty()) {
-                ContentText(text = content, style = type.contentStyle)
+                ContentText(content, type.contentStyle, contentAlign)
             }
             // 按钮
             Button(
@@ -76,23 +80,26 @@ open class TipsDialogBuilder(
         @Composable
         fun TitleText(
             text: String,
-            style: TextStyle = AppText.Bold.Title.large
+            style: TextStyle = AppText.Bold.Title.large,
+            textAlign: TextAlign = TextAlign.Center
         ) {
-            BasicText(text, style)
+            BasicText(text, style, textAlign)
         }
 
         @Composable
         fun ContentText(
             text: String,
-            style: TextStyle = AppText.Normal.Body.default
+            style: TextStyle = AppText.Normal.Body.default,
+            textAlign: TextAlign = TextAlign.Center
         ) {
-            BasicText(text, style)
+            BasicText(text, style, textAlign)
         }
 
         @Composable
         private fun BasicText(
             text: String,
-            style: TextStyle
+            style: TextStyle,
+            textAlign: TextAlign = TextAlign.Center
         ) {
             Text(
                 text = text,
@@ -100,7 +107,7 @@ open class TipsDialogBuilder(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 30.dp),
-                textAlign = TextAlign.Center
+                textAlign = textAlign
             )
         }
     }

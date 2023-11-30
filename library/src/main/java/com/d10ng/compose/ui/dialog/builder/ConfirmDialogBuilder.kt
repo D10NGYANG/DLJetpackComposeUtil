@@ -9,6 +9,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
@@ -26,8 +27,12 @@ import kotlinx.coroutines.launch
 class ConfirmDialogBuilder(
     // 标题
     private val title: String = "提示",
+    // 标题Align
+    private val titleAlign: TextAlign = TextAlign.Center,
     // 内容
     private val content: String,
+    // 内容Align
+    private val contentAlign: TextAlign = TextAlign.Center,
     // 内容插槽
     private val contentSlot: @Composable () -> Unit = {},
     // 确定按钮文字
@@ -54,12 +59,12 @@ class ConfirmDialogBuilder(
         DialogColumn {
             // 标题
             if (title.isNotEmpty()) {
-                TipsDialogBuilder.TitleText(text = title, style = type.titleStyle)
+                TipsDialogBuilder.TitleText(title, type.titleStyle, titleAlign)
             }
             // 内容
             contentSlot()
             if (content.isNotEmpty()) {
-                TipsDialogBuilder.ContentText(text = content, style = type.contentStyle)
+                TipsDialogBuilder.ContentText(content, type.contentStyle, contentAlign)
             }
             // 按钮组
             ButtonRow(
