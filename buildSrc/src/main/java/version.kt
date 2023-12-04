@@ -1,6 +1,6 @@
 // android
 const val android_compile_sdk = 34
-const val android_min_sdk = 26
+const val android_min_sdk = 24
 const val android_target_sdk = 30
 const val android_build_ver = "8.2.0"
 const val androidx_core_ver = "1.12.0"
