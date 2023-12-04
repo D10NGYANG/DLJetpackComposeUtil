@@ -9,10 +9,10 @@ version = "2.0.12"
 
 android {
     namespace = "com.d10ng.compose"
-    compileSdk = Project.compile_sdk
+    compileSdk = android_compile_sdk
 
     defaultConfig {
-        minSdk = Project.min_sdk
+        minSdk = android_min_sdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -49,7 +49,7 @@ android {
 
 dependencies {
     // Android
-    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.core:core-ktx:$androidx_core_ver")
 
     // 单元测试（可选）
     testImplementation("junit:junit:4.13.2")
@@ -88,11 +88,9 @@ dependencies {
     implementation("io.github.raamcosta.compose-destinations:animations-core:$compose_destinations_ver")
 
     // 时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil:1.8.7")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
-
+    implementation("com.github.D10NGYANG:DLDateUtil:$dl_date_ver")
     // 公共工具
-    implementation("com.github.D10NGYANG:DLCommonUtil:0.0.6")
+    implementation("com.github.D10NGYANG:DLCommonUtil:$dl_common_ver")
 }
 
 val bds100MavenUsername: String by project

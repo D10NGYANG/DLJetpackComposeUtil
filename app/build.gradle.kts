@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.d10ng.compose.demo"
-    compileSdk = Project.compile_sdk
+    compileSdk = android_compile_sdk
 
     defaultConfig {
         applicationId = "com.d10ng.compose.demo"
-        minSdk = Project.min_sdk
-        targetSdk = Project.target_sdk
+        minSdk = android_min_sdk
+        targetSdk = android_target_sdk
         versionCode = 1
         versionName = "0.0.1"
 
@@ -49,7 +49,7 @@ android {
 
 dependencies {
     // Android
-    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.core:core-ktx:$androidx_core_ver")
 
     // 单元测试（可选）
     testImplementation("junit:junit:4.13.2")
@@ -74,11 +74,11 @@ dependencies {
     ksp("io.github.raamcosta.compose-destinations:ksp:$compose_destinations_ver")
 
     // 公共工具
-    implementation("com.github.D10NGYANG:DLCommonUtil:0.0.6")
+    implementation("com.github.D10NGYANG:DLCommonUtil:$dl_common_ver")
     // APP通用工具
-    implementation("com.github.D10NGYANG:DLAppUtil:2.4.11")
+    implementation("com.github.D10NGYANG:DLAppUtil:$dl_app_ver")
     // 时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil-jvm:1.8.7")
+    implementation("com.github.D10NGYANG:DLDateUtil:$dl_date_ver")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 
     // 内存泄漏检查
