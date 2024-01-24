@@ -99,10 +99,10 @@ dependencies {
     implementation("io.github.raamcosta.compose-destinations:animations-core:$compose_destinations_ver")
 
     // 可选：时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil:1.9.0")
+    implementation("com.github.D10NGYANG:DLDateUtil:1.9.1")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
     // 必须：公共工具
-    implementation("com.github.D10NGYANG:DLCommonUtil:0.0.7")
+    implementation("com.github.D10NGYANG:DLCommonUtil:0.0.8")
 }
 ```
 
