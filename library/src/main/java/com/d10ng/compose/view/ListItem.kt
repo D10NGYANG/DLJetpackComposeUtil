@@ -17,9 +17,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -92,50 +92,50 @@ private fun ListItem_Test() {
             note = "描述信息ABCDEFG1234567。",
             right = "版本1.2.3(11)"
         )
-        Divider()
+        HorizontalDivider()
         ListItem(
             iconId = R.drawable.ic_round_add_circle_24,
             title = "测试标题",
             note = "描述信息ABCDEFG1234567。",
             right = "版本1.2.3(11)"
         )
-        Divider()
+        HorizontalDivider()
         ListItem(
             iconId = R.drawable.ic_round_add_circle_24,
             title = "测试标题",
             right = "版本1.2.3(11)"
         )
-        Divider()
+        HorizontalDivider()
         ListItem(
             iconId = R.drawable.ic_round_add_circle_24,
             title = "测试标题",
             note = "描述信息ABCDEFG1234567。"
         )
-        Divider()
+        HorizontalDivider()
         ListItem(
             iconId = R.drawable.ic_round_add_circle_24,
             title = "测试标题",
             right = "版本1.2.3(11)",
             isShowArrow = false
         )
-        Divider()
+        HorizontalDivider()
         ListItem(
             title = "测试标题",
             right = "版本1.2.3(11)"
         )
-        Divider()
+        HorizontalDivider()
         ListItem(
             title = "测试标题",
             note = "描述信息ABCDEFG1234567。"
         )
-        Divider()
+        HorizontalDivider()
         ListItem(
             title = "测试标题",
             isShowTitleStar = true,
             right = "版本1.2.3(11)",
             isShowArrow = false
         )
-        Divider()
+        HorizontalDivider()
     }
 }
 
@@ -232,14 +232,14 @@ private fun ListInputItem_Test() {
             value = "",
             onValueChange = {}
         )
-        Divider()
+        HorizontalDivider()
         ListInputItem(
             title = "我是标题",
             isShowTitleStar = true,
             value = "",
             onValueChange = {}
         )
-        Divider()
+        HorizontalDivider()
         ListInputItem(
             title = "我是标题",
             isShowTitleStar = true,
@@ -247,7 +247,7 @@ private fun ListInputItem_Test() {
             value = "111",
             onValueChange = {}
         )
-        Divider()
+        HorizontalDivider()
         ListInputItem(
             title = "我是标题",
             isShowTitleStar = true,
@@ -255,7 +255,7 @@ private fun ListInputItem_Test() {
             value = "",
             onValueChange = {}
         )
-        Divider()
+        HorizontalDivider()
         ListInputItem(
             title = "我是标题",
             isShowTitleStar = true,
@@ -263,7 +263,7 @@ private fun ListInputItem_Test() {
             value = "1",
             onValueChange = {}
         )
-        Divider()
+        HorizontalDivider()
         ListInputItem(
             title = "我是标题",
             isShowTitleStar = true,
@@ -271,7 +271,7 @@ private fun ListInputItem_Test() {
             value = "1",
             onValueChange = {}
         )
-        Divider()
+        HorizontalDivider()
         ListInputItem(
             title = "密码        ",
             isShowTitleStar = true,
@@ -279,7 +279,7 @@ private fun ListInputItem_Test() {
             value = "1111111",
             onValueChange = {}
         )
-        Divider()
+        HorizontalDivider()
         ListInputItem(
             title = "我是标题",
             isShowTitleStar = true,
@@ -288,7 +288,7 @@ private fun ListInputItem_Test() {
             error = "请输入正确的金额",
             onValueChange = {}
         )
-        Divider()
+        HorizontalDivider()
         ListInputItem(
             title = "我是标题",
             isShowTitleStar = true,
@@ -297,7 +297,7 @@ private fun ListInputItem_Test() {
             error = "请输入正确的金额",
             onValueChange = {}
         )
-        Divider()
+        HorizontalDivider()
     }
 }
 
@@ -393,14 +393,14 @@ private fun ListMenuItem_Test() {
             value = null,
             menus = listOf(ListItemMenu("item 1", 1))
         )
-        Divider()
+        HorizontalDivider()
         ListMenuItem(
             title = "我是标题",
             value = 1,
             menus = listOf(ListItemMenu("item 1", 1)),
             inputWidth = 200.dp
         )
-        Divider()
+        HorizontalDivider()
     }
 }
 

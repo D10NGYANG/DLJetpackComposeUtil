@@ -66,14 +66,14 @@ data class ProgressDialogBuilder(
             }
             // 进度
             LinearProgressIndicator(
-                progress = (progress * 1.0f) / max,
+                progress = { (progress * 1.0f) / max },
                 modifier = Modifier
                     .padding(top = 16.dp)
                     .fillMaxWidth()
                     .height(12.dp),
                 color = AppColor.Main.primary,
                 trackColor = AppColor.Neutral.line,
-                strokeCap = StrokeCap.Round
+                strokeCap = StrokeCap.Round,
             )
         }
     }

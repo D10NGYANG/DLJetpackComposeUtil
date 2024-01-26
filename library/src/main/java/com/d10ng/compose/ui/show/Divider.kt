@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,10 +35,10 @@ fun HorizontalDivider(
     paddingStart: Dp = 0.dp,
     paddingEnd: Dp = 0.dp,
 ) {
-    Divider(
-        color = color,
+    HorizontalDivider(
+        modifier = modifier.padding(start = paddingStart, end = paddingEnd),
         thickness = thickness,
-        modifier = modifier.padding(start = paddingStart, end = paddingEnd)
+        color = color
     )
 }
 
