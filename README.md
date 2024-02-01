@@ -68,7 +68,7 @@
 
 # 使用
 
-> 最新版本 *ver = `2.0.14`*
+> 最新版本 *ver = `2.0.15`*
 
 1 添加仓库
 
@@ -102,7 +102,7 @@ dependencies {
     implementation("com.github.D10NGYANG:DLDateUtil:1.9.1")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
     // 必须：公共工具
-    implementation("com.github.D10NGYANG:DLCommonUtil:0.0.8")
+    implementation("com.github.D10NGYANG:DLCommonUtil:0.0.9")
 }
 ```
 
