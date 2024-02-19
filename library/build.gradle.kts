@@ -73,7 +73,7 @@ dependencies {
     // constraintlayout
     api("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha13")
     // https://mvnrepository.com/artifact/androidx.compose.material3/material3
-    api("androidx.compose.material3:material3:1.2.0-rc01")
+    api("androidx.compose.material3:material3:1.2.0")
 
 
     // startup
