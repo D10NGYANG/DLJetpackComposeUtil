@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -54,6 +53,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
+import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.feedback.PullRefreshDefaults.DragMultiplier
 import com.d10ng.compose.ui.feedback.PullRefreshIndicatorDefaults.AlphaTween
 import com.d10ng.compose.ui.feedback.PullRefreshIndicatorDefaults.ArcRadius
@@ -396,8 +396,8 @@ object PullRefreshIndicatorDefaults {
 
     @Composable
     fun colors(
-        containerColor: Color = MaterialTheme.colorScheme.surface,
-        contentColor: Color = MaterialTheme.colorScheme.onSurface,
+        containerColor: Color = AppColor.Neutral.line,
+        contentColor: Color = AppColor.Neutral.title,
     ): PullRefreshIndicatorColors =
         PullRefreshIndicatorColors(
             containerColor = containerColor,
