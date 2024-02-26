@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "2.0.15"
+version = "2.0.16"
 
 android {
     namespace = "com.d10ng.compose"
@@ -74,7 +74,6 @@ dependencies {
     api("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha13")
     // https://mvnrepository.com/artifact/androidx.compose.material3/material3
     api("androidx.compose.material3:material3:1.2.0")
-
 
     // startup
     implementation("androidx.startup:startup-runtime:1.1.1")
