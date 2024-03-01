@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -60,6 +61,13 @@ private fun NavBarScreenView(
         ) {
             CellGroup(title = "基础用法", border = false) {
                 NavBar(title = "标题", withStatusBar = false)
+                HorizontalDivider(thickness = 8.dp, color = AppColor.Neutral.bg)
+                NavBar(
+                    title = "标题",
+                    withStatusBar = false,
+                    titleAlignment = Alignment.CenterStart,
+                    border = true
+                )
             }
             CellGroup(title = "返回上级", border = false) {
                 NavBar(title = "标题", withStatusBar = false, onClickBack = {})
@@ -91,7 +99,9 @@ private fun NavBarScreenView(
                                 .clickable { }
                                 .padding(10.dp)
                         )
-                    })
+                    }
+                )
+                HorizontalDivider(thickness = 8.dp, color = AppColor.Neutral.bg)
                 NavBar(
                     title = "标题",
                     withStatusBar = false,
@@ -106,7 +116,9 @@ private fun NavBarScreenView(
                             type = ButtonType.PRIMARY,
                             size = ButtonSize.SMALL
                         ) {}
-                    })
+                    }
+                )
+                HorizontalDivider(thickness = 8.dp, color = AppColor.Neutral.bg)
                 NavBar(
                     title = "标题",
                     withStatusBar = false,
@@ -122,7 +134,29 @@ private fun NavBarScreenView(
                             size = ButtonSize.SMALL,
                             plain = true
                         ) {}
-                    })
+                    }
+                )
+                HorizontalDivider(thickness = 8.dp, color = AppColor.Neutral.bg)
+                NavBar(
+                    title = "标题",
+                    withStatusBar = false,
+                    titleAlignment = Alignment.CenterStart,
+                    border = true,
+                    right = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.round_add_circle_outline_24),
+                            contentDescription = "",
+                            tint = AppColor.Neutral.tips,
+                            modifier = Modifier
+                                .padding(end = 8.dp)
+                                .size(46.dp)
+                                .clip(AppShape.RC.Cycle)
+                                .clickable { }
+                                .padding(10.dp)
+                        )
+                    }
+                )
+                HorizontalDivider(thickness = 8.dp, color = AppColor.Neutral.bg)
             }
         }
     }

@@ -101,7 +101,7 @@ fun NavBar(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 62.dp)
+                    .padding(horizontal = if (onClickBack != null) 62.dp else 19.dp)
                     .align(Alignment.Center),
                 contentAlignment = titleAlignment
             ) {
