@@ -53,6 +53,10 @@ class InputDialogBuilder(
         var keyboardType: KeyboardType = KeyboardType.Text,
         // 单行输入
         var singleLine: Boolean = true,
+        // 最大行数
+        var maxLines: Int = 3,
+        // 最小行数
+        var minLines: Int = 1,
         // 输入验证
         var verify: (String) -> Verify = { Verify() }
     )
@@ -152,7 +156,9 @@ class InputDialogBuilder(
                         placeholder = conf.placeholder,
                         placeholderStyle = AppText.Normal.Hint.default,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = conf.keyboardType),
-                        singleLine = conf.singleLine
+                        singleLine = conf.singleLine,
+                        maxLines = conf.maxLines,
+                        minLines = conf.minLines,
                     )
                 }
                 // 错误提示

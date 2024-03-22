@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -162,10 +163,12 @@ fun Cell(
             afterTitle?.invoke()
             Spacer(modifier = Modifier.weight(1f))
             if (value.isNotEmpty()) {
-                Text(
-                    text = value,
-                    style = AppText.Normal.Body.default
-                )
+                SelectionContainer {
+                    Text(
+                        text = value,
+                        style = AppText.Normal.Body.default
+                    )
+                }
             }
             afterValue?.invoke()
             if (link) {
@@ -182,11 +185,13 @@ fun Cell(
             }
         }
         if (label.isNotEmpty()) {
-            Text(
-                text = label,
-                style = AppText.Normal.Tips.small,
-                modifier = Modifier.padding(bottom = 19.dp)
-            )
+            SelectionContainer {
+                Text(
+                    text = label,
+                    style = AppText.Normal.Tips.small,
+                    modifier = Modifier.padding(bottom = 19.dp)
+                )
+            }
         }
         if (border) HorizontalDivider()
     }
