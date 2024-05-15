@@ -50,6 +50,14 @@ class UiViewModel : ViewModel(), IUiViewModel {
 
     @Composable
     fun Init() {
+        val sheetBuilder by sheetBuilderFlow.collectAsState()
+        Sheet(builder = sheetBuilder)
+
+        val dialogBuilderMap by dialogBuilderMapFlow.collectAsState()
+        dialogBuilderMap.forEach { (id, builder) ->
+            Dialog(id = id, builder = builder)
+        }
+
         val notify by notifyFlow.collectAsState()
         val notifyType by notifyTypeFlow.collectAsState()
         if (notify.isNotEmpty()) {
@@ -61,14 +69,6 @@ class UiViewModel : ViewModel(), IUiViewModel {
         val toastType by toastTypeFlow.collectAsState()
         if (toast.isNotEmpty()) {
             Toast(text = toast, position = position, type = toastType)
-        }
-
-        val sheetBuilder by sheetBuilderFlow.collectAsState()
-        Sheet(builder = sheetBuilder)
-
-        val dialogBuilderMap by dialogBuilderMapFlow.collectAsState()
-        dialogBuilderMap.forEach { (id, builder) ->
-            Dialog(id = id, builder = builder)
         }
 
         val loading by loadingFlow.collectAsState()
