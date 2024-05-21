@@ -68,7 +68,7 @@
 
 # 使用
 
-> 最新版本 *ver = `2.0.23`*
+> 最新版本 *ver = `2.0.24`*
 
 1 添加仓库
 
@@ -99,10 +99,10 @@ dependencies {
     implementation("io.github.raamcosta.compose-destinations:animations-core:$compose_destinations_ver")
 
     // 可选：时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil:1.9.2")
+    implementation("com.github.D10NGYANG:DLDateUtil:1.9.3")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
     // 必须：公共工具
-    implementation("com.github.D10NGYANG:DLCommonUtil:0.1.1")
+    implementation("com.github.D10NGYANG:DLCommonUtil:0.1.2")
 }
 ```
 
