@@ -68,7 +68,8 @@
 
 # 使用
 
-> 最新版本 *ver = `2.0.24`*
+> - 最新版本 *ver = `2.0.25`*
+> - 匹配版本 *kotlin = `2.0.0`*
 
 1 添加仓库
 
@@ -88,18 +89,18 @@ dependencies {
     implementation("com.github.D10NGYANG:DLJetpackComposeUtil:$ver")
 
     // 可选：Lifecycle
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$jetpack_lifecycle_ver")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$jetpack_lifecycle_ver")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
 
     // 可选：Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_ver")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_ver")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 
     // 可选：导航路由
-    implementation("io.github.raamcosta.compose-destinations:animations-core:$compose_destinations_ver")
+    implementation("io.github.raamcosta.compose-destinations:animations-core:1.10.2")
 
     // 可选：时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil:1.9.3")
+    implementation("com.github.D10NGYANG:DLDateUtil:1.9.4")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
     // 必须：公共工具
     implementation("com.github.D10NGYANG:DLCommonUtil:0.1.2")

@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("org.jetbrains.kotlin.plugin.serialization")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
@@ -39,12 +40,6 @@ android {
     kotlin {
         jvmToolchain(8)
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = compose_compiler_ver
-    }
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
@@ -79,7 +74,6 @@ dependencies {
     implementation("com.github.D10NGYANG:DLAppUtil:$dl_app_ver")
     // 时间工具
     implementation("com.github.D10NGYANG:DLDateUtil:$dl_date_ver")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 
     // 内存泄漏检查
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")

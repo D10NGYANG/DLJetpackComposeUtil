@@ -2,10 +2,11 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("maven-publish")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 group = "com.github.D10NGYANG"
-version = "2.0.24"
+version = "2.0.25"
 
 android {
     namespace = "com.d10ng.compose"
@@ -30,14 +31,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlin {
-        jvmToolchain(8)
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = compose_compiler_ver
-    }
-    buildFeatures {
-        compose = true
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 
     publishing {
