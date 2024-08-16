@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "2.0.25"
+version = "2.0.26"
 
 android {
     namespace = "com.d10ng.compose"
@@ -64,7 +64,7 @@ dependencies {
     androidTestApi("androidx.compose.ui:ui-test-junit4")
     debugApi("androidx.compose.ui:ui-test-manifest")
     // Integration with activities
-    api("androidx.activity:activity-compose:1.9.0")
+    api("androidx.activity:activity-compose:1.9.1")
     // constraintlayout
     api("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha13")
     // https://mvnrepository.com/artifact/androidx.compose.material3/material3
