@@ -70,7 +70,7 @@ class TimePickerSheetBuilder(
         }
         SheetColumn {
             // 标题栏
-            RadioSheetBuilder.TitleBar(
+            TitleBar(
                 title = title,
                 cancelText = cancelText,
                 confirmText = confirmText,

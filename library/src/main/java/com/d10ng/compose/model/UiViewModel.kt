@@ -46,12 +46,12 @@ class UiViewModel : ViewModel(), IUiViewModel {
     private val dialogBuilderMapFlow = MutableStateFlow(mapOf<Int, DialogBuilder>())
 
     // sheet
-    private val sheetBuilderFlow: MutableStateFlow<SheetBuilder?> = MutableStateFlow(null)
+    private val sheetBuilderListFlow: MutableStateFlow<List<SheetBuilder>> = MutableStateFlow(listOf())
 
     @Composable
     fun Init() {
-        val sheetBuilder by sheetBuilderFlow.collectAsState()
-        Sheet(builder = sheetBuilder)
+        val sheetBuilders by sheetBuilderListFlow.collectAsState()
+        sheetBuilders.forEach { Sheet(builder = it) }
 
         val dialogBuilderMap by dialogBuilderMapFlow.collectAsState()
         dialogBuilderMap.forEach { (id, builder) ->
@@ -133,11 +133,19 @@ class UiViewModel : ViewModel(), IUiViewModel {
     }
 
     override fun showSheet(builder: SheetBuilder) {
-        sheetBuilderFlow.value = builder
+        val list = sheetBuilderListFlow.value.toMutableList()
+        list.add(builder)
+        sheetBuilderListFlow.value = list
     }
 
-    override fun hideSheet() {
-        sheetBuilderFlow.value = null
+    override fun hideSheet(builder: SheetBuilder) {
+        val list = sheetBuilderListFlow.value.toMutableList()
+        list.remove(builder)
+        sheetBuilderListFlow.value = list
+    }
+
+    override fun hideAllSheet() {
+        sheetBuilderListFlow.value = listOf()
     }
 
     fun showDialog(id: Int, builder: DialogBuilder) {

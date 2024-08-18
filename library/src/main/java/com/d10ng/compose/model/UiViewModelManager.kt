@@ -98,8 +98,12 @@ object UiViewModelManager : IUiViewModel {
         getTopVM()?.showSheet(builder)
     }
 
-    override fun hideSheet() {
-        getTopVM()?.hideSheet()
+    override fun hideSheet(builder: SheetBuilder) {
+        getTopVM()?.hideSheet(builder)
+    }
+
+    override fun hideAllSheet() {
+        getTopVM()?.hideAllSheet()
     }
 
     // 弹窗ID自增

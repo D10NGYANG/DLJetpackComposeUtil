@@ -41,7 +41,7 @@ fun Sheet(
     ) {
         Overlay(
             onDismiss = {
-                if (builder!!.clickOutsideDismiss) SheetBuilder.dismiss()
+                if (builder!!.clickOutsideDismiss) builder.dismiss()
             },
             contentAlignment = Alignment.BottomCenter
         ) {

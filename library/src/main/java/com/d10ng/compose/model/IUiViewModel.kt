@@ -72,5 +72,10 @@ interface IUiViewModel {
     /**
      * 隐藏底部弹窗
      */
-    fun hideSheet()
+    fun hideSheet(builder: SheetBuilder)
+
+    /**
+     * 隐藏全部底部弹窗
+     */
+    fun hideAllSheet()
 }
