@@ -46,7 +46,7 @@ class UiViewModel : ViewModel(), IUiViewModel {
     private val dialogBuilderMapFlow = MutableStateFlow(mapOf<Int, DialogBuilder>())
 
     // sheet
-    private val sheetBuilderListFlow: MutableStateFlow<List<SheetBuilder>> = MutableStateFlow(listOf())
+    private val sheetBuilderListFlow = MutableStateFlow(listOf<SheetBuilder>())
 
     @Composable
     fun Init() {
