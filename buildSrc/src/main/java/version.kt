@@ -22,4 +22,4 @@ const val compose_destinations_ver = "1.10.2"
 // d10ng
 const val dl_app_ver = "2.5.5"
 const val dl_date_ver = "2.0.0"
-const val dl_common_ver = "0.5.0"
+const val dl_common_ver = "0.5.1"

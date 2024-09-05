@@ -68,7 +68,7 @@
 
 # 使用
 
-> - 最新版本 *ver = `2.0.28`*
+> - 最新版本 *ver = `2.0.29`*
 > - 匹配版本 *kotlin = `2.0.20`*
 
 1 添加仓库
@@ -89,21 +89,21 @@ dependencies {
     implementation("com.github.D10NGYANG:DLJetpackComposeUtil:$ver")
 
     // 可选：Lifecycle
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
 
     // 可选：Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0-RC.2")
 
     // 可选：导航路由
     implementation("io.github.raamcosta.compose-destinations:animations-core:1.10.2")
 
     // 可选：时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil:1.9.4")
+    implementation("com.github.D10NGYANG:DLDateUtil:2.0.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
     // 必须：公共工具
-    implementation("com.github.D10NGYANG:DLCommonUtil:0.1.2")
+    implementation("com.github.D10NGYANG:DLCommonUtil:0.5.1")
 }
 ```
 
