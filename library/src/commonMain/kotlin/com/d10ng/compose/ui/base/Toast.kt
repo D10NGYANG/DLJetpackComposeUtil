@@ -18,12 +18,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
+import com.d10ng.compose.resources.Res
+import com.d10ng.compose.resources.ic_false_102
+import com.d10ng.compose.resources.ic_success_102
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.utils.BackHandler
-import dljetpackcomposeutil.library.generated.resources.Res
-import dljetpackcomposeutil.library.generated.resources.ic_false_102
-import dljetpackcomposeutil.library.generated.resources.ic_success_102
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 

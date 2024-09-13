@@ -16,11 +16,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.d10ng.compose.resources.Res
+import com.d10ng.compose.resources.ic_round_check_24
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.utils.next
-import dljetpackcomposeutil.library.generated.resources.Res
-import dljetpackcomposeutil.library.generated.resources.ic_round_check_24
 import org.jetbrains.compose.resources.painterResource
 
 /**

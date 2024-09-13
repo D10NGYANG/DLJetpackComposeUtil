@@ -24,12 +24,12 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.d10ng.compose.resources.Res
+import com.d10ng.compose.resources.ic_round_back_22
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.show.HorizontalDivider
-import dljetpackcomposeutil.library.generated.resources.Res
-import dljetpackcomposeutil.library.generated.resources.ic_round_back_22
 import org.jetbrains.compose.resources.painterResource
 
 /**

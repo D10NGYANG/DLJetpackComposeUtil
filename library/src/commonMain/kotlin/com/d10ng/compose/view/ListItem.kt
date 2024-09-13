@@ -36,13 +36,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.d10ng.compose.resources.Res
+import com.d10ng.compose.resources.ic_baseline_arrow_drop_down_24
+import com.d10ng.compose.resources.ic_baseline_arrow_drop_up_24
+import com.d10ng.compose.resources.ic_baseline_keyboard_arrow_right_24
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
-import dljetpackcomposeutil.library.generated.resources.Res
-import dljetpackcomposeutil.library.generated.resources.ic_baseline_arrow_drop_down_24
-import dljetpackcomposeutil.library.generated.resources.ic_baseline_arrow_drop_up_24
-import dljetpackcomposeutil.library.generated.resources.ic_baseline_keyboard_arrow_right_24
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 

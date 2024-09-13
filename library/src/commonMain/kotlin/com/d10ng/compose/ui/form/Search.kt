@@ -28,13 +28,13 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.d10ng.compose.resources.Res
+import com.d10ng.compose.resources.ic_round_cancel_24
+import com.d10ng.compose.resources.ic_round_search_22
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.view.Input
-import dljetpackcomposeutil.library.generated.resources.Res
-import dljetpackcomposeutil.library.generated.resources.ic_round_cancel_24
-import dljetpackcomposeutil.library.generated.resources.ic_round_search_22
 import org.jetbrains.compose.resources.painterResource
 
 /**

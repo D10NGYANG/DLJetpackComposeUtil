@@ -9,13 +9,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import com.d10ng.compose.resources.Res
+import com.d10ng.compose.resources.ic_round_error_160
+import com.d10ng.compose.resources.ic_round_success_160
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.base.Button
 import com.d10ng.compose.ui.base.ButtonType
 import com.d10ng.compose.ui.dialog.DialogColumn
-import dljetpackcomposeutil.library.generated.resources.Res
-import dljetpackcomposeutil.library.generated.resources.ic_round_error_160
-import dljetpackcomposeutil.library.generated.resources.ic_round_success_160
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.DrawableResource

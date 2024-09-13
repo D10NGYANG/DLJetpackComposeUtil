@@ -6,7 +6,11 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    id("maven-publish")
 }
+
+group = "com.github.D10NGYANG"
+version = "3.0.0-alpha01"
 
 kotlin {
     androidTarget {
@@ -14,6 +18,7 @@ kotlin {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
+        publishLibraryVariants("release")
     }
 
     iosArm64()
@@ -44,6 +49,10 @@ kotlin {
     }
 }
 
+compose.resources {
+    packageOfResClass = "com.d10ng.compose.resources"
+}
+
 android {
     namespace = "com.d10ng.compose"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -60,6 +69,36 @@ android {
     }
     dependencies {
         debugImplementation(compose.uiTooling)
+    }
+}
+
+val bds100MavenUsername: String by project
+val bds100MavenPassword: String by project
+
+val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
+    archiveClassifier.set("javadoc")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            withType(MavenPublication::class) {
+                artifactId = artifactId.replace("library", "DLJetpackComposeUtil")
+                artifact(tasks["javadocJar"])
+            }
+        }
+        repositories {
+            maven {
+                url = uri("/Users/d10ng/project/kotlin/maven-repo/repository")
+            }
+            maven {
+                credentials {
+                    username = bds100MavenUsername
+                    password = bds100MavenPassword
+                }
+                setUrl("https://nexus.bds100.com/repository/maven-releases/")
+            }
+        }
     }
 }
 

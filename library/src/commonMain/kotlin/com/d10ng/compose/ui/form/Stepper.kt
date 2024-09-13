@@ -21,16 +21,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.d10ng.compose.resources.Res
+import com.d10ng.compose.resources.ic_round_add_24
+import com.d10ng.compose.resources.ic_round_add_circle_24
+import com.d10ng.compose.resources.ic_round_remove_24
+import com.d10ng.compose.resources.ic_round_remove_circle_24
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.utils.next
 import com.d10ng.compose.view.Input
-import dljetpackcomposeutil.library.generated.resources.Res
-import dljetpackcomposeutil.library.generated.resources.ic_round_add_24
-import dljetpackcomposeutil.library.generated.resources.ic_round_add_circle_24
-import dljetpackcomposeutil.library.generated.resources.ic_round_remove_24
-import dljetpackcomposeutil.library.generated.resources.ic_round_remove_circle_24
 import org.jetbrains.compose.resources.painterResource
 
 /**

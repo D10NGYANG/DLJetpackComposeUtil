@@ -31,15 +31,15 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.d10ng.compose.resources.Res
+import com.d10ng.compose.resources.ic_baseline_visibility_24
+import com.d10ng.compose.resources.ic_baseline_visibility_off_24
+import com.d10ng.compose.resources.ic_round_cancel_24
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.show.HorizontalDivider
 import com.d10ng.compose.view.Input
-import dljetpackcomposeutil.library.generated.resources.Res
-import dljetpackcomposeutil.library.generated.resources.ic_baseline_visibility_24
-import dljetpackcomposeutil.library.generated.resources.ic_baseline_visibility_off_24
-import dljetpackcomposeutil.library.generated.resources.ic_round_cancel_24
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 

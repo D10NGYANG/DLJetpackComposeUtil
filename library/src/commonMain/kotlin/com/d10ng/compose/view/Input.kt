@@ -39,12 +39,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
+import com.d10ng.compose.resources.Res
+import com.d10ng.compose.resources.ic_baseline_visibility_24
+import com.d10ng.compose.resources.ic_baseline_visibility_off_24
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
-import dljetpackcomposeutil.library.generated.resources.Res
-import dljetpackcomposeutil.library.generated.resources.ic_baseline_visibility_24
-import dljetpackcomposeutil.library.generated.resources.ic_baseline_visibility_off_24
 import org.jetbrains.compose.resources.painterResource
 
 /**
