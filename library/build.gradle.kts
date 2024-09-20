@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "3.0.0-alpha01"
+version = "3.0.0-alpha02"
 
 kotlin {
     androidTarget {
@@ -83,7 +83,7 @@ afterEvaluate {
     publishing {
         publications {
             withType(MavenPublication::class) {
-                artifactId = artifactId.replace("library", "DLJetpackComposeUtil")
+                //artifactId = artifactId.replace(project.name, rootProject.name)
                 artifact(tasks["javadocJar"])
             }
         }

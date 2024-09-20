@@ -35,7 +35,7 @@ kotlin {
             implementation(libs.dl.app)
         }
         commonMain.dependencies {
-            implementation(project(":library"))
+            implementation(project(":DLJetpackComposeUtil"))
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
