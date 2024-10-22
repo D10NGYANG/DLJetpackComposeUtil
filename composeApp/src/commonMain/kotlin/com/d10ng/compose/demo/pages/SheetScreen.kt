@@ -17,6 +17,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
+import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.form.DatePickerMode
@@ -101,6 +102,17 @@ private fun SheetScreenView() {
                 Cell(title = "动作面板弹窗2", link = true, onClick = {
                     UiViewModelManager.showSheet(ActionSheetBuilder(
                         items = setOf("高德地图", "百度地图"),
+                        onItemClick = {
+                            UiViewModelManager.showToast("选择了${it}")
+                        }
+                    ))
+                })
+                Cell(title = "动作面板弹窗-自定义字体样式", link = true, onClick = {
+                    UiViewModelManager.showSheet(ActionSheetBuilder(
+                        items = setOf("编辑", "删除"),
+                        itemStyle = { str ->
+                            if (str.contentEquals("删除")) AppText.Normal.Error.default else AppText.Normal.Title.default
+                        },
                         onItemClick = {
                             UiViewModelManager.showToast("选择了${it}")
                         }

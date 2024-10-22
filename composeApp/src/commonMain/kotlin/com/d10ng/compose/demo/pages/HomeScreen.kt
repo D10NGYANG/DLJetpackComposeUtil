@@ -25,8 +25,8 @@ import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
-import dljetpackcomposeutil.composeapp.generated.resources.Res
-import dljetpackcomposeutil.composeapp.generated.resources.ic_launcher_foreground
+import dljetpackcomposeutil_project.composeapp.generated.resources.Res
+import dljetpackcomposeutil_project.composeapp.generated.resources.ic_launcher_foreground
 import org.jetbrains.compose.resources.painterResource
 
 /**

@@ -22,8 +22,8 @@ import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.base.CellTitle
 import com.d10ng.compose.ui.form.Switch
 import com.d10ng.compose.ui.navigation.NavBar
-import dljetpackcomposeutil.composeapp.generated.resources.Res
-import dljetpackcomposeutil.composeapp.generated.resources.round_add_circle_outline_24
+import dljetpackcomposeutil_project.composeapp.generated.resources.Res
+import dljetpackcomposeutil_project.composeapp.generated.resources.round_add_circle_outline_24
 
 /**
  * Switch 开关

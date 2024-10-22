@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
@@ -28,6 +29,8 @@ class ActionSheetBuilder<T>(
     private val items: Set<T>,
     // 选项文本
     private val itemText: (T) -> String = { it.toString() },
+    // 选项文本样式
+    private val itemStyle: (T) -> TextStyle = { AppText.Normal.Title.default },
     // 取消文本
     private val cancelText: String = "取消",
     // 选项点击事件
@@ -46,7 +49,8 @@ class ActionSheetBuilder<T>(
                 // 选项
                 items.forEach { item ->
                     ItemView(
-                        text = itemText(item)
+                        text = itemText(item),
+                        style = itemStyle(item)
                     ) {
                         onItemClick(item)
                         dismiss()
@@ -67,6 +71,7 @@ class ActionSheetBuilder<T>(
     @Composable
     private fun ItemView(
         text: String,
+        style: TextStyle = AppText.Normal.Title.default,
         onClick: () -> Unit
     ) {
         Box(
@@ -80,7 +85,7 @@ class ActionSheetBuilder<T>(
         ) {
             Text(
                 text = text,
-                style = AppText.Normal.Title.default
+                style = style
             )
         }
     }

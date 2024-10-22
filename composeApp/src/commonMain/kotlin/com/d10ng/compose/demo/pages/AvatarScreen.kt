@@ -28,10 +28,10 @@ import com.d10ng.compose.ui.navigation.NavBar
 import com.d10ng.compose.ui.show.Avatar
 import com.d10ng.compose.ui.show.Badge
 import com.d10ng.compose.ui.show.BadgeBox
-import dljetpackcomposeutil.composeapp.generated.resources.Res
-import dljetpackcomposeutil.composeapp.generated.resources.ic_avatar_40
-import dljetpackcomposeutil.composeapp.generated.resources.ic_command_center_avatar_40
-import dljetpackcomposeutil.composeapp.generated.resources.ic_group_avatar_40
+import dljetpackcomposeutil_project.composeapp.generated.resources.Res
+import dljetpackcomposeutil_project.composeapp.generated.resources.ic_avatar_40
+import dljetpackcomposeutil_project.composeapp.generated.resources.ic_command_center_avatar_40
+import dljetpackcomposeutil_project.composeapp.generated.resources.ic_group_avatar_40
 import org.jetbrains.compose.resources.painterResource
 
 /**

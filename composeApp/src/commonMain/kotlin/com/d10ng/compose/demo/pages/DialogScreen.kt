@@ -27,8 +27,8 @@ import com.d10ng.compose.ui.dialog.builder.ProgressDialogBuilder
 import com.d10ng.compose.ui.dialog.builder.ResultDialogBuilder
 import com.d10ng.compose.ui.dialog.builder.TipsDialogBuilder
 import com.d10ng.compose.ui.navigation.NavBar
-import dljetpackcomposeutil.composeapp.generated.resources.Res
-import dljetpackcomposeutil.composeapp.generated.resources.apple
+import dljetpackcomposeutil_project.composeapp.generated.resources.Res
+import dljetpackcomposeutil_project.composeapp.generated.resources.apple
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO

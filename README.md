@@ -68,8 +68,11 @@
 
 # 使用
 
-> - 最新版本 *ver = `2.0.30`*
+> - 最新版本 *ver = `3.0.0-RC01`*
 > - 匹配版本 *kotlin = `2.0.20`*
+
+## Multiplatform
+从`3.0.0-beta01`开始，当前工程转换成`kotlin multiplatform`架构，支持`Android`、`iOS`平台。下面的文档未更新
 
 1 添加仓库
 
@@ -103,7 +106,7 @@ dependencies {
     implementation("com.github.D10NGYANG:DLDateUtil:2.0.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
     // 必须：公共工具
-    implementation("com.github.D10NGYANG:DLCommonUtil:0.5.1")
+    implementation("com.github.D10NGYANG:DLCommonUtil:0.5.3")
 }
 ```
 
