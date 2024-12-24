@@ -27,7 +27,10 @@ abstract class SheetBuilder(
     // 是否允许点击外部隐藏弹窗
     var clickOutsideDismiss: Boolean = true,
 ) {
-    private val scope = CoroutineScope(Dispatchers.Default)
+    companion object {
+        private val scope = CoroutineScope(Dispatchers.Default)
+    }
+
     val visibleFlow = MutableStateFlow(false)
 
     /**
