@@ -18,6 +18,7 @@ import com.d10ng.compose.ui.sheet.builder.SheetBuilder
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
@@ -133,15 +134,15 @@ class UiViewModel : ViewModel(), IUiViewModel {
     }
 
     override fun showSheet(builder: SheetBuilder) {
-        val list = sheetBuilderListFlow.value.toMutableList()
-        list.add(builder)
-        sheetBuilderListFlow.value = list
+        sheetBuilderListFlow.update { list ->
+            list + builder
+        }
     }
 
     override fun hideSheet(builder: SheetBuilder) {
-        val list = sheetBuilderListFlow.value.toMutableList()
-        list.remove(builder)
-        sheetBuilderListFlow.value = list
+        sheetBuilderListFlow.update { list ->
+            list.filter { it != builder }
+        }
     }
 
     override fun hideAllSheet() {
@@ -159,8 +160,8 @@ class UiViewModel : ViewModel(), IUiViewModel {
     }
 
     fun hideDialog(id: Int) {
-        val map = dialogBuilderMapFlow.value.toMutableMap()
-        map.remove(id)
-        dialogBuilderMapFlow.value = map
+        dialogBuilderMapFlow.update { map ->
+            map.filterKeys { it != id }
+        }
     }
 }
