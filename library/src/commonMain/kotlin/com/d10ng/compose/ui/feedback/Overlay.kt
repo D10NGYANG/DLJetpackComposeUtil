@@ -29,7 +29,7 @@ fun Overlay(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.6f))
+            .background(Color.Black.copy(alpha = 0.5f))
             .pointerInput(Unit) {
                 // 拦截外部的点击
                 detectTapGestures { onDismiss.invoke() }

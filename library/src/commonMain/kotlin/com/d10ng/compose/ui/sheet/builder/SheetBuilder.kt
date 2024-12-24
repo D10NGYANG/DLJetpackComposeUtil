@@ -13,6 +13,9 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppText
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 /**
@@ -24,11 +27,18 @@ abstract class SheetBuilder(
     // 是否允许点击外部隐藏弹窗
     var clickOutsideDismiss: Boolean = true,
 ) {
+    private val scope = CoroutineScope(Dispatchers.Default)
+    val visibleFlow = MutableStateFlow(false)
+
     /**
      * 隐藏弹窗
      */
     fun dismiss() {
-        UiViewModelManager.hideSheet(this)
+        visibleFlow.value = false
+        scope.launch {
+            delay(300)
+            UiViewModelManager.hideSheet(this@SheetBuilder)
+        }
     }
 
     /**
