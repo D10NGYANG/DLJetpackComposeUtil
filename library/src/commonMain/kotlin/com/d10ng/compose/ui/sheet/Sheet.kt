@@ -1,8 +1,9 @@
 package com.d10ng.compose.ui.sheet
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
@@ -19,13 +20,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.ui.feedback.Overlay
 import com.d10ng.compose.ui.sheet.builder.SheetBuilder
 
 /**
@@ -42,24 +41,29 @@ fun Sheet(
     LaunchedEffect(Unit) {
         builder.visibleFlow.value = true
     }
-    Overlay(
-        contentAlignment = Alignment.BottomCenter
+    Box(
+        modifier = Modifier.fillMaxSize()
     ) {
+        AnimatedVisibility(
+            visible = visible,
+            enter = fadeIn(),
+            exit = fadeOut()
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.4f))
+            )
+        }
         AnimatedVisibility(
             visible = visible,
             enter = slideInVertically(
                 initialOffsetY = { it },
-                animationSpec = tween(
-                    durationMillis = 300,
-                    easing = FastOutSlowInEasing
-                )
+                animationSpec = tween(durationMillis = 300)
             ),
             exit = slideOutVertically(
                 targetOffsetY = { it },
-                animationSpec = tween(
-                    durationMillis = 300,
-                    easing = FastOutSlowInEasing
-                )
+                animationSpec = tween(durationMillis = 300)
             )
         ) {
             Column(

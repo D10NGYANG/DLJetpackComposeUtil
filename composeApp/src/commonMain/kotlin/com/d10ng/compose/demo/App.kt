@@ -15,6 +15,6 @@ fun App() {
         Navigator(HomeScreen()) { navigator ->
             SlideTransition(navigator)
         }
+        UiViewModelManager.Init()
     }
-    UiViewModelManager.Init()
 }

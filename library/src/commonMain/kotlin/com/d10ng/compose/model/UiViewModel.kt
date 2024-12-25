@@ -150,9 +150,11 @@ class UiViewModel : ViewModel(), IUiViewModel {
     }
 
     fun showDialog(id: Int, builder: DialogBuilder) {
-        val map = dialogBuilderMapFlow.value.toMutableMap()
-        map[id] = builder
-        dialogBuilderMapFlow.value = map
+        dialogBuilderMapFlow.update { map ->
+            map.toMutableMap().apply {
+                put(id, builder)
+            }
+        }
     }
 
     fun updateDialog(id: Int, builder: DialogBuilder) {
