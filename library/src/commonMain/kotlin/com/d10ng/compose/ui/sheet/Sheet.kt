@@ -69,6 +69,10 @@ fun Sheet(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .pointerInput(Unit) {
+                        // 拦截点击
+                        detectTapGestures {  }
+                    }
             ) {
                 Box(
                     modifier = Modifier
