@@ -14,7 +14,7 @@ fun App() {
     MaterialTheme {
         Navigator(HomeScreen()) { navigator ->
             SlideTransition(navigator)
+            UiViewModelManager.Init()
         }
-        UiViewModelManager.Init()
     }
 }
