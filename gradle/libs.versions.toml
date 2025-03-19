@@ -1,18 +1,18 @@
 [versions]
-agp = "8.8.0"
+agp = "8.9.0"
 android-compileSdk = "35"
 android-minSdk = "26"
 android-targetSdk = "34"
-androidx-activityCompose = "1.10.0"
+androidx-activityCompose = "1.10.1"
 androidx-lifecycle = "2.8.4"
 compose-plugin = "1.7.3"
 kotlin = "2.1.10"
 kotlinxSerializationJson = "1.8.0"
 voyager = "1.1.0-beta03"
 constraintlayoutComposeMultiplatform = "0.5.1"
-dlcommonutil = "0.5.4"
+dlcommonutil = "0.6.0"
 dlapputil = "2.5.9"
-dldateutil = "2.0.0"
+dldateutil = "2.1.2"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
