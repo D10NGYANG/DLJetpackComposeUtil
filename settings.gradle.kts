@@ -29,5 +29,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "DLJetpackComposeUtil-Project"
-include(":composeApp", ":library")
+include(":androidApp", ":composeApp", ":library")
 project(":library").name = "DLJetpackComposeUtil"
