@@ -25,7 +25,7 @@ import com.d10ng.compose.ui.feedback.Overlay
 @Composable
 fun Dialog(
     builder: DialogBuilder,
-    id: Int
+    id: String
 ) {
     Overlay(
         onDismiss = {

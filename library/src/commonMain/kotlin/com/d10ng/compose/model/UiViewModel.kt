@@ -44,7 +44,7 @@ class UiViewModel : ViewModel(), IUiViewModel {
     private var cancelNotifyJob: Job? = null
 
     // dialog
-    private val dialogBuilderMapFlow = MutableStateFlow(mapOf<Int, DialogBuilder>())
+    private val dialogBuilderMapFlow = MutableStateFlow(mapOf<String, DialogBuilder>())
 
     // sheet
     private val sheetBuilderListFlow = MutableStateFlow(listOf<SheetBuilder>())
@@ -149,7 +149,7 @@ class UiViewModel : ViewModel(), IUiViewModel {
         sheetBuilderListFlow.value = listOf()
     }
 
-    fun showDialog(id: Int, builder: DialogBuilder) {
+    fun showDialog(id: String, builder: DialogBuilder) {
         dialogBuilderMapFlow.update { map ->
             map.toMutableMap().apply {
                 put(id, builder)
@@ -157,11 +157,11 @@ class UiViewModel : ViewModel(), IUiViewModel {
         }
     }
 
-    fun updateDialog(id: Int, builder: DialogBuilder) {
+    fun updateDialog(id: String, builder: DialogBuilder) {
         if (dialogBuilderMapFlow.value.containsKey(id)) showDialog(id, builder)
     }
 
-    fun hideDialog(id: Int) {
+    fun hideDialog(id: String) {
         dialogBuilderMapFlow.update { map ->
             map.filterKeys { it != id }
         }

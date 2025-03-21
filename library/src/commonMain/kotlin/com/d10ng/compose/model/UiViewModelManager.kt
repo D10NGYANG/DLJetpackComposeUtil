@@ -9,6 +9,8 @@ import com.d10ng.compose.ui.dialog.builder.DialogBuilder
 import com.d10ng.compose.ui.feedback.NotifyType
 import com.d10ng.compose.ui.sheet.builder.SheetBuilder
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 /**
  * UI ViewModel 管理器
@@ -72,21 +74,18 @@ object UiViewModelManager : IUiViewModel {
         models.forEach { it.hideAllSheet() }
     }
 
-    // 弹窗ID自增
-    private val dialogId = MutableStateFlow(0)
-
-    fun showDialog(builder: DialogBuilder): Int {
-        val id = dialogId.value + 1
-        dialogId.value = id
+    @OptIn(ExperimentalUuidApi::class)
+    fun showDialog(builder: DialogBuilder): String {
+        val id = Uuid.random().toHexString()
         models.forEach { it.showDialog(id, builder) }
         return id
     }
 
-    fun updateDialog(id: Int, builder: DialogBuilder) {
+    fun updateDialog(id: String, builder: DialogBuilder) {
         models.forEach { it.updateDialog(id, builder) }
     }
 
-    fun hideDialog(id: Int) {
+    fun hideDialog(id: String) {
         models.forEach { it.hideDialog(id) }
     }
 }

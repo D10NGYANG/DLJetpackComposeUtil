@@ -42,7 +42,7 @@ data class ProgressDialogBuilder(
     }
 
     @Composable
-    override fun Build(id: Int) {
+    override fun Build(id: String) {
         // 根据类型换算文本内容
         val content = remember(type, progress, max) {
             when (type) {

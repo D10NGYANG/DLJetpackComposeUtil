@@ -49,7 +49,7 @@ open class TipsDialogBuilder(
     }
 
     @Composable
-    override fun Build(id: Int) {
+    override fun Build(id: String) {
         val scope = rememberCoroutineScope()
         DialogColumn {
             // 标题

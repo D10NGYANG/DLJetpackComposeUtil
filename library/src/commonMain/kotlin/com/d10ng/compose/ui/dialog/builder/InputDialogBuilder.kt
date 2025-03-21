@@ -69,7 +69,7 @@ class InputDialogBuilder(
     )
 
     @Composable
-    override fun Build(id: Int) {
+    override fun Build(id: String) {
         val inputValues = remember(this) {
             mutableStateListOf<String>().apply {
                 inputs.forEach { item ->

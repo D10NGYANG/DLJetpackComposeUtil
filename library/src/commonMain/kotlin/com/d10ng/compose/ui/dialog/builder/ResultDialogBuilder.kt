@@ -51,7 +51,7 @@ class ResultDialogBuilder(
     }
 
     @Composable
-    override fun Build(id: Int) {
+    override fun Build(id: String) {
         DialogColumn {
             // 标题
             TipsDialogBuilder.TitleText(text = title)

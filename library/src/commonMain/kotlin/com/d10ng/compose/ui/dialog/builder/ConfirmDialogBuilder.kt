@@ -55,7 +55,7 @@ class ConfirmDialogBuilder(
     }
 
     @Composable
-    override fun Build(id: Int) {
+    override fun Build(id: String) {
         DialogColumn {
             // 标题
             if (title.isNotEmpty()) {
@@ -82,7 +82,7 @@ class ConfirmDialogBuilder(
     companion object {
         @Composable
         fun ButtonRow(
-            id: Int,
+            id: String,
             cancelText: String = "取消",
             confirmText: String = "确定",
             cancelButtonType: ButtonType = ButtonType.DEFAULT,
