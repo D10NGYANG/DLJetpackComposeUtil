@@ -2,11 +2,6 @@ package com.d10ng.compose.utils
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
-import com.d10ng.common.calculate.getHexColorStringFromRgbValueArray
-import com.d10ng.common.calculate.getMiddleColor
-import com.d10ng.common.calculate.getRgbValueArrayFromHexColorString
-import kotlin.math.abs
-import kotlin.math.roundToInt
 
 /**
  * 判断颜色是否为深色
@@ -22,28 +17,22 @@ fun Color.isDark() = luminance() <= 0.5f
  * @return Color
  */
 fun Color.next(level: Double): Color {
-    val color = toHexString()
-    val nextColor = getRgbValueArrayFromHexColorString(getNextLevelColor(color, level))
-        .map { (it / 255.0).toFloat() }
-    return Color(nextColor[0], nextColor[1], nextColor[2], alpha)
+    // 参数合法性校验
+    require(level in -1.0..1.0) { "Level must be in [-1.0, 1.0]" }
+    val amount = level.toFloat()
+    return when {
+        amount < 0 -> blendWith(Color.Black, -amount)
+        amount > 0 -> blendWith(Color.White, amount)
+        else -> this
+    }
 }
 
-/**
- * 获取颜色的下一个等级颜色，或深色或浅色
- * @param color String #45216B
- * @param level Double -1.0～1.0，当为-1.0时，返回纯黑色，当为1.0时，返回纯白色
- * @return String #45216B
- */
-internal fun getNextLevelColor(color: String, level: Double): String {
-    val target = if (level > 0) "#FFFFFF" else "#000000"
-    return getMiddleColor(color, target, abs(level).toFloat())
+private fun Color.blendWith(target: Color, ratio: Float): Color {
+    val inverseRatio = 1f - ratio
+    return Color(
+        red = red * inverseRatio + target.red * ratio,
+        green = green * inverseRatio + target.green * ratio,
+        blue = blue * inverseRatio + target.blue * ratio,
+        alpha = alpha // 保持原始透明度
+    )
 }
-
-/**
- * 将颜色转换为16进制字符串
- * @receiver Color
- * @return String
- */
-fun Color.toHexString() = getHexColorStringFromRgbValueArray(
-    arrayOf(red, green, blue).map { (it * 255).roundToInt() }.toTypedArray()
-)

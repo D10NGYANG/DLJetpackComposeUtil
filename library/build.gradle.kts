@@ -41,8 +41,6 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.androidx.lifecycle.runtime.compose)
-            // 通用计算库
-            implementation(libs.dl.common)
             // 时间工具
             implementation(libs.dl.date)
         }
