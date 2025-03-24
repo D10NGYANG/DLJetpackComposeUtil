@@ -1,5 +1,7 @@
 # **Material 3 颜色分类及应用**
 
+![Material 3 颜色分类](https://firebasestorage.googleapis.com/v0/b/design-spec/o/projects%2Fgoogle-material-3%2Fimages%2Fly2ms4t2-1.png?alt=media&token=722d8f55-45a4-4340-98ad-9ae1aa71b7ae)
+
 | 颜色类别                       | 变量名                       | 作用                               | 适用场景                    |
 |----------------------------|---------------------------|----------------------------------|-------------------------|
 | **主色（Primary Colors）**     | `primary`                 | 主要品牌色                            | 主要按钮、AppBar、选中状态        |
