@@ -6,12 +6,12 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.ui.AppColor
 
 /**
  * Divider
@@ -30,7 +30,7 @@ import com.d10ng.compose.ui.AppColor
 @Composable
 fun HorizontalDivider(
     modifier: Modifier = Modifier,
-    color: Color = AppColor.Neutral.line,
+    color: Color = MaterialTheme.colorScheme.outlineVariant,
     thickness: Dp = 0.5.dp,
     paddingStart: Dp = 0.dp,
     paddingEnd: Dp = 0.dp,
@@ -53,7 +53,7 @@ fun HorizontalDivider(
 @Composable
 fun VerticalDivider(
     modifier: Modifier = Modifier,
-    color: Color = AppColor.Neutral.line,
+    color: Color = MaterialTheme.colorScheme.outlineVariant,
     thickness: Dp = 0.5.dp,
     paddingTop: Dp = 0.dp,
     paddingBottom: Dp = 0.dp,

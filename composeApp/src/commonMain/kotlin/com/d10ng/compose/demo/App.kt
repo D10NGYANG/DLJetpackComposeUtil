@@ -6,15 +6,20 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.transitions.SlideTransition
 import com.d10ng.compose.demo.pages.HomeScreen
 import com.d10ng.compose.model.UiViewModelManager
+import com.d10ng.compose.ui.defaultColorScheme
+import com.d10ng.compose.ui.defaultTypography
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    MaterialTheme(
+        colorScheme = defaultColorScheme,
+        typography = defaultTypography
+    ) {
         Navigator(HomeScreen()) { navigator ->
             SlideTransition(navigator)
-            UiViewModelManager.Init()
         }
+        UiViewModelManager.Init()
     }
 }

@@ -1,7 +1,6 @@
 package com.d10ng.compose.demo.pages
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,15 +8,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.navigation.NavBar
 
 /**
@@ -39,39 +39,55 @@ private fun TypographyScreenView() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppColor.Neutral.bg)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         NavBar(title = "Typography", onClickBack = { navigator?.pop() })
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
+                .padding(16.dp)
         ) {
-            Column (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-                    .border(1.dp, Color.Gray)
-                    .padding(8.dp)
-            ) {
-                MaterialTheme.typography.apply {
-                    Text("displayLarge", style = displayLarge)
-                    Text("displayMedium", style = displayMedium)
-                    Text("displaySmall", style = displaySmall)
-                    Text("headlineLarge", style = headlineLarge)
-                    Text("headlineMedium", style = headlineMedium)
-                    Text("headlineSmall", style = headlineSmall)
-                    Text("titleLarge", style = titleLarge)
-                    Text("titleMedium", style = titleMedium)
-                    Text("titleSmall", style = titleSmall)
-                    Text("bodyLarge", style = bodyLarge)
-                    Text("bodyMedium", style = bodyMedium)
-                    Text("bodySmall", style = bodySmall)
-                    Text("labelLarge", style = labelLarge)
-                    Text("labelMedium", style = labelMedium)
-                    Text("labelSmall", style = labelSmall)
-                }
+            MaterialTheme.typography.apply {
+                TextView("displayLarge", displayLarge)
+                TextView("displayMedium", style = displayMedium)
+                TextView("displaySmall", style = displaySmall)
+                TextView("headlineLarge", style = headlineLarge)
+                TextView("headlineMedium", style = headlineMedium)
+                TextView("headlineSmall", style = headlineSmall)
+                TextView("titleLarge", style = titleLarge)
+                TextView("titleMedium", style = titleMedium)
+                TextView("titleSmall", style = titleSmall)
+                TextView("bodyLarge", style = bodyLarge)
+                TextView("bodyMedium", style = bodyMedium)
+                TextView("bodySmall", style = bodySmall)
+                TextView("labelLarge", style = labelLarge)
+                TextView("labelMedium", style = labelMedium)
+                TextView("labelSmall", style = labelSmall)
             }
+        }
+    }
+}
+
+@Composable
+private fun TextView(
+    name: String,
+    style: TextStyle
+) {
+    style.apply {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Text(
+                text = name,
+                style = this@apply
+            )
+            Text(
+                text = "${fontWeight}, ${fontSize}, $lineHeight",
+                fontSize = 12.sp
+            )
+            HorizontalDivider(modifier = Modifier.padding(top = 8.dp))
         }
     }
 }

@@ -14,21 +14,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsTopHeight
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_round_back_22
-import com.d10ng.compose.ui.AppColor
-import com.d10ng.compose.ui.AppShape
-import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.show.HorizontalDivider
 import org.jetbrains.compose.resources.painterResource
 
@@ -84,12 +82,11 @@ fun NavBar(
                     Image(
                         painter = painterResource(resource = Res.drawable.ic_round_back_22),
                         contentDescription = "back",
-                        colorFilter = ColorFilter.tint(AppColor.Neutral.tips),
                         contentScale = ContentScale.Inside,
                         modifier = Modifier
                             .padding(start = 6.dp)
                             .size(40.dp)
-                            .clip(AppShape.RC.Cycle)
+                            .clip(RoundedCornerShape(100))
                             .clickable { onClickBack() }
                     )
                 }
@@ -102,13 +99,13 @@ fun NavBar(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = if (onClickBack != null) 62.dp else 19.dp)
+                    .padding(horizontal = if (onClickBack != null) 59.dp else 16.dp)
                     .align(Alignment.Center),
                 contentAlignment = titleAlignment
             ) {
                 Text(
                     text = title,
-                    style = AppText.Bold.Title.large,
+                    style = MaterialTheme.typography.titleLarge,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )

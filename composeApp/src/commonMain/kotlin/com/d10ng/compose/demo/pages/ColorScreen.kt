@@ -22,8 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.navigation.NavBar
+import com.d10ng.compose.utils.toHex
 
 /**
  * 色彩系统
@@ -44,7 +44,7 @@ private fun ColorScreenView() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppColor.Neutral.bg)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         NavBar(title = "Color", onClickBack = { navigator?.pop() })
         Column(
@@ -116,10 +116,18 @@ private fun ColorRow(
                 .border(1.dp, Color.Gray)
         )
         Text(
-            text = name,
+            text = color.toHex(),
             modifier = Modifier
                 .weight(2f)
-                .padding(start = 8.dp)
+                .padding(start = 8.dp),
+            style = MaterialTheme.typography.labelMedium
+        )
+        Text(
+            text = name,
+            modifier = Modifier
+                .weight(4f)
+                .padding(start = 2.dp),
+            style = MaterialTheme.typography.labelMedium
         )
     }
 }

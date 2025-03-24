@@ -1,5 +1,8 @@
 package com.d10ng.compose.ui
 
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -75,9 +78,23 @@ class BasicTextFontSize(style: TextStyle) {
     val mini = v12
 }
 
+@Deprecated("不推荐使用")
 object AppText {
     private val textBasic = TextStyle()
     val Bold = BasicTextFontWeight(textBasic.copy(fontWeight = FontWeight.Bold))
     val Medium = BasicTextFontWeight(textBasic.copy(fontWeight = FontWeight.Medium))
     val Normal = BasicTextFontWeight(textBasic.copy(fontWeight = FontWeight.Normal))
 }
+
+val defaultTypography
+    @Composable @ReadOnlyComposable get() = MaterialTheme.typography.copy(
+        titleLarge = TextStyle(fontWeight = FontWeight.W600, fontSize = 22.sp, lineHeight = 32.sp),
+        titleMedium = TextStyle(fontWeight = FontWeight.W600, fontSize = 20.sp, lineHeight = 28.sp),
+        titleSmall = TextStyle(fontWeight = FontWeight.W600, fontSize = 18.sp, lineHeight = 26.sp),
+        bodyLarge = TextStyle(fontWeight = FontWeight.W500, fontSize = 18.sp, lineHeight = 24.sp),
+        bodyMedium = TextStyle(fontWeight = FontWeight.W500, fontSize = 16.sp, lineHeight = 22.sp),
+        bodySmall = TextStyle(fontWeight = FontWeight.W500, fontSize = 14.sp, lineHeight = 20.sp),
+        labelLarge = TextStyle(fontWeight = FontWeight.W400, fontSize = 14.sp, lineHeight = 18.sp),
+        labelMedium = TextStyle(fontWeight = FontWeight.W400, fontSize = 12.sp, lineHeight = 16.sp),
+        labelSmall = TextStyle(fontWeight = FontWeight.W400, fontSize = 10.sp, lineHeight = 14.sp),
+    )

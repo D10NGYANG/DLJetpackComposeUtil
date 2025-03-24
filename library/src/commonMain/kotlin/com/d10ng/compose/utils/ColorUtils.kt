@@ -2,6 +2,7 @@ package com.d10ng.compose.utils
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
+import kotlin.math.roundToInt
 
 /**
  * 判断颜色是否为深色
@@ -35,4 +36,24 @@ private fun Color.blendWith(target: Color, ratio: Float): Color {
         blue = blue * inverseRatio + target.blue * ratio,
         alpha = alpha // 保持原始透明度
     )
+}
+
+/**
+ * 将颜色转换为十六进制字符串
+ * @receiver [Color]
+ * @param includeAlpha [Boolean] 是否包含透明度，默认包含
+ * @return [String] 十六进制字符串，如果包含透明度，则为 #RRGGBBAA，否则为 #RRGGBB
+ */
+fun Color.toHex(includeAlpha: Boolean = true): String {
+    fun toHexComponent(value: Float) = value.times(255).roundToInt()
+        .toString(16)
+        .padStart(2, '0') // 确保始终是 2 位
+        .uppercase()
+
+    val r = toHexComponent(red)
+    val g = toHexComponent(green)
+    val b = toHexComponent(blue)
+    val a = toHexComponent(alpha)
+
+    return if (includeAlpha) "#$a$r$g$b" else "#$r$g$b"
 }

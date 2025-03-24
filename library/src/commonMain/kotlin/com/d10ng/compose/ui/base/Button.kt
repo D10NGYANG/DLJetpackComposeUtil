@@ -6,12 +6,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,9 +21,6 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.ui.AppColor
-import com.d10ng.compose.ui.AppShape
-import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.utils.isDark
 import com.d10ng.compose.utils.next
 
@@ -31,38 +30,104 @@ import com.d10ng.compose.utils.next
  * @Date 2023/9/4 10:07
  */
 
-enum class ButtonType(val color: Color, val border: Color) {
-    // 默认
-    DEFAULT(Color.White, AppColor.Neutral.border),
+interface ButtonType {
+    val color: Color
+        @Composable @ReadOnlyComposable get() = MaterialTheme.colorScheme.surfaceContainerLowest
+    val border: Color
+        @Composable @ReadOnlyComposable get() = MaterialTheme.colorScheme.outline
 
-    // 主要
-    PRIMARY(AppColor.Main.primary, AppColor.Main.primary),
-
-    // 成功
-    SUCCESS(AppColor.Func.success, AppColor.Func.success),
-
-    // 警告
-    WARNING(AppColor.Func.assist, AppColor.Func.assist),
-
-    // 危险
-    DANGER(AppColor.Func.error, AppColor.Func.error),
+    companion object {
+        // 默认
+        val DEFAULT = object : ButtonType {
+            override val color: Color
+                @Composable @ReadOnlyComposable get() = MaterialTheme.colorScheme.surfaceContainerLowest
+            override val border: Color
+                @Composable @ReadOnlyComposable get() = MaterialTheme.colorScheme.outline
+        }
+        // 主要
+        val PRIMARY = object : ButtonType {
+            override val color: Color
+                @Composable @ReadOnlyComposable get() = MaterialTheme.colorScheme.primary
+            override val border: Color
+                @Composable @ReadOnlyComposable get() = MaterialTheme.colorScheme.primary
+        }
+        // 成功
+        val SUCCESS = object : ButtonType {
+            override val color: Color
+                @Composable @ReadOnlyComposable get() = MaterialTheme.colorScheme.secondary
+            override val border: Color
+                @Composable @ReadOnlyComposable get() = MaterialTheme.colorScheme.secondary
+        }
+        // 警告
+        val WARNING = object : ButtonType {
+            override val color: Color
+                @Composable @ReadOnlyComposable get() = MaterialTheme.colorScheme.tertiary
+            override val border: Color
+                @Composable @ReadOnlyComposable get() = MaterialTheme.colorScheme.tertiary
+        }
+        // 危险
+        val DANGER = object : ButtonType {
+            override val color: Color
+                @Composable @ReadOnlyComposable get() = MaterialTheme.colorScheme.error
+            override val border: Color
+                @Composable @ReadOnlyComposable get() = MaterialTheme.colorScheme.error
+        }
+    }
 }
 
-enum class ButtonSize(val textSize: TextUnit, val paddingValues: PaddingValues, val height: Dp) {
-    // 默认
-    NORMAL(AppText.Normal.White.default.fontSize, ButtonDefaults.ContentPadding, 40.dp),
+interface ButtonSize {
+    val textSize: TextUnit
+        @Composable @ReadOnlyComposable get() = MaterialTheme.typography.bodyMedium.fontSize
+    val paddingValues: PaddingValues
+    val height: Dp
 
-    // 迷你
-    MINI(AppText.Normal.White.mini.fontSize, PaddingValues(6.dp, 2.dp), 28.dp),
-
-    // 小
-    SMALL(AppText.Normal.White.small.fontSize, PaddingValues(12.dp, 4.dp), 36.dp),
-
-    // 小
-    BIG(AppText.Normal.White.big.fontSize, PaddingValues(21.dp, 7.dp), 44.dp),
-
-    // 大
-    LARGE(AppText.Normal.White.large.fontSize, PaddingValues(36.dp, 12.dp), 64.dp),
+    companion object {
+        // 迷你
+        val MINI = object : ButtonSize {
+            override val textSize: TextUnit
+                @Composable @ReadOnlyComposable get() = MaterialTheme.typography.labelMedium.fontSize
+            override val paddingValues: PaddingValues
+                get() = PaddingValues(6.dp, 2.dp)
+            override val height: Dp
+                get() = 28.dp
+        }
+        // 小
+        val SMALL = object : ButtonSize {
+            override val textSize: TextUnit
+                @Composable @ReadOnlyComposable get() = MaterialTheme.typography.bodySmall.fontSize
+            override val paddingValues: PaddingValues
+                get() = PaddingValues(12.dp, 4.dp)
+            override val height: Dp
+                get() = 36.dp
+        }
+        // 默认
+        val NORMAL = object : ButtonSize {
+            override val textSize: TextUnit
+                @Composable @ReadOnlyComposable get() = MaterialTheme.typography.bodyMedium.fontSize
+            override val paddingValues: PaddingValues
+                get() = ButtonDefaults.ContentPadding
+            override val height: Dp
+                get() = 40.dp
+        }
+        // 大
+        val BIG = object : ButtonSize {
+            override val textSize: TextUnit
+                @Composable @ReadOnlyComposable get() = MaterialTheme.typography.bodyLarge.fontSize
+            override val paddingValues: PaddingValues
+                get() = PaddingValues(21.dp, 7.dp)
+            override val height
+                get() = 44.dp
+        }
+        // 巨大
+        val LARGE = object : ButtonSize {
+            override val textSize: TextUnit
+                @Composable @ReadOnlyComposable get() = MaterialTheme.typography.titleMedium.fontSize
+            override val paddingValues: PaddingValues
+                get() = PaddingValues(36.dp, 12.dp)
+            override val height
+                get() = 64.dp
+        }
+    }
 }
 
 /**
@@ -76,7 +141,7 @@ enum class ButtonSize(val textSize: TextUnit, val paddingValues: PaddingValues, 
  * @param hairline Boolean 是否细边框
  * @param disabled Boolean 是否禁用
  * @param loading Boolean 是否加载中
- * @param shape RoundedCornerShape 按钮形状
+ * @param shape CornerBasedShape 按钮形状
  * @param color Color? 按钮颜色
  * @param onClick Function0<Unit> 点击事件
  */
@@ -91,7 +156,7 @@ fun Button(
     hairline: Boolean = false,
     disabled: Boolean = false,
     loading: Boolean = false,
-    shape: RoundedCornerShape = AppShape.RC.v4,
+    shape: CornerBasedShape = MaterialTheme.shapes.extraSmall,
     color: Color? = null,
     onClick: () -> Unit
 ) {
@@ -101,8 +166,8 @@ fun Button(
     val bgColor = if (plain) Color.White else mainColor
     // 内容颜色
     val contentColor = if (plain) {
-        if (mainColor.isDark()) mainColor else AppColor.Neutral.title
-    } else if (mainColor.isDark()) Color.White else AppColor.Neutral.title
+        if (mainColor.isDark()) mainColor else MaterialTheme.colorScheme.onSurface
+    } else if (mainColor.isDark()) Color.White else MaterialTheme.colorScheme.onSurface
     // 边框颜色
     val borderColor = color ?: type.border
     val thisModifier = remember {
