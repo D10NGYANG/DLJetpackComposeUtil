@@ -30,7 +30,6 @@ import kotlinx.coroutines.launch
  * @param width Dp 边框宽度
  * @param dashLength Dp 虚线长度
  * @param cornerRadiusDp Dp 圆角
- * @param animate Boolean 是否动画
  * @return Modifier
  */
 fun Modifier.dashBorder(
