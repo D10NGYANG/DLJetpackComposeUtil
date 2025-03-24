@@ -138,3 +138,7 @@ val defaultColorScheme
         surfaceContainerLow = Color(0xFFF7F7F7),
         surfaceContainerLowest = Color.White
     )
+
+fun Color.alpha75() = copy(alpha = 0.75f)
+fun Color.alpha50() = copy(alpha = 0.5f)
+fun Color.alpha25() = copy(alpha = 0.25f)

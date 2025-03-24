@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +23,6 @@ import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_false_102
 import com.d10ng.compose.resources.ic_success_102
 import com.d10ng.compose.ui.AppShape
-import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.utils.BackHandler
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
@@ -94,7 +94,11 @@ fun NormalToast(
                     .background(Color.Black.copy(alpha = 0.7f), shape = AppShape.RC.v8)
                     .padding(horizontal = 24.dp, vertical = 8.dp)
             ) {
-                Text(text = text, style = AppText.Normal.White.default)
+                Text(
+                    text = text,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.White
+                )
             }
         }
     }
@@ -128,7 +132,8 @@ fun IconToast(
             icon()
             if (text.isNotEmpty()) Text(
                 text = text,
-                style = AppText.Normal.White.default,
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color.White,
                 modifier = Modifier.padding(top = 16.dp)
             )
         }

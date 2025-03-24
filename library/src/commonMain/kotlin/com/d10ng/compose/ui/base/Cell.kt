@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.selection.SelectionContainer
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,9 +30,10 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_round_forward_16
-import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
-import com.d10ng.compose.ui.AppText
+import com.d10ng.compose.ui.alpha50
+import com.d10ng.compose.ui.alpha75
+import com.d10ng.compose.ui.defaultPaddingSize
 import com.d10ng.compose.ui.show.HorizontalDivider
 import org.jetbrains.compose.resources.painterResource
 
@@ -53,10 +55,11 @@ fun CellTitle(
 ) {
     Text(
         text = title,
-        style = AppText.Normal.Tips.default,
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurface.alpha50(),
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
-        modifier = modifier.padding(19.dp, 12.dp)
+        modifier = modifier.padding(defaultPaddingSize, 12.dp)
     )
 }
 
@@ -75,7 +78,7 @@ fun CellGroup(
     title: String = "",
     inset: Boolean = false,
     border: Boolean = true,
-    bgColor: Color = Color.White,
+    bgColor: Color = MaterialTheme.colorScheme.surface,
     content: @Composable ColumnScope.() -> Unit
 ) {
     Column(
@@ -89,7 +92,7 @@ fun CellGroup(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = if (inset) 19.dp else 0.dp)
+                .padding(horizontal = if (inset) defaultPaddingSize else 0.dp)
                 .background(bgColor, shape)
         ) {
             if (border && !inset) HorizontalDivider()
@@ -139,25 +142,27 @@ fun Cell(
     Column(
         modifier = modifier
             .clickable(enabled = onClick != null) { onClick?.invoke() }
-            .padding(horizontal = 19.dp),
+            .padding(horizontal = defaultPaddingSize),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 19.dp),
+                .padding(vertical = defaultPaddingSize),
             verticalAlignment = Alignment.CenterVertically
         ) {
             icon?.invoke()
             if (required) {
                 Text(
                     text = "*",
-                    style = AppText.Normal.Error.default,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.error,
                     modifier = Modifier.padding(start = if (icon != null) 8.dp else 0.dp)
                 )
             }
             Text(
                 text = title,
-                style = AppText.Normal.Title.default,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .padding(start = if (icon != null && !required) 8.dp else 0.dp)
             )
@@ -167,7 +172,8 @@ fun Cell(
                 SelectionContainer {
                     Text(
                         text = value,
-                        style = AppText.Normal.Body.default
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface.alpha75(),
                     )
                 }
             }
@@ -180,7 +186,7 @@ fun Cell(
                         .padding(start = 8.dp)
                         .size(18.dp)
                         .rotate(arrowDirection.degrees),
-                    colorFilter = ColorFilter.tint(AppColor.Neutral.body),
+                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface.alpha75()),
                     contentScale = ContentScale.Inside
                 )
             }
@@ -189,8 +195,9 @@ fun Cell(
             SelectionContainer {
                 Text(
                     text = label,
-                    style = AppText.Normal.Tips.small,
-                    modifier = Modifier.padding(bottom = 19.dp)
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onSurface.alpha50(),
+                    modifier = Modifier.padding(bottom = defaultPaddingSize)
                 )
             }
         }
@@ -210,7 +217,7 @@ fun Cell(
 fun CellRow(
     modifier: Modifier = Modifier,
     divider: Boolean = true,
-    dividerPaddingValues: PaddingValues = PaddingValues(horizontal = 19.dp),
+    dividerPaddingValues: PaddingValues = PaddingValues(horizontal = defaultPaddingSize),
     contentPaddingValues: PaddingValues = PaddingValues(0.dp),
     content: @Composable RowScope.() -> Unit
 ) {

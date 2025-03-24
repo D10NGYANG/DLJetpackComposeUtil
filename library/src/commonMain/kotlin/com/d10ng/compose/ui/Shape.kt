@@ -28,3 +28,5 @@ object AppShape {
         val v40 = RoundedCornerShape(40.dp)
     }
 }
+
+val defaultPaddingSize = 16.dp
