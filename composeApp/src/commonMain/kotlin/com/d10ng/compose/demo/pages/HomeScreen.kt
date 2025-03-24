@@ -74,6 +74,23 @@ class HomeScreen: Screen {
                     )
                 }
             }
+            CellGroup(title = "样式配置", inset = true) {
+                Cell(
+                    title = "Color 色彩系统",
+                    link = true,
+                    onClick = { navigator?.push(ColorScreen()) }
+                )
+                Cell(
+                    title = "Typography 字体排版",
+                    link = true,
+                    onClick = { navigator?.push(TypographyScreen()) }
+                )
+                Cell(
+                    title = "Shape 容器形状",
+                    link = true,
+                    onClick = { navigator?.push(ShapeScreen()) }
+                )
+            }
             CellGroup(title = "基础组件", inset = true) {
                 Cell(
                     title = "Button 按钮",
