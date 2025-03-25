@@ -4,12 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.TextStyle
 import com.d10ng.compose.ui.AppText
-import com.d10ng.datelib.createSystemLocalDateTime
-import com.d10ng.datelib.daysOfMonth
-import com.d10ng.datelib.nowTimestamp
-import com.d10ng.datelib.setDateDay
-import com.d10ng.datelib.setDateMonth
-import com.d10ng.datelib.setDateYear
+import kotlinx.datetime.Clock
+import kotlinx.datetime.DatePeriod
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.daysUntil
+import kotlinx.datetime.plus
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 
 /**
  * 日期选择器
@@ -26,26 +30,61 @@ enum class DatePickerMode(
     YMD(
         { y, m, d -> listOf(y, m, d) },
         { y, m, d -> listOf(y, m, d) },
-        { v, l -> v.setDateYear(l[0].toInt()).setDateMonth(l[1].toInt()).setDateDay(l[2].toInt()) }
+        { v, l ->
+            createSystemLocalDateTime(v)
+                .copy(l[0].toInt(), l[1].toInt(), l[2].toInt())
+                .toInstant(TimeZone.currentSystemDefault())
+                .toEpochMilliseconds()
+        }
     ),
 
     // 年月
     YM(
         { y, m, _ -> listOf(y, m) },
         { y, m, _ -> listOf(y, m) },
-        { v, l -> v.setDateYear(l[0].toInt()).setDateMonth(l[1].toInt()) }),
+        { v, l ->
+            createSystemLocalDateTime(v)
+                .copy(l[0].toInt(), l[1].toInt())
+                .toInstant(TimeZone.currentSystemDefault())
+                .toEpochMilliseconds()
+        }
+    ),
 
     // 年
-    Y({ y, _, _ -> listOf(y) }, { y, _, _ -> listOf(y) }, { v, l -> v.setDateYear(l[0].toInt()) }),
+    Y(
+        { y, _, _ -> listOf(y) },
+        { y, _, _ -> listOf(y) },
+        { v, l ->
+            createSystemLocalDateTime(v)
+                .copy(l[0].toInt())
+                .toInstant(TimeZone.currentSystemDefault())
+                .toEpochMilliseconds()
+        }
+    ),
 
     // 月日
     MD(
         { _, m, d -> listOf(m, d) },
         { _, m, d -> listOf(m, d) },
-        { v, l -> v.setDateMonth(l[0].toInt()).setDateDay(l[1].toInt()) }),
+        { v, l ->
+            createSystemLocalDateTime(v)
+                .copy(month = l[0].toInt(), day = l[1].toInt())
+                .toInstant(TimeZone.currentSystemDefault())
+                .toEpochMilliseconds()
+        }
+    ),
 
     // 月
-    M({ _, m, _ -> listOf(m) }, { _, m, _ -> listOf(m) }, { v, l -> v.setDateMonth(l[0].toInt()) }),
+    M(
+        { _, m, _ -> listOf(m) },
+        { _, m, _ -> listOf(m) },
+        { v, l ->
+            createSystemLocalDateTime(v)
+                .copy(month = l[0].toInt())
+                .toInstant(TimeZone.currentSystemDefault())
+                .toEpochMilliseconds()
+        }
+    ),
 }
 
 /**
@@ -63,47 +102,44 @@ fun DatePicker(
     value: Long,
     onValueChange: (Long) -> Unit,
     start: Long = 0,
-    endInclude: Long = nowTimestamp(),
+    endInclude: Long = Clock.System.now().toEpochMilliseconds(),
     textStyle: TextStyle = AppText.Normal.Title.default,
     mode: DatePickerMode = DatePickerMode.YMD,
     itemText: (Int, String) -> String = { _, item -> item },
 ) {
+    val datetime = remember(value) {
+        createSystemLocalDateTime(value)
+    }
+    val startDateTime = remember(start) {
+        createSystemLocalDateTime(start)
+    }
+    val endDateTime = remember(endInclude) {
+        createSystemLocalDateTime(endInclude)
+    }
     // 年份列表
-    val years = remember(start, endInclude) {
-        val startDateTime = createSystemLocalDateTime(start)
-        (startDateTime.year .. startDateTime.year).map { it.toString() }.toSet()
+    val years = remember(startDateTime, endDateTime) {
+        (startDateTime.year .. endDateTime.year).map { it.toString() }.toSet()
     }
     // 选择的年份
-    val year = remember(value) {
-        createSystemLocalDateTime(value).year
-    }
+    val year = remember(datetime) { datetime.year }
     // 月份列表
-    val months = remember(year, start, endInclude) {
-        val startDateTime = createSystemLocalDateTime(start)
-        val endDateTime = createSystemLocalDateTime(endInclude)
+    val months = remember(year, startDateTime, endDateTime) {
         val startMonth = if (year == startDateTime.year) startDateTime.monthNumber else 1
         val endMonth = if (year == endDateTime.year) endDateTime.monthNumber else 12
         (startMonth..endMonth).map { it.toString().padStart(2, '0') }.toSet()
     }
     // 选择的月份
-    val month = remember(value) {
-        createSystemLocalDateTime(value).monthNumber
-    }
+    val month = remember(datetime) { datetime.monthNumber }
     // 日期列表
-    val days = remember(year, month, start, endInclude, value) {
-        val startDateTime = createSystemLocalDateTime(start)
-        val endDateTime = createSystemLocalDateTime(endInclude)
-        val valueDateTime = createSystemLocalDateTime(value)
+    val days = remember(year, month, startDateTime, endDateTime, datetime) {
         val startDay = if (year == startDateTime.year && month == startDateTime.monthNumber) startDateTime.dayOfMonth else 1
         val endDay =
             if (year == endDateTime.year && month == endDateTime.monthNumber) endDateTime.dayOfMonth
-            else daysOfMonth(valueDateTime.year, valueDateTime.monthNumber)
+            else daysOfMonth(datetime.year, datetime.monthNumber)
         (startDay..endDay).map { it.toString().padStart(2, '0') }.toSet()
     }
     // 选择的日期
-    val day = remember(value) {
-        createSystemLocalDateTime(value).dayOfMonth
-    }
+    val day = remember(datetime) { datetime.dayOfMonth }
     val items = remember(mode, years, months, days) {
         mode.getItems(years, months, days)
     }
@@ -122,5 +158,38 @@ fun DatePicker(
         onValueChange = {
             onValueChange(mode.getDate(value, it).coerceAtLeast(start).coerceAtMost(endInclude))
         }
+    )
+}
+
+private fun createSystemLocalDateTime(milliseconds: Long): LocalDateTime {
+    val instant = Instant.fromEpochMilliseconds(milliseconds)
+    return instant.toLocalDateTime(TimeZone.currentSystemDefault())
+}
+
+private fun daysOfMonth(year: Int, month: Int): Int {
+    val start = LocalDate(year, month, 1)
+    val end = start + DatePeriod(months = 1)
+    return start.daysUntil(end)
+}
+
+private fun LocalDateTime.copy(
+    year: Int = this.year,
+    month: Int = this.monthNumber,
+    day: Int = this.dayOfMonth,
+    hour: Int = this.hour,
+    minute: Int = this.minute,
+    second: Int = this.second,
+    nanosecond: Int = this.nanosecond
+): LocalDateTime {
+    val y = year.coerceIn(1970, 9999)
+    val m = month.coerceIn(1, 12)
+    return LocalDateTime(
+        year = y,
+        monthNumber = m,
+        dayOfMonth = day.coerceIn(1, daysOfMonth(y, m)),
+        hour = hour.coerceIn(0, 23),
+        minute = minute.coerceIn(0, 59),
+        second = second.coerceIn(0, 59),
+        nanosecond = nanosecond.coerceIn(0, 999999999)
     )
 }
