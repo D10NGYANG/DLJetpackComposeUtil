@@ -10,6 +10,8 @@ import androidx.compose.ui.unit.sp
 
 class BasicTextFontWeight(private val fontWeight: FontWeight) {
     val Primary by lazy { BasicTextFontSize(fontWeight, AppColor.Main.primary) }
+    val Secondary by lazy { BasicTextFontSize(fontWeight, AppColor.Main.secondary) }
+    val Tertiary by lazy { BasicTextFontSize(fontWeight, AppColor.Main.tertiary) }
 
     val Bg by lazy { BasicTextFontSize(fontWeight, AppColor.Neutral.bg) }
     val Card by lazy { BasicTextFontSize(fontWeight, AppColor.Neutral.card) }
@@ -45,7 +47,7 @@ class BasicTextFontWeight(private val fontWeight: FontWeight) {
         @Composable @ReadOnlyComposable get() = BasicTextFontSize(fontWeight, MaterialTheme.colorScheme.onPrimaryContainer)
     val InversePrimary
         @Composable @ReadOnlyComposable get() = BasicTextFontSize(fontWeight, MaterialTheme.colorScheme.inversePrimary)
-    val Secondary
+    val SchemeSecondary
         @Composable @ReadOnlyComposable get() = BasicTextFontSize(fontWeight, MaterialTheme.colorScheme.secondary)
     val OnSecondary
         @Composable @ReadOnlyComposable get() = BasicTextFontSize(fontWeight, MaterialTheme.colorScheme.onSecondary)
@@ -53,7 +55,7 @@ class BasicTextFontWeight(private val fontWeight: FontWeight) {
         @Composable @ReadOnlyComposable get() = BasicTextFontSize(fontWeight, MaterialTheme.colorScheme.secondaryContainer)
     val OnSecondaryContainer
         @Composable @ReadOnlyComposable get() = BasicTextFontSize(fontWeight, MaterialTheme.colorScheme.onSecondaryContainer)
-    val Tertiary
+    val SchemeTertiary
         @Composable @ReadOnlyComposable get() = BasicTextFontSize(fontWeight, MaterialTheme.colorScheme.tertiary)
     val OnTertiary
         @Composable @ReadOnlyComposable get() = BasicTextFontSize(fontWeight, MaterialTheme.colorScheme.onTertiary)

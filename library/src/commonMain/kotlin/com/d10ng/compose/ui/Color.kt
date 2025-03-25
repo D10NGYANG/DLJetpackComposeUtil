@@ -18,6 +18,16 @@ object AppColor {
          * 主题色
          */
         var primary = Color(0xFF1989FA)
+
+        /**
+         * 第二主题色
+         */
+        var secondary = Color.Gray
+
+        /**
+         * 第三主题色
+         */
+        var tertiary = Color.Green
     }
 
     /**
@@ -113,6 +123,8 @@ object AppColor {
     @Composable
     fun toColorScheme(): ColorScheme {
         val primaryRelatedColors = Main.primary.makeRelatedColors()
+        val secondaryRelatedColors = Main.secondary.makeRelatedColors()
+        val tertiaryRelatedColors = Main.tertiary.makeRelatedColors()
         val errorRelatedColors = Func.error.makeRelatedColors()
         return MaterialTheme.colorScheme.copy(
             primary = Main.primary,
@@ -120,6 +132,14 @@ object AppColor {
             primaryContainer = primaryRelatedColors[1],
             onPrimaryContainer = primaryRelatedColors[2],
             inversePrimary = primaryRelatedColors[3],
+            secondary = Main.secondary,
+            onSecondary = secondaryRelatedColors[0],
+            secondaryContainer = secondaryRelatedColors[1],
+            onSecondaryContainer = secondaryRelatedColors[2],
+            tertiary = Main.tertiary,
+            onTertiary = tertiaryRelatedColors[0],
+            tertiaryContainer = tertiaryRelatedColors[1],
+            onTertiaryContainer = tertiaryRelatedColors[2],
             background = Neutral.bg,
             onBackground = Neutral.title,
             surface = Neutral.surface,
@@ -146,7 +166,3 @@ object AppColor {
         )
     }
 }
-
-fun Color.alpha75() = copy(alpha = 0.75f)
-fun Color.alpha50() = copy(alpha = 0.5f)
-fun Color.alpha25() = copy(alpha = 0.25f)

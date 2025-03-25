@@ -56,6 +56,8 @@ private fun ColorScreenView() {
             CellTitle(title = "AppColor")
             AppColor.Main.apply {
                 ColorRow(primary, "primary")
+                ColorRow(secondary, "secondary")
+                ColorRow(tertiary, "tertiary")
             }
             AppColor.Func.apply {
                 ColorRow(link, "link")
