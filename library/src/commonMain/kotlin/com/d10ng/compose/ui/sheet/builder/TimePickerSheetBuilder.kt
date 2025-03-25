@@ -14,10 +14,8 @@ import com.d10ng.compose.ui.form.hour
 import com.d10ng.compose.ui.form.minute
 import com.d10ng.compose.ui.form.second
 import com.d10ng.compose.ui.sheet.SheetColumn
-import com.d10ng.datelib.curTime
-import com.d10ng.datelib.getDateHour
-import com.d10ng.datelib.getDateMinute
-import com.d10ng.datelib.getDateSecond
+import com.d10ng.datelib.createSystemLocalDateTime
+import com.d10ng.datelib.nowTimestamp
 import kotlinx.coroutines.CoroutineScope
 
 /**
@@ -55,9 +53,9 @@ class TimePickerSheetBuilder(
      * > 仅在未设置value，并且触发弹窗展示前有效
      * @param timestamp Long 时间戳，默认当前时间，单位毫秒
      */
-    fun setCurrentTime(timestamp: Long = curTime) {
-        this.value =
-            timestamp.getDateHour() * 3600 + timestamp.getDateMinute() * 60 + timestamp.getDateSecond()
+    fun setCurrentTime(timestamp: Long = nowTimestamp()) {
+        val datetime = createSystemLocalDateTime(timestamp)
+        this.value = datetime.hour * 3600 + datetime.minute * 60 + datetime.second
     }
 
     @Composable

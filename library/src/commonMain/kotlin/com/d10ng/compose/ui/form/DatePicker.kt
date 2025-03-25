@@ -4,11 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.TextStyle
 import com.d10ng.compose.ui.AppText
-import com.d10ng.datelib.curTime
-import com.d10ng.datelib.getDateDay
-import com.d10ng.datelib.getDateMonth
-import com.d10ng.datelib.getDateYear
-import com.d10ng.datelib.getDaysOfMonth
+import com.d10ng.datelib.createSystemLocalDateTime
+import com.d10ng.datelib.daysOfMonth
+import com.d10ng.datelib.nowTimestamp
 import com.d10ng.datelib.setDateDay
 import com.d10ng.datelib.setDateMonth
 import com.d10ng.datelib.setDateYear
@@ -65,41 +63,46 @@ fun DatePicker(
     value: Long,
     onValueChange: (Long) -> Unit,
     start: Long = 0,
-    endInclude: Long = curTime,
+    endInclude: Long = nowTimestamp(),
     textStyle: TextStyle = AppText.Normal.Title.default,
     mode: DatePickerMode = DatePickerMode.YMD,
     itemText: (Int, String) -> String = { _, item -> item },
 ) {
     // 年份列表
     val years = remember(start, endInclude) {
-        (start.getDateYear()..endInclude.getDateYear()).map { it.toString() }.toSet()
+        val startDateTime = createSystemLocalDateTime(start)
+        (startDateTime.year .. startDateTime.year).map { it.toString() }.toSet()
     }
     // 选择的年份
     val year = remember(value) {
-        value.getDateYear()
+        createSystemLocalDateTime(value).year
     }
     // 月份列表
     val months = remember(year, start, endInclude) {
-        val startMonth = if (year == start.getDateYear()) start.getDateMonth() else 1
-        val endMonth = if (year == endInclude.getDateYear()) endInclude.getDateMonth() else 12
+        val startDateTime = createSystemLocalDateTime(start)
+        val endDateTime = createSystemLocalDateTime(endInclude)
+        val startMonth = if (year == startDateTime.year) startDateTime.monthNumber else 1
+        val endMonth = if (year == endDateTime.year) endDateTime.monthNumber else 12
         (startMonth..endMonth).map { it.toString().padStart(2, '0') }.toSet()
     }
     // 选择的月份
     val month = remember(value) {
-        value.getDateMonth()
+        createSystemLocalDateTime(value).monthNumber
     }
     // 日期列表
     val days = remember(year, month, start, endInclude, value) {
-        val startDay =
-            if (year == start.getDateYear() && month == start.getDateMonth()) start.getDateDay() else 1
+        val startDateTime = createSystemLocalDateTime(start)
+        val endDateTime = createSystemLocalDateTime(endInclude)
+        val valueDateTime = createSystemLocalDateTime(value)
+        val startDay = if (year == startDateTime.year && month == startDateTime.monthNumber) startDateTime.dayOfMonth else 1
         val endDay =
-            if (year == endInclude.getDateYear() && month == endInclude.getDateMonth()) endInclude.getDateDay()
-            else getDaysOfMonth(value.getDateYear(), value.getDateMonth())
+            if (year == endDateTime.year && month == endDateTime.monthNumber) endDateTime.dayOfMonth
+            else daysOfMonth(valueDateTime.year, valueDateTime.monthNumber)
         (startDay..endDay).map { it.toString().padStart(2, '0') }.toSet()
     }
     // 选择的日期
     val day = remember(value) {
-        value.getDateDay()
+        createSystemLocalDateTime(value).dayOfMonth
     }
     val items = remember(mode, years, months, days) {
         mode.getItems(years, months, days)

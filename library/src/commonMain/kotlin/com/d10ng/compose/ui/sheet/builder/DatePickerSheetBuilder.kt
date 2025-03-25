@@ -10,7 +10,7 @@ import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.form.DatePicker
 import com.d10ng.compose.ui.form.DatePickerMode
 import com.d10ng.compose.ui.sheet.SheetColumn
-import com.d10ng.datelib.curTime
+import com.d10ng.datelib.nowTimestamp
 import kotlinx.coroutines.CoroutineScope
 
 /**
@@ -26,7 +26,7 @@ class DatePickerSheetBuilder(
     // 开始日期
     private val start: Long = 0,
     // 结束日期，包含
-    private val endInclude: Long = curTime,
+    private val endInclude: Long = nowTimestamp(),
     // 文本样式
     private val textStyle: TextStyle = AppText.Normal.Title.default,
     // 选择器模式
