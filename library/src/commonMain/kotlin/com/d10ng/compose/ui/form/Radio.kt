@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
+import com.d10ng.compose.ui.defaultPaddingSize
 import com.d10ng.compose.ui.show.HorizontalDivider
 import com.d10ng.compose.utils.next
 
@@ -46,12 +47,12 @@ fun RadioCell(
     Column(
         modifier = modifier
             .clickable { onClick() }
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = defaultPaddingSize)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 16.dp),
+                .padding(vertical = defaultPaddingSize),
             verticalAlignment = Alignment.CenterVertically
         ) {
             // 标题

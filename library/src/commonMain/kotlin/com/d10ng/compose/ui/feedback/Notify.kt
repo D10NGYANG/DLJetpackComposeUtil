@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
+import com.d10ng.compose.ui.defaultPaddingSize
 
 /**
  * 消息提示
@@ -42,10 +43,10 @@ fun Notify(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .padding(horizontal = defaultPaddingSize, vertical = 8.dp)
             .statusBarsPadding()
             .background(type.color, AppShape.RC.v8)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = defaultPaddingSize, vertical = 8.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(

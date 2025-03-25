@@ -80,7 +80,7 @@ fun Popover(
         }
 
         val bgColor = remember(dark) {
-            if (dark) AppColor.Neutral.body else Color.White
+            if (dark) Color.DarkGray else Color.White
         }
         Popup(
             onDismissRequest = onDismissRequest,

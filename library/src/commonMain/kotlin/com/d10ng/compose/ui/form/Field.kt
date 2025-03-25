@@ -38,6 +38,7 @@ import com.d10ng.compose.resources.ic_round_cancel_24
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
+import com.d10ng.compose.ui.defaultPaddingSize
 import com.d10ng.compose.ui.show.HorizontalDivider
 import com.d10ng.compose.view.Input
 import org.jetbrains.compose.resources.DrawableResource
@@ -129,7 +130,7 @@ fun Field(
                     leftIconTint
                 )
             }
-            Box(modifier = Modifier.width(16.dp))
+            Box(modifier = Modifier.width(defaultPaddingSize))
             // 输入框
             FieldInput(
                 value,
@@ -213,7 +214,7 @@ private fun FieldLeftContent(
                             if (required) requiredText.end else if (leftIconResource != null) leftIcon.end else parent.start
                         val startMargin = if (!required && leftIconResource != null) 8.dp else 0.dp
                         start.linkTo(startLink, margin = startMargin)
-                        top.linkTo(parent.top, margin = 16.dp)
+                        top.linkTo(parent.top, margin = defaultPaddingSize)
                         end.linkTo(parent.end)
                     }
             )
@@ -270,7 +271,7 @@ private fun RowScope.FieldInput(
 
     ConstraintLayout(
         modifier = Modifier
-            .padding(vertical = 16.dp)
+            .padding(vertical = defaultPaddingSize)
             .weight(1f)
     ) {
         val (input, errorText, spaceText, clearIcon, passwordIcon) = createRefs()

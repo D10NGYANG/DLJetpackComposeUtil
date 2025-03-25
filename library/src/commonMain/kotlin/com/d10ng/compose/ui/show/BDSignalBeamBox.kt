@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
+import com.d10ng.compose.ui.defaultPaddingSize
 import kotlin.math.max
 
 /**
@@ -74,7 +75,7 @@ fun BDSignalBeamBox(
             style = AppText.Normal.Body.mini,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(defaultPaddingSize)
         )
     }
 }
@@ -86,7 +87,7 @@ private fun Title(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(defaultPaddingSize),
         contentAlignment = Alignment.Center
     ) {
         Text(

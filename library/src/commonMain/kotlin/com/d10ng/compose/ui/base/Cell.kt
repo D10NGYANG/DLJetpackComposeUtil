@@ -77,7 +77,7 @@ fun CellGroup(
     title: String = "",
     inset: Boolean = false,
     border: Boolean = true,
-    bgColor: Color = MaterialTheme.colorScheme.surface,
+    bgColor: Color = MaterialTheme.colorScheme.surfaceContainerLowest,
     content: @Composable ColumnScope.() -> Unit
 ) {
     Column(

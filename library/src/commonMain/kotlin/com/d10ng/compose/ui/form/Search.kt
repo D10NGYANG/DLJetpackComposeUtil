@@ -34,6 +34,7 @@ import com.d10ng.compose.resources.ic_round_search_22
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
+import com.d10ng.compose.ui.defaultPaddingSize
 import com.d10ng.compose.view.Input
 import org.jetbrains.compose.resources.painterResource
 
@@ -76,7 +77,7 @@ fun Search(
     Row(
         modifier = Modifier
             .height(65.dp)
-            .padding(start = 16.dp)
+            .padding(start = defaultPaddingSize)
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {

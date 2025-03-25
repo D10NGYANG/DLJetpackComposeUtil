@@ -21,6 +21,7 @@ import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.dashBorder
+import com.d10ng.compose.ui.defaultPaddingSize
 import com.d10ng.compose.utils.next
 
 /**
@@ -93,7 +94,7 @@ fun CheckButtonGroup(
     FlowRow(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding(horizontal = defaultPaddingSize, vertical = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {

@@ -62,7 +62,7 @@ object AppColor {
         /**
          * 中性色 表面
          */
-        var surface = Color.White
+        var surface = Color(0xFFFEFEFE)
 
         /**
          * 中性色 1 页面背景色
@@ -107,7 +107,7 @@ object AppColor {
         /**
          * 中性色 遮罩
          */
-        var scrim = Color(0xFF000000)
+        var scrim = Color(0xFF010101)
     }
 
     @Composable

@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_round_back_22
 import com.d10ng.compose.ui.AppText
+import com.d10ng.compose.ui.defaultPaddingSize
 import com.d10ng.compose.ui.show.HorizontalDivider
 import org.jetbrains.compose.resources.painterResource
 
@@ -100,7 +101,7 @@ fun NavBar(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = if (onClickBack != null) 59.dp else 16.dp)
+                    .padding(horizontal = if (onClickBack != null) 59.dp else defaultPaddingSize)
                     .align(Alignment.Center),
                 contentAlignment = titleAlignment
             ) {
