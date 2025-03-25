@@ -135,6 +135,6 @@ fun BoxScope.DefaultIndexBarSelectText(
             .background(Color.Black.copy(alpha = 0.4f), AppShape.RC.v8),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = text, style = AppText.Bold.White.huge)
+        Text(text = text, style = AppText.Bold.Surface.huge)
     }
 }

@@ -51,7 +51,7 @@ fun Avatar(
         content()
         Text(
             text = char.toString().uppercase(),
-            style = AppText.Bold.White.v26,
+            style = AppText.Bold.Surface.v26,
             color = contentColor,
             fontSize = fontSize
         )

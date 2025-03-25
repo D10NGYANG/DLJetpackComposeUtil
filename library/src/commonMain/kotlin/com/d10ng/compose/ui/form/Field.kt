@@ -193,7 +193,7 @@ private fun FieldLeftContent(
                 Text(
                     text = "*",
                     color = requiredColor,
-                    style = AppText.Normal.White.default,
+                    style = AppText.Normal.Surface.default,
                     modifier = Modifier
                         .constrainAs(requiredText) {
                             start.linkTo(if (leftIconResource != null) leftIcon.end else parent.start)
@@ -206,7 +206,7 @@ private fun FieldLeftContent(
             Text(
                 text = label,
                 color = labelColor,
-                style = AppText.Normal.White.default,
+                style = AppText.Normal.Surface.default,
                 modifier = Modifier
                     .constrainAs(labelText) {
                         val startLink =

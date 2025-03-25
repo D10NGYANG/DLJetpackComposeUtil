@@ -68,7 +68,7 @@ fun Badge(
         ) {
             Text(
                 text = content,
-                style = AppText.Bold.White.mini,
+                style = AppText.Bold.Surface.mini,
                 modifier = Modifier.widthIn(max = 32.dp),
                 maxLines = 1,
                 overflow = TextOverflow.Clip

@@ -92,7 +92,7 @@ fun RowScope.Step(
         // 文本
         Text(
             text = label,
-            style = AppText.Normal.Black.mini,
+            style = AppText.Normal.Scrim.mini,
             color = when (mode) {
                 StepMode.Active -> activeColor
                 StepMode.Inactive -> inactiveColor

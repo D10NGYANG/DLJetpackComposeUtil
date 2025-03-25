@@ -94,7 +94,7 @@ fun Tag(
     ) {
         Text(
             text = text,
-            style = AppText.Bold.White.mini,
+            style = AppText.Bold.Surface.mini,
             color = textColor,
             modifier = Modifier
                 .padding(vertical = 3.dp, horizontal = 6.dp)

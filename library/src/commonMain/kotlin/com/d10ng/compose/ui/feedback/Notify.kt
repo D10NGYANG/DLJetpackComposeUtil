@@ -50,7 +50,7 @@ fun Notify(
     ) {
         Text(
             text = text,
-            style = AppText.Normal.White.default,
+            style = AppText.Normal.Surface.default,
             maxLines = 3,
             overflow = TextOverflow.Ellipsis
         )

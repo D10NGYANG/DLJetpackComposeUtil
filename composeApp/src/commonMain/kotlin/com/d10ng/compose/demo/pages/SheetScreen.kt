@@ -29,7 +29,7 @@ import com.d10ng.compose.ui.sheet.builder.MultiPickerSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.RadioSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.SinglePickerSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.TimePickerSheetBuilder
-import com.d10ng.datelib.curTime
+import com.d10ng.datelib.nowTimestamp
 import com.d10ng.datelib.toDateStr
 
 /**
@@ -155,7 +155,7 @@ private fun SheetScreenView() {
             }
             CellGroup(title = "日期选择", inset = true) {
                 var value1 by remember {
-                    mutableLongStateOf(curTime)
+                    mutableLongStateOf(nowTimestamp())
                 }
                 Cell(title = "日期选择面板弹窗(年月日)", link = true, onClick = {
                     UiViewModelManager.showSheet(
@@ -170,7 +170,7 @@ private fun SheetScreenView() {
                     ))
                 })
                 var value2 by remember {
-                    mutableLongStateOf(curTime)
+                    mutableLongStateOf(nowTimestamp())
                 }
                 Cell(title = "日期选择面板弹窗(年月)", link = true, onClick = {
                     UiViewModelManager.showSheet(DatePickerSheetBuilder(
@@ -185,7 +185,7 @@ private fun SheetScreenView() {
                     ))
                 })
                 var value3 by remember {
-                    mutableLongStateOf(curTime)
+                    mutableLongStateOf(nowTimestamp())
                 }
                 Cell(title = "日期选择面板弹窗(年)", link = true, onClick = {
                     UiViewModelManager.showSheet(DatePickerSheetBuilder(
@@ -200,7 +200,7 @@ private fun SheetScreenView() {
                     ))
                 })
                 var value4 by remember {
-                    mutableLongStateOf(curTime)
+                    mutableLongStateOf(nowTimestamp())
                 }
                 Cell(title = "日期选择面板弹窗(月日)", link = true, onClick = {
                     UiViewModelManager.showSheet(DatePickerSheetBuilder(
@@ -222,7 +222,7 @@ private fun SheetScreenView() {
                     ))
                 })
                 var value5 by remember {
-                    mutableLongStateOf(curTime)
+                    mutableLongStateOf(nowTimestamp())
                 }
                 Cell(title = "日期选择面板弹窗(月)", link = true, onClick = {
                     UiViewModelManager.showSheet(DatePickerSheetBuilder(

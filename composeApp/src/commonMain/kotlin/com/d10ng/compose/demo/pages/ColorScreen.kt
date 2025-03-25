@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.ui.AppColor
+import com.d10ng.compose.ui.base.CellTitle
 import com.d10ng.compose.ui.navigation.NavBar
 import com.d10ng.compose.utils.isDark
 
@@ -51,7 +53,31 @@ private fun ColorScreenView() {
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            Spacer(Modifier.height(14.dp))
+            CellTitle(title = "AppColor")
+            AppColor.Main.apply {
+                ColorRow(primary, "primary")
+            }
+            AppColor.Func.apply {
+                ColorRow(link, "link")
+                ColorRow(success, "success")
+                ColorRow(error, "error")
+                ColorRow(notice, "notice")
+                ColorRow(noticeBg, "noticeBg")
+                ColorRow(assist, "assist")
+            }
+            AppColor.Neutral.apply {
+                ColorRow(surface, "surface")
+                ColorRow(bg, "bg")
+                ColorRow(card, "card")
+                ColorRow(line, "line")
+                ColorRow(border, "border")
+                ColorRow(hint, "hint")
+                ColorRow(tips, "tips")
+                ColorRow(body, "body")
+                ColorRow(title, "title")
+                ColorRow(scrim, "scrim")
+            }
+            CellTitle(title = "ColorScheme")
             MaterialTheme.colorScheme.apply {
                 ColorRow(primary, "primary", onPrimary)
                 ColorRow(onPrimary, "onPrimary", primary)
