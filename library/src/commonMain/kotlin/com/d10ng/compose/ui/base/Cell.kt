@@ -30,9 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_round_forward_16
+import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
-import com.d10ng.compose.ui.alpha50
-import com.d10ng.compose.ui.alpha75
+import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.defaultPaddingSize
 import com.d10ng.compose.ui.show.HorizontalDivider
 import org.jetbrains.compose.resources.painterResource
@@ -55,8 +55,7 @@ fun CellTitle(
 ) {
     Text(
         text = title,
-        style = MaterialTheme.typography.bodyMedium,
-        color = MaterialTheme.colorScheme.onSurface.alpha50(),
+        style = AppText.Normal.Tips.default,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         modifier = modifier.padding(defaultPaddingSize, 12.dp)
@@ -154,15 +153,13 @@ fun Cell(
             if (required) {
                 Text(
                     text = "*",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.error,
+                    style = AppText.Normal.Error.default,
                     modifier = Modifier.padding(start = if (icon != null) 8.dp else 0.dp)
                 )
             }
             Text(
                 text = title,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = AppText.Normal.Title.default,
                 modifier = Modifier
                     .padding(start = if (icon != null && !required) 8.dp else 0.dp)
             )
@@ -172,8 +169,7 @@ fun Cell(
                 SelectionContainer {
                     Text(
                         text = value,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurface.alpha75(),
+                        style = AppText.Normal.Body.default
                     )
                 }
             }
@@ -186,7 +182,7 @@ fun Cell(
                         .padding(start = 8.dp)
                         .size(18.dp)
                         .rotate(arrowDirection.degrees),
-                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface.alpha75()),
+                    colorFilter = ColorFilter.tint(AppColor.Neutral.body),
                     contentScale = ContentScale.Inside
                 )
             }
@@ -195,8 +191,7 @@ fun Cell(
             SelectionContainer {
                 Text(
                     text = label,
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onSurface.alpha50(),
+                    style = AppText.Normal.Tips.small,
                     modifier = Modifier.padding(bottom = defaultPaddingSize)
                 )
             }

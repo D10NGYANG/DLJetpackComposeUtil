@@ -15,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
@@ -23,6 +22,7 @@ import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_false_102
 import com.d10ng.compose.resources.ic_success_102
 import com.d10ng.compose.ui.AppShape
+import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.utils.BackHandler
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
@@ -66,7 +66,7 @@ fun Toast(
             Icon(
                 painter = painterResource(resource = type.iconResource!!),
                 contentDescription = type.name,
-                tint = Color.White,
+                tint = MaterialTheme.colorScheme.surfaceContainerLowest,
                 modifier = Modifier.size(50.dp)
             )
         })
@@ -91,14 +91,10 @@ fun NormalToast(
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .background(Color.Black.copy(alpha = 0.7f), shape = AppShape.RC.v8)
+                    .background(MaterialTheme.colorScheme.scrim.copy(alpha = 0.7f), shape = AppShape.RC.v8)
                     .padding(horizontal = 24.dp, vertical = 8.dp)
             ) {
-                Text(
-                    text = text,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White
-                )
+                Text(text = text, style = AppText.Normal.Surface.default)
             }
         }
     }
@@ -125,15 +121,14 @@ fun IconToast(
         Column(
             modifier = Modifier
                 .size(150.dp)
-                .background(Color.Black.copy(alpha = 0.7f), shape = AppShape.RC.v8),
+                .background(MaterialTheme.colorScheme.scrim.copy(alpha = 0.7f), shape = AppShape.RC.v8),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             icon()
             if (text.isNotEmpty()) Text(
                 text = text,
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.White,
+                style = AppText.Normal.Surface.default,
                 modifier = Modifier.padding(top = 16.dp)
             )
         }
@@ -149,7 +144,7 @@ fun LoadingToast(
 ) {
     IconToast(text = text, forbidClick = true, icon = {
         CircularProgressIndicator(
-            color = Color.White,
+            color = MaterialTheme.colorScheme.surfaceContainerLowest,
             strokeCap = StrokeCap.Round,
             strokeWidth = 1.5.dp
         )

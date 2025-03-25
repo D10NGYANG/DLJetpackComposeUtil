@@ -5,7 +5,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,14 +15,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import com.d10ng.compose.ui.navigation.NavBar
-import com.d10ng.compose.utils.toHex
+import com.d10ng.compose.utils.isDark
 
 /**
  * 色彩系统
@@ -54,32 +53,32 @@ private fun ColorScreenView() {
         ) {
             Spacer(Modifier.height(14.dp))
             MaterialTheme.colorScheme.apply {
-                ColorRow(primary, "primary")
-                ColorRow(onPrimary, "onPrimary")
-                ColorRow(primaryContainer, "primaryContainer")
-                ColorRow(onPrimaryContainer, "onPrimaryContainer")
-                ColorRow(inversePrimary, "inversePrimary")
-                ColorRow(secondary, "secondary")
-                ColorRow(onSecondary, "onSecondary")
-                ColorRow(secondaryContainer, "secondaryContainer")
-                ColorRow(onSecondaryContainer, "onSecondaryContainer")
-                ColorRow(tertiary, "tertiary")
-                ColorRow(onTertiary, "onTertiary")
-                ColorRow(tertiaryContainer, "tertiaryContainer")
-                ColorRow(onTertiaryContainer, "onTertiaryContainer")
-                ColorRow(background, "background")
-                ColorRow(onBackground, "onBackground")
-                ColorRow(surface, "surface")
-                ColorRow(onSurface, "onSurface")
-                ColorRow(surfaceVariant, "surfaceVariant")
-                ColorRow(onSurfaceVariant, "onSurfaceVariant")
+                ColorRow(primary, "primary", onPrimary)
+                ColorRow(onPrimary, "onPrimary", primary)
+                ColorRow(primaryContainer, "primaryContainer", onPrimaryContainer)
+                ColorRow(onPrimaryContainer, "onPrimaryContainer", primaryContainer)
+                ColorRow(inversePrimary, "inversePrimary", primary)
+                ColorRow(secondary, "secondary", onSecondary)
+                ColorRow(onSecondary, "onSecondary", secondary)
+                ColorRow(secondaryContainer, "secondaryContainer", onSecondaryContainer)
+                ColorRow(onSecondaryContainer, "onSecondaryContainer", secondaryContainer)
+                ColorRow(tertiary, "tertiary", onTertiary)
+                ColorRow(onTertiary, "onTertiary", tertiary)
+                ColorRow(tertiaryContainer, "tertiaryContainer", onTertiaryContainer)
+                ColorRow(onTertiaryContainer, "onTertiaryContainer", tertiaryContainer)
+                ColorRow(background, "background", onBackground)
+                ColorRow(onBackground, "onBackground", background)
+                ColorRow(surface, "surface", onSurface)
+                ColorRow(onSurface, "onSurface", surface)
+                ColorRow(surfaceVariant, "surfaceVariant", onSurfaceVariant)
+                ColorRow(onSurfaceVariant, "onSurfaceVariant", surfaceVariant)
                 ColorRow(surfaceTint, "surfaceTint")
-                ColorRow(inverseSurface, "inverseSurface")
-                ColorRow(inverseOnSurface, "inverseOnSurface")
-                ColorRow(error, "error")
-                ColorRow(onError, "onError")
-                ColorRow(errorContainer, "errorContainer")
-                ColorRow(onErrorContainer, "onErrorContainer")
+                ColorRow(inverseSurface, "inverseSurface", inverseOnSurface)
+                ColorRow(inverseOnSurface, "inverseOnSurface", inverseSurface)
+                ColorRow(error, "error", onError)
+                ColorRow(onError, "onError", error)
+                ColorRow(errorContainer, "errorContainer", onErrorContainer)
+                ColorRow(onErrorContainer, "onErrorContainer", errorContainer)
                 ColorRow(outline, "outline")
                 ColorRow(outlineVariant, "outlineVariant")
                 ColorRow(scrim, "scrim")
@@ -99,35 +98,25 @@ private fun ColorScreenView() {
 @Composable
 private fun ColorRow(
     color: Color,
-    name: String
+    name: String,
+    nameColor: Color? = null
 ) {
-    Row(
+    val nColor = remember(color, nameColor) {
+        nameColor?: if (color.isDark()) Color.White else Color.Black
+    }
+    Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 2.dp)
-            .padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(horizontal = 16.dp)
+            .background(color)
+            .border(0.5.dp, Color.Gray)
+            .padding(8.dp)
+            .padding(top = 16.dp)
     ) {
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .height(30.dp)
-                .background(color)
-                .border(1.dp, Color.Gray)
-        )
-        Text(
-            text = color.toHex(),
-            modifier = Modifier
-                .weight(2f)
-                .padding(start = 8.dp),
-            style = MaterialTheme.typography.labelMedium
-        )
         Text(
             text = name,
-            modifier = Modifier
-                .weight(4f)
-                .padding(start = 2.dp),
-            style = MaterialTheme.typography.labelMedium
+            color = nColor
         )
     }
 }

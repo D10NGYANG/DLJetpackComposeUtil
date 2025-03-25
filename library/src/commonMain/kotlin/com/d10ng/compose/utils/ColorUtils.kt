@@ -57,3 +57,18 @@ fun Color.toHex(includeAlpha: Boolean = true): String {
 
     return if (includeAlpha) "#$a$r$g$b" else "#$r$g$b"
 }
+
+/**
+ * 获取颜色的相关颜色
+ * @receiver [Color]
+ * @return [List] 0: onColor; 1: colorContainer; 2: onColorContainer; 3: inverseColor;
+ */
+fun Color.makeRelatedColors(): List<Color> {
+    val dark = isDark()
+    return listOf(
+        if (dark) Color.White else Color.Black,
+        next(if (dark) 0.5 else -0.5),
+        next(if (dark) -0.5 else 0.5),
+        next(if (dark) 0.7 else -0.7)
+    )
+}

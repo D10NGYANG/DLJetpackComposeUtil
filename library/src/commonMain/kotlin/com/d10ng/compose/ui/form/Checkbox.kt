@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -56,7 +57,7 @@ fun Checkbox(
     disabled: Boolean = false,
     size: Dp = 22.dp,
     type: CheckboxType = CheckboxType.SQUARE,
-    activeColor: Color = AppColor.Main.primary,
+    activeColor: Color = MaterialTheme.colorScheme.primary,
     inactiveColor: Color = AppColor.Neutral.tips,
     disabledColor: Color = AppColor.Neutral.hint,
 ) {

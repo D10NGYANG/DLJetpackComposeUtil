@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_round_back_22
+import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.show.HorizontalDivider
 import org.jetbrains.compose.resources.painterResource
 
@@ -49,7 +50,7 @@ import org.jetbrains.compose.resources.painterResource
 fun NavBar(
     title: String,
     titleAlignment: Alignment = Alignment.Center,
-    background: Color = Color.White,
+    background: Color = MaterialTheme.colorScheme.surfaceContainerLowest,
     withStatusBar: Boolean = true,
     border: Boolean = false,
     onClickBack: (() -> Unit)? = null,
@@ -105,7 +106,7 @@ fun NavBar(
             ) {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = AppText.Bold.Title.large,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
