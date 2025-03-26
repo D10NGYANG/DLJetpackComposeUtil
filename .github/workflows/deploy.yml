@@ -25,7 +25,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build WASM/JS
-        run: ./gradlew :composeApp:wasmJsBrowserDistribution
+        run: ./gradlew -Pbds100MavenUsername=${{ secrets.BDS100MAVENUSERNAME }} -Pbds100MavenPassword=${{ secrets.BDS100MAVENPASSWORD }} :composeApp:wasmJsBrowserDistribution
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

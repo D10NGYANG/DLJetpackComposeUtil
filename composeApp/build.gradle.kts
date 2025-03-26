@@ -76,7 +76,7 @@ kotlin {
             // 导航
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)
-            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
+            implementation(libs.kotlinx.datetime)
         }
     }
 }

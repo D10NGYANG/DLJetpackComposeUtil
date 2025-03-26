@@ -50,8 +50,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.androidx.lifecycle.runtime.compose)
             // 时间工具
-            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
-            //implementation(libs.dl.date)
+            implementation(libs.kotlinx.datetime)
         }
     }
 }
