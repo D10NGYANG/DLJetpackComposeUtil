@@ -19,7 +19,6 @@ voyager = "1.1.0-beta03"
 constraintlayoutComposeMultiplatform = "0.5.1"
 dlcommonutil = "0.6.1"
 dlapputil = "2.5.9"
-dldateutil = "2.1.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -46,7 +45,6 @@ voyager-transitions = { group = "cafe.adriel.voyager", name = "voyager-transitio
 constraintlayout-compose-multiplatform = { module = "tech.annexflow.compose:constraintlayout-compose-multiplatform", version.ref = "constraintlayoutComposeMultiplatform" }
 dl-common = { module = "com.github.D10NGYANG:DLCommonUtil", version.ref = "dlcommonutil" }
 dl-app = { module = "com.github.D10NGYANG:DLAppUtil", version.ref = "dlapputil" }
-dl-date = { module = "com.github.D10NGYANG:DLDateUtil", version.ref = "dldateutil" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

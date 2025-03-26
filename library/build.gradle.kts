@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "3.0.0-RC08"
+version = "3.0.0"
 
 kotlin {
     androidTarget {

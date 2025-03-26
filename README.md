@@ -1,10 +1,122 @@
 # DLJetpackComposeUtil
 
-> 参考 [Vant4](https://vant-contrib.gitee.io/vant/#/zh-CN/home)
+基于 Compose Multiplatform 开发的 Vant 风格 UI 组件库，提供丰富的跨平台 UI 组件，支持 Android、iOS 和 Web(WasmJs) 平台。
 
-# 特性
+[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](https://github.com/D10NGYANG/DLJetpackComposeUtil)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.1.20-orange.svg)](https://kotlinlang.org/)
+[![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.7.3-green.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 
-> 下方支持程度图标说明
+> 参考 [Vant4](https://vant-contrib.gitee.io/vant/#/zh-CN/home) 设计规范，提供统一的设计语言和用户体验。
+
+## 目录
+
+- [特性](#特性)
+- [预览](#预览)
+- [安装](#安装)
+- [快速开始](#快速开始)
+- [组件列表](#组件列表)
+- [主要组件使用示例](#主要组件使用示例)
+- [主题定制](#主题定制)
+- [许可证](#许可证)
+
+## 特性
+
+- 🚀 **跨平台支持**：基于 Compose Multiplatform 开发，支持 Android、iOS 和 Web(WasmJs) 平台
+- 🎨 **统一设计风格**：参考 Vant4 设计规范，提供一致的视觉体验
+- 📦 **丰富的组件**：提供 20+ 个高质量组件，覆盖常见的 UI 场景
+- 🔧 **灵活的主题定制**：支持自定义主题色、形状和文字样式
+- 📱 **响应式设计**：组件自适应不同屏幕尺寸
+- 🛠️ **易于使用**：API 设计简洁直观，上手成本低
+
+## 预览
+
+在线预览：[https://d10ngyang.github.io/DLJetpackComposeUtil/](https://d10ngyang.github.io/DLJetpackComposeUtil/)
+
+## 安装
+
+### 1. 添加仓库
+
+```gradle
+allprojects {
+  repositories {
+    ...
+    maven { url 'https://raw.githubusercontent.com/D10NGYANG/maven-repo/main/repository' }
+  }
+}
+```
+
+### 2. 添加依赖
+
+```gradle
+dependencies {
+    implementation("com.github.D10NGYANG:DLJetpackComposeUtil:3.0.0-RC08")
+}
+```
+
+### 3. 混淆配置
+
+```proguard
+-keep class com.d10ng.compose.** {*;}
+-dontwarn com.d10ng.compose.**
+```
+
+## 快速开始
+
+### 1. 初始化 UI 管理器
+
+在应用的入口处初始化 UI 管理器，用于管理全局的 Toast、Dialog 等组件：
+
+```kotlin
+@Composable
+fun App() {
+    // 应用内容
+    MaterialTheme(
+        colorScheme = AppColor.toColorScheme()
+    ) {
+        // 你的应用内容
+        // TODO
+        // 初始化 UI 管理器
+        UiViewModelManager.Init()
+    }
+}
+```
+
+### 2. 使用组件示例
+
+```kotlin
+@Composable
+fun SampleScreen() {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(16.dp)
+    ) {
+        // 按钮组件
+        Button(
+            text = "主要按钮",
+            type = ButtonType.PRIMARY,
+            onClick = {
+                // 显示 Toast
+                UiViewModelManager.showToast("点击了按钮")
+            }
+        )
+        
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        // 输入框组件
+        var text by remember { mutableStateOf("") }
+        Field(
+            value = text,
+            onValueChange = { text = it },
+            label = "用户名",
+            placeholder = "请输入用户名"
+        )
+    }
+}
+```
+
+## 组件列表
+
+> 支持程度图标说明
 > - ✅ 完全支持
 > - ⚠️ 部分支持
 > - ℹ️ 计划实现，但暂时未实现
@@ -59,65 +171,434 @@
 |      | Tabbar 标签栏        | ℹ️   | TODO                                                                                                        |
 |      | TreeSelect 分类选择   | ℹ️   | TODO                                                                                                        |
 
-# 预览
+## 主要组件使用示例
 
-打开[https://d10ngyang.github.io/DLJetpackComposeUtil/](https://d10ngyang.github.io/DLJetpackComposeUtil/)进行查看
+### Button 按钮
 
-# 使用
+```kotlin
+// 基础按钮
+Button(
+    text = "按钮",
+    onClick = { /* 点击事件 */ }
+)
 
-> - 最新版本 *ver = `3.0.0-RC01`*
-> - 匹配版本 *kotlin = `2.0.20`*
+// 主要按钮
+Button(
+    text = "主要按钮",
+    type = ButtonType.PRIMARY,
+    onClick = { /* 点击事件 */ }
+)
 
-## Multiplatform
-从`3.0.0-beta01`开始，当前工程转换成`kotlin multiplatform`架构，支持`Android`、`iOS`平台。下面的文档未更新
+// 成功按钮
+Button(
+    text = "成功按钮",
+    type = ButtonType.SUCCESS,
+    onClick = { /* 点击事件 */ }
+)
 
-1 添加仓库
+// 警告按钮
+Button(
+    text = "警告按钮",
+    type = ButtonType.WARNING,
+    onClick = { /* 点击事件 */ }
+)
 
-```gradle 
-allprojects {
-  repositories {
-    ...
-    maven { url 'https://raw.githubusercontent.com/D10NGYANG/maven-repo/main/repository' }
-  }
-}
-``` 
+// 危险按钮
+Button(
+    text = "危险按钮",
+    type = ButtonType.DANGER,
+    onClick = { /* 点击事件 */ }
+)
 
-2 添加依赖
+// 朴素按钮
+Button(
+    text = "朴素按钮",
+    type = ButtonType.PRIMARY,
+    plain = true,
+    onClick = { /* 点击事件 */ }
+)
 
-```gradle
-dependencies {
-    implementation("com.github.D10NGYANG:DLJetpackComposeUtil:$ver")
+// 禁用状态
+Button(
+    text = "禁用按钮",
+    disabled = true,
+    onClick = { /* 点击事件 */ }
+)
 
-    // 可选：Lifecycle
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
+// 加载状态
+Button(
+    text = "加载中",
+    loading = true,
+    onClick = { /* 点击事件 */ }
+)
 
-    // 可选：Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0-RC.2")
+// 按钮尺寸
+Button(
+    text = "大号按钮",
+    size = ButtonSize.LARGE,
+    onClick = { /* 点击事件 */ }
+)
 
-    // 可选：导航路由
-    implementation("io.github.raamcosta.compose-destinations:animations-core:1.10.2")
+Button(
+    text = "小号按钮",
+    size = ButtonSize.SMALL,
+    onClick = { /* 点击事件 */ }
+)
 
-    // 可选：时间工具
-    implementation("com.github.D10NGYANG:DLDateUtil:2.0.0")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
-    // 必须：公共工具
-    implementation("com.github.D10NGYANG:DLCommonUtil:0.5.3")
+Button(
+    text = "迷你按钮",
+    size = ButtonSize.MINI,
+    onClick = { /* 点击事件 */ }
+)
+```
+
+### Field 输入框
+
+```kotlin
+var text by remember { mutableStateOf("") }
+
+Field(
+    value = text,
+    onValueChange = { text = it },
+    label = "用户名",
+    placeholder = "请输入用户名"
+)
+
+// 密码输入框
+Field(
+    value = password,
+    onValueChange = { password = it },
+    label = "密码",
+    type = KeyboardType.Password
+)
+
+// 带清除按钮的输入框
+Field(
+    value = text,
+    onValueChange = { text = it },
+    label = "搜索",
+    canClear = true
+)
+
+// 只读输入框
+Field(
+    value = "只读内容",
+    onValueChange = {},
+    label = "只读",
+    readonly = true
+)
+
+// 禁用输入框
+Field(
+    value = "禁用内容",
+    onValueChange = {},
+    label = "禁用",
+    disabled = true
+)
+
+// 错误提示
+Field(
+    value = text,
+    onValueChange = { text = it },
+    label = "手机号",
+    error = if (text.length != 11) "请输入11位手机号" else ""
+)
+```
+
+### Dialog 对话框
+
+```kotlin
+// 确认对话框
+val dialogId = UiViewModelManager.showDialog(
+    ConfirmDialogBuilder(
+        title = "标题",
+        content = "这是一条确认信息，是否继续？",
+        onConfirm = {
+            // 确认操作
+            UiViewModelManager.hideDialog(it)
+        },
+        onCancel = {
+            // 取消操作
+            UiViewModelManager.hideDialog(it)
+        }
+    )
+)
+
+// 输入对话框
+val inputDialogId = UiViewModelManager.showDialog(
+    InputDialogBuilder(
+        title = "输入框标题",
+        content = "请输入内容",
+        placeholder = "请输入",
+        onConfirm = { id, text ->
+            // 处理输入内容
+            UiViewModelManager.hideDialog(id)
+        }
+    )
+)
+
+// 提示对话框
+val tipsDialogId = UiViewModelManager.showDialog(
+    TipsDialogBuilder(
+        title = "提示",
+        content = "操作成功！",
+        onConfirm = {
+            UiViewModelManager.hideDialog(it)
+        }
+    )
+)
+```
+
+### Toast 轻提示
+
+```kotlin
+// 普通提示
+UiViewModelManager.showToast("这是一条提示消息")
+
+// 成功提示
+UiViewModelManager.showSuccessToast("操作成功")
+
+// 失败提示
+UiViewModelManager.showFailToast("操作失败")
+
+// 加载提示
+UiViewModelManager.showLoading("加载中...")
+// 隐藏加载
+UiViewModelManager.hideLoading()
+```
+
+### Notify 消息通知
+
+```kotlin
+// 主要通知
+UiViewModelManager.showNotify(NotifyType.Primary, "这是一条通知消息")
+
+// 成功通知
+UiViewModelManager.showNotify(NotifyType.Success, "操作成功")
+
+// 警告通知
+UiViewModelManager.showNotify(NotifyType.Warning, "注意事项")
+
+// 错误通知
+UiViewModelManager.showErrorNotify("发生错误")
+```
+
+### Badge 徽标
+
+```kotlin
+// 红点徽标
+Badge()
+
+// 数字徽标
+Badge(content = "5")
+
+// 最大值徽标
+Badge(num = 100, max = 99) // 显示 "99+"
+
+// 自定义颜色
+Badge(content = "NEW", color = Color.Blue)
+
+// 徽标与内容组合
+BadgeBox(
+    badge = { Badge(content = "5") }
+) {
+    Icon(
+        painter = painterResource(id = R.drawable.ic_notification),
+        contentDescription = "通知"
+    )
 }
 ```
 
-3 混淆
+### Tag 标签
 
-```pro
--keep class com.d10ng.compose.** {*;}
--dontwarn com.d10ng.compose.**
+```kotlin
+// 基础标签
+Tag(text = "标签")
+
+// 主要标签
+Tag(text = "标签", type = TagType.PRIMARY)
+
+// 成功标签
+Tag(text = "标签", type = TagType.SUCCESS)
+
+// 警告标签
+Tag(text = "标签", type = TagType.WARNING)
+
+// 危险标签
+Tag(text = "标签", type = TagType.DANGER)
+
+// 朴素标签
+Tag(text = "标签", type = TagType.PRIMARY, plain = true)
+
+// 圆角标签
+Tag(text = "标签", round = true)
+
+// 可关闭标签
+Tag(
+    text = "标签",
+    closeable = true,
+    onClose = { /* 关闭事件 */ }
+)
 ```
 
-4 代码演示
+## 主题定制
 
-> 直接查看demo中app模块里代码[/app/src/main/java/com/d10ng/compose/demo/pages/](./app/src/main/java/com/d10ng/compose/demo/pages/HomeScreen.kt)
+DLJetpackComposeUtil 提供了灵活的主题定制能力，可以根据项目需求自定义颜色、形状和文字样式。组件库的颜色系统与 Material 3 的色彩角色紧密集成，通过 `AppColor.toColorScheme()` 方法将自定义颜色映射到 Material 3 的 ColorScheme。
 
-5 颜色配置
+[Material 3 色彩介绍](color.md)
 
-根据[Vant4的色彩规范](https://vant-contrib.gitee.io/vant/#/zh-CN/design#se-cai-gui-fan)，我们定义一套可修改变量；
+### 颜色定制
+
+组件库的颜色系统分为三大类：
+
+#### 1. 主色系统 (AppColor.Main)
+
+主色系统定义了应用的核心颜色，直接映射到 Material 3 的主要色彩角色：
+
+```kotlin
+// 主色系统
+AppColor.Main.primary = Color(0xFF1989FA)    // 主题色，映射到 M3 的 primary
+AppColor.Main.secondary = Color(0xFF07C160)  // 第二主题色，映射到 M3 的 secondary
+AppColor.Main.tertiary = Color(0xFFEE0A24)   // 第三主题色，映射到 M3 的 tertiary
+```
+
+#### 2. 功能色系统 (AppColor.Func)
+
+功能色系统定义了表达特定语义的颜色：
+
+```kotlin
+// 功能色系统
+AppColor.Func.link = Color(0xFF576B95)      // 链接色，用于可点击文本
+AppColor.Func.success = Color(0xFF07C160)   // 成功色，映射到相关组件的成功状态
+AppColor.Func.error = Color(0xFFEE0A24)     // 错误色，映射到 M3 的 error
+AppColor.Func.notice = Color(0xFFED6A0C)    // 通知色，用于警告和通知
+AppColor.Func.noticeBg = Color(0xFFFFFBE8)  // 通知背景色
+AppColor.Func.assist = Color(0xFFFAAB0C)    // 辅助色，用于强调和提示
+```
+
+#### 3. 中性色系统 (AppColor.Neutral)
+
+中性色系统定义了界面的基础色调，映射到 Material 3 的表面和文本颜色：
+
+```kotlin
+// 中性色系统
+AppColor.Neutral.surface = Color(0xFFFEFEFE)  // 表面色，映射到 M3 的 surface
+AppColor.Neutral.bg = Color(0xFFF7F8FA)       // 背景色，映射到 M3 的 background
+AppColor.Neutral.card = Color(0xFFF2F3F5)     // 卡片背景色，映射到 M3 的 surfaceVariant
+AppColor.Neutral.line = Color(0xFFEBEDF0)     // 线条色，映射到 M3 的 outlineVariant
+AppColor.Neutral.border = Color(0xFFDCDEF0)   // 边框色，映射到 M3 的 outline
+AppColor.Neutral.hint = Color(0xFFC8C9CC)     // 提示文本色，用于占位符和禁用状态
+AppColor.Neutral.tips = Color(0xFF969799)     // 辅助文本色，用于次要信息
+AppColor.Neutral.body = Color(0xFF646566)     // 正文文本色，映射到 M3 的 onSurfaceVariant
+AppColor.Neutral.title = Color(0xFF323233)    // 标题文本色，映射到 M3 的 onSurface 和 onBackground
+AppColor.Neutral.scrim = Color(0xFF010101)    // 遮罩色，映射到 M3 的 scrim
+```
+
+#### Material 3 色彩映射
+
+组件库通过 `AppColor.toColorScheme()` 方法将自定义颜色映射到 Material 3 的 ColorScheme。这个方法不仅直接映射基础颜色，还通过 `makeRelatedColors()` 函数自动生成相关的配色方案，确保整个应用的色彩协调一致。
+
+```kotlin
+// 在应用入口处应用自定义主题
+MaterialTheme(
+    colorScheme = AppColor.apply {
+        // 自定义颜色，只有在此之前设置颜色才能生效
+        AppColor.Main.primary = Color.Red
+    }.toColorScheme()
+) {
+    // 应用内容
+}
+```
+
+##### 基础颜色映射
+
+| Material 3 色彩角色 | DLJetpackComposeUtil 颜色 |
+|:-----------------|:------------------------|
+| primary | AppColor.Main.primary |
+| secondary | AppColor.Main.secondary |
+| tertiary | AppColor.Main.tertiary |
+| error | AppColor.Func.error |
+| background | AppColor.Neutral.bg |
+| surface | AppColor.Neutral.surface |
+| onBackground | AppColor.Neutral.title |
+| onSurface | AppColor.Neutral.title |
+| surfaceVariant | AppColor.Neutral.card |
+| onSurfaceVariant | AppColor.Neutral.body |
+| outline | AppColor.Neutral.border |
+| outlineVariant | AppColor.Neutral.line |
+| scrim | AppColor.Neutral.scrim |
+| surfaceTint | AppColor.Main.primary |
+
+##### 自动生成的相关颜色
+
+组件库使用 `makeRelatedColors()` 函数基于主要颜色自动生成相关的配色：
+
+```kotlin
+// 基于主色生成相关颜色
+val primaryRelatedColors = Main.primary.makeRelatedColors()
+// primaryRelatedColors[0] → onPrimary
+// primaryRelatedColors[1] → primaryContainer
+// primaryRelatedColors[2] → onPrimaryContainer
+// primaryRelatedColors[3] → inversePrimary
+```
+
+| Material 3 色彩角色      | 生成方式                      |
+|:---------------------|:--------------------------|
+| onPrimary            | primaryRelatedColors[0]   |
+| primaryContainer     | primaryRelatedColors[1]   |
+| onPrimaryContainer   | primaryRelatedColors[2]   |
+| inversePrimary       | primaryRelatedColors[3]   |
+| onSecondary          | secondaryRelatedColors[0] |
+| secondaryContainer   | secondaryRelatedColors[1] |
+| onSecondaryContainer | secondaryRelatedColors[2] |
+| onTertiary           | tertiaryRelatedColors[0]  |
+| tertiaryContainer    | tertiaryRelatedColors[1]  |
+| onTertiaryContainer  | tertiaryRelatedColors[2]  |
+| onError              | errorRelatedColors[0]     |
+| errorContainer       | errorRelatedColors[1]     |
+| onErrorContainer     | errorRelatedColors[2]     |
+
+##### 表面变体颜色
+
+组件库还使用 `next()` 函数基于 `Neutral.surface` 生成多种表面变体颜色：
+
+| Material 3 色彩角色         | 生成方式                       |
+|:------------------------|:---------------------------|
+| inverseSurface          | Neutral.surface.next(亮度调整) |
+| inverseOnSurface        | 根据surface亮度自动选择黑色或白色       |
+| surfaceBright           | Neutral.surface.next(1.0)  |
+| surfaceDim              | Neutral.surface.next(-0.3) |
+| surfaceContainer        | Neutral.surface.next(-0.2) |
+| surfaceContainerHigh    | Neutral.surface.next(-0.3) |
+| surfaceContainerHighest | Neutral.surface.next(-0.4) |
+| surfaceContainerLow     | Neutral.surface.next(-0.1) |
+| surfaceContainerLowest  | Neutral.surface.next(1.0)  |
+
+### 形状定制
+
+```kotlin
+// 使用预定义的圆角
+val buttonShape = AppShape.RC.v8 // 8dp 圆角
+val cardShape = AppShape.RC.v16 // 16dp 圆角
+val chipShape = AppShape.RC.Cycle // 圆形
+```
+
+### 文字样式定制
+
+```kotlin
+// 标题文字样式
+val titleStyle = AppText.Bold.Title.large // 粗体大号标题
+val subtitleStyle = AppText.Medium.Title.default // 中等粗细默认标题
+
+// 内容文字样式
+val bodyStyle = AppText.Normal.Body.default // 正常粗细默认内容
+val smallBodyStyle = AppText.Normal.Body.small // 正常粗细小号内容
+
+// 强调文字样式
+val primaryStyle = AppText.Bold.Primary.default // 粗体主题色文字
+val errorStyle = AppText.Medium.Error.default // 中等粗细错误色文字
+```
+
+## 许可证
+
+DLJetpackComposeUtil 使用 [MIT 许可证](LICENSE)。
