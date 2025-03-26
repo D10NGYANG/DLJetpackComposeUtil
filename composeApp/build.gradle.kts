@@ -1,5 +1,7 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -26,6 +28,26 @@ kotlin {
             isStatic = true
         }
     }
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        outputModuleName = "composeApp"
+        browser {
+            val rootDirPath = project.rootDir.path
+            val projectDirPath = project.projectDir.path
+            commonWebpackConfig {
+                outputFileName = "composeApp.js"
+                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
+                    static = (static ?: mutableListOf()).apply {
+                        // Serve sources to debug inside browser
+                        add(rootDirPath)
+                        add(projectDirPath)
+                    }
+                }
+            }
+        }
+        binaries.executable()
+    }
     
     sourceSets {
         androidMain.dependencies {
@@ -33,6 +55,8 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             // APP工具
             implementation(libs.dl.app)
+            // 通用计算库
+            implementation(libs.dl.common)
         }
         commonMain.dependencies {
             implementation(project(":DLJetpackComposeUtil"))
@@ -49,13 +73,10 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             // kotlin-serialization
             implementation(libs.kotlinx.serialization.json)
-            // 通用计算库
-            implementation(libs.dl.common)
-            // 时间工具
-            implementation(libs.dl.date)
             // 导航
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
         }
     }
 }

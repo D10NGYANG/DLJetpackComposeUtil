@@ -16,7 +16,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import com.d10ng.common.calculate.isMobileNumber
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
@@ -31,7 +30,6 @@ import dljetpackcomposeutil_project.composeapp.generated.resources.Res
 import dljetpackcomposeutil_project.composeapp.generated.resources.apple
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -288,7 +286,7 @@ private fun showProgressDialog(type: ProgressDialogBuilder.Type) {
         type = type
     )
     val id = UiViewModelManager.showDialog(builder)
-    CoroutineScope(Dispatchers.IO).launch {
+    CoroutineScope(Dispatchers.Default).launch {
         for (i in 0..max) {
             val temp = builder.copy(progress = i)
             UiViewModelManager.updateDialog(id, temp)

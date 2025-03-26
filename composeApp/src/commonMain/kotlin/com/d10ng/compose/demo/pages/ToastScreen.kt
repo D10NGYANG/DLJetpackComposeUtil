@@ -17,7 +17,6 @@ import com.d10ng.compose.ui.base.ToastPosition
 import com.d10ng.compose.ui.navigation.NavBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -54,14 +53,14 @@ private fun ToastScreenView() {
                     onClick = { UiViewModelManager.showToast("提示内容") })
                 Cell(title = "加载提示", link = true, onClick = {
                     UiViewModelManager.showLoading("加载中...")
-                    CoroutineScope(Dispatchers.IO).launch {
+                    CoroutineScope(Dispatchers.Default).launch {
                         delay(1500)
                         UiViewModelManager.hideLoading()
                     }
                 })
                 Cell(title = "无文本加载提示", link = true, onClick = {
                     UiViewModelManager.showLoading()
-                    CoroutineScope(Dispatchers.IO).launch {
+                    CoroutineScope(Dispatchers.Default).launch {
                         delay(1500)
                         UiViewModelManager.hideLoading()
                     }
@@ -100,7 +99,7 @@ private fun ToastScreenView() {
                 Cell(title = "动态更新提示", link = true, onClick = {
                     var wait = 3
                     UiViewModelManager.showLoading("等待${wait}秒...")
-                    CoroutineScope(Dispatchers.IO).launch {
+                    CoroutineScope(Dispatchers.Default).launch {
                         while (wait > 0) {
                             delay(1000)
                             wait--

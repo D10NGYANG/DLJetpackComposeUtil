@@ -25,7 +25,6 @@ import com.d10ng.compose.ui.form.Search
 import com.d10ng.compose.ui.navigation.NavBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -125,7 +124,7 @@ private fun SearchScreenView() {
                     onClickAction = {
                         loading = true
                         loadingJob?.cancel()
-                        loadingJob = CoroutineScope(Dispatchers.IO).launch {
+                        loadingJob = CoroutineScope(Dispatchers.Default).launch {
                             delay(1000)
                             loading = false
                         }
@@ -137,7 +136,7 @@ private fun SearchScreenView() {
                         value1 = it
                         loading = true
                         loadingJob?.cancel()
-                        loadingJob = CoroutineScope(Dispatchers.IO).launch {
+                        loadingJob = CoroutineScope(Dispatchers.Default).launch {
                             delay(1000)
                             loading = false
                         }

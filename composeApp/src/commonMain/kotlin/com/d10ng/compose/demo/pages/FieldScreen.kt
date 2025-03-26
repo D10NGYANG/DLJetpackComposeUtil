@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import com.d10ng.common.calculate.isMobileNumber
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.form.Field
@@ -243,3 +242,6 @@ private fun FieldScreenView() {
         }
     }
 }
+
+
+fun String.isMobileNumber() = "^1[1-9]\\d{9}$".toRegex().matches(this)

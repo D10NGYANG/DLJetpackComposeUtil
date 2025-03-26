@@ -27,7 +27,6 @@ import com.d10ng.compose.ui.feedback.rememberPullRefreshState
 import com.d10ng.compose.ui.navigation.NavBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -52,7 +51,7 @@ private fun PullRefreshScreenView() {
     }
     val state = rememberPullRefreshState(refreshing = isRefreshing, onRefresh = {
         isRefreshing = true
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Default).launch {
             delay(1000)
             isRefreshing = false
         }

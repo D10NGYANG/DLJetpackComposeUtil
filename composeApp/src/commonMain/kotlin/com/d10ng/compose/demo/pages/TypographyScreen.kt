@@ -49,7 +49,7 @@ private fun TypographyScreenView() {
                 .padding(16.dp)
         ) {
             MaterialTheme.typography.apply {
-                TextView("displayLarge", displayLarge)
+                TextView("displayLarge", style = displayLarge)
                 TextView("displayMedium", style = displayMedium)
                 TextView("displaySmall", style = displaySmall)
                 TextView("headlineLarge", style = headlineLarge)

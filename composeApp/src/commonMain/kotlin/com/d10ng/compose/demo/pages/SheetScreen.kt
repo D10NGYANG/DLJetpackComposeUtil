@@ -29,8 +29,10 @@ import com.d10ng.compose.ui.sheet.builder.MultiPickerSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.RadioSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.SinglePickerSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.TimePickerSheetBuilder
-import com.d10ng.datelib.nowTimestamp
-import com.d10ng.datelib.toDateStr
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 /**
  * 底部弹窗
@@ -155,7 +157,7 @@ private fun SheetScreenView() {
             }
             CellGroup(title = "日期选择", inset = true) {
                 var value1 by remember {
-                    mutableLongStateOf(nowTimestamp())
+                    mutableLongStateOf(Clock.System.now().toEpochMilliseconds())
                 }
                 Cell(title = "日期选择面板弹窗(年月日)", link = true, onClick = {
                     UiViewModelManager.showSheet(
@@ -164,13 +166,15 @@ private fun SheetScreenView() {
                             value = value1,
                             onConfirmClick = {
                                 value1 = it
-                                UiViewModelManager.showToast("选择了 ${it.toDateStr("yyyy-MM-dd")}")
+                                val datetime = Instant.fromEpochMilliseconds(it)
+                                    .toLocalDateTime(TimeZone.currentSystemDefault())
+                                UiViewModelManager.showToast("选择了 ${datetime.year}-${datetime.monthNumber}-${datetime.dayOfMonth}")
                             true
                         }
                     ))
                 })
                 var value2 by remember {
-                    mutableLongStateOf(nowTimestamp())
+                    mutableLongStateOf(Clock.System.now().toEpochMilliseconds())
                 }
                 Cell(title = "日期选择面板弹窗(年月)", link = true, onClick = {
                     UiViewModelManager.showSheet(DatePickerSheetBuilder(
@@ -179,13 +183,15 @@ private fun SheetScreenView() {
                         mode = DatePickerMode.YM,
                         onConfirmClick = {
                             value2 = it
-                            UiViewModelManager.showToast("选择了 ${it.toDateStr("yyyy-MM")}")
+                            val datetime = Instant.fromEpochMilliseconds(it)
+                                .toLocalDateTime(TimeZone.currentSystemDefault())
+                            UiViewModelManager.showToast("选择了 ${datetime.year}-${datetime.monthNumber}")
                             true
                         }
                     ))
                 })
                 var value3 by remember {
-                    mutableLongStateOf(nowTimestamp())
+                    mutableLongStateOf(Clock.System.now().toEpochMilliseconds())
                 }
                 Cell(title = "日期选择面板弹窗(年)", link = true, onClick = {
                     UiViewModelManager.showSheet(DatePickerSheetBuilder(
@@ -194,13 +200,15 @@ private fun SheetScreenView() {
                         mode = DatePickerMode.Y,
                         onConfirmClick = {
                             value3 = it
-                            UiViewModelManager.showToast("选择了 ${it.toDateStr("yyyy")}")
+                            val datetime = Instant.fromEpochMilliseconds(it)
+                                .toLocalDateTime(TimeZone.currentSystemDefault())
+                            UiViewModelManager.showToast("选择了 ${datetime.year}")
                             true
                         }
                     ))
                 })
                 var value4 by remember {
-                    mutableLongStateOf(nowTimestamp())
+                    mutableLongStateOf(Clock.System.now().toEpochMilliseconds())
                 }
                 Cell(title = "日期选择面板弹窗(月日)", link = true, onClick = {
                     UiViewModelManager.showSheet(DatePickerSheetBuilder(
@@ -209,7 +217,9 @@ private fun SheetScreenView() {
                         mode = DatePickerMode.MD,
                         onConfirmClick = {
                             value4 = it
-                            UiViewModelManager.showToast("选择了 ${it.toDateStr("MM-dd")}")
+                            val datetime = Instant.fromEpochMilliseconds(it)
+                                .toLocalDateTime(TimeZone.currentSystemDefault())
+                            UiViewModelManager.showToast("选择了 ${datetime.monthNumber}-${datetime.dayOfMonth}")
                             true
                         },
                         itemText = { i, item ->
@@ -222,7 +232,7 @@ private fun SheetScreenView() {
                     ))
                 })
                 var value5 by remember {
-                    mutableLongStateOf(nowTimestamp())
+                    mutableLongStateOf(Clock.System.now().toEpochMilliseconds())
                 }
                 Cell(title = "日期选择面板弹窗(月)", link = true, onClick = {
                     UiViewModelManager.showSheet(DatePickerSheetBuilder(
@@ -231,7 +241,9 @@ private fun SheetScreenView() {
                         mode = DatePickerMode.M,
                         onConfirmClick = {
                             value5 = it
-                            UiViewModelManager.showToast("选择了 ${it.toDateStr("MM")}")
+                            val datetime = Instant.fromEpochMilliseconds(it)
+                                .toLocalDateTime(TimeZone.currentSystemDefault())
+                            UiViewModelManager.showToast("选择了 ${datetime.monthNumber}")
                             true
                         },
                         itemText = { _, item -> "${item}月" }
