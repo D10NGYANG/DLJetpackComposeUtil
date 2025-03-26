@@ -61,8 +61,7 @@
 
 # 预览
 
-## demo运行
-> 下载APK安装测试，[点击这里下载APK](./app/app-release.apk)
+打开[https://d10ngyang.github.io/DLJetpackComposeUtil/](https://d10ngyang.github.io/DLJetpackComposeUtil/)进行查看
 
 # 使用
 
@@ -122,4 +121,3 @@ dependencies {
 5 颜色配置
 
 根据[Vant4的色彩规范](https://vant-contrib.gitee.io/vant/#/zh-CN/design#se-cai-gui-fan)，我们定义一套可修改变量；
-![](./assets/README-1694763495439.png)
