@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "2.0.30"
+version = "2.0.31"
 
 android {
     namespace = "com.d10ng.compose"
@@ -64,12 +64,12 @@ dependencies {
     androidTestApi("androidx.compose.ui:ui-test-junit4")
     debugApi("androidx.compose.ui:ui-test-manifest")
     // Integration with activities
-    api("androidx.activity:activity-compose:1.9.2")
+    api("androidx.activity:activity-compose:1.10.1")
     // constraintlayout
-    api("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha13")
+    api("androidx.constraintlayout:constraintlayout-compose:1.1.1")
 
     // startup
-    implementation("androidx.startup:startup-runtime:1.1.1")
+    implementation("androidx.startup:startup-runtime:1.2.0")
 
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$jetpack_lifecycle_ver")

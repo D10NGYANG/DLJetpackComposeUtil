@@ -12,13 +12,12 @@ import com.d10ng.app.view.setStatusBar
 import com.d10ng.compose.demo.pages.NavGraphs
 import com.d10ng.compose.demo.ui.DLTheme
 import com.d10ng.compose.model.UiViewModelManager
-import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 
 class MainActivity : ComponentActivity() {
 
-    @OptIn(ExperimentalMaterialNavigationApi::class, ExperimentalAnimationApi::class)
+    @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,8 +41,8 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize()
                     )
                 }
+                UiViewModelManager.Init(act = this)
             }
-            UiViewModelManager.Init(act = this)
         }
     }
 }
