@@ -3,9 +3,10 @@ package com.d10ng.compose.ui.show
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -35,10 +36,12 @@ fun HorizontalDivider(
     paddingStart: Dp = 0.dp,
     paddingEnd: Dp = 0.dp,
 ) {
-    HorizontalDivider(
-        modifier = modifier.padding(start = paddingStart, end = paddingEnd),
-        thickness = thickness,
-        color = color
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(thickness)
+            .padding(start = paddingStart, end = paddingEnd)
+            .background(color)
     )
 }
 
@@ -58,9 +61,11 @@ fun VerticalDivider(
     paddingTop: Dp = 0.dp,
     paddingBottom: Dp = 0.dp,
 ) {
-    Box(modifier = modifier
-        .fillMaxHeight()
-        .width(thickness)
-        .padding(top = paddingTop, bottom = paddingBottom)
-        .background(color))
+    Box(
+        modifier = modifier
+            .fillMaxHeight()
+            .width(thickness)
+            .padding(top = paddingTop, bottom = paddingBottom)
+            .background(color)
+    )
 }

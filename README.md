@@ -50,7 +50,7 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation("com.github.D10NGYANG:DLJetpackComposeUtil:3.0.0-RC08")
+    implementation("com.github.D10NGYANG:DLJetpackComposeUtil:3.0.1")
 }
 ```
 
