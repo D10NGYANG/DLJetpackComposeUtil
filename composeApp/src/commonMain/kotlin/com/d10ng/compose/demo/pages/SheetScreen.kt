@@ -29,16 +29,18 @@ import com.d10ng.compose.ui.sheet.builder.MultiPickerSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.RadioSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.SinglePickerSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.TimePickerSheetBuilder
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * 底部弹窗
  * @Author d10ng
  * @Date 2023/9/11 10:41
  */
+@OptIn(ExperimentalTime::class)
 class SheetScreen : Screen {
     @Composable
     override fun Content() {
@@ -46,6 +48,7 @@ class SheetScreen : Screen {
     }
 }
 
+@ExperimentalTime
 @Composable
 private fun SheetScreenView() {
     val navigator = LocalNavigator.current

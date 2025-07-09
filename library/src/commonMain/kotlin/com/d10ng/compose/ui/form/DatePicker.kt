@@ -1,10 +1,11 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.d10ng.compose.ui.form
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.TextStyle
 import com.d10ng.compose.ui.AppText
-import kotlinx.datetime.Clock
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
@@ -14,6 +15,7 @@ import kotlinx.datetime.daysUntil
 import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.ExperimentalTime
 
 /**
  * 日期选择器
@@ -102,7 +104,7 @@ fun DatePicker(
     value: Long,
     onValueChange: (Long) -> Unit,
     start: Long = 0,
-    endInclude: Long = Clock.System.now().toEpochMilliseconds(),
+    endInclude: Long = kotlin.time.Clock.System.now().toEpochMilliseconds(),
     textStyle: TextStyle = AppText.Normal.Title.default,
     mode: DatePickerMode = DatePickerMode.YMD,
     itemText: (Int, String) -> String = { _, item -> item },
