@@ -30,6 +30,7 @@ import com.d10ng.compose.ui.sheet.builder.RadioSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.SinglePickerSheetBuilder
 import com.d10ng.compose.ui.sheet.builder.TimePickerSheetBuilder
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.number
 import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
@@ -171,7 +172,7 @@ private fun SheetScreenView() {
                                 value1 = it
                                 val datetime = Instant.fromEpochMilliseconds(it)
                                     .toLocalDateTime(TimeZone.currentSystemDefault())
-                                UiViewModelManager.showToast("选择了 ${datetime.year}-${datetime.monthNumber}-${datetime.dayOfMonth}")
+                                UiViewModelManager.showToast("选择了 ${datetime.year}-${datetime.month.number}-${datetime.day}")
                             true
                         }
                     ))
@@ -188,7 +189,7 @@ private fun SheetScreenView() {
                             value2 = it
                             val datetime = Instant.fromEpochMilliseconds(it)
                                 .toLocalDateTime(TimeZone.currentSystemDefault())
-                            UiViewModelManager.showToast("选择了 ${datetime.year}-${datetime.monthNumber}")
+                            UiViewModelManager.showToast("选择了 ${datetime.year}-${datetime.month.number}")
                             true
                         }
                     ))
@@ -222,7 +223,7 @@ private fun SheetScreenView() {
                             value4 = it
                             val datetime = Instant.fromEpochMilliseconds(it)
                                 .toLocalDateTime(TimeZone.currentSystemDefault())
-                            UiViewModelManager.showToast("选择了 ${datetime.monthNumber}-${datetime.dayOfMonth}")
+                            UiViewModelManager.showToast("选择了 ${datetime.month.number}-${datetime.day}")
                             true
                         },
                         itemText = { i, item ->
@@ -246,7 +247,7 @@ private fun SheetScreenView() {
                             value5 = it
                             val datetime = Instant.fromEpochMilliseconds(it)
                                 .toLocalDateTime(TimeZone.currentSystemDefault())
-                            UiViewModelManager.showToast("选择了 ${datetime.monthNumber}")
+                            UiViewModelManager.showToast("选择了 ${datetime.month.number}")
                             true
                         },
                         itemText = { _, item -> "${item}月" }

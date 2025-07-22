@@ -7,15 +7,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.text.TextStyle
 import com.d10ng.compose.ui.AppText
 import kotlinx.datetime.DatePeriod
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.daysUntil
+import kotlinx.datetime.number
 import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * 日期选择器
@@ -126,22 +127,22 @@ fun DatePicker(
     val year = remember(datetime) { datetime.year }
     // 月份列表
     val months = remember(year, startDateTime, endDateTime) {
-        val startMonth = if (year == startDateTime.year) startDateTime.monthNumber else 1
-        val endMonth = if (year == endDateTime.year) endDateTime.monthNumber else 12
+        val startMonth = if (year == startDateTime.year) startDateTime.month.number else 1
+        val endMonth = if (year == endDateTime.year) endDateTime.month.number else 12
         (startMonth..endMonth).map { it.toString().padStart(2, '0') }.toSet()
     }
     // 选择的月份
-    val month = remember(datetime) { datetime.monthNumber }
+    val month = remember(datetime) { datetime.month.number }
     // 日期列表
     val days = remember(year, month, startDateTime, endDateTime, datetime) {
-        val startDay = if (year == startDateTime.year && month == startDateTime.monthNumber) startDateTime.dayOfMonth else 1
+        val startDay = if (year == startDateTime.year && month == startDateTime.month.number) startDateTime.day else 1
         val endDay =
-            if (year == endDateTime.year && month == endDateTime.monthNumber) endDateTime.dayOfMonth
-            else daysOfMonth(datetime.year, datetime.monthNumber)
+            if (year == endDateTime.year && month == endDateTime.month.number) endDateTime.day
+            else daysOfMonth(datetime.year, datetime.month.number)
         (startDay..endDay).map { it.toString().padStart(2, '0') }.toSet()
     }
     // 选择的日期
-    val day = remember(datetime) { datetime.dayOfMonth }
+    val day = remember(datetime) { datetime.day }
     val items = remember(mode, years, months, days) {
         mode.getItems(years, months, days)
     }
@@ -176,8 +177,8 @@ private fun daysOfMonth(year: Int, month: Int): Int {
 
 private fun LocalDateTime.copy(
     year: Int = this.year,
-    month: Int = this.monthNumber,
-    day: Int = this.dayOfMonth,
+    month: Int = this.month.number,
+    day: Int = this.day,
     hour: Int = this.hour,
     minute: Int = this.minute,
     second: Int = this.second,
@@ -187,8 +188,8 @@ private fun LocalDateTime.copy(
     val m = month.coerceIn(1, 12)
     return LocalDateTime(
         year = y,
-        monthNumber = m,
-        dayOfMonth = day.coerceIn(1, daysOfMonth(y, m)),
+        month = m,
+        day = day.coerceIn(1, daysOfMonth(y, m)),
         hour = hour.coerceIn(0, 23),
         minute = minute.coerceIn(0, 59),
         second = second.coerceIn(0, 59),

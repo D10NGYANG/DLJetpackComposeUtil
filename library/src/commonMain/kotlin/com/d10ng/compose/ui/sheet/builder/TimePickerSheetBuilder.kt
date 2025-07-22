@@ -15,10 +15,11 @@ import com.d10ng.compose.ui.form.minute
 import com.d10ng.compose.ui.form.second
 import com.d10ng.compose.ui.sheet.SheetColumn
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * 时间选择器构建器
@@ -56,7 +57,7 @@ class TimePickerSheetBuilder(
      * > 仅在未设置value，并且触发弹窗展示前有效
      * @param timestamp Long 时间戳，默认当前时间，单位毫秒
      */
-    fun setCurrentTime(timestamp: Long = kotlin.time.Clock.System.now().toEpochMilliseconds()) {
+    fun setCurrentTime(timestamp: Long = Clock.System.now().toEpochMilliseconds()) {
         val datetime = Instant.fromEpochMilliseconds(timestamp)
             .toLocalDateTime(TimeZone.currentSystemDefault())
         this.value = datetime.hour * 3600 + datetime.minute * 60 + datetime.second
