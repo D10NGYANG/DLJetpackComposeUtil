@@ -12,10 +12,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -78,6 +81,17 @@ fun Sheet(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .height(WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 56.dp)
+                        .pointerInput(Unit) {
+                            // 拦截外部的点击
+                            detectTapGestures {
+                                if (builder.clickOutsideDismiss) builder.dismiss()
+                            }
+                        }
+                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .weight(1f)
                         .pointerInput(Unit) {
                             // 拦截外部的点击
@@ -86,7 +100,9 @@ fun Sheet(
                             }
                         }
                 )
-                builder.Build()
+                Box {
+                    builder.Build()
+                }
             }
         }
     }
@@ -100,7 +116,6 @@ fun SheetBox(
 ) {
     Box(
         modifier = Modifier
-            .statusBarsPadding()
             .fillMaxWidth()
             .background(color, shape)
             .clip(shape),
