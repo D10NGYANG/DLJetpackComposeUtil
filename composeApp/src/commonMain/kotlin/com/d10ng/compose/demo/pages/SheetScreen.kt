@@ -96,6 +96,18 @@ private fun SheetScreenView() {
                         }
                     ))
                 })
+                Cell(title = "单选面板弹窗-超多选项充满屏幕", link = true, onClick = {
+                    UiViewModelManager.showSheet(RadioSheetBuilder(
+                        title = "选择选项",
+                        items = (1 .. 100).map { "选项$it" }.toSet(),
+                        selectedItem = value,
+                        showButton = false,
+                        onConfirmClick = {
+                            UiViewModelManager.showToast("选择了${it}")
+                            true
+                        }
+                    ))
+                })
                 Cell(title = "动作面板弹窗", link = true, onClick = {
                     UiViewModelManager.showSheet(ActionSheetBuilder(
                         items = Options.entries.toSet(),

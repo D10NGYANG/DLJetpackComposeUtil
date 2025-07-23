@@ -27,7 +27,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_round_forward_16
 import com.d10ng.compose.ui.AppColor
@@ -36,6 +35,7 @@ import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.defaultPaddingSize
 import com.d10ng.compose.ui.show.HorizontalDivider
 import org.jetbrains.compose.resources.painterResource
+import tech.annexflow.constraintlayout.compose.ConstraintLayout
 
 /**
  * 单元格组件

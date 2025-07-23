@@ -29,8 +29,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_baseline_visibility_24
 import com.d10ng.compose.resources.ic_baseline_visibility_off_24
@@ -43,6 +41,8 @@ import com.d10ng.compose.ui.show.HorizontalDivider
 import com.d10ng.compose.view.Input
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import tech.annexflow.constraintlayout.compose.ConstraintLayout
+import tech.annexflow.constraintlayout.compose.Dimension
 
 /**
  * 输入框
