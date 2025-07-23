@@ -1,8 +1,11 @@
 package com.d10ng.compose.model
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.d10ng.compose.ui.base.ToastPosition
 import com.d10ng.compose.ui.dialog.builder.DialogBuilder
@@ -30,7 +33,11 @@ object UiViewModelManager : IUiViewModel {
                 models.remove(uiViewModel)
             }
         }
-        uiViewModel.Init()
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            uiViewModel.Init()
+        }
     }
 
     override fun showToast(msg: String, duration: Long, position: ToastPosition) {
