@@ -75,8 +75,7 @@ kotlin {
             // kotlin-serialization
             implementation(libs.kotlinx.serialization.json)
             // 导航
-            implementation(libs.voyager.navigator)
-            implementation(libs.voyager.transitions)
+            implementation(libs.androidx.navigation.compose)
             // 日期时间
             implementation(libs.kotlinx.datetime)
         }

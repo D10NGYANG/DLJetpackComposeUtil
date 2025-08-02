@@ -15,8 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.base.CellGroup
@@ -29,23 +28,15 @@ import com.d10ng.compose.ui.show.BadgeBox
  * @Author d10ng
  * @Date 2023/9/12 13:36
  */
-class BadgeScreen : Screen {
-    @Composable
-    override fun Content() {
-        BadgeScreenView()
-    }
-}
-
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun BadgeScreenView() {
-    val navigator = LocalNavigator.current
+fun BadgeScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Badge", onClickBack = { navigator?.pop() })
+        NavBar(title = "Badge", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

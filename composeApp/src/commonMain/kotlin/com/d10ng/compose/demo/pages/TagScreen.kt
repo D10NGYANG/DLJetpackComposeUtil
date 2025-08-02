@@ -9,8 +9,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
@@ -24,25 +23,15 @@ import com.d10ng.compose.ui.show.TagType
  * @Author d10ng
  * @Date 2023/9/7 10:52
  */
-
-class TagScreen: Screen {
-
-    @Composable
-    override fun Content() {
-        TagScreenView()
-    }
-}
-
 @Composable
-private fun TagScreenView() {
-    val navigator = LocalNavigator.current
+fun TagScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
             .navigationBarsPadding()
     ) {
-        NavBar(title = "Tag", onClickBack = { navigator?.pop() })
+        NavBar(title = "Tag", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

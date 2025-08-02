@@ -16,8 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
@@ -35,17 +34,9 @@ import kotlinx.coroutines.launch
  * @Author d10ng
  * @Date 2023/11/8 18:29
  */
-class PullRefreshScreen : Screen {
-    @Composable
-    override fun Content() {
-        PullRefreshScreenView()
-    }
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun PullRefreshScreenView() {
-    val navigator = LocalNavigator.current
+fun PullRefreshScreen() {
     var isRefreshing by remember {
         mutableStateOf(false)
     }
@@ -62,7 +53,7 @@ private fun PullRefreshScreenView() {
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "PullRefreshScreen", onClickBack = { navigator?.pop() })
+        NavBar(title = "PullRefreshScreen", onClickBack = { Nav.instant().popBackStack() })
         Box(modifier = Modifier.fillMaxSize()) {
             LazyColumn(
                 modifier = Modifier.pullRefresh(state),

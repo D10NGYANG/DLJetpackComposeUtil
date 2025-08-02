@@ -13,8 +13,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
@@ -27,23 +26,14 @@ import com.d10ng.compose.ui.navigation.NavBar
  * @Author d10ng
  * @Date 2023/9/4 14:48
  */
-class CellScreen : Screen {
-
-    @Composable
-    override fun Content() {
-        CellScreenView()
-    }
-}
-
 @Composable
-private fun CellScreenView() {
-    val navigator = LocalNavigator.current
+fun CellScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Cell", onClickBack = { navigator?.pop() })
+        NavBar(title = "Cell", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

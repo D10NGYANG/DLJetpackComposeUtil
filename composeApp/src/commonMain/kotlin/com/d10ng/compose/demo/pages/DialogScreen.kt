@@ -14,8 +14,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
@@ -39,22 +38,14 @@ import org.jetbrains.compose.resources.painterResource
  * @Author d10ng
  * @Date 2023/9/7 13:35
  */
-class DialogScreen : Screen {
-    @Composable
-    override fun Content() {
-        DialogScreenView()
-    }
-}
-
 @Composable
-private fun DialogScreenView() {
-    val navigator = LocalNavigator.current
+fun DialogScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Dialog", onClickBack = { navigator?.pop() })
+        NavBar(title = "Dialog", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

@@ -13,8 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
@@ -41,24 +40,15 @@ import kotlin.time.Instant
  * @Author d10ng
  * @Date 2023/9/11 10:41
  */
-@OptIn(ExperimentalTime::class)
-class SheetScreen : Screen {
-    @Composable
-    override fun Content() {
-        SheetScreenView()
-    }
-}
-
 @ExperimentalTime
 @Composable
-private fun SheetScreenView() {
-    val navigator = LocalNavigator.current
+fun SheetScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Sheet", onClickBack = { navigator?.pop() })
+        NavBar(title = "Sheet", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

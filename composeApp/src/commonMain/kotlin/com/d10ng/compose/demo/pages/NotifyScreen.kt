@@ -7,8 +7,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
@@ -21,22 +20,14 @@ import com.d10ng.compose.ui.navigation.NavBar
  * @Author d10ng
  * @Date 2023/9/12 18:26
  */
-class NotifyScreen : Screen {
-    @Composable
-    override fun Content() {
-        NotifyScreenView()
-    }
-}
-
 @Composable
-private fun NotifyScreenView() {
-    val navigator = LocalNavigator.current
+fun NotifyScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Notify", onClickBack = { navigator?.pop() })
+        NavBar(title = "Notify", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

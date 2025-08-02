@@ -20,8 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.navigation.NavBar
 
@@ -30,23 +29,15 @@ import com.d10ng.compose.ui.navigation.NavBar
  * @Author d10ng
  * @Date 2025/3/24 11:59
  */
-class ShapeScreen : Screen {
-    @Composable
-    override fun Content() {
-        ShapeScreenView()
-    }
-}
-
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun ShapeScreenView() {
-    val navigator = LocalNavigator.current
+fun ShapeScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Shape", onClickBack = { navigator?.pop() })
+        NavBar(title = "Shape", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

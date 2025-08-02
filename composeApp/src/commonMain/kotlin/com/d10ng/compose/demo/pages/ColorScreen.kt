@@ -19,8 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.CellTitle
 import com.d10ng.compose.ui.navigation.NavBar
@@ -31,23 +30,15 @@ import com.d10ng.compose.utils.isDark
  * @Author d10ng
  * @Date 2025/3/24 11:50
  */
-class ColorScreen : Screen {
-    @Composable
-    override fun Content() {
-        ColorScreenView()
-    }
-}
-
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun ColorScreenView() {
-    val navigator = LocalNavigator.current
+fun ColorScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        NavBar(title = "Color", onClickBack = { navigator?.pop() })
+        NavBar(title = "Color", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

@@ -19,8 +19,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.base.CellGroup
@@ -39,23 +38,15 @@ import org.jetbrains.compose.resources.painterResource
  * @Author d10ng
  * @Date 2023/9/12 16:13
  */
-class AvatarScreen : Screen {
-    @Composable
-    override fun Content() {
-        AvatarScreenView()
-    }
-}
-
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun AvatarScreenView() {
-    val navigator = LocalNavigator.current
+fun AvatarScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Avatar", onClickBack = { navigator?.pop() })
+        NavBar(title = "Avatar", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

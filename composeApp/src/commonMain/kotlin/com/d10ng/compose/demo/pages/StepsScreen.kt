@@ -16,8 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Button
 import com.d10ng.compose.ui.base.CellGroup
@@ -29,22 +28,15 @@ import com.d10ng.compose.ui.show.Steps
  * @Author d10ng
  * @Date 2023/9/13 13:58
  */
-class StepsScreen : Screen {
-    @Composable
-    override fun Content() {
-        StepsScreenView()
-    }
-}
 
 @Composable
-private fun StepsScreenView() {
-    val navigator = LocalNavigator.current
+fun StepsScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Steps", onClickBack = { navigator?.pop() })
+        NavBar(title = "Steps", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

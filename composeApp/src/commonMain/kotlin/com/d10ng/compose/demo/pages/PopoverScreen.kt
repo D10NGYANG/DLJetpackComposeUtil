@@ -18,8 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Button
@@ -34,23 +33,16 @@ import com.d10ng.compose.ui.show.PopoverColumnItems
  * @Author d10ng
  * @Date 2023/9/18 14:28
  */
-class PopoverScreen : Screen {
-    @Composable
-    override fun Content() {
-        PopoverScreenView()
-    }
-}
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun PopoverScreenView() {
-    val navigator = LocalNavigator.current
+fun PopoverScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Popover", onClickBack = { navigator?.pop() })
+        NavBar(title = "Popover", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

@@ -14,8 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
@@ -30,22 +29,14 @@ import dljetpackcomposeutil_project.composeapp.generated.resources.round_add_cir
  * @Author d10ng
  * @Date 2023/9/6 14:29
  */
-class SwitchScreen : Screen {
-    @Composable
-    override fun Content() {
-        SwitchScreenView()
-    }
-}
-
 @Composable
-private fun SwitchScreenView() {
-    val navigator = LocalNavigator.current
+fun SwitchScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Switch", onClickBack = { navigator?.pop() })
+        NavBar(title = "Switch", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

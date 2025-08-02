@@ -14,8 +14,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.form.Field
@@ -30,22 +29,14 @@ import kotlinx.coroutines.launch
  * @Author d10ng
  * @Date 2023/9/5 11:15
  */
-class FieldScreen : Screen {
-    @Composable
-    override fun Content() {
-        FieldScreenView()
-    }
-}
-
 @Composable
-private fun FieldScreenView() {
-    val navigator = LocalNavigator.current
+fun FieldScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Field", onClickBack = { navigator?.pop() })
+        NavBar(title = "Field", onClickBack = { Nav.instant().popBackStack() })
 
         val scrollState = rememberScrollState()
         val scope = rememberCoroutineScope()

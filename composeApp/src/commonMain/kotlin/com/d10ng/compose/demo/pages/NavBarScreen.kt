@@ -15,8 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.base.Button
@@ -33,23 +32,14 @@ import org.jetbrains.compose.resources.painterResource
  * @Author d10ng
  * @Date 2023/9/6 13:53
  */
-class NavBarScreen: Screen {
-
-    @Composable
-    override fun Content() {
-        NavBarScreenView()
-    }
-}
-
 @Composable
-private fun NavBarScreenView() {
-    val navigator = LocalNavigator.current
+fun NavBarScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "NavBar", onClickBack = { navigator?.pop() })
+        NavBar(title = "NavBar", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

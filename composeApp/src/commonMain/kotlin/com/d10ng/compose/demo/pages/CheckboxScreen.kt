@@ -14,8 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
@@ -29,22 +28,14 @@ import com.d10ng.compose.ui.navigation.NavBar
  * @Author d10ng
  * @Date 2023/11/16 03:14
  */
-class CheckboxScreen : Screen {
-    @Composable
-    override fun Content() {
-        CheckboxScreenView()
-    }
-}
-
 @Composable
-private fun CheckboxScreenView() {
-    val navigator = LocalNavigator.current
+fun CheckboxScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Checkbox", onClickBack = { navigator?.pop() })
+        NavBar(title = "Checkbox", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

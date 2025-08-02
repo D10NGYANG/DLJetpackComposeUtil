@@ -21,8 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.base.Button
@@ -36,24 +35,16 @@ import com.d10ng.compose.ui.navigation.NavBar
  * @Author d10ng
  * @Date 2024/9/12 15:24
  */
-class ButtonScreen: Screen {
-    @Composable
-    override fun Content() {
-        ButtonScreenView()
-    }
-}
-
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun ButtonScreenView() {
-    val navigator = LocalNavigator.current
+fun ButtonScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
             .navigationBarsPadding()
     ) {
-        NavBar(title = "Button", onClickBack = { navigator?.pop() })
+        NavBar(title = "Button", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

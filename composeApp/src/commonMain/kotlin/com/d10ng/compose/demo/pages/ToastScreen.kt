@@ -7,8 +7,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
@@ -25,22 +24,14 @@ import kotlinx.coroutines.launch
  * @Author d10ng
  * @Date 2023/9/4 15:14
  */
-class ToastScreen : Screen {
-    @Composable
-    override fun Content() {
-        ToastScreenView()
-    }
-}
-
 @Composable
-private fun ToastScreenView() {
-    val navigator = LocalNavigator.current
+fun ToastScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Toast", onClickBack = { navigator?.pop() })
+        NavBar(title = "Toast", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

@@ -11,8 +11,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
@@ -25,22 +24,14 @@ import com.d10ng.compose.ui.navigation.NavBar
  * @Author d10ng
  * @Date 2023/9/6 17:47
  */
-class StepperScreen : Screen {
-    @Composable
-    override fun Content() {
-        StepperScreenView()
-    }
-}
-
 @Composable
-private fun StepperScreenView() {
-    val navigator = LocalNavigator.current
+fun StepperScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Stepper", onClickBack = { navigator?.pop() })
+        NavBar(title = "Stepper", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
 import com.d10ng.compose.demo.stores.AreaStore
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
@@ -34,15 +33,8 @@ import kotlinx.coroutines.launch
  * @Author d10ng
  * @Date 2023/9/18 10:50
  */
-class IndexBarScreen : Screen {
-    @Composable
-    override fun Content() {
-        IndexBarScreenView()
-    }
-}
-
 @Composable
-private fun IndexBarScreenView(
+private fun IndexBarScreen(
     onClickBack: () -> Unit = {},
 ) {
     val data = remember {
@@ -124,5 +116,5 @@ private fun ItemView(
 @Preview
 @Composable
 private fun IndexBarScreenPreview() {
-    IndexBarScreenView()
+    IndexBarScreen()
 }

@@ -15,9 +15,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
 import com.d10ng.app.managers.PhotoManager
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Button
 import com.d10ng.compose.ui.base.ButtonType
@@ -31,18 +30,9 @@ import kotlinx.coroutines.launch
  * @Author d10ng
  * @Date 2023/11/28 16:29
  */
-class ImagePreviewScreen : Screen {
-
-    @Composable
-    override fun Content() {
-        ImagePreviewScreenView()
-    }
-}
-
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun ImagePreviewScreenView() {
-    val navigator = LocalNavigator.current
+fun ImagePreviewScreen() {
     // 图片路径
     var imagePath by remember {
         mutableStateOf("")
@@ -53,7 +43,7 @@ private fun ImagePreviewScreenView() {
             .background(AppColor.Neutral.bg)
             .navigationBarsPadding()
     ) {
-        NavBar(title = "ImagePreview", onClickBack = { navigator?.pop() })
+        NavBar(title = "ImagePreview", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -83,5 +73,5 @@ private fun ImagePreviewScreenView() {
 @Preview
 @Composable
 private fun ImagePreviewScreenPreview() {
-    ImagePreviewScreenView()
+    ImagePreviewScreen()
 }

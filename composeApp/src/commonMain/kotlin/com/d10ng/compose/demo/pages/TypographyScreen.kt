@@ -16,8 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.navigation.NavBar
 
 /**
@@ -25,23 +24,15 @@ import com.d10ng.compose.ui.navigation.NavBar
  * @Author d10ng
  * @Date 2025/3/24 11:55
  */
-class TypographyScreen : Screen {
-    @Composable
-    override fun Content() {
-        TypographyScreenView()
-    }
-}
-
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun TypographyScreenView() {
-    val navigator = LocalNavigator.current
+fun TypographyScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        NavBar(title = "Typography", onClickBack = { navigator?.pop() })
+        NavBar(title = "Typography", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

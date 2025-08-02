@@ -15,8 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
+import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
@@ -34,22 +33,14 @@ import kotlinx.coroutines.launch
  * @Author d10ng
  * @Date 2023/9/14 18:33
  */
-class SearchScreen : Screen {
-    @Composable
-    override fun Content() {
-        SearchScreenView()
-    }
-}
-
 @Composable
-private fun SearchScreenView() {
-    val navigator = LocalNavigator.current
+fun SearchScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Search", onClickBack = { navigator?.pop() })
+        NavBar(title = "Search", onClickBack = { Nav.instant().popBackStack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()
