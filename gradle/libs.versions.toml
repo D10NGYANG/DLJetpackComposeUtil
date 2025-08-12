@@ -17,7 +17,6 @@ kotlinx-serialization-json = "1.9.0"
 jetbrains-androidx-lifecycle = "2.9.1"
 junit = "4.13.2"
 constraintlayout-compose-multiplatform = "0.6.0-shaded"
-voyager = "1.1.0-beta03"
 dlcommon = "0.7.0"
 dlapp = "2.6.0"
 
