@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -18,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
@@ -26,6 +28,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
@@ -41,8 +44,6 @@ import com.d10ng.compose.ui.show.HorizontalDivider
 import com.d10ng.compose.view.Input
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
-import tech.annexflow.constraintlayout.compose.ConstraintLayout
-import tech.annexflow.constraintlayout.compose.Dimension
 
 /**
  * 输入框
@@ -161,64 +162,40 @@ private fun FieldLeftContent(
     leftIconResource: DrawableResource? = null,
     leftIconTint: Color = AppColor.Neutral.title,
 ) {
-    val disabledColor = remember {
-        AppColor.Neutral.tips
-    }
+    val disabledColor = remember { AppColor.Neutral.tips }
     val iconColor = if (disabled) disabledColor else leftIconTint
     val labelColor = if (disabled) disabledColor else AppColor.Neutral.title
     val requiredColor = if (disabled) disabledColor else AppColor.Func.error
     Row(
         modifier = Modifier
-            .width(labelWidth),
-        horizontalArrangement = labelAlign.align
+            .width(labelWidth)
+            .padding(top = defaultPaddingSize),
+        horizontalArrangement = labelAlign.align,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        ConstraintLayout {
-            val (leftIcon, requiredText, labelText) = createRefs()
-            // 左侧图标
-            if (leftIconResource != null) {
-                Icon(
-                    painter = painterResource(resource = leftIconResource),
-                    contentDescription = "",
-                    tint = iconColor,
-                    modifier = Modifier
-                        .constrainAs(leftIcon) {
-                            start.linkTo(parent.start)
-                            top.linkTo(labelText.top)
-                            bottom.linkTo(labelText.bottom)
-                        }
-                        .size(20.dp)
-                )
-            }
-            // 必填标记
-            if (required) {
-                Text(
-                    text = "*",
-                    color = requiredColor,
-                    style = AppText.Normal.Surface.default,
-                    modifier = Modifier
-                        .constrainAs(requiredText) {
-                            start.linkTo(if (leftIconResource != null) leftIcon.end else parent.start)
-                            top.linkTo(labelText.top)
-                            bottom.linkTo(labelText.bottom)
-                        }
-                )
-            }
-            // 标题
-            Text(
-                text = label,
-                color = labelColor,
-                style = AppText.Normal.Surface.default,
-                modifier = Modifier
-                    .constrainAs(labelText) {
-                        val startLink =
-                            if (required) requiredText.end else if (leftIconResource != null) leftIcon.end else parent.start
-                        val startMargin = if (!required && leftIconResource != null) 8.dp else 0.dp
-                        start.linkTo(startLink, margin = startMargin)
-                        top.linkTo(parent.top, margin = defaultPaddingSize)
-                        end.linkTo(parent.end)
-                    }
+        if (leftIconResource != null) {
+            Icon(
+                painter = painterResource(resource = leftIconResource),
+                contentDescription = "",
+                tint = iconColor,
+                modifier = Modifier.size(20.dp)
             )
         }
+        if (required) {
+            Text(
+                text = "*",
+                color = requiredColor,
+                style = AppText.Normal.Surface.default,
+            )
+        }
+        if (!required && leftIconResource != null) {
+            Spacer(modifier = Modifier.width(8.dp))
+        }
+        Text(
+            text = label,
+            color = labelColor,
+            style = AppText.Normal.Surface.default,
+        )
     }
 }
 
@@ -237,9 +214,7 @@ private fun RowScope.FieldInput(
     maxLines: Int = Int.MAX_VALUE,
     minLines: Int = 1,
 ) {
-    var isPasswordVisible by remember {
-        mutableStateOf(false)
-    }
+    var isPasswordVisible by remember { mutableStateOf(false) }
     val isPassword = remember(type) {
         type == KeyboardType.Password || type == KeyboardType.NumberPassword
     }
@@ -250,7 +225,6 @@ private fun RowScope.FieldInput(
     val textStyle = remember(disabled) {
         if (disabled) AppText.Normal.Hint.default else AppText.Normal.Body.default
     }
-    // 错误提示
     val placeholderText = remember(value, error, label) {
         if (value.isEmpty() && error.isNotEmpty()) error else placeholder.ifEmpty { "请输入${label}" }
     }
@@ -269,97 +243,102 @@ private fun RowScope.FieldInput(
         canClear && isFocus && value.isNotEmpty()
     }
 
-    ConstraintLayout(
+    Column(
         modifier = Modifier
             .padding(vertical = defaultPaddingSize)
             .weight(1f)
     ) {
-        val (input, errorText, spaceText, clearIcon, passwordIcon) = createRefs()
-        // 输入框
-        Input(
-            modifier = Modifier
-                .constrainAs(input) {
-                    width = Dimension.fillToConstraints
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
-                    end.linkTo(spaceText.start)
-                    bottom.linkTo(if (showError) errorText.top else parent.bottom)
-                }
-                .onFocusChanged { isFocus = it.isFocused },
-            value = value,
-            onValueChange = onValueChange,
-            placeholder = placeholderText,
-            textStyle = textStyle,
-            placeholderStyle = placeholderStyle,
-            enabled = !disabled,
-            readOnly = readonly,
-            singleLine = !autoSize && maxLines == 1,
-            maxLines = if (autoSize) maxLines else minLines,
-            minLines = minLines,
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = type),
-            visualTransformation = visualTransformation,
-        )
-        // 错误信息
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Input(
+                modifier = Modifier
+                    .weight(1f)
+                    .onFocusChanged { isFocus = it.isFocused },
+                value = value,
+                onValueChange = onValueChange,
+                placeholder = placeholderText,
+                textStyle = textStyle,
+                placeholderStyle = placeholderStyle,
+                enabled = !disabled,
+                readOnly = readonly,
+                singleLine = !autoSize && maxLines == 1,
+                maxLines = if (autoSize) maxLines else minLines,
+                minLines = minLines,
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = type),
+                visualTransformation = visualTransformation,
+            )
+            // 占位空文本：与原 ConstraintLayout 的 spaceText 作用相同，
+            // 用 Body 样式的行高撑起 Row 最小高度，并作为图标的垂直对齐基准
+            Text(text = "", style = AppText.Normal.Body.default)
+            if (isShowClear) {
+                Spacer(modifier = Modifier.width(8.dp))
+                Icon(
+                    painter = painterResource(resource = Res.drawable.ic_round_cancel_24),
+                    contentDescription = "清除",
+                    tint = AppColor.Neutral.hint,
+                    modifier = Modifier
+                        .size(20.dp)
+                        .clip(AppShape.RC.Cycle)
+                        .clickable { onValueChange("") }
+                )
+            }
+            if (isPassword) {
+                Spacer(modifier = Modifier.width(8.dp))
+                Icon(
+                    painter = painterResource(
+                        resource = if (isPasswordVisible) Res.drawable.ic_baseline_visibility_24
+                        else Res.drawable.ic_baseline_visibility_off_24
+                    ),
+                    contentDescription = if (isPasswordVisible) "点击隐藏" else "点击显示",
+                    tint = AppColor.Neutral.hint,
+                    modifier = Modifier
+                        .size(20.dp)
+                        .clip(AppShape.RC.Cycle)
+                        .clickable { isPasswordVisible = !isPasswordVisible }
+                )
+            }
+        }
         if (showError) {
             Text(
                 text = error,
                 style = AppText.Normal.Error.small,
-                modifier = Modifier
-                    .constrainAs(errorText) {
-                        width = Dimension.fillToConstraints
-                        start.linkTo(input.start)
-                        top.linkTo(input.bottom, 4.dp)
-                        end.linkTo(input.end)
-                        bottom.linkTo(parent.bottom)
-                    }
+                modifier = Modifier.padding(top = 4.dp)
             )
         }
-        // 占位文本
-        Text(
-            text = "",
-            style = AppText.Normal.Body.default,
-            modifier = Modifier.constrainAs(spaceText) {
-                start.linkTo(input.end)
-                top.linkTo(parent.top)
-                val endLink = if (isShowClear) clearIcon.start
-                else if (isPassword) passwordIcon.start else parent.end
-                end.linkTo(endLink)
-            })
-        // 清除图标
-        if (isShowClear) {
-            Icon(
-                painter = painterResource(resource = Res.drawable.ic_round_cancel_24),
-                contentDescription = "清除",
-                tint = AppColor.Neutral.hint,
-                modifier = Modifier
-                    .constrainAs(clearIcon) {
-                        start.linkTo(spaceText.end, 8.dp)
-                        end.linkTo(if (isPassword) passwordIcon.start else parent.end)
-                        top.linkTo(spaceText.top)
-                        bottom.linkTo(spaceText.bottom)
-                    }
-                    .size(20.dp)
-                    .clip(AppShape.RC.Cycle)
-                    .clickable { onValueChange("") }
-            )
-        }
-        // 密码图标
-        if (isPassword) {
-            Icon(
-                painter = painterResource(resource = if (isPasswordVisible) Res.drawable.ic_baseline_visibility_24 else Res.drawable.ic_baseline_visibility_off_24),
-                contentDescription = if (isPasswordVisible) "点击隐藏" else "点击显示",
-                tint = AppColor.Neutral.hint,
-                modifier = Modifier
-                    .constrainAs(passwordIcon) {
-                        start.linkTo(if (isShowClear) clearIcon.end else spaceText.end, 8.dp)
-                        end.linkTo(parent.end)
-                        top.linkTo(spaceText.top)
-                        bottom.linkTo(spaceText.bottom)
-                    }
-                    .size(20.dp)
-                    .clip(AppShape.RC.Cycle)
-                    .clickable { isPasswordVisible = !isPasswordVisible }
-            )
-        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewField() {
+    Column {
+        Field(value = "", onValueChange = {}, label = "姓名")
+        Field(value = "张三", onValueChange = {}, label = "姓名")
+        Field(value = "", onValueChange = {}, label = "必填项", required = true)
+        Field(value = "内容", onValueChange = {}, label = "带错误", error = "输入有误")
+        Field(value = "", onValueChange = {}, label = "禁用", disabled = true)
+        Field(value = "只读内容", onValueChange = {}, label = "只读", readonly = true)
+    }
+}
+
+@Preview
+@Composable
+fun PreviewFieldLabelAlign() {
+    Column {
+        Field(value = "", onValueChange = {}, label = "左对齐", labelAlign = FieldLabelAlign.LEFT)
+        Field(value = "", onValueChange = {}, label = "居中", labelAlign = FieldLabelAlign.CENTER)
+        Field(value = "", onValueChange = {}, label = "右对齐", labelAlign = FieldLabelAlign.RIGHT)
+        Field(value = "", onValueChange = {}, label = "顶部对齐", labelAlign = FieldLabelAlign.TOP)
+    }
+}
+
+@Preview
+@Composable
+fun PreviewFieldPassword() {
+    Column {
+        Field(value = "123456", onValueChange = {}, label = "密码", type = KeyboardType.Password)
+        Field(value = "123456", onValueChange = {}, label = "数字密码", type = KeyboardType.NumberPassword)
     }
 }
