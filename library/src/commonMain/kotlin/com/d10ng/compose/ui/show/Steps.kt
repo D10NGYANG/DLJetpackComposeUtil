@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_round_steps_active_20
@@ -33,11 +34,15 @@ import org.jetbrains.compose.resources.painterResource
 
 /**
  * 步骤条
- * @param items Set<String> 步骤列表
- * @param runningIndex Int 当前步骤
- * @param runningColor Color 运行中颜色
- * @param activeColor Color 激活颜色
- * @param inactiveColor Color 未激活颜色
+ *
+ * 横向展示多个步骤的进度状态，每个步骤包含标签文本和状态图标，相邻步骤之间以连接线衔接。
+ * 步骤状态分为三种：已完成（[StepMode.Active]）、进行中（[StepMode.Running]）、未开始（[StepMode.Inactive]）。
+ *
+ * @param items Set<String> 步骤标签集合，按集合迭代顺序从左到右依次渲染
+ * @param runningIndex Int 当前进行中步骤的索引（从 0 开始）；小于该索引的步骤为已完成，大于的为未开始，默认为 0
+ * @param runningColor Color 进行中及已完成步骤的颜色（图标、连接线、文字），默认为 [AppColor.Main.primary]
+ * @param activeColor Color 已完成步骤的文字颜色，默认为 [AppColor.Neutral.body]
+ * @param inactiveColor Color 未开始步骤的颜色（图标、连接线、文字），默认为 [AppColor.Neutral.hint]
  */
 @Composable
 fun Steps(
@@ -68,12 +73,32 @@ fun Steps(
     }
 }
 
+/**
+ * 步骤状态枚举
+ */
 enum class StepMode {
+    /** 已完成：小圆点图标，使用进行中颜色 */
     Active,
+    /** 未开始：小圆点图标，使用未激活颜色 */
     Inactive,
+    /** 进行中：圆形图标，使用进行中颜色 */
     Running
 }
 
+/**
+ * 单个步骤项
+ *
+ * 包含顶部标签文本、中间状态图标及两侧连接线，需在 [RowScope] 中使用（通常由 [Steps] 自动调用）。
+ * 第一个步骤左侧连接线透明，最后一个步骤右侧连接线透明。
+ *
+ * @param label String 步骤标签文本，超出宽度时截断显示
+ * @param mode StepMode 步骤状态，决定图标样式和颜色
+ * @param first Boolean 是否为第一个步骤，为 true 时左侧连接线不显示，默认为 false
+ * @param last Boolean 是否为最后一个步骤，为 true 时右侧连接线不显示，默认为 false
+ * @param runningColor Color 进行中及已完成状态的颜色，默认为 [AppColor.Main.primary]
+ * @param activeColor Color 已完成状态的文字颜色，默认为 [AppColor.Neutral.body]
+ * @param inactiveColor Color 未开始状态的颜色，默认为 [AppColor.Neutral.hint]
+ */
 @Composable
 fun RowScope.Step(
     label: String,
@@ -167,3 +192,34 @@ private fun RowScope.Line(
             .background(color)
     )
 }
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewSteps() {
+    Column(
+        modifier = Modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+        // 第一步进行中
+        Steps(
+            items = linkedSetOf("步骤一", "步骤二", "步骤三", "步骤四"),
+            runningIndex = 0
+        )
+        // 第二步进行中（第一步已完成）
+        Steps(
+            items = linkedSetOf("步骤一", "步骤二", "步骤三", "步骤四"),
+            runningIndex = 1
+        )
+        // 第三步进行中
+        Steps(
+            items = linkedSetOf("步骤一", "步骤二", "步骤三", "步骤四"),
+            runningIndex = 2
+        )
+        // 最后一步进行中
+        Steps(
+            items = linkedSetOf("步骤一", "步骤二", "步骤三", "步骤四"),
+            runningIndex = 3
+        )
+    }
+}
+

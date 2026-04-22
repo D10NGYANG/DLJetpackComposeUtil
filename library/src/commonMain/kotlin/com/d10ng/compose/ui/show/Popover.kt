@@ -48,12 +48,16 @@ import com.d10ng.compose.utils.next
 
 /**
  * Popover 气泡弹出框
- * @param expanded Boolean 是否展开
- * @param onDismissRequest Function0<Unit> 关闭回调
- * @param offset DpOffset 偏移量
- * @param dark Boolean 是否暗色
- * @param properties PopupProperties 弹出框属性
- * @param content [@androidx.compose.runtime.Composable] Function0<Unit> 内容
+ *
+ * 基于 [Popup] 实现的气泡弹出框，自动根据锚点位置计算弹出方向，并渲染对应方向的三角形箭头。
+ * 支持亮色与暗色两种主题，可通过 [content] 插槽自定义内容。
+ *
+ * @param expanded Boolean 是否展开显示气泡弹出框
+ * @param onDismissRequest () -> Unit 请求关闭气泡的回调（如点击外部区域时触发）
+ * @param offset DpOffset 气泡相对于锚点的偏移量，默认为 [DpOffset.Zero]
+ * @param dark Boolean 是否使用暗色主题（深灰底色 + 白色文字），默认为 false（白色底色）
+ * @param properties PopupProperties 弹出框窗口属性，默认为 `PopupProperties(focusable = true)`
+ * @param content (@Composable () -> Unit) 气泡内部显示的自定义内容插槽
  */
 @Composable
 fun Popover(
@@ -98,9 +102,13 @@ fun Popover(
 
 /**
  * Popover 气泡弹出框纵向列表
- * @param value Set<String> 列表数据
- * @param dark Boolean 是否暗色
- * @param onClick Function1<String, Unit> 点击回调
+ *
+ * 将字符串集合渲染为纵向排列的列表项，相邻列表项之间自动添加分割线（最后一项除外）。
+ * 通常作为 [Popover] 的 `content` 参数传入。
+ *
+ * @param value Set<String> 列表项文本集合，按集合迭代顺序依次渲染
+ * @param dark Boolean 是否使用暗色主题，默认为 false
+ * @param onClick (String) -> Unit 列表项点击回调，参数为被点击项的文本内容
  */
 @Composable
 fun PopoverColumnItems(
@@ -122,10 +130,14 @@ fun PopoverColumnItems(
 
 /**
  * Popover 气泡弹出框纵向列表项
- * @param text String 文本
- * @param border Boolean 是否显示分割线
- * @param dark Boolean 是否暗色
- * @param onClick Function0<Unit> 点击回调
+ *
+ * 单个列表项，包含文本内容和可选的底部分割线，点击整行触发回调。
+ * 文字与分割线颜色根据 [dark] 参数自动适配亮色/暗色主题。
+ *
+ * @param text String 列表项显示的文本内容
+ * @param border Boolean 是否在列表项底部显示分割线，默认为 true
+ * @param dark Boolean 是否使用暗色主题（白色文字 + 白色分割线），默认为 false
+ * @param onClick () -> Unit 点击列表项时的回调
  */
 @Composable
 fun PopoverColumnItem(

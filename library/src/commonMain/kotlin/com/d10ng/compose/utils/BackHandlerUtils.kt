@@ -12,9 +12,6 @@ import androidx.navigationevent.compose.rememberNavigationEventState
  */
 
 @Composable
-@Deprecated(
-    message = "已废弃"
-)
 fun BackHandler(enabled: Boolean = true, onBack: () -> Unit) {
     val state = rememberNavigationEventState(NavigationEventInfo.None)
     NavigationBackHandler(state, enabled, onBackCompleted = onBack)

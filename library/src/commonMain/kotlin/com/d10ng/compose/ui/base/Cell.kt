@@ -46,8 +46,9 @@ import org.jetbrains.compose.resources.painterResource
 
 /**
  * 单元格标题
- * @param modifier Modifier
- * @param title String 标题
+ * 通常用于 [CellGroup] 上方，作为分组的描述性标题文字
+ * @param modifier Modifier 修饰符
+ * @param title String 标题文字
  */
 @Composable
 fun CellTitle(
@@ -65,12 +66,13 @@ fun CellTitle(
 
 /**
  * 单元格组
+ * 将一组 [Cell] 包裹在一起，可选择是否显示分组标题、上下边框及圆角卡片风格
  * @param modifier Modifier 修饰符
- * @param title String 标题
- * @param inset Boolean 是否为圆角卡片风格
- * @param border Boolean 是否显示边框
- * @param bgColor Color 背景色
- * @param content [@androidx.compose.runtime.Composable] [@kotlin.ExtensionFunctionType] Function1<ColumnScope, Unit>
+ * @param title String 分组标题，为空时不显示，默认为空
+ * @param inset Boolean 是否为圆角卡片风格，开启后内容区域带圆角且左右留有间距，默认 false
+ * @param border Boolean 是否显示上下边框，仅在 [inset] 为 false 时生效，默认 true
+ * @param bgColor Color 内容区域的背景色，默认为 MaterialTheme.colorScheme.surfaceContainerLowest
+ * @param content @Composable ColumnScope.() -> Unit 子内容，通常由多个 [Cell] 组成
  */
 @Composable
 fun CellGroup(
@@ -102,27 +104,36 @@ fun CellGroup(
     }
 }
 
+/**
+ * 单元格箭头方向
+ * 控制 [Cell] 右侧箭头图标的旋转方向，仅在 [Cell] 的 link 参数为 true 时显示
+ */
 enum class CellArrowDirection(val degrees: Float) {
+    // 向左
     LEFT(180f),
+    // 向右（默认）
     RIGHT(0f),
+    // 向上
     UP(-90f),
+    // 向下
     DOWN(90f)
 }
 
 /**
  * 单元格
+ * 列表中的基础行单元，支持标题、右侧内容、描述信息、图标、箭头链接及必填标记等
  * @param modifier Modifier 修饰符
- * @param title String 标题
- * @param value String 内容
- * @param label String 描述信息
- * @param icon [@androidx.compose.runtime.Composable] Function0<Unit>? 图标
- * @param border Boolean 是否显示边框
- * @param link Boolean 是否展示右侧箭头并开启点击反馈
- * @param required Boolean 是否显示必填标记
- * @param arrowDirection CellArrowDirection 箭头方向
- * @param onClick Function0<Unit>? 点击事件
- * @param afterTitle [@androidx.compose.runtime.Composable] Function0<Unit>? 标题后面的内容
- * @param afterValue [@androidx.compose.runtime.Composable] Function0<Unit>? 内容后面的内容
+ * @param title String 左侧标题文字
+ * @param value String 右侧内容文字，为空时不显示，默认为空
+ * @param label String 标题下方的描述信息，为空时不显示，默认为空
+ * @param icon @Composable (() -> Unit)? 标题左侧图标，为 null 时不显示，默认 null
+ * @param border Boolean 是否在底部显示分割线，默认 true
+ * @param link Boolean 是否显示右侧箭头并将整行作为可点击区域，需同时设置 [onClick]，默认 false
+ * @param required Boolean 是否在标题左侧显示红色必填星号 (*)，默认 false
+ * @param arrowDirection CellArrowDirection 右侧箭头的方向，仅在 [link] 为 true 时生效，默认 [CellArrowDirection.RIGHT]
+ * @param onClick (() -> Unit)? 整行点击回调，为 null 时不响应点击，默认 null
+ * @param afterTitle @Composable (() -> Unit)? 紧跟在标题文字后面插入的自定义内容，默认 null
+ * @param afterValue @Composable (() -> Unit)? 紧跟在右侧内容后、箭头前插入的自定义内容，默认 null
  */
 @Composable
 fun Cell(
@@ -203,11 +214,13 @@ fun Cell(
 
 /**
  * 单元格行
+ * 通用的带分割线行容器，可在 [CellGroup] 内使用，适合自定义行内布局
+ * 分割线叠加在内容底部，不会额外增加行高
  * @param modifier Modifier 修饰符
- * @param divider Boolean 是否显示分割线
- * @param dividerPaddingValues PaddingValues 分割线内边距
- * @param contentPaddingValues PaddingValues 内容内边距
- * @param content [@androidx.compose.runtime.Composable] [@kotlin.ExtensionFunctionType] Function1<RowScope, Unit> 内容
+ * @param divider Boolean 是否在底部显示分割线，默认 true
+ * @param dividerPaddingValues PaddingValues 分割线的水平内边距（左右缩进），默认左右各 [defaultPaddingSize]
+ * @param contentPaddingValues PaddingValues 行内容的内边距，默认无内边距
+ * @param content @Composable RowScope.() -> Unit 行内子内容
  */
 @Composable
 fun CellRow(

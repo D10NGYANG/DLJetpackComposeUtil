@@ -24,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_round_back_22
@@ -40,12 +41,17 @@ import org.jetbrains.compose.resources.painterResource
 
 /**
  * 导航栏
- * @param title String 标题
- * @param background Color 背景色
- * @param withStatusBar Boolean 是否包含系统状态栏
- * @param border Boolean 是否包含底部边框
- * @param onClickBack Function0<Unit>? 点击返回
- * @param right [@androidx.compose.runtime.Composable] Function0<Unit>? 右侧自定义
+ *
+ * 顶部导航栏组件，支持标题居中/自定义对齐、可选返回按钮、右侧自定义内容、
+ * 系统状态栏占位及底部分割线等常用配置。
+ *
+ * @param title String 导航栏标题文本
+ * @param titleAlignment Alignment 标题在导航栏内容区的对齐方式，默认为 [Alignment.Center]
+ * @param background Color 导航栏背景色，默认为 `MaterialTheme.colorScheme.surfaceContainerLowest`
+ * @param withStatusBar Boolean 是否在导航栏顶部预留系统状态栏高度，默认为 true
+ * @param border Boolean 是否在导航栏底部显示分割线，默认为 false
+ * @param onClickBack (() -> Unit)? 点击返回按钮的回调；为 null 时不显示返回按钮，默认为 null
+ * @param right (@Composable () -> Unit)? 导航栏右侧自定义内容；为 null 时不显示，默认为 null
  */
 @Composable
 fun NavBar(
@@ -117,3 +123,37 @@ fun NavBar(
         if (border) HorizontalDivider()
     }
 }
+
+@Preview
+@Composable
+fun PreviewNavBar() {
+    Column {
+        // 仅标题
+        NavBar(title = "页面标题", withStatusBar = false)
+        // 带返回按钮
+        NavBar(title = "页面标题", withStatusBar = false, onClickBack = {})
+        // 带返回按钮 + 底部边框
+        NavBar(title = "页面标题", withStatusBar = false, border = true, onClickBack = {})
+        // 带返回按钮 + 右侧自定义内容
+        NavBar(
+            title = "页面标题",
+            withStatusBar = false,
+            onClickBack = {},
+            right = {
+                Text(
+                    text = "完成",
+                    modifier = Modifier.padding(end = 16.dp),
+                    style = AppText.Normal.Primary.default
+                )
+            }
+        )
+        // 标题左对齐（有返回按钮时）
+        NavBar(
+            title = "页面标题",
+            titleAlignment = Alignment.CenterStart,
+            withStatusBar = false,
+            onClickBack = {}
+        )
+    }
+}
+

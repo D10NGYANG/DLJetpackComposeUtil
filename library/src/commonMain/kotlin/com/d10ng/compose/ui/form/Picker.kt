@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.show.HorizontalDivider
@@ -41,11 +42,13 @@ import kotlinx.coroutines.launch
 
 /**
  * 单列滚轮选择器
- * @param items Set<T> 选项
- * @param itemText Function1<T, String> 选项文本
- * @param textStyle TextStyle 文本样式
- * @param selectedItem T 选中的项
- * @param onValueChange Function1<T, Unit> 选项切换事件
+ * 以 LazyColumn 实现可滚动选项列表，固定显示 5 行，中间高亮行为当前选中项
+ * 滚动结束后自动吸附到最近选项（Snap 效果），并回调选中变更
+ * @param items Set<T> 所有可选项，要求非空（默认选中项取 first()）
+ * @param itemText (T) -> String 将选项转换为显示文字的函数，默认调用 toString()
+ * @param textStyle TextStyle 选项文字样式，默认 `AppText.Normal.Title.default`
+ * @param selectedItem T 当前选中的项，默认为第一项（items 为空时会抛出异常）
+ * @param onValueChange (T) -> Unit 选中项变更回调，滚动停止后触发，默认无操作
  */
 @Composable
 fun <T> Picker(
@@ -177,11 +180,12 @@ fun <T> Picker(
 
 /**
  * 多列滚轮选择器
- * @param items List<Set<T>> 选项
- * @param itemText Function2<Int, T, String> 选项文本，第一个参数为列索引，第二个参数为选项
- * @param textStyle TextStyle 文本样式
- * @param selectedItems List<T> 选中的项
- * @param onValueChange Function1<List<T>, Unit> 选项切换事件
+ * 将多个 [Picker] 横向等宽排列，每列独立滚动，共同构成多维度的选择结果
+ * @param items List<Set<T>> 每列的可选项列表，列表长度决定列数
+ * @param itemText (Int, T) -> String 将选项转换为显示文字的函数，第一个参数为列索引（从 0 起），第二个参数为该列的选项，默认调用 toString()
+ * @param textStyle TextStyle 所有列共用的选项文字样式，默认 `AppText.Normal.Title.default`
+ * @param selectedItems List<T> 各列当前选中项的列表，长度须与 [items] 一致，默认每列取第一项
+ * @param onValueChange (List<T>) -> Unit 任意列选中项变更后的回调，参数为所有列最新选中项组成的完整列表，默认无操作
  */
 @Composable
 fun <T> MultiPicker(
@@ -208,5 +212,33 @@ fun <T> MultiPicker(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewPicker() {
+    val items = linkedSetOf("选项一", "选项二", "选项三", "选项四", "选项五", "选项六", "选项七")
+    Box(modifier = Modifier.background(Color.White)) {
+        Picker(
+            items = items,
+            selectedItem = "选项三",
+            onValueChange = {}
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewMultiPicker() {
+    val years = (2020..2030).map { "${it}年" }.toCollection(LinkedHashSet())
+    val months = (1..12).map { "${it}月" }.toCollection(LinkedHashSet())
+    val days = (1..31).map { "${it}日" }.toCollection(LinkedHashSet())
+    Box(modifier = Modifier.background(Color.White)) {
+        MultiPicker(
+            items = listOf(years, months, days),
+            selectedItems = listOf("2024年", "4月", "22日"),
+            onValueChange = {}
+        )
     }
 }

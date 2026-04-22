@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
@@ -28,12 +29,14 @@ import com.d10ng.compose.utils.next
 
 /**
  * 单选单元格
+ * 以列表行形式展示单选项，右侧显示 RadioButton，标题居左
+ * 注意：[disabled] 仅影响 RadioButton 的视觉状态和颜色，不会拦截外层行的点击事件
  * @param modifier Modifier 修饰符
- * @param label String 标题
- * @param selected Boolean 是否选中
- * @param disabled Boolean 是否禁用
- * @param border Boolean 是否显示边框
- * @param onClick Function0<Unit>
+ * @param label String 选项标题文字
+ * @param selected Boolean 是否处于选中状态
+ * @param disabled Boolean 是否禁用，禁用时 RadioButton 颜色变浅，但行点击事件仍会触发，默认 false
+ * @param border Boolean 是否在底部显示分割线，默认 true
+ * @param onClick () -> Unit 行点击回调，默认无操作
  */
 @Composable
 fun RadioCell(
@@ -78,5 +81,22 @@ fun RadioCell(
             )
         }
         if (border) HorizontalDivider()
+    }
+}
+
+@Preview
+@Composable
+fun PreviewRadioCell() {
+    Column {
+        // 未选中
+        RadioCell(label = "选项一", selected = false, onClick = {})
+        // 选中
+        RadioCell(label = "选项二", selected = true, onClick = {})
+        // 禁用未选中
+        RadioCell(label = "禁用未选中", selected = false, disabled = true, onClick = {})
+        // 禁用选中
+        RadioCell(label = "禁用选中", selected = true, disabled = true, onClick = {})
+        // 无边框
+        RadioCell(label = "无边框", selected = false, border = false, onClick = {})
     }
 }

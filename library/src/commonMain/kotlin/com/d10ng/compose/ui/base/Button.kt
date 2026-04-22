@@ -37,54 +37,54 @@ import com.d10ng.compose.utils.next
  * @Date 2023/9/4 10:07
  */
 
+/**
+ * 按钮类型
+ * 通过不同类型控制按钮的主色调与边框颜色
+ */
 enum class ButtonType(val color: Color, val border: Color) {
-    // 默认
+    // 默认（白色背景，灰色边框）
     DEFAULT(Color.White, AppColor.Neutral.border),
-
-    // 主要
+    // 主要（品牌主色）
     PRIMARY(AppColor.Main.primary, AppColor.Main.primary),
-
-    // 成功
+    // 成功（绿色）
     SUCCESS(AppColor.Func.success, AppColor.Func.success),
-
-    // 警告
+    // 警告（橙色）
     WARNING(AppColor.Func.assist, AppColor.Func.assist),
-
-    // 危险
+    // 危险（红色）
     DANGER(AppColor.Func.error, AppColor.Func.error),
 }
 
+/**
+ * 按钮尺寸
+ * 通过不同尺寸控制按钮的字体大小、内边距及高度
+ */
 enum class ButtonSize(val textSize: TextUnit, val paddingValues: PaddingValues, val height: Dp) {
-    // 默认
+    // 普通（默认尺寸）
     NORMAL(AppText.Normal.Title.default.fontSize, ButtonDefaults.ContentPadding, 40.dp),
-
-    // 迷你
+    // 迷你（最小尺寸）
     MINI(AppText.Normal.Title.mini.fontSize, PaddingValues(6.dp, 2.dp), 28.dp),
-
     // 小
     SMALL(AppText.Normal.Title.small.fontSize, PaddingValues(12.dp, 4.dp), 36.dp),
-
-    // 小
+    // 中大
     BIG(AppText.Normal.Title.big.fontSize, PaddingValues(21.dp, 7.dp), 44.dp),
-
-    // 大
+    // 大（最大尺寸）
     LARGE(AppText.Normal.Title.large.fontSize, PaddingValues(36.dp, 12.dp), 64.dp),
 }
 
 /**
  * 按钮
  * @param text String 按钮文字
- * @param modifier Modifier 按钮样式
- * @param icon [@androidx.compose.runtime.Composable] Function0<Unit>? 按钮图标
- * @param type ButtonType 按钮类型
- * @param size ButtonSize 按钮尺寸
- * @param plain Boolean 是否朴素按钮
- * @param hairline Boolean 是否细边框
- * @param disabled Boolean 是否禁用
- * @param loading Boolean 是否加载中
- * @param shape RoundedCornerShape 按钮形状
- * @param color Color? 按钮颜色
- * @param onClick Function0<Unit> 点击事件
+ * @param modifier Modifier 修饰符
+ * @param icon @Composable (() -> Unit)? 按钮左侧图标，为 null 时不显示
+ * @param type ButtonType 按钮类型，控制主色调，默认为 [ButtonType.DEFAULT]
+ * @param size ButtonSize 按钮尺寸，默认为 [ButtonSize.NORMAL]
+ * @param plain Boolean 是否为朴素按钮（白色背景、有色边框和文字），默认 false
+ * @param hairline Boolean 是否使用细边框（0.3.dp），默认 false 使用 1.dp 边框
+ * @param disabled Boolean 是否禁用按钮，禁用时颜色变浅且不响应点击，默认 false
+ * @param loading Boolean 是否显示加载状态，加载时显示 loading 图标且不响应点击，默认 false
+ * @param shape RoundedCornerShape 按钮形状，默认为 [AppShape.RC.v4]
+ * @param color Color? 自定义按钮颜色，设置后将覆盖 [type] 中定义的颜色，默认 null
+ * @param onClick Function0<Unit> 点击事件回调
  */
 @Composable
 fun Button(

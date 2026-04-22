@@ -2,9 +2,15 @@
 
 package com.d10ng.compose.ui.form
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import com.d10ng.compose.ui.AppText
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
@@ -19,17 +25,15 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 /**
- * 日期选择器
- * @Author d10ng
- * @Date 2023/9/11 17:16
+ * 日期选择器模式
+ * 控制 [DatePicker] 显示的列组合，每种模式决定了滚轮列数及各列含义
  */
-
 enum class DatePickerMode(
     val getItems: (Set<String>, Set<String>, Set<String>) -> List<Set<String>>,
     val getSelectedItems: (String, String, String) -> List<String>,
     val getDate: (Long, List<String>) -> Long,
 ) {
-    // 年月日
+    // 年月日（三列）
     YMD(
         { y, m, d -> listOf(y, m, d) },
         { y, m, d -> listOf(y, m, d) },
@@ -41,7 +45,7 @@ enum class DatePickerMode(
         }
     ),
 
-    // 年月
+    // 年月（两列）
     YM(
         { y, m, _ -> listOf(y, m) },
         { y, m, _ -> listOf(y, m) },
@@ -53,7 +57,7 @@ enum class DatePickerMode(
         }
     ),
 
-    // 年
+    // 仅年（单列）
     Y(
         { y, _, _ -> listOf(y) },
         { y, _, _ -> listOf(y) },
@@ -65,7 +69,7 @@ enum class DatePickerMode(
         }
     ),
 
-    // 月日
+    // 月日（两列）
     MD(
         { _, m, d -> listOf(m, d) },
         { _, m, d -> listOf(m, d) },
@@ -77,7 +81,7 @@ enum class DatePickerMode(
         }
     ),
 
-    // 月
+    // 仅月（单列）
     M(
         { _, m, _ -> listOf(m) },
         { _, m, _ -> listOf(m) },
@@ -92,13 +96,15 @@ enum class DatePickerMode(
 
 /**
  * 日期选择器
- * @param value Long 选中的日期
- * @param onValueChange Function1<Long, Unit> 选中日期改变事件
- * @param start Long 开始日期
- * @param endInclude Long 结束日期，包含
- * @param textStyle TextStyle 文本样式
- * @param mode DatePickerMode 选择器模式
- * @param itemText Function2<Int, Int, String> 选项文本
+ * 基于 [MultiPicker] 实现的日期滚轮选择组件，根据 [mode] 自动计算并显示对应的年/月/日列
+ * 自动处理各列之间的联动（如月份变化时重新计算当月天数），并将选中结果限制在 [[start], [endInclude]] 范围内
+ * @param value Long 当前选中日期的时间戳（毫秒）
+ * @param onValueChange (Long) -> Unit 选中日期变更回调，参数为新选中日期的时间戳（毫秒），已裁剪至合法范围
+ * @param start Long 可选范围的开始时间戳（毫秒），默认 0（即 1970-01-01）
+ * @param endInclude Long 可选范围的结束时间戳（毫秒，包含该天），默认当前系统时间
+ * @param textStyle TextStyle 选项文字样式，默认 `AppText.Normal.Title.default`
+ * @param mode DatePickerMode 日期列组合模式，默认 [DatePickerMode.YMD]（年月日三列）
+ * @param itemText (Int, String) -> String 自定义选项文字格式化函数，第一个参数为列索引（0 起），第二个参数为原始文字（如 "04"），默认原样返回
  */
 @Composable
 fun DatePicker(
@@ -195,4 +201,50 @@ private fun LocalDateTime.copy(
         second = second.coerceIn(0, 59),
         nanosecond = nanosecond.coerceIn(0, 999999999)
     )
+}
+
+@Preview
+@Composable
+fun PreviewDatePickerYMD() {
+    // 2024-04-22 对应的毫秒时间戳
+    val value = 1713744000000L
+    val start = 946684800000L  // 2000-01-01
+    Box(modifier = Modifier.background(Color.White)) {
+        DatePicker(
+            value = value,
+            onValueChange = {},
+            start = start,
+            endInclude = 1777651200000L, // 2026-05-01
+            mode = DatePickerMode.YMD
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewDatePickerYM() {
+    val value = 1713744000000L
+    Box(modifier = Modifier.background(Color.White)) {
+        DatePicker(
+            value = value,
+            onValueChange = {},
+            start = 946684800000L,
+            endInclude = 1777651200000L,
+            mode = DatePickerMode.YM
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewDatePickerModes() {
+    val value = 1713744000000L
+    Column(modifier = Modifier.background(Color.White)) {
+        // 仅年
+        DatePicker(value = value, onValueChange = {}, mode = DatePickerMode.Y)
+        // 月日
+        DatePicker(value = value, onValueChange = {}, mode = DatePickerMode.MD)
+        // 仅月
+        DatePicker(value = value, onValueChange = {}, mode = DatePickerMode.M)
+    }
 }

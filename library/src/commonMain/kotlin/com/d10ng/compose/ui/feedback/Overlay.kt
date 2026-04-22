@@ -20,6 +20,15 @@ import com.d10ng.compose.utils.BackHandler
  * @Date 2023/9/7 11:36
  */
 
+/**
+ * 遮罩层
+ * 全屏半透明黑色遮罩，通常用于弹窗、抽屉等浮层的背景
+ * 点击遮罩区域或按下返回键均会触发 [onDismiss] 回调
+ * 自动适配状态栏和输入法高度
+ * @param onDismiss () -> Unit 点击遮罩或按下返回键时的关闭回调，默认无操作
+ * @param contentAlignment Alignment 子内容在遮罩内的对齐方式，默认居中 [Alignment.Center]
+ * @param content @Composable BoxScope.() -> Unit 遮罩上方叠加展示的内容
+ */
 @Composable
 fun Overlay(
     onDismiss: () -> Unit = {},
@@ -32,7 +41,7 @@ fun Overlay(
             .background(Color.Black.copy(alpha = 0.5f))
             .pointerInput(Unit) {
                 // 拦截外部的点击
-                detectTapGestures { onDismiss.invoke() }
+                detectTapGestures { onDismiss() }
             }
             .statusBarsPadding()
             .imePadding(),
@@ -40,6 +49,6 @@ fun Overlay(
         contentAlignment = contentAlignment
     )
     BackHandler {
-        onDismiss.invoke()
+        onDismiss()
     }
 }

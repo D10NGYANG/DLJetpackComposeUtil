@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
@@ -31,10 +32,16 @@ import kotlin.math.max
 
 /**
  * 北斗信号强度展示
- * @param beams List<Pair<Int, Int>> 信号强度列表，第一个参数为序号，第二个参数为强度值，范围0-60
- * @param color Color 信号强度颜色
- * @param title String 标题
- * @param tips String 提示文本
+ *
+ * 以竖向柱状图的形式展示多颗北斗卫星的信号强度，背景网格线标注「强/中/弱」三个参考等级。
+ * 至少展示 10 个信号柱（不足时以强度 0 补齐），每个柱子顶部显示卫星序号。
+ * 底部附带使用提示文本。
+ *
+ * @param beams List<Pair<Int, Int>> 卫星信号列表，每项为 (卫星序号, 信号强度)；
+ *   信号强度范围为 0～60，不足 10 项时自动补齐至 10 项显示
+ * @param color Color 信号柱的填充颜色，默认为 [AppColor.Main.primary]
+ * @param title String 顶部居中标题文本，默认为"北斗通讯卫星信号"
+ * @param tips String 底部使用提示文本，默认为北斗卫星使用建议说明
  */
 @Composable
 fun BDSignalBeamBox(
@@ -207,4 +214,30 @@ private fun Progress(
                 .background(color)
         )
     }
+}
+
+@Preview
+@Composable
+fun PreviewBDSignalBeamBox() {
+    BDSignalBeamBox(
+        beams = listOf(
+            1 to 45,
+            2 to 30,
+            3 to 58,
+            4 to 12,
+            5 to 0,
+            6 to 50,
+            7 to 22,
+            8 to 60,
+            9 to 38,
+            10 to 5
+        )
+    )
+}
+
+@Preview
+@Composable
+fun PreviewBDSignalBeamBoxEmpty() {
+    // 空列表，自动补齐10个信号柱（强度均为0）
+    BDSignalBeamBox(beams = emptyList())
 }

@@ -46,25 +46,48 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 /**
- * 输入框
- * @Author d10ng
- * @Date 2023/9/5 09:51
+ * 标签对齐方式
+ * LEFT / CENTER / RIGHT 为标签与输入框水平排列，TOP 为标签单独一行显示在输入框上方
  */
-
 enum class FieldLabelAlign(val align: Arrangement.Horizontal) {
-    // 左对齐
+    // 左对齐（标签与输入框同行，标签靠左）
     LEFT(Arrangement.Start),
 
-    // 居中
+    // 居中（标签与输入框同行，标签文字居中）
     CENTER(Arrangement.Center),
 
-    // 右对齐
+    // 右对齐（标签与输入框同行，标签文字靠右）
     RIGHT(Arrangement.End),
 
-    // 顶部
+    // 顶部（标签单独一行置于输入框上方）
     TOP(Arrangement.Start),
 }
 
+/**
+ * 表单输入框
+ * 包含左侧标签区和右侧输入内容区，支持只读、禁用、密码、清除、错误提示等常用场景
+ * 当 [type] 为 [KeyboardType.Password] 或 [KeyboardType.NumberPassword] 时，自动显示密码可见性切换图标
+ * @param modifier Modifier 修饰符
+ * @param value String 当前输入的文本内容
+ * @param onValueChange (String) -> Unit 文本内容变更回调
+ * @param label String 标签文字，同时作为占位文字的默认来源（「请输入{label}」）
+ * @param placeholder String 自定义占位文字，为空时使用「请输入{label}」，默认为空
+ * @param type KeyboardType 键盘类型，影响软键盘样式，为密码类型时自动启用密码掩码，默认 [KeyboardType.Text]
+ * @param readonly Boolean 是否只读，只读时不弹出键盘但可选中文本，默认 false
+ * @param disabled Boolean 是否禁用，禁用时文字变灰且不可交互，默认 false
+ * @param canClear Boolean 是否显示一键清除按钮，仅在输入框获得焦点且有内容时显示，默认 false
+ * @param required Boolean 是否在标签左侧显示红色必填星号 (*)，默认 false
+ * @param border Boolean 是否在底部显示分割线，默认 true
+ * @param autoSize Boolean 是否允许输入框随内容自动增高（多行模式），为 false 时高度固定为 [minLines]，默认 false
+ * @param error String 错误提示文字；有值且输入内容不为空时在输入框下方以红色小字显示，为空时占位文字也会以红色提示，默认为空
+ * @param labelWidth Dp 标签区域的固定宽度，默认 100.dp
+ * @param labelAlign FieldLabelAlign 标签对齐方式，默认 [FieldLabelAlign.LEFT]
+ * @param leftIconResource DrawableResource? 标签左侧图标资源，为 null 时不显示，默认 null
+ * @param leftIconTint Color 标签左侧图标的着色，默认 [AppColor.Neutral.title]
+ * @param maxLines Int 最大行数，[autoSize] 为 true 时限制最大高度，默认不限制
+ * @param minLines Int 最小行数（即默认显示高度），默认 1
+ * @param onSizeChange (IntSize, IntSize) -> Unit 组件整体尺寸变化回调，第一个参数为新尺寸，第二个为与上次的差值，默认无操作
+ */
 @Composable
 fun Field(
     modifier: Modifier = Modifier,

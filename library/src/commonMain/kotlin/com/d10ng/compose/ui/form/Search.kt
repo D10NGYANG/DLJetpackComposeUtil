@@ -3,6 +3,7 @@ package com.d10ng.compose.ui.form
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_round_cancel_24
@@ -39,25 +41,21 @@ import com.d10ng.compose.view.Input
 import org.jetbrains.compose.resources.painterResource
 
 /**
- * 搜索
- * @Author d10ng
- * @Date 2023/9/14 17:47
- */
-
-/**
- * 搜索
- * @param value String 输入内容
- * @param onValueChange Function1<String, Unit> 输入改变回调
- * @param label String 标签
- * @param placeholder String 占位文本
- * @param align TextAlign 对齐方式
- * @param disabled Boolean 是否禁用
- * @param loading Boolean 是否显示加载中
- * @param shape RoundedCornerShape 圆角
- * @param backgroundColor Color 背景色
- * @param actionText String 动作按钮文本
- * @param actionTextStyle TextStyle 动作按钮文本样式
- * @param onClickAction Function0<Unit>? 动作按钮点击回调
+ * 搜索输入框
+ * 包含左侧搜索图标（或自定义标签）、输入框、可选清除按钮及可选右侧动作按钮
+ * 获得焦点且有内容时自动显示清除按钮；[loading] 为 true 时显示进度指示器并隐藏清除按钮
+ * @param value String 当前输入的搜索关键词
+ * @param onValueChange (String) -> Unit 输入内容变更回调，默认无操作
+ * @param label String 输入框左侧的文字标签，非空时替代默认搜索图标显示，默认为空（显示搜索图标）
+ * @param placeholder String 输入框占位文字，默认「请输入搜索关键词」
+ * @param align TextAlign 输入文字的对齐方式，默认 [TextAlign.Start]
+ * @param disabled Boolean 是否禁用输入，禁用时输入框不可编辑且不显示清除按钮，默认 false
+ * @param loading Boolean 是否显示加载状态，为 true 时在输入框右侧显示进度圈并隐藏清除按钮，默认 false
+ * @param shape RoundedCornerShape 输入框背景圆角，默认 [AppShape.RC.v6]
+ * @param backgroundColor Color 输入框背景色，默认 [AppColor.Neutral.card]
+ * @param actionText String 右侧动作按钮的文字，仅在 [onClickAction] 不为 null 时显示，默认「取消」
+ * @param actionTextStyle TextStyle 右侧动作按钮文字样式，仅在 [onClickAction] 不为 null 时生效，默认 `AppText.Normal.Title.default`
+ * @param onClickAction (() -> Unit)? 右侧动作按钮点击回调，为 null 时不显示动作按钮，默认 null
  */
 @Composable
 fun Search(
@@ -161,5 +159,26 @@ fun Search(
         } else {
             Box(modifier = Modifier.width(16.dp))
         }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewSearch() {
+    Column {
+        // 基础搜索框（无内容）
+        Search(value = "", onValueChange = {})
+        // 带内容
+        Search(value = "搜索关键词", onValueChange = {})
+        // 带动作按钮
+        Search(value = "", onValueChange = {}, onClickAction = {})
+        // 带内容 + 动作按钮
+        Search(value = "搜索关键词", onValueChange = {}, onClickAction = {})
+        // 加载中
+        Search(value = "搜索关键词", onValueChange = {}, loading = true)
+        // 禁用
+        Search(value = "禁用状态", onValueChange = {}, disabled = true)
+        // 带自定义标签
+        Search(value = "", onValueChange = {}, label = "分类", onClickAction = {})
     }
 }

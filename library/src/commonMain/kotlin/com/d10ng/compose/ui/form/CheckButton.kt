@@ -4,8 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
@@ -31,15 +34,16 @@ import com.d10ng.compose.utils.next
  */
 
 /**
- * 选择按钮组
- * @param modifier Modifier 外部传入的修饰符
- * @param items Set<String> 选项列表
- * @param checked String 选中的选项
- * @param onCheckedChange Function1<String, Unit> 选中状态切换
- * @param mode CheckButtonMode 选择按钮模式
- * @param disabled Set<String> 禁用的选项
- * @param activeColor Color 选中颜色
- * @param inactiveColor Color 未选中颜色
+ * 单选选择按钮组
+ * 对多选版本的封装，每次只能选中一个选项，点击已选中项或未选中项均会更新选中值
+ * @param modifier Modifier 修饰符
+ * @param items Set<String> 所有可选项列表
+ * @param checked String 当前选中的选项值
+ * @param onCheckedChange (String) -> Unit 选中项变更回调，参数为新选中的选项值
+ * @param mode CheckButtonMode 按钮外观模式，默认 [CheckButtonMode.Clip]
+ * @param disabled Set<String> 禁用的选项集合，集合内的选项不可点击，默认为空
+ * @param activeColor Color 选中状态的颜色，默认取 [mode] 的默认选中色
+ * @param inactiveColor Color 未选中状态的颜色，默认取 [mode] 的默认未选中色
  */
 @Composable
 fun CheckButtonGroup(
@@ -70,14 +74,15 @@ fun CheckButtonGroup(
 
 /**
  * 多选选择按钮组
- * @param modifier Modifier 外部传入的修饰符
- * @param items Set<String> 选项列表
- * @param checked Set<String> 选中的选项
- * @param onCheckedChange Function1<Set<String>, Unit> 选中状态切换
- * @param mode CheckButtonMode 选择按钮模式
- * @param disabled Set<String> 禁用的选项
- * @param activeColor Color 选中颜色
- * @param inactiveColor Color 未选中颜色
+ * 使用 FlowRow 自动换行排列所有选项，支持同时选中多个
+ * @param modifier Modifier 修饰符
+ * @param items Set<String> 所有可选项列表
+ * @param checked Set<String> 当前已选中的选项集合
+ * @param onCheckedChange (Set<String>) -> Unit 选中项集合变更回调，参数为变更后的完整选中集合
+ * @param mode CheckButtonMode 按钮外观模式，默认 [CheckButtonMode.Clip]
+ * @param disabled Set<String> 禁用的选项集合，集合内的选项不可点击，默认为空
+ * @param activeColor Color 选中状态的颜色，默认取 [mode] 的默认选中色
+ * @param inactiveColor Color 未选中状态的颜色，默认取 [mode] 的默认未选中色
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -120,20 +125,28 @@ fun CheckButtonGroup(
     }
 }
 
+/**
+ * 选择按钮外观模式
+ */
 enum class CheckButtonMode(val activeColor: Color, val inactiveColor: Color) {
+    // 标签样式：选中时填充背景，未选中时显示虚线边框、背景透明
     Clip(AppColor.Main.primary, AppColor.Neutral.body),
+    // 按钮样式：选中与未选中均有背景色，通过背景深浅区分状态
     Button(AppColor.Main.primary, AppColor.Neutral.card)
 }
 
 /**
- * 选择按钮
- * @param text String 文本
- * @param checked Boolean 是否选中
- * @param onCheckedChange Function1<Boolean, Unit> 选中状态切换
- * @param mode CheckButtonMode 选择按钮模式
- * @param disabled Boolean 是否禁用
- * @param activeColor Color 选中颜色
- * @param inactiveColor Color 未选中颜色
+ * 单个选择按钮
+ * 根据 [mode] 呈现两种外观：
+ * - [CheckButtonMode.Clip]：标签样式，选中填充色，未选中虚线边框
+ * - [CheckButtonMode.Button]：按钮样式（62×42dp），选中深色背景，未选中浅色背景
+ * @param text String 按钮显示文字
+ * @param checked Boolean 当前是否处于选中状态
+ * @param onCheckedChange (Boolean) -> Unit 点击时的状态切换回调，参数为切换后的新状态
+ * @param mode CheckButtonMode 按钮外观模式，默认 [CheckButtonMode.Clip]
+ * @param disabled Boolean 是否禁用，禁用时不响应点击且颜色变浅，默认 false
+ * @param activeColor Color 选中状态的颜色（Clip 模式为背景色，Button 模式为背景色），默认取 [mode] 的默认选中色
+ * @param inactiveColor Color 未选中状态的颜色（Clip 模式为边框和文字色，Button 模式为背景色），默认取 [mode] 的默认未选中色
  */
 @Composable
 fun CheckButton(
@@ -193,3 +206,55 @@ fun CheckButton(
         }
     }
 }
+
+@Preview
+@Composable
+fun PreviewCheckButton() {
+    Column(
+        modifier = Modifier.background(Color.White).padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        // Clip 模式：未选中 / 选中 / 禁用未选 / 禁用已选
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            CheckButton(text = "标签", checked = false, onCheckedChange = {})
+            CheckButton(text = "标签", checked = true, onCheckedChange = {})
+            CheckButton(text = "禁用", checked = false, disabled = true, onCheckedChange = {})
+            CheckButton(text = "禁用", checked = true, disabled = true, onCheckedChange = {})
+        }
+        // Button 模式：未选中 / 选中 / 禁用
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            CheckButton(text = "选项", checked = false, mode = CheckButtonMode.Button, onCheckedChange = {})
+            CheckButton(text = "选项", checked = true, mode = CheckButtonMode.Button, onCheckedChange = {})
+            CheckButton(text = "禁用", checked = false, mode = CheckButtonMode.Button, disabled = true, onCheckedChange = {})
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewCheckButtonGroup() {
+    val items = linkedSetOf("选项一", "选项二", "选项三", "选项四", "选项五")
+    Column(modifier = Modifier.background(Color.White)) {
+        // 单选 - Clip 模式
+        CheckButtonGroup(
+            items = items,
+            checked = "选项一",
+            onCheckedChange = {}
+        )
+        // 单选 - Button 模式
+        CheckButtonGroup(
+            items = items,
+            checked = "选项二",
+            mode = CheckButtonMode.Button,
+            onCheckedChange = {}
+        )
+        // 多选 - Clip 模式（含禁用项）
+        CheckButtonGroup(
+            items = items,
+            checked = setOf("选项一", "选项三"),
+            disabled = setOf("选项五"),
+            onCheckedChange = {}
+        )
+    }
+}
+

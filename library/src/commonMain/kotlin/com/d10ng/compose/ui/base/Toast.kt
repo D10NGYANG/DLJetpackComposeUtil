@@ -31,29 +31,38 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 /**
- * 轻提示组件
- * @Author d10ng
- * @Date 2023/9/4 10:07
+ * 轻提示显示位置
+ * 仅对 [ToastType.Normal] 文字提示生效，图标类提示固定居中显示
  */
-
 enum class ToastPosition(val contentAlignment: Alignment) {
+    // 顶部显示
     Top(Alignment.TopCenter),
+    // 居中显示（默认）
     Center(Alignment.Center),
+    // 底部显示
     Bottom(Alignment.BottomCenter)
 }
 
+/**
+ * 轻提示类型
+ * [Normal] 为纯文字提示，[Success] 和 [Fail] 为带图标的提示，固定居中展示
+ */
 enum class ToastType(val iconResource: DrawableResource?) {
+    // 普通文字提示，无图标
     Normal(null),
+    // 成功提示，显示对勾图标
     Success(Res.drawable.ic_success_102),
+    // 失败提示，显示叉号图标
     Fail(Res.drawable.ic_false_102)
 }
 
 /**
- * 轻提示
+ * 轻提示入口函数
+ * 根据 [type] 自动选择纯文字提示（[NormalToast]）或带图标提示（[IconToast]）
  * @param text String 提示文本
- * @param position ToastPosition 显示位置
- * @param forbidClick Boolean 是否禁止点击
- * @param type ToastType 提示类型
+ * @param position ToastPosition 显示位置，仅在 [type] 为 [ToastType.Normal] 时生效，默认居中
+ * @param forbidClick Boolean 是否禁止穿透点击，仅在 [type] 非 [ToastType.Normal] 时生效，默认 false
+ * @param type ToastType 提示类型，默认 [ToastType.Normal]
  */
 @Composable
 fun Toast(
@@ -76,6 +85,12 @@ fun Toast(
     }
 }
 
+/**
+ * 纯文字轻提示
+ * 在半透明圆角背景上显示文字，可通过 [position] 控制垂直位置
+ * @param text String 提示文本
+ * @param position ToastPosition 显示位置，默认居中 [ToastPosition.Center]
+ */
 @Composable
 fun NormalToast(
     text: String,
@@ -103,6 +118,13 @@ fun NormalToast(
     }
 }
 
+/**
+ * 带图标的轻提示
+ * 在居中的 150×150dp 半透明圆角面板上展示图标和可选文字
+ * @param text String 图标下方的文字，为空时不显示，默认为空
+ * @param forbidClick Boolean 是否拦截并消费外部触摸事件（防止误操作），默认 false
+ * @param icon @Composable () -> Unit 顶部展示的图标内容
+ */
 @Composable
 fun IconToast(
     text: String,
@@ -142,6 +164,11 @@ fun IconToast(
     }
 }
 
+/**
+ * 加载中提示
+ * 在居中面板上展示圆形进度动画，默认禁止外部点击穿透，常用于网络请求等耗时操作
+ * @param text String 进度动画下方的文字说明，为空时不显示，默认为空
+ */
 @Composable
 fun LoadingToast(
     text: String = "",
