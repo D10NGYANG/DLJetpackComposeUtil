@@ -6,8 +6,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -116,7 +119,7 @@ fun PopoverColumnItems(
     dark: Boolean = false,
     onClick: (String) -> Unit
 ) {
-    Column {
+    Column(modifier = Modifier.width(IntrinsicSize.Max)) {
         value.forEachIndexed { index, text ->
             PopoverColumnItem(
                 text = text,
@@ -154,8 +157,10 @@ fun PopoverColumnItem(
     }
     Box(
         modifier = Modifier
+            .fillMaxWidth()
             .defaultMinSize(minWidth = 130.dp)
-            .clickable(onClick = onClick)
+            .clickable(onClick = onClick),
+        contentAlignment = Alignment.Center
     ) {
         Text(
             text = text,
