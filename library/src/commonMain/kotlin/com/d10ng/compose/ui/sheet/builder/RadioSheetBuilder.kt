@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.form.RadioCell
@@ -24,28 +25,39 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 /**
- * 单选面板构建器
+ * 单选面板底部弹窗构建器
+ *
+ * 从底部弹出的单选列表面板，展示一组带单选按钮的选项列表。
+ * 支持两种交互模式：
+ * - **带按钮模式**（[showButton] = true）：顶部显示标题栏（取消/确定按钮），
+ *   用户选择后需点击确定才会触发回调
+ * - **无按钮模式**（[showButton] = false）：仅显示标题，
+ *   点击选项即刻触发 [onConfirmClick] 回调并关闭弹窗
+ *
+ * 选项列表超出可视区域时支持垂直滚动。
+ *
+ * @param T 选项数据类型
+ * @param title 标题文字，默认 "请选择"
+ * @param items 选项数据集合，要求非空
+ * @param itemText 选项文本转换函数，默认调用 toString()
+ * @param selectedItem 当前选中的项，默认为第一项
+ * @param showButton 是否显示确定和取消按钮，默认 true
+ * @param cancelText 取消按钮文字，默认 "取消"
+ * @param confirmText 确定按钮文字，默认 "确定"
+ * @param onCancelClick 取消按钮点击回调，返回 true 则自动关闭弹窗
+ * @param onConfirmClick 确定按钮点击回调，参数为选中的项，返回 true 则自动关闭弹窗
  * @Author d10ng
  * @Date 2023/9/8 18:08
  */
 class RadioSheetBuilder<T>(
-    // 标题
     private val title: String = "请选择",
-    // 选项
     private val items: Set<T>,
-    // 选项文本
     private val itemText: (T) -> String = { it.toString() },
-    // 选中的项
     private val selectedItem: T = items.first(),
-    // 是否显示确定和取消按钮
     private val showButton: Boolean = true,
-    // 取消文本
     private val cancelText: String = "取消",
-    // 确定文本
     private val confirmText: String = "确定",
-    // 取消按钮点击事件，返回true则隐藏弹窗
     private val onCancelClick: suspend CoroutineScope.() -> Boolean = { true },
-    // 确定按钮点击事件，返回true则隐藏弹窗
     private val onConfirmClick: suspend CoroutineScope.(T) -> Boolean = { true },
 ): SheetBuilder() {
 
@@ -55,7 +67,6 @@ class RadioSheetBuilder<T>(
             mutableStateOf(selectedItem)
         }
         SheetColumn {
-            // 标题栏
             if (showButton) {
                 TitleBar(
                     title = title,
@@ -76,7 +87,6 @@ class RadioSheetBuilder<T>(
                     )
                 }
             }
-            // 选项
             val scope = rememberCoroutineScope()
             Column(
                 modifier = Modifier
@@ -99,4 +109,25 @@ class RadioSheetBuilder<T>(
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PreviewRadioSheet() {
+    RadioSheetBuilder(
+        title = "请选择城市",
+        items = linkedSetOf("北京", "上海", "广州", "深圳"),
+        selectedItem = "上海",
+    ).Build()
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PreviewRadioSheetNoButton() {
+    RadioSheetBuilder(
+        title = "请选择语言",
+        items = linkedSetOf("中文", "English", "日本語"),
+        selectedItem = "中文",
+        showButton = false,
+    ).Build()
 }

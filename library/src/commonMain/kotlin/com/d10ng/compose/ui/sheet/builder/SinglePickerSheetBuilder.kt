@@ -6,34 +6,41 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.form.Picker
 import com.d10ng.compose.ui.sheet.SheetColumn
 import kotlinx.coroutines.CoroutineScope
 
 /**
- * 单列滚轮选择器构建器
+ * 单列滚轮选择器底部弹窗构建器
+ *
+ * 从底部弹出的单列滚轮选择面板，包含标题栏（取消/确定按钮）和单列滚轮选择器。
+ * 适用于从一组选项中选择单个值的场景。
+ * 确认后通过 [onConfirmClick] 回调返回选中项。
+ *
+ * @param T 选项数据类型
+ * @param title 标题文字，默认 "请选择"
+ * @param items 可选项集合，要求非空
+ * @param itemText 选项文本转换函数，默认调用 toString()
+ * @param textStyle 选项文字样式，默认 `AppText.Normal.Title.default`
+ * @param selectedItem 当前选中的项，默认为第一项
+ * @param cancelText 取消按钮文字，默认 "取消"
+ * @param confirmText 确定按钮文字，默认 "确定"
+ * @param onCancelClick 取消按钮点击回调，返回 true 则自动关闭弹窗
+ * @param onConfirmClick 确定按钮点击回调，参数为选中项，返回 true 则自动关闭弹窗
  * @Author d10ng
  * @Date 2023/9/11 15:38
  */
 class SinglePickerSheetBuilder<T>(
-    // 标题
     private val title: String = "请选择",
-    // 选项
     private val items: Set<T>,
-    // 选项文本
     private val itemText: (T) -> String = { it.toString() },
-    // 文本样式
     private val textStyle: TextStyle = AppText.Normal.Title.default,
-    // 选中的项
     private val selectedItem: T = items.first(),
-    // 取消文本
     private val cancelText: String = "取消",
-    // 确定文本
     private val confirmText: String = "确定",
-    // 取消按钮点击事件，返回true则隐藏弹窗
     private val onCancelClick: suspend CoroutineScope.() -> Boolean = { true },
-    // 确定按钮点击事件，返回true则隐藏弹窗
     private val onConfirmClick: suspend CoroutineScope.(T) -> Boolean = { true },
 ): SheetBuilder() {
     @Composable
@@ -42,7 +49,6 @@ class SinglePickerSheetBuilder<T>(
             mutableStateOf(selectedItem)
         }
         SheetColumn {
-            // 标题栏
             TitleBar(
                 title = title,
                 cancelText = cancelText,
@@ -50,7 +56,6 @@ class SinglePickerSheetBuilder<T>(
                 onCancelClick = onCancelClick,
                 onConfirmClick = { onConfirmClick(selected) }
             )
-            // 选项
             Picker(
                 items = items,
                 itemText = itemText,
@@ -60,4 +65,14 @@ class SinglePickerSheetBuilder<T>(
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PreviewSinglePickerSheet() {
+    SinglePickerSheetBuilder(
+        title = "选择颜色",
+        items = linkedSetOf("红色", "橙色", "黄色", "绿色", "蓝色", "紫色"),
+        selectedItem = "绿色",
+    ).Build()
 }

@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
@@ -24,47 +25,55 @@ import kotlinx.coroutines.CoroutineScope
 
 /**
  * 输入弹窗构建器
+ * 适用于需要用户填写一个或多个文本字段的场景
+ * 每个输入项通过 [InputField] 配置，支持占位符、标签、键盘类型和自定义验证规则
  * @Author d10ng
  * @Date 2023/9/8 09:25
  */
 class InputDialogBuilder(
-    // 标题
+    /** 弹窗标题，为空时不渲染标题行，默认"提示" */
     private val title: String = "提示",
-    // 输入框列表
-    private val inputs: List<Input>,
-    // 确定按钮文字
+    /** 输入项配置列表，至少包含一项 */
+    private val inputs: List<InputField>,
+    /** 确定按钮文字，默认"确定" */
     private val confirmText: String = "确定",
-    // 取消按钮文字
+    /** 取消按钮文字，默认"取消" */
     private val cancelText: String = "取消",
-    // 确定按钮点击事件，返回true则隐藏弹窗
+    /** 确定按钮点击回调，参数为各输入框当前值列表（顺序与 [inputs] 一致），返回 true 则自动关闭弹窗 */
     private val onConfirmClick: suspend CoroutineScope.(List<String>) -> Boolean = { true },
-    // 取消按钮点击事件，返回true则隐藏弹窗
+    /** 取消按钮点击回调，返回 true 则自动关闭弹窗，默认直接关闭 */
     private val onCancelClick: suspend CoroutineScope.() -> Boolean = { true }
 ): DialogBuilder() {
 
-    data class Input(
-        // 初始值
+    /**
+     * 单个输入项配置
+     * @property initValue 初始值，默认空字符串
+     * @property placeholder 占位提示文字，默认"请输入"
+     * @property label 输入框上方标签文字
+     * @property keyboardType 键盘类型，默认文本键盘
+     * @property singleLine 是否单行输入，默认 true
+     * @property maxLines 最大行数（[singleLine] 为 false 时生效），默认 3
+     * @property minLines 最小行数，默认 1
+     * @property verify 输入验证函数，入参为当前输入值，返回 [VerifyResult]，默认不验证
+     */
+    data class InputField(
         var initValue: String = "",
-        // 输入提示语句
         var placeholder: String = "请输入",
-        // 标题
         var label: String,
-        // 键盘类型
         var keyboardType: KeyboardType = KeyboardType.Text,
-        // 单行输入
         var singleLine: Boolean = true,
-        // 最大行数
         var maxLines: Int = 3,
-        // 最小行数
         var minLines: Int = 1,
-        // 输入验证
-        var verify: (String) -> Verify = { Verify() }
+        var verify: (String) -> VerifyResult = { VerifyResult() }
     )
 
-    data class Verify(
-        // 是否通过验证
+    /**
+     * 输入验证结果
+     * @property pass 是否通过验证，默认 true
+     * @property errorText 验证失败时的错误提示文字，默认空字符串
+     */
+    data class VerifyResult(
         var pass: Boolean = true,
-        // 错误提示语句
         var errorText: String = ""
     )
 
@@ -72,16 +81,12 @@ class InputDialogBuilder(
     override fun Build(id: String) {
         val inputValues = remember(this) {
             mutableStateListOf<String>().apply {
-                inputs.forEach { item ->
-                    this.add(item.initValue)
-                }
+                inputs.forEach { item -> add(item.initValue) }
             }
         }
         val errorTexts = remember(this) {
             mutableStateListOf<String>().apply {
-                inputs.forEach { _ ->
-                    this.add("")
-                }
+                inputs.forEach { _ -> add("") }
             }
         }
         DialogColumn {
@@ -89,11 +94,11 @@ class InputDialogBuilder(
             if (title.isNotEmpty()) {
                 TipsDialogBuilder.TitleText(text = title)
             }
-            // 内容
+            // 输入项列表
             inputs.forEachIndexed { index, input ->
-                InputView(
+                InputFieldView(
                     value = inputValues[index],
-                    onValueChange = {inputValues[index] = it },
+                    onValueChange = { inputValues[index] = it },
                     conf = input,
                     error = errorTexts[index]
                 )
@@ -113,7 +118,7 @@ class InputDialogBuilder(
                     results.forEachIndexed { index, verify ->
                         errorTexts[index] = verify.errorText
                     }
-                    if (results.find { it.pass.not() } == null) {
+                    if (results.none { !it.pass }) {
                         onConfirmClick(inputValues)
                     } else false
                 }
@@ -122,11 +127,19 @@ class InputDialogBuilder(
     }
 
     companion object {
+        /**
+         * 单个输入项视图
+         * 渲染标签、带边框的输入框和错误提示文字
+         * @param value String 当前输入值
+         * @param onValueChange (String) -> Unit 输入值变化回调
+         * @param conf InputField 输入项配置
+         * @param error String 错误提示文字，为空时边框显示正常颜色
+         */
         @Composable
-        fun InputView(
+        fun InputFieldView(
             value: String,
             onValueChange: (String) -> Unit,
-            conf: Input,
+            conf: InputField,
             error: String
         ) {
             Column(
@@ -148,8 +161,7 @@ class InputDialogBuilder(
                         .padding(horizontal = 12.dp, vertical = 6.dp)
                 ) {
                     Input(
-                        modifier = Modifier
-                            .fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth(),
                         value = value,
                         onValueChange = onValueChange,
                         textStyle = AppText.Normal.Body.default,
@@ -166,4 +178,49 @@ class InputDialogBuilder(
             }
         }
     }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF888888)
+@Composable
+private fun PreviewInputDialogSingle() {
+    InputDialogBuilder(
+        title = "请输入姓名",
+        inputs = listOf(
+            InputDialogBuilder.InputField(label = "姓名", placeholder = "请输入您的姓名")
+        )
+    ).Build("preview")
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF888888)
+@Composable
+private fun PreviewInputDialogMultiple() {
+    InputDialogBuilder(
+        title = "账号信息",
+        inputs = listOf(
+            InputDialogBuilder.InputField(label = "用户名", placeholder = "请输入用户名"),
+            InputDialogBuilder.InputField(
+                label = "手机号",
+                placeholder = "请输入手机号",
+                keyboardType = KeyboardType.Phone
+            )
+        )
+    ).Build("preview")
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF888888)
+@Composable
+private fun PreviewInputDialogWithError() {
+    // 模拟验证失败状态的预览
+    val builder = InputDialogBuilder(
+        title = "设置密码",
+        inputs = listOf(
+            InputDialogBuilder.InputField(
+                label = "密码",
+                placeholder = "请输入密码",
+                keyboardType = KeyboardType.Password,
+                verify = { if (it.length < 6) InputDialogBuilder.VerifyResult(false, "密码长度不能少于6位") else InputDialogBuilder.VerifyResult() }
+            )
+        )
+    )
+    builder.Build("preview")
 }

@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.form.DatePicker
 import com.d10ng.compose.ui.form.DatePickerMode
@@ -16,32 +17,37 @@ import kotlinx.coroutines.CoroutineScope
 import kotlin.time.ExperimentalTime
 
 /**
- * 日期选择器构建器
+ * 日期选择器底部弹窗构建器
+ *
+ * 从底部弹出的日期选择面板，包含标题栏（取消/确定按钮）和日期滚轮选择器。
+ * 支持年月日多种选择模式，可配置日期范围。
+ * 确认后通过 [onConfirmClick] 回调返回选中的日期时间戳（毫秒）。
+ *
+ * @param title 标题文字，默认 "请选择"
+ * @param value 当前选中的日期时间戳（毫秒），必填
+ * @param start 可选日期范围的起始时间戳（毫秒），默认 0
+ * @param endInclude 可选日期范围的结束时间戳（毫秒，包含），默认当前系统时间
+ * @param textStyle 选项文字样式，默认 `AppText.Normal.Title.default`
+ * @param mode 选择器模式，默认 [DatePickerMode.YMD]
+ * @param itemText 选项文字自定义函数，第一个参数为列索引，第二个为默认文字
+ * @param cancelText 取消按钮文字，默认 "取消"
+ * @param confirmText 确定按钮文字，默认 "确定"
+ * @param onCancelClick 取消按钮点击回调，返回 true 则自动关闭弹窗
+ * @param onConfirmClick 确定按钮点击回调，参数为选中的日期时间戳（毫秒），返回 true 则自动关闭弹窗
  * @Author d10ng
  * @Date 2023/9/11 17:44
  */
 class DatePickerSheetBuilder(
-    // 标题
     private val title: String = "请选择",
-    // 选中的日期
     private val value: Long,
-    // 开始日期
     private val start: Long = 0,
-    // 结束日期，包含
     private val endInclude: Long = kotlin.time.Clock.System.now().toEpochMilliseconds(),
-    // 文本样式
     private val textStyle: TextStyle = AppText.Normal.Title.default,
-    // 选择器模式
     private val mode: DatePickerMode = DatePickerMode.YMD,
-    // 选项文本
     private val itemText: (Int, String) -> String = { _, item -> item },
-    // 取消文本
     private val cancelText: String = "取消",
-    // 确定文本
     private val confirmText: String = "确定",
-    // 取消按钮点击事件，返回true则隐藏弹窗
     private val onCancelClick: suspend CoroutineScope.() -> Boolean = { true },
-    // 确定按钮点击事件，返回true则隐藏弹窗
     private val onConfirmClick: suspend CoroutineScope.(Long) -> Boolean = { true },
 ): SheetBuilder() {
     @Composable
@@ -50,7 +56,6 @@ class DatePickerSheetBuilder(
             mutableLongStateOf(value)
         }
         SheetColumn {
-            // 标题栏
             TitleBar(
                 title = title,
                 cancelText = cancelText,
@@ -58,7 +63,6 @@ class DatePickerSheetBuilder(
                 onCancelClick = onCancelClick,
                 onConfirmClick = { onConfirmClick(selected) }
             )
-            // 选项
             DatePicker(
                 value = selected,
                 onValueChange = { selected = it },
@@ -70,4 +74,13 @@ class DatePickerSheetBuilder(
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PreviewDatePickerSheet() {
+    DatePickerSheetBuilder(
+        title = "选择日期",
+        value = 1713772800000L,
+    ).Build()
 }

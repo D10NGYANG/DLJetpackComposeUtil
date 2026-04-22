@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.form.TimePicker
 import com.d10ng.compose.ui.form.TimePickerMode
@@ -22,40 +23,51 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 /**
- * 时间选择器构建器
+ * 时间选择器底部弹窗构建器
+ *
+ * 从底部弹出的时间选择面板，包含标题栏（取消/确定按钮）和时间滚轮选择器。
+ * 支持时分秒多种选择模式，可配置时间范围。
+ * 时间值以一天内的秒数表示（0~86399）。
+ * 确认后通过 [onConfirmClick] 回调返回选中的秒数值和各分量列表。
+ *
+ * 可在展示前通过 [setCurrentTime] 方法将选中时间设置为指定时间戳对应的时分秒。
+ *
+ * @param title 标题文字，默认 "请选择"
+ * @param value 当前选中的时间，以一天内的秒数表示（0~86399），默认 0（即 00:00:00）
+ * @param start 可选时间范围的起始秒数，默认 0
+ * @param endInclude 可选时间范围的结束秒数（包含），默认 86399（即 23:59:59）
+ * @param textStyle 选项文字样式，默认 `AppText.Normal.Title.default`
+ * @param mode 选择器模式（时分秒组合），默认 [TimePickerMode.HMS]
+ * @param itemText 选项文字自定义函数，第一个参数为列索引，第二个为默认文字
+ * @param cancelText 取消按钮文字，默认 "取消"
+ * @param confirmText 确定按钮文字，默认 "确定"
+ * @param onCancelClick 取消按钮点击回调，返回 true 则自动关闭弹窗
+ * @param onConfirmClick 确定按钮点击回调，第一个参数为选中的秒数值，第二个参数为时/分/秒分量列表，返回 true 则自动关闭弹窗
  * @Author d10ng
  * @Date 2023/9/12 11:23
  */
 @ExperimentalTime
 class TimePickerSheetBuilder(
-    // 标题
     private val title: String = "请选择",
-    // 选中的时间
     private var value: Int = 0,
-    // 开始时间
     private val start: Int = 0,
-    // 结束时间，包含
     private val endInclude: Int = 86399,
-    // 文本样式
     private val textStyle: TextStyle = AppText.Normal.Title.default,
-    // 选择器模式
     private val mode: TimePickerMode = TimePickerMode.HMS,
-    // 选项文本
     private val itemText: (Int, String) -> String = { _, item -> item },
-    // 取消文本
     private val cancelText: String = "取消",
-    // 确定文本
     private val confirmText: String = "确定",
-    // 取消按钮点击事件，返回true则隐藏弹窗
     private val onCancelClick: suspend CoroutineScope.() -> Boolean = { true },
-    // 确定按钮点击事件，返回true则隐藏弹窗
     private val onConfirmClick: suspend CoroutineScope.(Int, List<Int>) -> Boolean = { _, _ -> true },
 ) : SheetBuilder() {
 
     /**
      * 设置选择当前时间
-     * > 仅在未设置value，并且触发弹窗展示前有效
-     * @param timestamp Long 时间戳，默认当前时间，单位毫秒
+     *
+     * 将 [value] 设置为指定时间戳对应的时分秒（转换为一天内的秒数）。
+     * 仅在弹窗展示前调用有效，弹窗展示后修改不会触发 UI 更新。
+     *
+     * @param timestamp 时间戳，默认当前时间，单位毫秒
      */
     fun setCurrentTime(timestamp: Long = Clock.System.now().toEpochMilliseconds()) {
         val datetime = Instant.fromEpochMilliseconds(timestamp)
@@ -72,7 +84,6 @@ class TimePickerSheetBuilder(
             mutableStateOf(listOf(value.hour(), value.minute(), value.second()))
         }
         SheetColumn {
-            // 标题栏
             TitleBar(
                 title = title,
                 cancelText = cancelText,
@@ -80,7 +91,6 @@ class TimePickerSheetBuilder(
                 onCancelClick = onCancelClick,
                 onConfirmClick = { onConfirmClick(selected, selectedList) }
             )
-            // 选项
             TimePicker(
                 value = selected,
                 onValueChange = { s, l ->
@@ -95,4 +105,14 @@ class TimePickerSheetBuilder(
             )
         }
     }
+}
+
+@OptIn(ExperimentalTime::class)
+@Preview(showBackground = true)
+@Composable
+private fun PreviewTimePickerSheet() {
+    TimePickerSheetBuilder(
+        title = "选择时间",
+        value = 36000, // 10:00:00
+    ).Build()
 }
