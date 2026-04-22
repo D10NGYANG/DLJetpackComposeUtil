@@ -49,19 +49,31 @@ interface IUiViewModel {
     fun hideLoading()
 
     /**
-     * 显示提示
+     * 显示提示（自动隐藏）
      * @param type NotifyType
      * @param text String
-     * @param duration Long
+     * @param duration Long 显示时长, 默认1500毫秒
      */
     fun showNotify(type: NotifyType, text: String, duration: Long = 1500)
 
     /**
-     * 显示错误提示
+     * 显示错误提示（自动隐藏）
      * @param text String
      * @param duration Long
      */
     fun showErrorNotify(text: String, duration: Long = 1500)
+
+    /**
+     * 持续展示提示，不会自动隐藏，需手动调用 [hideNotify]
+     * @param type NotifyType
+     * @param text String
+     */
+    fun showPersistentNotify(type: NotifyType, text: String)
+
+    /**
+     * 隐藏提示
+     */
+    fun hideNotify()
 
     /**
      * 显示底部弹窗

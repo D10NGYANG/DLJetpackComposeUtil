@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.d10ng.compose.ui.base.ToastPosition
@@ -25,10 +24,8 @@ object UiViewModelManager : IUiViewModel {
 
     @Composable
     fun Init(uiViewModel: UiViewModel = viewModel { UiViewModel() }) {
-        LaunchedEffect(uiViewModel) {
-            models.add(uiViewModel)
-        }
         DisposableEffect(uiViewModel) {
+            models.add(uiViewModel)
             onDispose {
                 models.remove(uiViewModel)
             }
@@ -66,6 +63,14 @@ object UiViewModelManager : IUiViewModel {
 
     override fun showErrorNotify(text: String, duration: Long) {
         models.forEach { it.showErrorNotify(text, duration) }
+    }
+
+    override fun showPersistentNotify(type: NotifyType, text: String) {
+        models.forEach { it.showPersistentNotify(type, text) }
+    }
+
+    override fun hideNotify() {
+        models.forEach { it.hideNotify() }
     }
 
     override fun showSheet(builder: SheetBuilder) {
