@@ -35,12 +35,6 @@ import org.jetbrains.compose.resources.painterResource
 
 /**
  * 导航栏
- * @Author d10ng
- * @Date 2023/9/4 14:24
- */
-
-/**
- * 导航栏
  *
  * 顶部导航栏组件，支持标题居中/自定义对齐、可选返回按钮、右侧自定义内容、
  * 系统状态栏占位及底部分割线等常用配置。
