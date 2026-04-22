@@ -16,7 +16,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
@@ -36,7 +35,7 @@ import kotlinx.coroutines.launch
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PullRefreshScreen() {
+fun PullRefreshScreen(onBack: () -> Unit = {}) {
     var isRefreshing by remember {
         mutableStateOf(false)
     }
@@ -53,7 +52,7 @@ fun PullRefreshScreen() {
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "PullRefreshScreen", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "PullRefreshScreen", onClickBack = { onBack() })
         Box(modifier = Modifier.fillMaxSize()) {
             LazyColumn(
                 modifier = Modifier.pullRefresh(state),

@@ -12,7 +12,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.form.CheckButtonGroup
@@ -25,13 +24,13 @@ import com.d10ng.compose.ui.navigation.NavBar
  * @Date 2023/9/6 16:55
  */
 @Composable
-fun CheckButtonScreen() {
+fun CheckButtonScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "CheckButton", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "CheckButton", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

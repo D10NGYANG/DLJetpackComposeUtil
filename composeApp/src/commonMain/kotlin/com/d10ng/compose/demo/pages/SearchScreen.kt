@@ -15,7 +15,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
@@ -34,13 +33,13 @@ import kotlinx.coroutines.launch
  * @Date 2023/9/14 18:33
  */
 @Composable
-fun SearchScreen() {
+fun SearchScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Search", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Search", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

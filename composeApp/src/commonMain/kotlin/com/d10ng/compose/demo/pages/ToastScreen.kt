@@ -7,7 +7,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
@@ -25,13 +24,13 @@ import kotlinx.coroutines.launch
  * @Date 2023/9/4 15:14
  */
 @Composable
-fun ToastScreen() {
+fun ToastScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Toast", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Toast", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

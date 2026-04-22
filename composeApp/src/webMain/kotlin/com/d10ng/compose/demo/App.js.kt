@@ -4,9 +4,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.platform.Font
-import dljetpackcomposeutil_project.composeapp.generated.resources.Res
+import com.d10ng.compose.demo.resources.Res
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-
 
 @OptIn(ExperimentalResourceApi::class)
 actual suspend fun loadCustomFontFamily(): FontFamily? {

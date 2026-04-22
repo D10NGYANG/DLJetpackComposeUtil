@@ -13,7 +13,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
@@ -42,13 +41,13 @@ import kotlin.time.Instant
  */
 @ExperimentalTime
 @Composable
-fun SheetScreen() {
+fun SheetScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Sheet", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Sheet", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

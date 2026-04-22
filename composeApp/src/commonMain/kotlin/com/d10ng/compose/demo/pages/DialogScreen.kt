@@ -14,7 +14,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.demo.Nav
+import com.d10ng.compose.demo.resources.Res
+import com.d10ng.compose.demo.resources.apple
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
@@ -25,8 +26,6 @@ import com.d10ng.compose.ui.dialog.builder.ProgressDialogBuilder
 import com.d10ng.compose.ui.dialog.builder.ResultDialogBuilder
 import com.d10ng.compose.ui.dialog.builder.TipsDialogBuilder
 import com.d10ng.compose.ui.navigation.NavBar
-import dljetpackcomposeutil_project.composeapp.generated.resources.Res
-import dljetpackcomposeutil_project.composeapp.generated.resources.apple
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -39,13 +38,13 @@ import org.jetbrains.compose.resources.painterResource
  * @Date 2023/9/7 13:35
  */
 @Composable
-fun DialogScreen() {
+fun DialogScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Dialog", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Dialog", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -180,13 +179,13 @@ fun DialogScreen() {
                     UiViewModelManager.showDialog(InputDialogBuilder(
                         title = "手机号",
                         inputs = listOf(
-                            InputDialogBuilder.Input(
+                            InputDialogBuilder.InputField(
                                 initValue = "",
                                 label = "请输入国内手机号",
                                 keyboardType = KeyboardType.Phone,
                                 verify = { value ->
                                     val pass = value.isMobileNumber()
-                                    InputDialogBuilder.Verify(
+                                    InputDialogBuilder.VerifyResult(
                                         pass = pass,
                                         errorText = if (pass) "" else "手机号格式不正确"
                                     )
@@ -203,27 +202,27 @@ fun DialogScreen() {
                     UiViewModelManager.showDialog(InputDialogBuilder(
                         title = "经纬度",
                         inputs = listOf(
-                            InputDialogBuilder.Input(
+                            InputDialogBuilder.InputField(
                                 initValue = "",
                                 label = "请输入目标纬度，-90至90，eg:22.3",
                                 keyboardType = KeyboardType.Number,
                                 verify = { value ->
                                     val temp = value.toDoubleOrNull()
                                     val pass = temp != null && temp in -90.0..90.0
-                                    InputDialogBuilder.Verify(
+                                    InputDialogBuilder.VerifyResult(
                                         pass = pass,
                                         errorText = if (pass) "" else "纬度格式不正确"
                                     )
                                 }
                             ),
-                            InputDialogBuilder.Input(
+                            InputDialogBuilder.InputField(
                                 initValue = "",
                                 label = "请输入目标经度，-180至180，eg:113.5",
                                 keyboardType = KeyboardType.Number,
                                 verify = { value ->
                                     val temp = value.toDoubleOrNull()
                                     val pass = temp != null && temp in -180.0..180.0
-                                    InputDialogBuilder.Verify(
+                                    InputDialogBuilder.VerifyResult(
                                         pass = pass,
                                         errorText = if (pass) "" else "经度格式不正确"
                                     )
@@ -240,7 +239,7 @@ fun DialogScreen() {
                     UiViewModelManager.showDialog(InputDialogBuilder(
                         title = "留言",
                         inputs = listOf(
-                            InputDialogBuilder.Input(
+                            InputDialogBuilder.InputField(
                                 initValue = "",
                                 label = "请输入您的留言",
                                 singleLine = false

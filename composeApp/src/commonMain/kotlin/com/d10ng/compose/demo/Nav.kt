@@ -1,89 +1,76 @@
 package com.d10ng.compose.demo
 
-import androidx.navigation.NavHostController
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
-object Nav {
+@Serializable
+data object HomeRoute : NavKey
 
-    @Serializable
-    object HomeRoute
+@Serializable
+data object ColorRoute : NavKey
 
-    @Serializable
-    object ColorRoute
+@Serializable
+data object TypographyRoute : NavKey
 
-    @Serializable
-    object TypographyRoute
+@Serializable
+data object ShapeRoute : NavKey
 
-    @Serializable
-    object ShapeRoute
+@Serializable
+data object ButtonRoute : NavKey
 
-    @Serializable
-    object ButtonRoute
+@Serializable
+data object CellRoute : NavKey
 
-    @Serializable
-    object CellRoute
+@Serializable
+data object ToastRoute : NavKey
 
-    @Serializable
-    object ToastRoute
+@Serializable
+data object CheckboxRoute : NavKey
 
-    @Serializable
-    object CheckboxRoute
+@Serializable
+data object FieldRoute : NavKey
 
-    @Serializable
-    object FieldRoute
+@Serializable
+data object SwitchRoute : NavKey
 
-    @Serializable
-    object SwitchRoute
+@Serializable
+data object CheckButtonRoute : NavKey
 
-    @Serializable
-    object CheckButtonRoute
+@Serializable
+data object StepperRoute : NavKey
 
-    @Serializable
-    object StepperRoute
+@Serializable
+data object SearchRoute : NavKey
 
-    @Serializable
-    object SearchRoute
+@Serializable
+data object DialogRoute : NavKey
 
-    @Serializable
-    object DialogRoute
+@Serializable
+data object SheetRoute : NavKey
 
-    @Serializable
-    object SheetRoute
+@Serializable
+data object NotifyRoute : NavKey
 
-    @Serializable
-    object NotifyRoute
+@Serializable
+data object PullRefreshRoute : NavKey
 
-    @Serializable
-    object PullRefreshRoute
+@Serializable
+data object TagRoute : NavKey
 
-    @Serializable
-    object TagRoute
+@Serializable
+data object BadgeRoute : NavKey
 
-    @Serializable
-    object BadgeRoute
+@Serializable
+data object AvatarRoute : NavKey
 
-    @Serializable
-    object AvatarRoute
+@Serializable
+data object StepsRoute : NavKey
 
-    @Serializable
-    object StepsRoute
+@Serializable
+data object PopoverRoute : NavKey
 
-    @Serializable
-    object PopoverRoute
+@Serializable
+data object NavBarRoute : NavKey
 
-    @Serializable
-    object NavBarRoute
-
-    private var controller: NavHostController? = null
-
-    fun init(navigator: NavHostController) {
-        controller = navigator
-    }
-
-    fun instant(): NavHostController {
-        while (controller == null) {
-            // 等待初始化完成
-        }
-        return controller!!
-    }
-}
+@Serializable
+data object IndexBarRoute : NavKey

@@ -14,7 +14,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
@@ -29,13 +28,13 @@ import com.d10ng.compose.ui.navigation.NavBar
  * @Date 2023/11/16 03:14
  */
 @Composable
-fun CheckboxScreen() {
+fun CheckboxScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Checkbox", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Checkbox", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

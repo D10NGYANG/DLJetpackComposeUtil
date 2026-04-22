@@ -15,7 +15,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.base.CellGroup
@@ -30,13 +29,13 @@ import com.d10ng.compose.ui.show.BadgeBox
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun BadgeScreen() {
+fun BadgeScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Badge", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Badge", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

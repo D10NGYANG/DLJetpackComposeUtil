@@ -9,7 +9,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
@@ -24,14 +23,14 @@ import com.d10ng.compose.ui.show.TagType
  * @Date 2023/9/7 10:52
  */
 @Composable
-fun TagScreen() {
+fun TagScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
             .navigationBarsPadding()
     ) {
-        NavBar(title = "Tag", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Tag", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

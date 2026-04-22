@@ -18,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Button
@@ -36,13 +35,13 @@ import com.d10ng.compose.ui.show.PopoverColumnItems
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun PopoverScreen() {
+fun PopoverScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Popover", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Popover", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

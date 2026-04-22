@@ -11,7 +11,6 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
@@ -25,13 +24,13 @@ import com.d10ng.compose.ui.navigation.NavBar
  * @Date 2023/9/6 17:47
  */
 @Composable
-fun StepperScreen() {
+fun StepperScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Stepper", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Stepper", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

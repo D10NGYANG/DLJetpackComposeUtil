@@ -19,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.CellTitle
 import com.d10ng.compose.ui.navigation.NavBar
@@ -32,13 +31,13 @@ import com.d10ng.compose.utils.isDark
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ColorScreen() {
+fun ColorScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        NavBar(title = "Color", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Color", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

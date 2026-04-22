@@ -21,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.base.Button
@@ -37,14 +36,14 @@ import com.d10ng.compose.ui.navigation.NavBar
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ButtonScreen() {
+fun ButtonScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
             .navigationBarsPadding()
     ) {
-        NavBar(title = "Button", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Button", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.navigation.NavBar
 
@@ -31,13 +30,13 @@ import com.d10ng.compose.ui.navigation.NavBar
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ShapeScreen() {
+fun ShapeScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Shape", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Shape", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

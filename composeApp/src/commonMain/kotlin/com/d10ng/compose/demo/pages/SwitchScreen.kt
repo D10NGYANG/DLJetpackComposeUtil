@@ -14,15 +14,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.demo.Nav
+import com.d10ng.compose.demo.resources.Res
+import com.d10ng.compose.demo.resources.round_add_circle_outline_24
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.base.CellTitle
 import com.d10ng.compose.ui.form.Switch
 import com.d10ng.compose.ui.navigation.NavBar
-import dljetpackcomposeutil_project.composeapp.generated.resources.Res
-import dljetpackcomposeutil_project.composeapp.generated.resources.round_add_circle_outline_24
 
 /**
  * Switch 开关
@@ -30,13 +29,13 @@ import dljetpackcomposeutil_project.composeapp.generated.resources.round_add_cir
  * @Date 2023/9/6 14:29
  */
 @Composable
-fun SwitchScreen() {
+fun SwitchScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Switch", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Switch", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

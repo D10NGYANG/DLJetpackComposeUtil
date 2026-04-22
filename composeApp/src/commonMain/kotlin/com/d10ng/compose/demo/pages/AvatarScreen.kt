@@ -19,7 +19,10 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.d10ng.compose.demo.Nav
+import com.d10ng.compose.demo.resources.Res
+import com.d10ng.compose.demo.resources.ic_avatar_40
+import com.d10ng.compose.demo.resources.ic_command_center_avatar_40
+import com.d10ng.compose.demo.resources.ic_group_avatar_40
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.base.CellGroup
@@ -27,10 +30,6 @@ import com.d10ng.compose.ui.navigation.NavBar
 import com.d10ng.compose.ui.show.Avatar
 import com.d10ng.compose.ui.show.Badge
 import com.d10ng.compose.ui.show.BadgeBox
-import dljetpackcomposeutil_project.composeapp.generated.resources.Res
-import dljetpackcomposeutil_project.composeapp.generated.resources.ic_avatar_40
-import dljetpackcomposeutil_project.composeapp.generated.resources.ic_command_center_avatar_40
-import dljetpackcomposeutil_project.composeapp.generated.resources.ic_group_avatar_40
 import org.jetbrains.compose.resources.painterResource
 
 /**
@@ -40,13 +39,13 @@ import org.jetbrains.compose.resources.painterResource
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun AvatarScreen() {
+fun AvatarScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Avatar", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Avatar", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

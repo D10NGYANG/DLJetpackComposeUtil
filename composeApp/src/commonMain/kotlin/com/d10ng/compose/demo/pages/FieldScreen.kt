@@ -14,14 +14,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import com.d10ng.compose.demo.Nav
+import com.d10ng.compose.demo.resources.Res
+import com.d10ng.compose.demo.resources.round_mood_24
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.form.Field
 import com.d10ng.compose.ui.form.FieldLabelAlign
 import com.d10ng.compose.ui.navigation.NavBar
-import dljetpackcomposeutil_project.composeapp.generated.resources.Res
-import dljetpackcomposeutil_project.composeapp.generated.resources.round_mood_24
 import kotlinx.coroutines.launch
 
 /**
@@ -30,13 +29,13 @@ import kotlinx.coroutines.launch
  * @Date 2023/9/5 11:15
  */
 @Composable
-fun FieldScreen() {
+fun FieldScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Field", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Field", onClickBack = { onBack() })
 
         val scrollState = rememberScrollState()
         val scope = rememberCoroutineScope()

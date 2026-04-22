@@ -15,7 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.demo.Nav
+import com.d10ng.compose.demo.resources.Res
+import com.d10ng.compose.demo.resources.round_add_circle_outline_24
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.base.Button
@@ -23,8 +24,6 @@ import com.d10ng.compose.ui.base.ButtonSize
 import com.d10ng.compose.ui.base.ButtonType
 import com.d10ng.compose.ui.base.CellGroup
 import com.d10ng.compose.ui.navigation.NavBar
-import dljetpackcomposeutil_project.composeapp.generated.resources.Res
-import dljetpackcomposeutil_project.composeapp.generated.resources.round_add_circle_outline_24
 import org.jetbrains.compose.resources.painterResource
 
 /**
@@ -33,13 +32,13 @@ import org.jetbrains.compose.resources.painterResource
  * @Date 2023/9/6 13:53
  */
 @Composable
-fun NavBarScreen() {
+fun NavBarScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "NavBar", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "NavBar", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

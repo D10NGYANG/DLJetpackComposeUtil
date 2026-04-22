@@ -16,7 +16,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.d10ng.app.managers.PhotoManager
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Button
 import com.d10ng.compose.ui.base.ButtonType
@@ -32,7 +31,7 @@ import kotlinx.coroutines.launch
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ImagePreviewScreen() {
+fun ImagePreviewScreen(onBack: () -> Unit = {}) {
     // 图片路径
     var imagePath by remember {
         mutableStateOf("")
@@ -43,7 +42,7 @@ fun ImagePreviewScreen() {
             .background(AppColor.Neutral.bg)
             .navigationBarsPadding()
     ) {
-        NavBar(title = "ImagePreview", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "ImagePreview", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

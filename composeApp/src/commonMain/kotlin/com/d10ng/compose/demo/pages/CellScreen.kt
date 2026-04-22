@@ -13,7 +13,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
@@ -27,13 +26,13 @@ import com.d10ng.compose.ui.navigation.NavBar
  * @Date 2023/9/4 14:48
  */
 @Composable
-fun CellScreen() {
+fun CellScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Cell", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Cell", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

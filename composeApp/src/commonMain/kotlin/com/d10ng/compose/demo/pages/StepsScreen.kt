@@ -16,7 +16,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Button
 import com.d10ng.compose.ui.base.CellGroup
@@ -30,13 +29,13 @@ import com.d10ng.compose.ui.show.Steps
  */
 
 @Composable
-fun StepsScreen() {
+fun StepsScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Steps", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Steps", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

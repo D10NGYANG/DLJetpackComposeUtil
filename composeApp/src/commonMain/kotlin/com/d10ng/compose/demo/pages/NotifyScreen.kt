@@ -7,7 +7,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.d10ng.compose.demo.Nav
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
@@ -21,13 +20,13 @@ import com.d10ng.compose.ui.navigation.NavBar
  * @Date 2023/9/12 18:26
  */
 @Composable
-fun NotifyScreen() {
+fun NotifyScreen(onBack: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "Notify", onClickBack = { Nav.instant().popBackStack() })
+        NavBar(title = "Notify", onClickBack = { onBack() })
         Column(
             modifier = Modifier
                 .fillMaxSize()

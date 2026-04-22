@@ -11,14 +11,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.demo.stores.AreaStore
 import com.d10ng.compose.ui.AppColor
@@ -34,40 +38,53 @@ import kotlinx.coroutines.launch
  * @Date 2023/9/18 10:50
  */
 @Composable
-private fun IndexBarScreen(
-    onClickBack: () -> Unit = {},
+fun IndexBarScreen(
+    onBack: () -> Unit = {},
 ) {
-    val data = remember {
-        AreaStore.list
+    var loading by remember { mutableStateOf(!AreaStore.loaded) }
+    LaunchedEffect(Unit) {
+        AreaStore.load()
+        loading = false
     }
-    val listState = rememberLazyListState()
-    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.Neutral.bg)
     ) {
-        NavBar(title = "IndexBar", onClickBack = onClickBack)
-        IndexBar(
-            modifier = Modifier.fillMaxSize(),
-            onSelect = { value ->
-                val index = data.indexOfFirst { it.py[0].uppercase().contains(value, true) }
-                if (index >= 0) {
-                    scope.launch { listState.scrollToItem(index) }
-                }
-            }
-        ) {
-            LazyColumn(
+        NavBar(title = "IndexBar", onClickBack = onBack)
+        if (loading) {
+            Box(
                 modifier = Modifier.fillMaxSize(),
-                state = listState
+                contentAlignment = Alignment.Center
             ) {
-                itemsIndexed(data, { i, _ -> i }) { index, item ->
-                    val isShowTag = if (index == 0) true else {
-                        val last = data[index - 1]
-                        last.py[0].uppercase() != item.py[0].uppercase()
+                CircularProgressIndicator()
+            }
+        } else {
+            val data = remember { AreaStore.list }
+            val listState = rememberLazyListState()
+            val scope = rememberCoroutineScope()
+
+            IndexBar(
+                modifier = Modifier.fillMaxSize(),
+                onSelect = { value ->
+                    val index = data.indexOfFirst { it.indexLetter.equals(value.toString(), true) }
+                    if (index >= 0) {
+                        scope.launch { listState.scrollToItem(index) }
                     }
-                    ItemView(item, isShowTag)
+                }
+            ) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    state = listState
+                ) {
+                    itemsIndexed(data, { i, _ -> i }) { index, item ->
+                        val isShowTag = if (index == 0) true else {
+                            val last = data[index - 1]
+                            last.indexLetter != item.indexLetter
+                        }
+                        ItemView(item, isShowTag)
+                    }
                 }
             }
         }
@@ -83,7 +100,7 @@ private fun ItemView(
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        if (showTag) CellTitle(title = value.py[0].uppercase())
+        if (showTag) CellTitle(title = value.indexLetter)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -111,10 +128,4 @@ private fun ItemView(
             .height(1.dp)
             .background(AppColor.Neutral.line))
     }
-}
-
-@Preview
-@Composable
-private fun IndexBarScreenPreview() {
-    IndexBarScreen()
 }

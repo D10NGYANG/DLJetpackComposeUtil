@@ -19,13 +19,36 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.d10ng.compose.demo.Nav
+import androidx.navigation3.runtime.NavKey
+import com.d10ng.compose.demo.AvatarRoute
+import com.d10ng.compose.demo.BadgeRoute
+import com.d10ng.compose.demo.ButtonRoute
+import com.d10ng.compose.demo.CellRoute
+import com.d10ng.compose.demo.CheckButtonRoute
+import com.d10ng.compose.demo.CheckboxRoute
+import com.d10ng.compose.demo.ColorRoute
+import com.d10ng.compose.demo.DialogRoute
+import com.d10ng.compose.demo.FieldRoute
+import com.d10ng.compose.demo.IndexBarRoute
+import com.d10ng.compose.demo.NavBarRoute
+import com.d10ng.compose.demo.NotifyRoute
+import com.d10ng.compose.demo.PopoverRoute
+import com.d10ng.compose.demo.PullRefreshRoute
+import com.d10ng.compose.demo.SearchRoute
+import com.d10ng.compose.demo.ShapeRoute
+import com.d10ng.compose.demo.SheetRoute
+import com.d10ng.compose.demo.StepperRoute
+import com.d10ng.compose.demo.StepsRoute
+import com.d10ng.compose.demo.SwitchRoute
+import com.d10ng.compose.demo.TagRoute
+import com.d10ng.compose.demo.ToastRoute
+import com.d10ng.compose.demo.TypographyRoute
+import com.d10ng.compose.demo.resources.Res
+import com.d10ng.compose.demo.resources.ic_launcher_foreground
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellGroup
-import dljetpackcomposeutil_project.composeapp.generated.resources.Res
-import dljetpackcomposeutil_project.composeapp.generated.resources.ic_launcher_foreground
 import org.jetbrains.compose.resources.painterResource
 
 /**
@@ -35,7 +58,7 @@ import org.jetbrains.compose.resources.painterResource
  */
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(onNavigate: (NavKey) -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -75,123 +98,128 @@ fun HomeScreen() {
             Cell(
                 title = "Color 色彩系统",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.ColorRoute) }
+                onClick = { onNavigate(ColorRoute) }
             )
             Cell(
                 title = "Typography 字体排版",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.TypographyRoute) }
+                onClick = { onNavigate(TypographyRoute) }
             )
             Cell(
                 title = "Shape 容器形状",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.ShapeRoute) }
+                onClick = { onNavigate(ShapeRoute) }
             )
         }
         CellGroup(title = "基础组件", inset = true) {
             Cell(
                 title = "Button 按钮",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.ButtonRoute) }
+                onClick = { onNavigate(ButtonRoute) }
             )
             Cell(
                 title = "Cell 单元格",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.CellRoute) }
+                onClick = { onNavigate(CellRoute) }
             )
             Cell(
                 title = "Toast 轻提示",
                 link = true,
                 border = false,
-                onClick = { Nav.instant().navigate(Nav.ToastRoute) }
+                onClick = { onNavigate(ToastRoute) }
             )
         }
         CellGroup(title = "表单组件", inset = true) {
             Cell(
                 title = "Checkbox 复选框",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.CheckboxRoute) }
+                onClick = { onNavigate(CheckboxRoute) }
             )
             Cell(
                 title = "Field 输入框",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.FieldRoute) }
+                onClick = { onNavigate(FieldRoute) }
             )
             Cell(
                 title = "Switch 开关",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.SwitchRoute) }
+                onClick = { onNavigate(SwitchRoute) }
             )
             Cell(
                 title = "CheckButton 选择按钮",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.CheckButtonRoute) }
+                onClick = { onNavigate(CheckButtonRoute) }
             )
             Cell(
                 title = "Stepper 步进器",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.StepperRoute) }
+                onClick = { onNavigate(StepperRoute) }
             )
             Cell(
                 title = "Search 搜索",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.SearchRoute) }
+                onClick = { onNavigate(SearchRoute) }
             )
         }
         CellGroup(title = "反馈组件", inset = true) {
             Cell(
                 title = "Dialog 弹出框",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.DialogRoute) }
+                onClick = { onNavigate(DialogRoute) }
             )
             Cell(
                 title = "Sheet 操作面板",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.SheetRoute) }
+                onClick = { onNavigate(SheetRoute) }
             )
             Cell(
                 title = "Notify 消息提示",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.NotifyRoute) }
+                onClick = { onNavigate(NotifyRoute) }
             )
             Cell(
                 title = "PullRefresh 下拉刷新",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.PullRefreshRoute) }
+                onClick = { onNavigate(PullRefreshRoute) }
             )
         }
         CellGroup(title = "展示组件", inset = true) {
             Cell(
                 title = "Tag 标签",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.TagRoute) }
+                onClick = { onNavigate(TagRoute) }
             )
             Cell(
                 title = "Badge 徽标",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.BadgeRoute) }
+                onClick = { onNavigate(BadgeRoute) }
             )
             Cell(
                 title = "Avatar 头像",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.AvatarRoute) }
+                onClick = { onNavigate(AvatarRoute) }
             )
             Cell(
                 title = "Steps 步骤条",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.StepsRoute) }
+                onClick = { onNavigate(StepsRoute) }
             )
             Cell(
                 title = "Popover 气泡弹出框",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.PopoverRoute) }
+                onClick = { onNavigate(PopoverRoute) }
             )
         }
         CellGroup(title = "导航组件", inset = true) {
             Cell(
                 title = "NavBar 导航栏",
                 link = true,
-                onClick = { Nav.instant().navigate(Nav.NavBarRoute) }
+                onClick = { onNavigate(NavBarRoute) }
+            )
+            Cell(
+                title = "IndexBar 索引栏",
+                link = true,
+                onClick = { onNavigate(IndexBarRoute) }
             )
         }
         Box(modifier = Modifier.height(32.dp))
