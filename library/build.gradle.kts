@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "3.1.4"
+version = "3.2.0"
 
 kotlin {
     withSourcesJar(publish = true)
@@ -95,7 +95,7 @@ dokka {
 
 val javadocJar by tasks.registering(Jar::class) {
     // Gradle 会自动解析依赖，只需指定新任务的 outputDirectory 即可
-    from(tasks.dokkaGeneratePublicationJavadoc.flatMap { it.outputDirectory })
+    from(tasks.dokkaGeneratePublicationHtml.flatMap { it.outputDirectory })
     archiveClassifier.set("javadoc")
 }
 

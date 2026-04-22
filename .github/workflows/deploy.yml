@@ -25,13 +25,19 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build WASM/JS
-        run: ./gradlew -Pbds100MavenUsername=${{ secrets.BDS100MAVENUSERNAME }} -Pbds100MavenPassword=${{ secrets.BDS100MAVENPASSWORD }} :composeApp:wasmJsBrowserDistribution
+      - name: Build WASM/JS and Dokka
+        run: ./gradlew -Pbds100MavenUsername=${{ secrets.BDS100MAVENUSERNAME }} -Pbds100MavenPassword=${{ secrets.BDS100MAVENPASSWORD }} :composeApp:wasmJsBrowserDistribution :DLJetpackComposeUtil:dokkaGenerateHtml
+
+      - name: Prepare Pages Output
+        run: |
+          mkdir -p pages_output
+          cp -r composeApp/build/dist/wasmJs/productionExecutable/* pages_output/
+          cp -r library/build/dokka/html pages_output/api
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: composeApp/build/dist/wasmJs/productionExecutable
+          path: pages_output
 
   deploy:
     environment:
