@@ -1,3 +1,4 @@
+rootProject.name = "DLJetpackComposeUtil-Project"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -28,6 +29,10 @@ dependencyResolutionManagement {
         maven("https://raw.githubusercontent.com/D10NGYANG/maven-repo/main/repository")
     }
 }
-rootProject.name = "DLJetpackComposeUtil-Project"
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+}
+
 include(":androidApp", ":composeApp", ":library")
 project(":library").name = "DLJetpackComposeUtil"
