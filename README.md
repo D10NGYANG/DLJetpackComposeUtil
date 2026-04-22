@@ -2,9 +2,9 @@
 
 基于 Compose Multiplatform 开发的 Vant 风格 UI 组件库，提供丰富的跨平台 UI 组件，支持 Android、iOS 和 Web(WasmJs) 平台。
 
-[![Version](https://img.shields.io/badge/version-3.1.4-blue.svg)](https://github.com/D10NGYANG/DLJetpackComposeUtil)
-[![Kotlin](https://img.shields.io/badge/kotlin-2.2.0-orange.svg)](https://kotlinlang.org/)
-[![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.8.2-green.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
+[![Version](https://img.shields.io/badge/version-3.2.0-blue.svg)](https://github.com/D10NGYANG/DLJetpackComposeUtil)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.3.20-orange.svg)](https://kotlinlang.org/)
+[![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.10.3-green.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 
 > 参考 [Vant4](https://vant-contrib.gitee.io/vant/#/zh-CN/home) 设计规范，提供统一的设计语言和用户体验。
@@ -29,9 +29,10 @@
 - 📱 **响应式设计**：组件自适应不同屏幕尺寸
 - 🛠️ **易于使用**：API 设计简洁直观，上手成本低
 
-## 预览
+## 预览与文档
 
-在线预览：[https://d10ngyang.github.io/DLJetpackComposeUtil/](https://d10ngyang.github.io/DLJetpackComposeUtil/)
+- **在线预览**：[https://d10ngyang.github.io/DLJetpackComposeUtil/](https://d10ngyang.github.io/DLJetpackComposeUtil/)
+- **API 文档**：[https://d10ngyang.github.io/DLJetpackComposeUtil/api/](https://d10ngyang.github.io/DLJetpackComposeUtil/api/)
 
 ## 安装
 
@@ -50,7 +51,7 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation("com.github.D10NGYANG:DLJetpackComposeUtil:3.1.4")
+    implementation("com.github.D10NGYANG:DLJetpackComposeUtil:3.2.0")
 }
 ```
 
@@ -146,7 +147,7 @@ fun SampleScreen() {
 |      | Overlay 遮罩层       | ✅    |                                                                                                             |
 |      | ShareSheet 分享面板   | ℹ️   | TODO                                                                                                        |
 |      | SwipeCell 滑动单元格   | ℹ️   | TODO                                                                                                        |
-|      | PullRefresh 下拉刷新  | ✅    |                                                                                                             |
+|      | PullRefresh 下拉刷新  | 🚫   | 已废弃该自定义实现，建议直接使用 Compose 官方的 pullRefresh                                                              |
 | 展示组件 | Badge 徽标          | ✅    |                                                                                                             |
 |      | Collapse 折叠面板     | ℹ️   | TODO                                                                                                        |
 |      | CountDown 倒计时     | ℹ️   | TODO                                                                                                        |
