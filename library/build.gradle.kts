@@ -42,13 +42,13 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
+            // compose
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)
             implementation(libs.compose.ui)
             implementation(libs.compose.components.resources)
             implementation(libs.compose.uiToolingPreview)
-            implementation(libs.constraintlayout.compose.multiplatform)
             // Lifecycle
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.androidx.lifecycle.runtime.compose)

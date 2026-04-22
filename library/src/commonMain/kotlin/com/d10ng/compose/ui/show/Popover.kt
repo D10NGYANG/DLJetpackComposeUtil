@@ -3,10 +3,10 @@ package com.d10ng.compose.ui.show
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material3.Surface
@@ -17,12 +17,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
@@ -37,8 +39,6 @@ import androidx.compose.ui.window.PopupProperties
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.utils.next
-import tech.annexflow.constraintlayout.compose.ConstraintLayout
-import tech.annexflow.constraintlayout.compose.Dimension
 
 /**
  * Popover 气泡弹出框
@@ -140,37 +140,24 @@ fun PopoverColumnItem(
     val lineColor = remember(dark) {
         if (dark) Color.White.next(-0.5) else AppColor.Neutral.line
     }
-    ConstraintLayout(
+    Box(
         modifier = Modifier
             .defaultMinSize(minWidth = 130.dp)
             .clickable(onClick = onClick)
     ) {
-        val (label, line) = createRefs()
         Text(
             text = text,
             style = AppText.Normal.Body.default,
             color = contentColor,
-            modifier = Modifier
-                .padding(16.dp)
-                .constrainAs(label) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                }
+            modifier = Modifier.padding(16.dp)
         )
         if (border) {
-            Box(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .height(1.dp)
-                    .background(lineColor)
-                    .constrainAs(line) {
-                        width = Dimension.fillToConstraints
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                        bottom.linkTo(parent.bottom)
-                    }
+            HorizontalDivider(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                color = lineColor,
+                thickness = 1.dp,
+                paddingStart = 16.dp,
+                paddingEnd = 16.dp,
             )
         }
     }
@@ -387,3 +374,70 @@ private fun calculatePlacement(
         }
     }
 }
+
+@Preview
+@Composable
+private fun PreviewPopoverColumnItems() {
+    Column {
+        // 亮色
+        Box(modifier = Modifier.background(Color.White)) {
+            PopoverColumnItems(
+                value = linkedSetOf("选项一", "选项二", "选项三"),
+                onClick = {}
+            )
+        }
+        // 暗色
+        Box(modifier = Modifier.background(Color.DarkGray)) {
+            PopoverColumnItems(
+                value = linkedSetOf("选项一", "选项二", "选项三"),
+                dark = true,
+                onClick = {}
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewPopoverColumnItem() {
+    Column {
+        // 有边框 - 亮色
+        Box(modifier = Modifier.background(Color.White)) {
+            PopoverColumnItem(text = "有边框", border = true, onClick = {})
+        }
+        // 无边框 - 亮色
+        Box(modifier = Modifier.background(Color.White)) {
+            PopoverColumnItem(text = "无边框", border = false, onClick = {})
+        }
+        // 有边框 - 暗色
+        Box(modifier = Modifier.background(Color.DarkGray)) {
+            PopoverColumnItem(text = "暗色有边框", border = true, dark = true, onClick = {})
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewPopoverContent() {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        // 下方居中气泡
+        PopoverContentPreview(placement = PopoverPlacement.BottomCenter, dark = false)
+        // 上方居中气泡
+        PopoverContentPreview(placement = PopoverPlacement.TopCenter, dark = false)
+        // 暗色气泡
+        PopoverContentPreview(placement = PopoverPlacement.BottomCenter, dark = true)
+    }
+}
+
+@Composable
+private fun PopoverContentPreview(placement: PopoverPlacement, dark: Boolean) {
+    val bgColor = if (dark) Color.DarkGray else Color.White
+    PopoverContent(placement = placement, bgColor = bgColor) {
+        PopoverColumnItems(
+            value = linkedSetOf("选项一", "选项二", "选项三"),
+            dark = dark,
+            onClick = {}
+        )
+    }
+}
+
