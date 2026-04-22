@@ -17,13 +17,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_false_102
 import com.d10ng.compose.resources.ic_success_102
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
-import com.d10ng.compose.utils.BackHandler
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -134,7 +137,8 @@ fun IconToast(
         }
     }
     if (forbidClick) {
-        BackHandler(true) {}
+        val state = rememberNavigationEventState(NavigationEventInfo.None)
+        NavigationBackHandler(state, true) {}
     }
 }
 
@@ -149,4 +153,52 @@ fun LoadingToast(
             strokeWidth = 1.5.dp
         )
     })
+}
+
+@Preview
+@Composable
+fun PreviewNormalToast() {
+    Box(modifier = Modifier.fillMaxSize()) {
+        NormalToast(text = "这是一条提示信息", position = ToastPosition.Center)
+    }
+}
+
+@Preview
+@Composable
+fun PreviewNormalToastTop() {
+    Box(modifier = Modifier.fillMaxSize()) {
+        NormalToast(text = "顶部提示信息", position = ToastPosition.Top)
+    }
+}
+
+@Preview
+@Composable
+fun PreviewNormalToastBottom() {
+    Box(modifier = Modifier.fillMaxSize()) {
+        NormalToast(text = "底部提示信息", position = ToastPosition.Bottom)
+    }
+}
+
+@Preview
+@Composable
+fun PreviewToastSuccess() {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Toast(text = "操作成功", type = ToastType.Success)
+    }
+}
+
+@Preview
+@Composable
+fun PreviewToastFail() {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Toast(text = "操作失败", type = ToastType.Fail)
+    }
+}
+
+@Preview
+@Composable
+fun PreviewLoadingToast() {
+    Box(modifier = Modifier.fillMaxSize()) {
+        LoadingToast(text = "加载中...")
+    }
 }

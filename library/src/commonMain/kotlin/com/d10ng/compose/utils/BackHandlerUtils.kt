@@ -1,6 +1,9 @@
 package com.d10ng.compose.utils
 
 import androidx.compose.runtime.Composable
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 
 /**
  * 返回键处理
@@ -13,5 +16,6 @@ import androidx.compose.runtime.Composable
     message = "已废弃"
 )
 fun BackHandler(enabled: Boolean = true, onBack: () -> Unit) {
-    // TODO 已废弃，后续会删除
+    val state = rememberNavigationEventState(NavigationEventInfo.None)
+    NavigationBackHandler(state, enabled, onBackCompleted = onBack)
 }
