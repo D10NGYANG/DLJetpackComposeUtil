@@ -1,9 +1,14 @@
 package com.d10ng.compose.ui.base
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -144,6 +150,51 @@ fun Button(
                 Spacer(modifier = Modifier.width(4.dp))
             }
             Text(text = text, fontSize = size.textSize)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewButton() {
+    Column(
+        modifier = Modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        // 按钮类型
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Button(text = "默认", onClick = {})
+            Button(text = "主要", type = ButtonType.PRIMARY, onClick = {})
+            Button(text = "成功", type = ButtonType.SUCCESS, onClick = {})
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Button(text = "警告", type = ButtonType.WARNING, onClick = {})
+            Button(text = "危险", type = ButtonType.DANGER, onClick = {})
+        }
+        // 朴素按钮
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Button(text = "朴素", type = ButtonType.PRIMARY, plain = true, onClick = {})
+            Button(text = "禁用", type = ButtonType.PRIMARY, disabled = true, onClick = {})
+            Button(text = "加载中", type = ButtonType.PRIMARY, loading = true, onClick = {})
+        }
+        // 按钮尺寸
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Button(text = "迷你", type = ButtonType.PRIMARY, size = ButtonSize.MINI, onClick = {})
+            Button(text = "小", type = ButtonType.PRIMARY, size = ButtonSize.SMALL, onClick = {})
+            Button(text = "普通", type = ButtonType.PRIMARY, size = ButtonSize.NORMAL, onClick = {})
+            Button(text = "大", type = ButtonType.PRIMARY, size = ButtonSize.BIG, onClick = {})
         }
     }
 }

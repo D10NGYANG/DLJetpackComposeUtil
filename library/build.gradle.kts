@@ -50,7 +50,6 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.constraintlayout.compose.multiplatform)
             // Lifecycle
-            //implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.androidx.lifecycle.runtime.compose)
             // 时间工具

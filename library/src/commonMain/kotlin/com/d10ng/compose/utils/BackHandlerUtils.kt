@@ -9,4 +9,9 @@ import androidx.compose.runtime.Composable
  */
 
 @Composable
-expect fun BackHandler(enabled: Boolean = true, onBack: () -> Unit)
+@Deprecated(
+    message = "已废弃"
+)
+fun BackHandler(enabled: Boolean = true, onBack: () -> Unit) {
+    // TODO 已废弃，后续会删除
+}
