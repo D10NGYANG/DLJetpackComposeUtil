@@ -3,6 +3,7 @@ package com.d10ng.compose.ui.base
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,6 +27,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_round_forward_16
@@ -35,7 +37,6 @@ import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.defaultPaddingSize
 import com.d10ng.compose.ui.show.HorizontalDivider
 import org.jetbrains.compose.resources.painterResource
-import tech.annexflow.constraintlayout.compose.ConstraintLayout
 
 /**
  * 单元格组件
@@ -216,18 +217,10 @@ fun CellRow(
     contentPaddingValues: PaddingValues = PaddingValues(0.dp),
     content: @Composable RowScope.() -> Unit
 ) {
-    ConstraintLayout(
-        modifier = modifier.fillMaxWidth()
-    ) {
-        val (row, div) = createRefs()
+    Box(modifier = modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
-                .constrainAs(row) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
+                .fillMaxWidth()
                 .padding(contentPaddingValues),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -235,15 +228,74 @@ fun CellRow(
         }
         if (divider) {
             HorizontalDivider(
-                modifier = Modifier
-                    .constrainAs(div) {
-                        bottom.linkTo(parent.bottom)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    },
+                modifier = Modifier.align(Alignment.BottomCenter),
                 paddingStart = dividerPaddingValues.calculateStartPadding(LocalLayoutDirection.current),
                 paddingEnd = dividerPaddingValues.calculateEndPadding(LocalLayoutDirection.current)
             )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewCellTitle() {
+    Column(modifier = Modifier.background(Color(0xFFF5F5F5))) {
+        CellTitle(title = "分组标题")
+    }
+}
+
+@Preview
+@Composable
+fun PreviewCellGroup() {
+    Column(modifier = Modifier.background(Color(0xFFF5F5F5))) {
+        // 基本用法
+        CellGroup(title = "基本用法") {
+            Cell(title = "单元格", value = "内容")
+            Cell(title = "单元格", value = "内容", label = "描述信息")
+        }
+        // 无边框
+        CellGroup(title = "无边框", border = false) {
+            Cell(title = "单元格", value = "内容")
+            Cell(title = "单元格", value = "内容")
+        }
+        // 圆角卡片风格
+        CellGroup(title = "圆角卡片(inset)", inset = true) {
+            Cell(title = "单元格", value = "内容")
+            Cell(title = "单元格", value = "内容")
+        }
+        // 圆角卡片 + 无边框
+        CellGroup(title = "圆角卡片 + 无边框", inset = true, border = false) {
+            Cell(title = "单元格", value = "内容")
+            Cell(title = "单元格", value = "内容")
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewCell() {
+    Column(modifier = Modifier.background(Color(0xFFF5F5F5))) {
+        Cell(title = "单元格", value = "内容")
+        Cell(title = "带箭头", link = true, onClick = {})
+        Cell(title = "必填项", required = true, value = "内容")
+        Cell(title = "带描述", value = "内容", label = "这是一段描述信息")
+        Cell(title = "向上箭头", link = true, arrowDirection = CellArrowDirection.UP, onClick = {})
+        Cell(title = "禁用点击", value = "无点击事件")
+    }
+}
+
+@Preview
+@Composable
+fun PreviewCellRow() {
+    Column(modifier = Modifier.background(Color(0xFFF5F5F5))) {
+        CellGroup {
+            CellRow(
+                contentPaddingValues = PaddingValues(horizontal = defaultPaddingSize, vertical = 12.dp)
+            ) {
+                Text(text = "左侧内容", style = AppText.Normal.Title.default)
+                Spacer(modifier = Modifier.weight(1f))
+                Text(text = "右侧内容", style = AppText.Normal.Body.default)
+            }
         }
     }
 }
