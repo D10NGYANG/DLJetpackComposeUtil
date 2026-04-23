@@ -23,33 +23,25 @@ import com.d10ng.compose.ui.AppText
  */
 enum class TimePickerMode(
     /**
-     * 获取可选项列表
-     * @param h 小时集合
-     * @param m 分钟集合
-     * @param s 秒钟集合
+     * 获取可选项列表，参数依次为：小时集合、分钟集合、秒钟集合
      * @return List<Set<String>> 可选项列表
      */
     val getItems: (Set<String>, Set<String>, Set<String>) -> List<Set<String>>,
 
     /**
-     * 获取选中项
-     * @param h 选中小时
-     * @param m 选中分钟
-     * @param s 选中秒钟
+     * 获取选中项，参数依次为：选中小时、选中分钟、选中秒钟
      * @return List<String> 选中项
      */
     val getSelectedItems: (String, String, String) -> List<String>,
 
     /**
-     * 获取时间对应的总秒数
-     * @param l 时间列表
+     * 获取时间对应的总秒数，参数为时间字符串列表
      * @return Int 总秒数
      */
     val getDate: (List<String>) -> Int,
 
     /**
-     * 获取可选时间范围内的时间列表
-     * @param v 总秒数
+     * 获取可选时间范围内的时间列表，参数为总秒数
      * @return List<Int> 时间列表
      */
     val getDateList: (Int) -> List<Int>,

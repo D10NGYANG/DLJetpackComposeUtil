@@ -233,6 +233,7 @@ fun CellRow(
     Box(modifier = modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
+                .align(Alignment.CenterStart)
                 .fillMaxWidth()
                 .padding(contentPaddingValues),
             verticalAlignment = Alignment.CenterVertically
