@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.sheet.builder.SheetBuilder
+import com.d10ng.compose.utils.BackHandler
 
 /**
  * 底部弹窗容器
@@ -51,6 +52,9 @@ fun Sheet(
     val visible by builder.visibleFlow.collectAsState()
     LaunchedEffect(Unit) {
         builder.visibleFlow.value = true
+    }
+    BackHandler(enabled = visible) {
+        if (builder.clickOutsideDismiss) builder.dismiss()
     }
     Box(
         modifier = Modifier.fillMaxSize()

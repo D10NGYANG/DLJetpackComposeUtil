@@ -17,6 +17,11 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
+        maven("https://raw.githubusercontent.com/D10NGYANG/maven-repo/main/repository") {
+            mavenContent {
+                includeGroupAndSubgroups("com.github.D10NGYANG")
+            }
+        }
         google {
             mavenContent {
                 includeGroupAndSubgroups("androidx")
@@ -26,7 +31,6 @@ dependencyResolutionManagement {
         }
         mavenCentral()
         maven("https://jitpack.io")
-        maven("https://raw.githubusercontent.com/D10NGYANG/maven-repo/main/repository")
     }
 }
 
