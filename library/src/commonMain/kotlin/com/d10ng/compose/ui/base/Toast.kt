@@ -17,8 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationBackHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
@@ -112,7 +114,12 @@ fun NormalToast(
                     .background(MaterialTheme.colorScheme.scrim.copy(alpha = 0.7f), shape = AppShape.RC.v8)
                     .padding(horizontal = 24.dp, vertical = 8.dp)
             ) {
-                Text(text = text, style = AppText.Normal.Surface.default)
+                Text(
+                    text = text,
+                    style = AppText.Normal.Surface.default,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 22.sp
+                )
             }
         }
     }

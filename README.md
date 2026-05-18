@@ -2,9 +2,9 @@
 
 基于 Compose Multiplatform 开发的 Vant 风格 UI 组件库，提供丰富的跨平台 UI 组件，支持 Android、iOS 和 Web(WasmJs) 平台。
 
-[![Version](https://img.shields.io/badge/version-3.2.2-blue.svg)](https://github.com/D10NGYANG/DLJetpackComposeUtil)
-[![Kotlin](https://img.shields.io/badge/kotlin-2.3.20-orange.svg)](https://kotlinlang.org/)
-[![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.10.3-green.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
+[![Version](https://img.shields.io/badge/version-3.3.0-blue.svg)](https://github.com/D10NGYANG/DLJetpackComposeUtil)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.3.21-orange.svg)](https://kotlinlang.org/)
+[![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.11.0-green.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 
 > 参考 [Vant4](https://vant-contrib.gitee.io/vant/#/zh-CN/home) 设计规范，提供统一的设计语言和用户体验。
@@ -51,7 +51,7 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation("com.github.D10NGYANG:DLJetpackComposeUtil:3.2.2")
+    implementation("com.github.D10NGYANG:DLJetpackComposeUtil:3.3.0")
 }
 ```
 

@@ -14,28 +14,28 @@ interface IUiViewModel {
     /**
      * 显示toast
      * @param msg String 消息
-     * @param duration Long 显示时长, 默认1500毫秒
+     * @param duration Long 显示时长, 默认2500毫秒
      * @param position ToastPosition 显示位置, 默认居中
      */
     fun showToast(
         msg: String,
-        duration: Long = 1500,
+        duration: Long = 2500,
         position: ToastPosition = ToastPosition.Center
     )
 
     /**
      * 显示成功的toast
      * @param msg String 消息
-     * @param duration Long 显示时长, 默认1500毫秒
+     * @param duration Long 显示时长, 默认2500毫秒
      */
-    fun showSuccessToast(msg: String, duration: Long = 1500)
+    fun showSuccessToast(msg: String, duration: Long = 2500)
 
     /**
      * 显示失败的toast
      * @param msg String 消息
-     * @param duration Long 显示时长, 默认1500毫秒
+     * @param duration Long 显示时长, 默认2500毫秒
      */
-    fun showFailToast(msg: String, duration: Long = 1500)
+    fun showFailToast(msg: String, duration: Long = 2500)
 
     /**
      * 显示loading
@@ -52,16 +52,16 @@ interface IUiViewModel {
      * 显示提示（自动隐藏）
      * @param type NotifyType
      * @param text String
-     * @param duration Long 显示时长, 默认1500毫秒
+     * @param duration Long 显示时长, 默认2500毫秒
      */
-    fun showNotify(type: NotifyType, text: String, duration: Long = 1500)
+    fun showNotify(type: NotifyType, text: String, duration: Long = 2500)
 
     /**
      * 显示错误提示（自动隐藏）
      * @param text String
      * @param duration Long
      */
-    fun showErrorNotify(text: String, duration: Long = 1500)
+    fun showErrorNotify(text: String, duration: Long = 2500)
 
     /**
      * 持续展示提示，不会自动隐藏，需手动调用 [hideNotify]

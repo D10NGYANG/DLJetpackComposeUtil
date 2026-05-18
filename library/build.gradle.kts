@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "3.2.2"
+version = "3.3.0"
 
 kotlin {
     withSourcesJar(publish = true)
@@ -26,8 +26,6 @@ kotlin {
 
     iosArm64()
     iosSimulatorArm64()
-    iosX64()
-
 
     jvm()
 

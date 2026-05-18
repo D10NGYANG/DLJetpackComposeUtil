@@ -41,6 +41,10 @@ fun ToastScreen(onBack: () -> Unit = {}) {
                     title = "文字提示",
                     link = true,
                     onClick = { UiViewModelManager.showToast("提示内容") })
+                Cell(
+                    title = "长文本提示",
+                    link = true,
+                    onClick = { UiViewModelManager.showToast("显示一段很长很长很长很长很长很长很长很长很长很长的文本提示") })
                 Cell(title = "加载提示", link = true, onClick = {
                     UiViewModelManager.showLoading("加载中...")
                     CoroutineScope(Dispatchers.Default).launch {

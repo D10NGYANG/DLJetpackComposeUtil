@@ -1,5 +1,9 @@
 package com.d10ng.compose.demo
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
@@ -17,6 +21,7 @@ import androidx.compose.ui.platform.LocalFontFamilyResolver
 import androidx.compose.ui.text.font.FontFamily
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.d10ng.compose.demo.pages.AvatarScreen
 import com.d10ng.compose.demo.pages.BadgeScreen
@@ -75,6 +80,29 @@ fun App() {
             NavDisplay(
                 backStack = backStack,
                 onBack = { backStack.removeLastOrNull() },
+                // 设置【前进 / Push】时的动画：新页面从右进，旧页面往左退
+                transitionSpec = {
+                    slideInHorizontally(
+                        animationSpec = tween(300), // 动画时长 300ms
+                        initialOffsetX = { fullWidth -> fullWidth } // 新页面从屏幕正右侧(100%)开始进入
+                    ) togetherWith slideOutHorizontally(
+                        animationSpec = tween(300),
+                        targetOffsetX = { fullWidth -> -fullWidth / 2 } // 旧页面向左侧退出一半距离 (制造视差效果，不写 /2 就是完全移出)
+                    )
+                },
+                // 设置【后退 / Pop】时的动画：新页面从左进，旧页面往右退
+                popTransitionSpec = {
+                    slideInHorizontally(
+                        animationSpec = tween(300),
+                        initialOffsetX = { fullWidth -> -fullWidth / 2 } // 历史页面从左侧一半的位置开始恢复
+                    ) togetherWith slideOutHorizontally(
+                        animationSpec = tween(300),
+                        targetOffsetX = { fullWidth -> fullWidth } // 当前页面向屏幕正右侧(100%)滑出
+                    )
+                },
+                entryDecorators = listOf(
+                    rememberSaveableStateHolderNavEntryDecorator()
+                ),
                 entryProvider = { key ->
                     when (key) {
                         is HomeRoute -> NavEntry(key) {
