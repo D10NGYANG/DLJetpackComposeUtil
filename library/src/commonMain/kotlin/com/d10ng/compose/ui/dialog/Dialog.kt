@@ -2,10 +2,12 @@ package com.d10ng.compose.ui.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,6 +55,7 @@ fun Dialog(
  * @param shape RoundedCornerShape 圆角形状，默认 12dp 圆角
  * @param margin Dp 距屏幕（或父容器）边缘的外边距，默认 22dp
  * @param padding Dp 内容与背景边缘的内边距，默认 25dp
+ * @param maxWidth Dp 弹窗最大宽度，默认 560dp
  * @param content @Composable () -> Unit 弹窗内部内容
  */
 @Composable
@@ -61,16 +64,25 @@ fun DialogBox(
     shape: RoundedCornerShape = RoundedCornerShape(12.dp),
     margin: Dp = 22.dp,
     padding: Dp = 25.dp,
+    maxWidth: Dp = 560.dp,
     content: @Composable () -> Unit
 ) {
-    Box(
+    BoxWithConstraints(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(margin)
-            .background(color, shape)
-            .padding(padding)
+            .padding(horizontal = margin),
+        contentAlignment = Alignment.Center
     ) {
-        content()
+        val dialogWidth = this.maxWidth.coerceAtMost(maxWidth)
+
+        Box(
+            modifier = Modifier
+                .width(dialogWidth)
+                .background(color, shape)
+                .padding(padding)
+        ) {
+            content()
+        }
     }
 }
 
@@ -81,6 +93,7 @@ fun DialogBox(
  * @param shape RoundedCornerShape 圆角形状，默认 12dp 圆角
  * @param margin Dp 距屏幕（或父容器）边缘的外边距，默认 22dp
  * @param padding Dp 内容与背景边缘的内边距，默认 25dp
+ * @param maxWidth Dp 弹窗最大宽度，默认 560dp
  * @param content @Composable ColumnScope.() -> Unit 弹窗内部列式内容
  */
 @Composable
@@ -89,13 +102,15 @@ fun DialogColumn(
     shape: RoundedCornerShape = RoundedCornerShape(12.dp),
     margin: Dp = 22.dp,
     padding: Dp = 25.dp,
+    maxWidth: Dp = 560.dp,
     content: @Composable ColumnScope.() -> Unit
 ) {
     DialogBox(
         color = color,
         shape = shape,
         margin = margin,
-        padding = padding
+        padding = padding,
+        maxWidth = maxWidth
     ) {
         Column(
             modifier = Modifier

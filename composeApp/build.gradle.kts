@@ -1,3 +1,4 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -112,4 +113,16 @@ android {
 
 compose.resources {
     packageOfResClass = "com.d10ng.compose.demo.resources"
+}
+
+compose.desktop {
+    application {
+        mainClass = "com.d10ng.compose.demo.MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "com.d10ng.compose.demo"
+            packageVersion = "1.0.0"
+        }
+    }
 }
