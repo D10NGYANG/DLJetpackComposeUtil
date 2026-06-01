@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -12,15 +11,14 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "3.3.1"
+version = "3.3.2"
 
 kotlin {
     withSourcesJar(publish = true)
 
+    jvmToolchain(11)
+
     androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
-        }
         publishLibraryVariants("release")
     }
 
