@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "3.3.2"
+version = "3.3.3"
 
 kotlin {
     withSourcesJar(publish = true)

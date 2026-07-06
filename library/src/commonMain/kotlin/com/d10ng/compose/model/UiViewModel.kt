@@ -3,6 +3,7 @@ package com.d10ng.compose.model
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.d10ng.compose.ui.base.LoadingToast
@@ -69,7 +70,11 @@ class UiViewModel : ViewModel(), IUiViewModel {
     @Composable
     private fun SheetLayer() {
         val sheetBuilders by sheetBuilderListFlow.collectAsState()
-        sheetBuilders.forEach { Sheet(builder = it) }
+        sheetBuilders.forEach { builder ->
+            key(builder) {
+                Sheet(builder = builder)
+            }
+        }
     }
 
     /** 独立的 Dialog 层，仅在 dialogBuilderMapFlow 变化时重组此层 */
@@ -168,7 +173,9 @@ class UiViewModel : ViewModel(), IUiViewModel {
     }
 
     override fun showSheet(builder: SheetBuilder) {
-        sheetBuilderListFlow.update { it + builder }
+        sheetBuilderListFlow.update { builders ->
+            if (builder in builders) builders else builders + builder
+        }
     }
 
     override fun hideSheet(builder: SheetBuilder) {
