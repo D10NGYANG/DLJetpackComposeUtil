@@ -27,6 +27,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppText
@@ -50,7 +52,12 @@ fun Sheet(
     builder: SheetBuilder
 ) {
     val visible by builder.visibleFlow.collectAsState()
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
     LaunchedEffect(Unit) {
+        // 展示 Sheet 时收起虚拟键盘，并清除底层输入框焦点，避免键盘遮挡或再次弹出。
+        focusManager.clearFocus(force = true)
+        keyboardController?.hide()
         builder.visibleFlow.value = true
     }
     BackHandler(enabled = visible) {
