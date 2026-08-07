@@ -1,22 +1,24 @@
 package com.d10ng.compose.ui.sheet
 
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.BottomSheet
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.Scrim
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,11 +28,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.sheet.builder.SheetBuilder
 import com.d10ng.compose.utils.BackHandler
@@ -38,89 +43,89 @@ import com.d10ng.compose.utils.BackHandler
 /**
  * 底部弹窗容器
  *
- * 全屏覆盖层，包含半透明黑色遮罩和从底部滑入的弹窗内容区域。
- * 遮罩和内容分别通过 [AnimatedVisibility] 实现淡入/淡出和滑入/滑出动画。
- * 点击弹窗外部区域（遮罩部分）可根据 [SheetBuilder.clickOutsideDismiss] 配置决定是否关闭弹窗。
+ * 使用 Material 3 官方同树 [BottomSheet] 和 [Scrim] 构建全屏覆盖层，不会创建独立 Dialog 窗口。
+ * [SheetBuilder.clickOutsideDismiss] 统一控制所有用户发起的关闭入口：遮罩点击、下滑手势和系统返回。
+ * 配置为 `false` 时会消费系统返回但保持弹窗展示；代码仍可调用 [SheetBuilder.dismiss] 主动关闭。
  *
  * @param builder [SheetBuilder] 弹窗构建器实例，负责提供弹窗内容和控制弹窗的显隐状态
  * @Author d10ng
  * @Date 2023/9/8 18:00
  */
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Sheet(
     builder: SheetBuilder
 ) {
     val visible by builder.visibleFlow.collectAsState()
+    val userDismissEnabled = builder.clickOutsideDismiss
+    val sheetState = androidx.compose.material3.rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
+    val scrimAlpha by animateFloatAsState(
+        targetValue = if (visible) 1f else 0f,
+        animationSpec = tween(durationMillis = 300),
+        label = "SheetScrimAlpha"
+    )
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
-    LaunchedEffect(Unit) {
+    LaunchedEffect(builder) {
         // 展示 Sheet 时收起虚拟键盘，并清除底层输入框焦点，避免键盘遮挡或再次弹出。
         focusManager.clearFocus(force = true)
         keyboardController?.hide()
-        builder.visibleFlow.value = true
     }
-    BackHandler(enabled = visible) {
-        if (builder.clickOutsideDismiss) builder.dismiss()
+    LaunchedEffect(visible) {
+        if (visible) {
+            sheetState.show()
+        } else {
+            sheetState.hide()
+            UiViewModelManager.hideSheet(builder)
+        }
     }
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        AnimatedVisibility(
-            visible = visible,
-            enter = fadeIn(),
-            exit = fadeOut()
+    val dismissPolicy = resolveSheetDismissPolicy(
+        userDismissEnabled = userDismissEnabled,
+        visible = visible,
+        sheetStateVisible = sheetState.isVisible,
+    )
+    // 官方返回处理器尚未接管或已经退出时，主动拦截事件，避免返回穿透到底层页面。
+    BackHandler(enabled = dismissPolicy.compatibilityBackHandlerEnabled) {
+        if (dismissPolicy.dismissOnCompatibilityBack) builder.dismiss()
+    }
+    BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+        val sheetMaxHeight = (maxHeight - builder.topMargin()).coerceAtLeast(0.dp)
+        Scrim(
+            contentDescription = if (dismissPolicy.dismissOnScrimClick) "关闭弹窗" else null,
+            modifier = if (dismissPolicy.dismissOnScrimClick) {
+                Modifier
+            } else {
+                Modifier.clearAndSetSemantics { }
+            },
+            onClick = {
+                if (dismissPolicy.dismissOnScrimClick) builder.dismiss()
+            },
+            alpha = { scrimAlpha },
+            color = Color.Black.copy(alpha = 0.4f)
+        )
+        BottomSheet(
+            state = sheetState,
+            onDismissRequest = builder::dismiss,
+            maxWidth = Dp.Unspecified,
+            gesturesEnabled = dismissPolicy.gesturesEnabled,
+            backHandlerEnabled = dismissPolicy.officialBackHandlerEnabled,
+            dragHandle = null,
+            contentWindowInsets = { WindowInsets(0, 0, 0, 0) },
+            shape = RectangleShape,
+            containerColor = Color.Transparent,
+            contentColor = LocalContentColor.current,
+            tonalElevation = 0.dp,
+            shadowElevation = 0.dp
         ) {
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black.copy(alpha = 0.4f))
-            )
-        }
-        AnimatedVisibility(
-            visible = visible,
-            enter = slideInVertically(
-                initialOffsetY = { it },
-                animationSpec = tween(durationMillis = 300)
-            ),
-            exit = slideOutVertically(
-                targetOffsetY = { it },
-                animationSpec = tween(durationMillis = 300)
-            )
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .pointerInput(Unit) {
-                        // 拦截点击
-                        detectTapGestures {  }
-                    }
+                    .fillMaxWidth()
+                    .heightIn(max = sheetMaxHeight)
             ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(builder.topMargin())
-                        .pointerInput(Unit) {
-                            // 拦截外部的点击
-                            detectTapGestures {
-                                if (builder.clickOutsideDismiss) builder.dismiss()
-                            }
-                        }
-                )
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                        .pointerInput(Unit) {
-                            // 拦截外部的点击
-                            detectTapGestures {
-                                if (builder.clickOutsideDismiss) builder.dismiss()
-                            }
-                        }
-                )
-                Box {
-                    builder.Build()
-                }
+                builder.Build()
             }
         }
     }

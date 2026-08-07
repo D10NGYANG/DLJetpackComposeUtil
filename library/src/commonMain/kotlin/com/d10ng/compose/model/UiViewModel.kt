@@ -173,6 +173,7 @@ class UiViewModel : ViewModel(), IUiViewModel {
     }
 
     override fun showSheet(builder: SheetBuilder) {
+        builder.visibleFlow.value = true
         sheetBuilderListFlow.update { builders ->
             if (builder in builders) builders else builders + builder
         }

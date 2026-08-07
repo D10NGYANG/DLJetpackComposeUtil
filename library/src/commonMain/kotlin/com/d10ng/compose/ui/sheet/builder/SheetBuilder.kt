@@ -21,9 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppText
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -45,23 +42,16 @@ abstract class SheetBuilder(
     // 屏幕顶部距离
     var topMargin: @Composable () -> Dp = { WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 56.dp },
 ) {
-    companion object {
-        private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
-    }
-
     val visibleFlow = MutableStateFlow(false)
 
     /**
      * 隐藏弹窗
      *
-     * 先将 [visibleFlow] 设为 false 触发退出动画，延迟 300ms 后从 [UiViewModelManager] 中移除。
+     * 将 [visibleFlow] 设为 false，由 [com.d10ng.compose.ui.sheet.Sheet] 驱动官方退出动画，
+     * 动画完成后再从 [UiViewModelManager] 中移除。
      */
     fun dismiss() {
         visibleFlow.value = false
-        scope.launch {
-            delay(300)
-            UiViewModelManager.hideSheet(this@SheetBuilder)
-        }
     }
 
     /**
