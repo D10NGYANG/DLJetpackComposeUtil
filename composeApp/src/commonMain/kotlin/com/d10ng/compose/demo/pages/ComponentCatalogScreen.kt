@@ -46,6 +46,7 @@ import com.d10ng.compose.demo.MaterialSliderRoute
 import com.d10ng.compose.demo.MaterialSnackbarRoute
 import com.d10ng.compose.demo.MaterialSwitchRoute
 import com.d10ng.compose.demo.MaterialTextFieldRoute
+import com.d10ng.compose.demo.MaterialTopAppBarRoute
 import com.d10ng.compose.demo.MenuInputRoute
 import com.d10ng.compose.demo.NavBarRoute
 import com.d10ng.compose.demo.NotifyRoute
@@ -169,7 +170,7 @@ private val materialPages = mapOf(
         ComponentPage("Badge 徽标", MaterialBadgeRoute)
     ),
     ComponentCategory.NAVIGATION to listOf(
-        ComponentPage("TopAppBar 顶部栏")
+        ComponentPage("TopAppBar 顶部栏", MaterialTopAppBarRoute)
     ),
     ComponentCategory.PLATFORM to listOf(
         ComponentPage("Adaptive 自适应布局")

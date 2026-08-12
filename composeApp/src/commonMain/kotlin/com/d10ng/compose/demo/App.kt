@@ -57,6 +57,7 @@ import com.d10ng.compose.demo.pages.MaterialSliderScreen
 import com.d10ng.compose.demo.pages.MaterialSnackbarScreen
 import com.d10ng.compose.demo.pages.MaterialSwitchScreen
 import com.d10ng.compose.demo.pages.MaterialTextFieldScreen
+import com.d10ng.compose.demo.pages.MaterialTopAppBarScreen
 import com.d10ng.compose.demo.pages.MenuInputScreen
 import com.d10ng.compose.demo.pages.NavBarScreen
 import com.d10ng.compose.demo.pages.NotifyScreen
@@ -192,6 +193,9 @@ fun App() {
                         }
                         is MaterialModalBottomSheetRoute -> NavEntry(key) {
                             MaterialModalBottomSheetScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is MaterialTopAppBarRoute -> NavEntry(key) {
+                            MaterialTopAppBarScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is ColorRoute -> NavEntry(key) {
                             ColorScreen(onBack = { backStack.removeLastOrNull() })
