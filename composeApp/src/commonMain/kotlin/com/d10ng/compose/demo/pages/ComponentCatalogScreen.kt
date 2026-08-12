@@ -45,6 +45,7 @@ import com.d10ng.compose.demo.MaterialTextFieldRoute
 import com.d10ng.compose.demo.MenuInputRoute
 import com.d10ng.compose.demo.NavBarRoute
 import com.d10ng.compose.demo.NotifyRoute
+import com.d10ng.compose.demo.PickerRoute
 import com.d10ng.compose.demo.PopoverRoute
 import com.d10ng.compose.demo.PullRefreshRoute
 import com.d10ng.compose.demo.RadioCellRoute
@@ -101,7 +102,7 @@ private val libraryPages = mapOf(
         ComponentPage("ListInputItem 列表输入", LibraryListInputItemRoute),
         ComponentPage("ListMenuItem 列表菜单", LibraryListMenuItemRoute),
         ComponentPage("RadioCell 单选行", RadioCellRoute),
-        ComponentPage("Picker 滚轮选择"),
+        ComponentPage("Picker 滚轮选择", PickerRoute),
         ComponentPage("DatePicker 日期选择"),
         ComponentPage("TimePicker 时间选择")
     ),

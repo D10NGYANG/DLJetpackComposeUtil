@@ -130,6 +130,9 @@ data object LibraryListMenuItemRoute : NavKey
 data object RadioCellRoute : NavKey
 
 @Serializable
+data object PickerRoute : NavKey
+
+@Serializable
 data object DialogRoute : NavKey
 
 @Serializable

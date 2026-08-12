@@ -56,6 +56,7 @@ import com.d10ng.compose.demo.pages.MaterialTextFieldScreen
 import com.d10ng.compose.demo.pages.MenuInputScreen
 import com.d10ng.compose.demo.pages.NavBarScreen
 import com.d10ng.compose.demo.pages.NotifyScreen
+import com.d10ng.compose.demo.pages.PickerScreen
 import com.d10ng.compose.demo.pages.PopoverScreen
 import com.d10ng.compose.demo.pages.PullRefreshScreen
 import com.d10ng.compose.demo.pages.RadioCellScreen
@@ -236,6 +237,9 @@ fun App() {
                         }
                         is RadioCellRoute -> NavEntry(key) {
                             RadioCellScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is PickerRoute -> NavEntry(key) {
+                            PickerScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is DialogRoute -> NavEntry(key) {
                             DialogScreen(onBack = { backStack.removeLastOrNull() })
