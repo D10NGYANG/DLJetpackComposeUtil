@@ -10,6 +10,9 @@ local.properties
 captures
 .externalNativeBuild
 .cxx
+.codegraph/
+.playwright-cli/
+output/playwright/
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/

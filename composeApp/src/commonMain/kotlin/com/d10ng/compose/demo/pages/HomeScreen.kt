@@ -20,29 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavKey
-import com.d10ng.compose.demo.AvatarRoute
-import com.d10ng.compose.demo.BadgeRoute
-import com.d10ng.compose.demo.ButtonRoute
-import com.d10ng.compose.demo.CellRoute
-import com.d10ng.compose.demo.CheckButtonRoute
-import com.d10ng.compose.demo.CheckboxRoute
-import com.d10ng.compose.demo.ColorRoute
-import com.d10ng.compose.demo.DialogRoute
-import com.d10ng.compose.demo.FieldRoute
-import com.d10ng.compose.demo.IndexBarRoute
-import com.d10ng.compose.demo.NavBarRoute
-import com.d10ng.compose.demo.NotifyRoute
-import com.d10ng.compose.demo.PopoverRoute
-import com.d10ng.compose.demo.PullRefreshRoute
-import com.d10ng.compose.demo.SearchRoute
-import com.d10ng.compose.demo.ShapeRoute
-import com.d10ng.compose.demo.SheetRoute
-import com.d10ng.compose.demo.StepperRoute
-import com.d10ng.compose.demo.StepsRoute
-import com.d10ng.compose.demo.SwitchRoute
-import com.d10ng.compose.demo.TagRoute
-import com.d10ng.compose.demo.ToastRoute
-import com.d10ng.compose.demo.TypographyRoute
+import com.d10ng.compose.demo.ComponentCatalogRoute
+import com.d10ng.compose.demo.ComponentSource
 import com.d10ng.compose.demo.resources.Res
 import com.d10ng.compose.demo.resources.ic_launcher_foreground
 import com.d10ng.compose.ui.AppShape
@@ -94,132 +73,23 @@ fun HomeScreen(onNavigate: (NavKey) -> Unit = {}) {
                 )
             }
         }
-        CellGroup(title = "样式配置", inset = true) {
+        CellGroup(title = "组件目录", inset = true) {
             Cell(
-                title = "Color 色彩系统",
+                title = "自有 UI 组件",
+                value = "按类别查看",
                 link = true,
-                onClick = { onNavigate(ColorRoute) }
+                onClick = {
+                    onNavigate(ComponentCatalogRoute(ComponentSource.LIBRARY))
+                }
             )
             Cell(
-                title = "Typography 字体排版",
-                link = true,
-                onClick = { onNavigate(TypographyRoute) }
-            )
-            Cell(
-                title = "Shape 容器形状",
-                link = true,
-                onClick = { onNavigate(ShapeRoute) }
-            )
-        }
-        CellGroup(title = "基础组件", inset = true) {
-            Cell(
-                title = "Button 按钮",
-                link = true,
-                onClick = { onNavigate(ButtonRoute) }
-            )
-            Cell(
-                title = "Cell 单元格",
-                link = true,
-                onClick = { onNavigate(CellRoute) }
-            )
-            Cell(
-                title = "Toast 轻提示",
+                title = "Material 3 官方组件",
+                value = "按类别查看",
                 link = true,
                 border = false,
-                onClick = { onNavigate(ToastRoute) }
-            )
-        }
-        CellGroup(title = "表单组件", inset = true) {
-            Cell(
-                title = "Checkbox 复选框",
-                link = true,
-                onClick = { onNavigate(CheckboxRoute) }
-            )
-            Cell(
-                title = "Field 输入框",
-                link = true,
-                onClick = { onNavigate(FieldRoute) }
-            )
-            Cell(
-                title = "Switch 开关",
-                link = true,
-                onClick = { onNavigate(SwitchRoute) }
-            )
-            Cell(
-                title = "CheckButton 选择按钮",
-                link = true,
-                onClick = { onNavigate(CheckButtonRoute) }
-            )
-            Cell(
-                title = "Stepper 步进器",
-                link = true,
-                onClick = { onNavigate(StepperRoute) }
-            )
-            Cell(
-                title = "Search 搜索",
-                link = true,
-                onClick = { onNavigate(SearchRoute) }
-            )
-        }
-        CellGroup(title = "反馈组件", inset = true) {
-            Cell(
-                title = "Dialog 弹出框",
-                link = true,
-                onClick = { onNavigate(DialogRoute) }
-            )
-            Cell(
-                title = "Sheet 操作面板",
-                link = true,
-                onClick = { onNavigate(SheetRoute) }
-            )
-            Cell(
-                title = "Notify 消息提示",
-                link = true,
-                onClick = { onNavigate(NotifyRoute) }
-            )
-            Cell(
-                title = "PullRefresh 下拉刷新",
-                link = true,
-                onClick = { onNavigate(PullRefreshRoute) }
-            )
-        }
-        CellGroup(title = "展示组件", inset = true) {
-            Cell(
-                title = "Tag 标签",
-                link = true,
-                onClick = { onNavigate(TagRoute) }
-            )
-            Cell(
-                title = "Badge 徽标",
-                link = true,
-                onClick = { onNavigate(BadgeRoute) }
-            )
-            Cell(
-                title = "Avatar 头像",
-                link = true,
-                onClick = { onNavigate(AvatarRoute) }
-            )
-            Cell(
-                title = "Steps 步骤条",
-                link = true,
-                onClick = { onNavigate(StepsRoute) }
-            )
-            Cell(
-                title = "Popover 气泡弹出框",
-                link = true,
-                onClick = { onNavigate(PopoverRoute) }
-            )
-        }
-        CellGroup(title = "导航组件", inset = true) {
-            Cell(
-                title = "NavBar 导航栏",
-                link = true,
-                onClick = { onNavigate(NavBarRoute) }
-            )
-            Cell(
-                title = "IndexBar 索引栏",
-                link = true,
-                onClick = { onNavigate(IndexBarRoute) }
+                onClick = {
+                    onNavigate(ComponentCatalogRoute(ComponentSource.MATERIAL3))
+                }
             )
         }
         Box(modifier = Modifier.height(32.dp))

@@ -7,6 +7,36 @@ import kotlinx.serialization.Serializable
 data object HomeRoute : NavKey
 
 @Serializable
+enum class ComponentSource {
+    LIBRARY,
+    MATERIAL3
+}
+
+@Serializable
+enum class ComponentCategory {
+    THEME,
+    BASIC,
+    FORM,
+    FEEDBACK,
+    DISPLAY,
+    NAVIGATION,
+    DOMAIN,
+    MODIFIER,
+    PLATFORM
+}
+
+@Serializable
+data class ComponentCatalogRoute(
+    val source: ComponentSource
+) : NavKey
+
+@Serializable
+data class ComponentCategoryRoute(
+    val source: ComponentSource,
+    val category: ComponentCategory
+) : NavKey
+
+@Serializable
 data object ColorRoute : NavKey
 
 @Serializable

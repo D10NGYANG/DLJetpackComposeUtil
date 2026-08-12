@@ -30,6 +30,8 @@ import com.d10ng.compose.demo.pages.CellScreen
 import com.d10ng.compose.demo.pages.CheckButtonScreen
 import com.d10ng.compose.demo.pages.CheckboxScreen
 import com.d10ng.compose.demo.pages.ColorScreen
+import com.d10ng.compose.demo.pages.ComponentCatalogScreen
+import com.d10ng.compose.demo.pages.ComponentCategoryScreen
 import com.d10ng.compose.demo.pages.DialogScreen
 import com.d10ng.compose.demo.pages.FieldScreen
 import com.d10ng.compose.demo.pages.HomeScreen
@@ -107,6 +109,21 @@ fun App() {
                     when (key) {
                         is HomeRoute -> NavEntry(key) {
                             HomeScreen(onNavigate = { backStack.add(it) })
+                        }
+                        is ComponentCatalogRoute -> NavEntry(key) {
+                            ComponentCatalogScreen(
+                                source = key.source,
+                                onNavigate = { backStack.add(it) },
+                                onBack = { backStack.removeLastOrNull() }
+                            )
+                        }
+                        is ComponentCategoryRoute -> NavEntry(key) {
+                            ComponentCategoryScreen(
+                                source = key.source,
+                                category = key.category,
+                                onNavigate = { backStack.add(it) },
+                                onBack = { backStack.removeLastOrNull() }
+                            )
                         }
                         is ColorRoute -> NavEntry(key) {
                             ColorScreen(onBack = { backStack.removeLastOrNull() })
