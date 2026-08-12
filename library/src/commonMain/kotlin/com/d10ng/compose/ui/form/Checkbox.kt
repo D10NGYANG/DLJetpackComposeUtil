@@ -8,8 +8,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.material3.Checkbox as MaterialCheckbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -17,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.semantics.Role
@@ -32,6 +36,9 @@ import org.jetbrains.compose.resources.painterResource
 
 /**
  * 复选框形状类型
+ *
+ * [shape] 为兼容既有调用保留；[SQUARE] 的实际视觉由 Material 3 Checkbox token 绘制，
+ * [CIRCLE] 继续使用该形状进行自定义绘制。
  */
 enum class CheckboxType(val shape: Shape) {
     // 方形（圆角矩形）
@@ -42,7 +49,8 @@ enum class CheckboxType(val shape: Shape) {
 
 /**
  * 复选框
- * 支持方形和圆形两种外观，选中时显示对勾图标，可独立控制禁用状态及各阶段颜色
+ * 支持方形和圆形两种外观。方形视觉委托 Material 3 Checkbox，圆形保留兼容绘制；
+ * 外层继续按 [size] 提供精确布局与切换语义，避免官方最小交互尺寸改变既有占位。
  * @param modifier Modifier 修饰符
  * @param checked Boolean 当前是否处于选中状态
  * @param onCheckedChange (Boolean) -> Unit 点击时切换选中状态的回调，参数为切换后的新状态，默认无操作
@@ -51,7 +59,7 @@ enum class CheckboxType(val shape: Shape) {
  * @param type CheckboxType 复选框形状，默认 [CheckboxType.SQUARE]
  * @param activeColor Color 选中时的背景填充色，默认 MaterialTheme.colorScheme.primary
  * @param inactiveColor Color 未选中时的边框颜色，默认 [AppColor.Neutral.tips]
- * @param disabledColor Color 禁用时的整体颜色（选中禁用为实心、未选中禁用为半透明），默认 [AppColor.Neutral.hint]
+ * @param disabledColor Color 禁用时的整体颜色（选中禁用为实心、未选中禁用为与白色混合后的浅色），默认 [AppColor.Neutral.hint]
  */
 @Composable
 fun Checkbox(
@@ -65,44 +73,103 @@ fun Checkbox(
     inactiveColor: Color = AppColor.Neutral.tips,
     disabledColor: Color = AppColor.Neutral.hint,
 ) {
+    val disabledUncheckedColor = disabledColor.next(0.5)
+    Box(
+        modifier = modifier
+            .size(size)
+            .toggleable(
+                value = checked,
+                enabled = !disabled,
+                role = Role.Checkbox,
+                onValueChange = onCheckedChange
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        when (type) {
+            CheckboxType.SQUARE -> MaterialCheckbox(
+                checked = checked,
+                onCheckedChange = null,
+                enabled = !disabled,
+                colors = CheckboxDefaults.colors(
+                    checkedCheckmarkColor = if (disabled) disabledUncheckedColor else Color.White,
+                    uncheckedCheckmarkColor = Color.Transparent,
+                    disabledCheckmarkColor = disabledUncheckedColor,
+                    checkedBoxColor = activeColor,
+                    uncheckedBoxColor = Color.Transparent,
+                    disabledCheckedBoxColor = disabledColor,
+                    disabledUncheckedBoxColor = disabledUncheckedColor,
+                    disabledIndeterminateBoxColor = disabledColor,
+                    checkedBorderColor = activeColor,
+                    uncheckedBorderColor = inactiveColor,
+                    disabledBorderColor = disabledColor,
+                    disabledUncheckedBorderColor = disabledColor,
+                    disabledIndeterminateBorderColor = disabledColor
+                ),
+                modifier = Modifier
+                    .requiredSize(MaterialCheckboxVisualSize)
+                    .graphicsLayer {
+                        val scale = size.toPx() / MaterialCheckboxVisualSize.toPx()
+                        scaleX = scale
+                        scaleY = scale
+                    }
+            )
+
+            CheckboxType.CIRCLE -> CircularCheckboxVisual(
+                checked = checked,
+                disabled = disabled,
+                activeColor = activeColor,
+                inactiveColor = inactiveColor,
+                disabledColor = disabledColor,
+                disabledUncheckedColor = disabledUncheckedColor
+            )
+        }
+    }
+}
+
+// Material 3 1.11.0-alpha07 defaults to the legacy 20.dp visual path.
+private val MaterialCheckboxVisualSize = 20.dp
+
+@Composable
+private fun CircularCheckboxVisual(
+    checked: Boolean,
+    disabled: Boolean,
+    activeColor: Color,
+    inactiveColor: Color,
+    disabledColor: Color,
+    disabledUncheckedColor: Color
+) {
     val bgColor = remember(disabled, disabledColor, checked, activeColor, inactiveColor) {
         when {
             disabled && checked -> disabledColor
-            disabled -> disabledColor.next(0.5)
+            disabled -> disabledUncheckedColor
             checked -> activeColor
             else -> Color.Transparent
         }
     }
-    Box(modifier = modifier.size(size)) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(bgColor, type.shape)
-                .clip(type.shape)
-                .then(
-                    if (checked.not()) Modifier
-                        .border(1.dp, if (disabled) disabledColor else inactiveColor, type.shape)
-                    else Modifier
-                )
-                .toggleable(
-                    value = checked,
-                    enabled = !disabled,
-                    role = Role.Checkbox,
-                    onValueChange = onCheckedChange
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            if (checked) {
-                val tintColor = remember(disabled, disabledColor) {
-                    if (disabled) disabledColor.next(0.5) else Color.White
-                }
-                Icon(
-                    painter = painterResource(resource = Res.drawable.ic_round_check_24),
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxSize(),
-                    tint = tintColor,
-                )
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(bgColor, CheckboxType.CIRCLE.shape)
+            .clip(CheckboxType.CIRCLE.shape)
+            .then(
+                if (checked.not()) Modifier.border(
+                    width = 1.dp,
+                    color = if (disabled) disabledColor else inactiveColor,
+                    shape = CheckboxType.CIRCLE.shape
+                ) else Modifier
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        if (checked) {
+            val tintColor = remember(disabled, disabledUncheckedColor) {
+                if (disabled) disabledUncheckedColor else Color.White
             }
+            Icon(
+                painter = painterResource(resource = Res.drawable.ic_round_check_24),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                tint = tintColor,
+            )
         }
     }
 }

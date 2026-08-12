@@ -63,8 +63,8 @@
 | M-003 | 评估 Cell 底部分割线下沉为 Modifier | 已完成 | 五目标编译；Playwright 390px/LTR/RTL 非对称缩进/动态高度/无分割线 | 2/2，100%；Markdown 人工 1/1；修复 1 项中、1 项低优先级问题 | `ff1d237` |
 | M-004 | 评估 ImagePreview 手势下沉为内部 Modifier | 已完成 | 库/Demo Android 编译、手势逻辑复审 | 1/1，100%；无高/中问题 | `a462ce0` |
 | M-005 | 评估 IndexBar 拖动选择下沉为内部 Modifier | 已完成 | 五目标编译；Playwright 390px 顶/中/底分段、同段去重、触控取消、单项/空列表/27 项完整模式 | 2/2，100%；Markdown 人工 1/1；修复 1 项低优先级可读性问题 | `0888b03` |
-| M-006 | Badge 迁移官方 BadgedBox/Badge 并保留数字格式化适配 | 已完成 | 五目标编译；Playwright 390px 空点/文本/隐藏/阈值/动态 99+/长文本/颜色/Avatar 调用页 | 2/2，100%；Markdown 人工 2/2；修复 1 项中、2 项低优先级问题 | 本提交 |
-| M-007 | Checkbox 方形样式迁官方，保留圆形语义化变体 | 待办 | 视觉与选择语义 | 待执行 | 待提交 |
+| M-006 | Badge 迁移官方 BadgedBox/Badge 并保留数字格式化适配 | 已完成 | 五目标编译；Playwright 390px 空点/文本/隐藏/阈值/动态 99+/长文本/颜色/Avatar 调用页 | 2/2，100%；Markdown 人工 2/2；修复 1 项中、2 项低优先级问题 | `827df2c` |
+| M-007 | Checkbox 方形样式迁官方，保留圆形语义化变体 | 已完成 | 五目标编译；Playwright 390px 方形/圆形切换、禁用零回调、16/22/30/50dp、颜色/Cell | 2/2，100%；Markdown 人工 2/2；修复 1 项低优先级文档问题 | 本提交 |
 | M-008 | Search 与 ListMenuItem 迁移官方 SearchBar/ExposedDropdown | 待办 | 焦点、键盘、返回、空菜单反馈、展开语义、窄屏测量 | 待执行 | 待提交 |
 | M-009 | NavBar 迁移 TopAppBar 并提供兼容适配 | 待办 | Insets、RTL、长标题 | 待执行 | 待提交 |
 | M-010 | Dialog 外壳迁官方 modal，保留 Builder 组合能力 | 待办 | 焦点进入/恢复与隔离、底层语义隐藏、返回/外点策略、窗口层级、多层管理 | 待执行 | 待提交 |
@@ -122,3 +122,4 @@
 | 2026-08-12 | M-003 | 仅将 CellRow 的底部分割线下沉为私有 drawWithContent Modifier，保留 0.5dp 空内容高度、主题色与 RTL 逻辑缩进；Cell 和 CellGroup 的 Divider 会参与公开可观察的布局高度，继续保留 Composable 节点；五目标编译与 390px LTR/RTL、动态高度、无分割线验收通过；OCR 2/2、Markdown 人工 1/1，修复 RTL 物理坐标映射和空内容高度兼容问题 |
 | 2026-08-12 | M-005 | IndexBar 保留公开 Composable，仅将指针识别、分段命中和取消清理下沉为私有 Modifier；修复空列表越界、悬停误选、分段阈值偏差、取消残留、旧回调捕获和事件未消费；Demo 补充精简、单项、空列表和完整模式；五目标编译与 390px Playwright 验收通过，按下/释放/touchCancel 提示状态正确；OCR 2/2、Markdown 人工 1/1；键盘操作和完整读屏语义仍由 A-001 跟踪 |
 | 2026-08-12 | M-006 | 保留 `BadgeBox`、字符串 `Badge` 和数字 `Badge` 三个公开签名，内部委托 Material 3 `BadgedBox`/`Badge`；接受官方空点 6dp、文本最小 16dp 和相对定位，保留锚点 4dp 留白、32dp 文本裁剪、非正数隐藏与 `max+` 格式化；新增 `material3-badge-evaluation.md` 一手资料评估，Demo 补全隐藏/阈值/动态/长文本/颜色场景；五目标编译与 390px、Avatar 调用页验收通过；OCR 2/2、Markdown 人工 2/2，修正文档尺寸漂移并移除无效缓存；官方 Badge 不内置业务语义，Wasm 空点语义未暴露，继续由 A-001 跟踪 |
+| 2026-08-12 | M-007 | 保持 `Checkbox`、`CheckboxType` 及参数契约不变，方形视觉委托 Material 3 Checkbox，圆形保留自绘，并由外层 `toggleable` 统一二态、禁用和精确尺寸行为；新增 `material3-checkbox-evaluation.md` 一手资料评估，Demo 补全方形/圆形、禁用、16/22/30/50dp、颜色和 Cell 场景；五目标编译与 390px 点击/滚动验收通过，禁用回调保持 0；OCR 2/2、Markdown 人工 2/2，修正禁用浅色 KDoc；为兼容旧布局未采用官方 48dp 最小布局，键盘焦点未能在 Wasm Canvas 浏览器自动化中稳定定位，AX 树的 Checkbox/disabled 映射也不完整，后续由 A-001/T-001 的平台 UI 与无障碍回归继续跟踪 |
