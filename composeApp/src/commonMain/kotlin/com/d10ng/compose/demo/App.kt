@@ -38,6 +38,7 @@ import com.d10ng.compose.demo.pages.HomeScreen
 import com.d10ng.compose.demo.pages.IndexBarScreen
 import com.d10ng.compose.demo.pages.MaterialButtonScreen
 import com.d10ng.compose.demo.pages.MaterialCheckboxScreen
+import com.d10ng.compose.demo.pages.MaterialRadioButtonScreen
 import com.d10ng.compose.demo.pages.NavBarScreen
 import com.d10ng.compose.demo.pages.NotifyScreen
 import com.d10ng.compose.demo.pages.PopoverScreen
@@ -132,6 +133,9 @@ fun App() {
                         }
                         is MaterialCheckboxRoute -> NavEntry(key) {
                             MaterialCheckboxScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is MaterialRadioButtonRoute -> NavEntry(key) {
+                            MaterialRadioButtonScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is ColorRoute -> NavEntry(key) {
                             ColorScreen(onBack = { backStack.removeLastOrNull() })

@@ -43,6 +43,9 @@ data object MaterialButtonRoute : NavKey
 data object MaterialCheckboxRoute : NavKey
 
 @Serializable
+data object MaterialRadioButtonRoute : NavKey
+
+@Serializable
 data object ColorRoute : NavKey
 
 @Serializable
