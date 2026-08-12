@@ -33,7 +33,7 @@
 | P-001 | 更新现代化计划，加入行为下沉、单组件 Demo 和逐步提交规则 | 已完成 | 三份文档交叉检查、`git diff --check` | OCR `unsupported_ext`；人工 3/3，100% | `92544d6` |
 | R-001 | 审查并整理当前第一阶段未提交改动 | 已完成 | 五目标编译、JVM 测试通过 | 12/12，100%；聚合页问题已转 D-001 修复 | `0378fa0` |
 | D-001 | 建立 Demo 分类目录和可扩展的单组件路由骨架 | 已完成 | 五目标编译；Playwright 桌面/390px 导航 | 6/6，100%；无高/中问题 | `37c4df8` |
-| D-002 | 拆分官方 Button 页面并完整展示按钮族特性 | 待办 | 交互/窄屏截图 | 待执行 | 待提交 |
+| D-002 | 拆分官方 Button 页面并完整展示按钮族特性 | 已完成 | 五目标编译；Playwright 桌面/390px/交互 | 4/4，100%；无高/中问题 | 本提交 |
 | D-003 | 拆分官方 Checkbox、Radio、Switch 单组件页面 | 待办 | 状态与语义快照 | 待执行 | 待提交 |
 | D-004 | 拆分官方 TextField、ListItem、Badge、Chip 单组件页面 | 待办 | 输入/长文本/窄屏 | 待执行 | 待提交 |
 | D-005 | 拆分官方 Slider、Progress、Snackbar、AlertDialog、ModalBottomSheet 页面 | 待办 | 浮层/返回/状态交互 | 待执行 | 待提交 |
@@ -44,7 +44,7 @@
 | M-001 | Divider 内部委托官方 Material3 实现 | 已完成 | 五目标编译、JVM 测试通过 | 1/1，100%；无高/中问题 | `f096153` |
 | M-002 | 修复 Checkbox、RadioCell、loading Button 的状态与选择语义 | 已完成 | 五目标编译、JVM 测试、语义检查 | 4/4，100%；修复 2 项中优先级问题 | `9d9d151` |
 | M-003 | 评估 Cell 底部分割线下沉为 Modifier | 待办 | 布局截图、调用影响 | 待执行 | 待提交 |
-| M-004 | 评估 ImagePreview 手势下沉为内部 Modifier | 已完成 | 库/Demo Android 编译、手势逻辑复审 | 1/1，100%；无高/中问题 | 本提交 |
+| M-004 | 评估 ImagePreview 手势下沉为内部 Modifier | 已完成 | 库/Demo Android 编译、手势逻辑复审 | 1/1，100%；无高/中问题 | `a462ce0` |
 | M-005 | 评估 IndexBar 拖动选择下沉为内部 Modifier | 待办 | 指针/取消/键盘回归 | 待执行 | 待提交 |
 | M-006 | Badge 迁移官方 BadgedBox/Badge 并保留数字格式化适配 | 待办 | 状态矩阵、语义快照 | 待执行 | 待提交 |
 | M-007 | Checkbox 方形样式迁官方，保留圆形语义化变体 | 待办 | 视觉与选择语义 | 待执行 | 待提交 |
@@ -67,3 +67,4 @@
 | 2026-08-12 | M-001 | HorizontalDivider/VerticalDivider 委托 Material3 官方实现，保留原参数契约；五目标编译和 JVM 测试通过，OCR 1/1 |
 | 2026-08-12 | M-002 | 修复 Checkbox/RadioCell/Button 状态语义与 RadioSheet 选择组；复审关闭 Modifier 缓存和 loading 名称问题，五目标编译与 JVM 测试通过，OCR 4/4 |
 | 2026-08-12 | M-004 | ImagePreview 保留公开 Composable，将缩放、平移、复位和关闭下沉为私有 Modifier；Android 库/Demo 编译通过，OCR 1/1；真机多指回归留待平台测试 |
+| 2026-08-12 | D-002 | 新增 Material Button 独立页面，覆盖五种按钮变体、禁用/加载、图标文本、全宽和长文本；五目标编译与桌面/390px/交互验收通过，OCR 4/4 |

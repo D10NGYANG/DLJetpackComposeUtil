@@ -25,6 +25,7 @@ import com.d10ng.compose.demo.ComponentSource
 import com.d10ng.compose.demo.DialogRoute
 import com.d10ng.compose.demo.FieldRoute
 import com.d10ng.compose.demo.IndexBarRoute
+import com.d10ng.compose.demo.MaterialButtonRoute
 import com.d10ng.compose.demo.NavBarRoute
 import com.d10ng.compose.demo.NotifyRoute
 import com.d10ng.compose.demo.PopoverRoute
@@ -117,7 +118,7 @@ private val libraryPages = mapOf(
 
 private val materialPages = mapOf(
     ComponentCategory.BASIC to listOf(
-        ComponentPage("Button 按钮族"),
+        ComponentPage("Button 按钮族", MaterialButtonRoute),
         ComponentPage("ListItem 列表项"),
         ComponentPage("Divider 分割线")
     ),
