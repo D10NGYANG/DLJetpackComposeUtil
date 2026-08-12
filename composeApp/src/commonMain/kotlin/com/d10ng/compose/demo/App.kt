@@ -50,6 +50,7 @@ import com.d10ng.compose.demo.pages.MaterialSliderScreen
 import com.d10ng.compose.demo.pages.MaterialSnackbarScreen
 import com.d10ng.compose.demo.pages.MaterialSwitchScreen
 import com.d10ng.compose.demo.pages.MaterialTextFieldScreen
+import com.d10ng.compose.demo.pages.MenuInputScreen
 import com.d10ng.compose.demo.pages.NavBarScreen
 import com.d10ng.compose.demo.pages.NotifyScreen
 import com.d10ng.compose.demo.pages.PopoverScreen
@@ -216,6 +217,9 @@ fun App() {
                         }
                         is InputRoute -> NavEntry(key) {
                             InputScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is MenuInputRoute -> NavEntry(key) {
+                            MenuInputScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is DialogRoute -> NavEntry(key) {
                             DialogScreen(onBack = { backStack.removeLastOrNull() })

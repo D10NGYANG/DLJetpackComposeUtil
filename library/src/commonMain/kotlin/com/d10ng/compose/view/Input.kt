@@ -201,7 +201,7 @@ fun MenuInput(
                     keyboardOptions = KeyboardOptions().copy(
                         keyboardType = keyboardType, imeAction = ImeAction.Next
                     ),
-                    keyboardActions = KeyboardActions { onClickNext.invoke() },
+                    keyboardActions = KeyboardActions(onNext = { onClickNext.invoke() }),
                     visualTransformation = visualTransformation,
                     singleLine = maxLines == 1,
                     maxLines = maxLines,

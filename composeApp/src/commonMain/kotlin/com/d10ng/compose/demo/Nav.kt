@@ -115,6 +115,9 @@ data object SearchRoute : NavKey
 data object InputRoute : NavKey
 
 @Serializable
+data object MenuInputRoute : NavKey
+
+@Serializable
 data object DialogRoute : NavKey
 
 @Serializable

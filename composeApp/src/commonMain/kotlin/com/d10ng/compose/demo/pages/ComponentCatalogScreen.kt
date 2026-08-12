@@ -39,6 +39,7 @@ import com.d10ng.compose.demo.MaterialSliderRoute
 import com.d10ng.compose.demo.MaterialSnackbarRoute
 import com.d10ng.compose.demo.MaterialSwitchRoute
 import com.d10ng.compose.demo.MaterialTextFieldRoute
+import com.d10ng.compose.demo.MenuInputRoute
 import com.d10ng.compose.demo.NavBarRoute
 import com.d10ng.compose.demo.NotifyRoute
 import com.d10ng.compose.demo.PopoverRoute
@@ -91,7 +92,7 @@ private val libraryPages = mapOf(
         ComponentPage("Stepper 步进器", StepperRoute),
         ComponentPage("Search 搜索", SearchRoute),
         ComponentPage("Input 输入原语", InputRoute),
-        ComponentPage("MenuInput 菜单输入"),
+        ComponentPage("MenuInput 菜单输入", MenuInputRoute),
         ComponentPage("RadioCell 单选行"),
         ComponentPage("Picker 滚轮选择"),
         ComponentPage("DatePicker 日期选择"),
