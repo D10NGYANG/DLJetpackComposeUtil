@@ -58,6 +58,7 @@ import com.d10ng.compose.demo.pages.MaterialTextFieldScreen
 import com.d10ng.compose.demo.pages.MenuInputScreen
 import com.d10ng.compose.demo.pages.NavBarScreen
 import com.d10ng.compose.demo.pages.NotifyScreen
+import com.d10ng.compose.demo.pages.OverlayScreen
 import com.d10ng.compose.demo.pages.PickerScreen
 import com.d10ng.compose.demo.pages.PopoverScreen
 import com.d10ng.compose.demo.pages.PullRefreshScreen
@@ -252,6 +253,9 @@ fun App() {
                         }
                         is DividerRoute -> NavEntry(key) {
                             DividerScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is OverlayRoute -> NavEntry(key) {
+                            OverlayScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is DialogRoute -> NavEntry(key) {
                             DialogScreen(onBack = { backStack.removeLastOrNull() })

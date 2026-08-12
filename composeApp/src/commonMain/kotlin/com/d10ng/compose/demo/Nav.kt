@@ -142,6 +142,9 @@ data object TimePickerRoute : NavKey
 data object DividerRoute : NavKey
 
 @Serializable
+data object OverlayRoute : NavKey
+
+@Serializable
 data object DialogRoute : NavKey
 
 @Serializable

@@ -47,6 +47,7 @@ import com.d10ng.compose.demo.MaterialTextFieldRoute
 import com.d10ng.compose.demo.MenuInputRoute
 import com.d10ng.compose.demo.NavBarRoute
 import com.d10ng.compose.demo.NotifyRoute
+import com.d10ng.compose.demo.OverlayRoute
 import com.d10ng.compose.demo.PickerRoute
 import com.d10ng.compose.demo.PopoverRoute
 import com.d10ng.compose.demo.PullRefreshRoute
@@ -115,7 +116,7 @@ private val libraryPages = mapOf(
         ComponentPage("Sheet 操作面板", SheetRoute),
         ComponentPage("Notify 消息提示", NotifyRoute),
         ComponentPage("PullRefresh 下拉刷新", PullRefreshRoute),
-        ComponentPage("Overlay 遮罩")
+        ComponentPage("Overlay 遮罩", OverlayRoute)
     ),
     ComponentCategory.DISPLAY to listOf(
         ComponentPage("Tag 标签", TagRoute),
