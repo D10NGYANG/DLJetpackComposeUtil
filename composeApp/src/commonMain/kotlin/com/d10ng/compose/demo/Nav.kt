@@ -136,6 +136,9 @@ data object PickerRoute : NavKey
 data object DatePickerRoute : NavKey
 
 @Serializable
+data object TimePickerRoute : NavKey
+
+@Serializable
 data object DialogRoute : NavKey
 
 @Serializable

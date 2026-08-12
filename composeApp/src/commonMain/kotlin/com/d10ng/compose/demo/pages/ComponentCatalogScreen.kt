@@ -57,6 +57,7 @@ import com.d10ng.compose.demo.StepperRoute
 import com.d10ng.compose.demo.StepsRoute
 import com.d10ng.compose.demo.SwitchRoute
 import com.d10ng.compose.demo.TagRoute
+import com.d10ng.compose.demo.TimePickerRoute
 import com.d10ng.compose.demo.ToastRoute
 import com.d10ng.compose.demo.TypographyRoute
 import com.d10ng.compose.ui.base.Cell
@@ -105,7 +106,7 @@ private val libraryPages = mapOf(
         ComponentPage("RadioCell 单选行", RadioCellRoute),
         ComponentPage("Picker 滚轮选择", PickerRoute),
         ComponentPage("DatePicker 日期选择", DatePickerRoute),
-        ComponentPage("TimePicker 时间选择")
+        ComponentPage("TimePicker 时间选择", TimePickerRoute)
     ),
     ComponentCategory.FEEDBACK to listOf(
         ComponentPage("Toast 轻提示", ToastRoute),

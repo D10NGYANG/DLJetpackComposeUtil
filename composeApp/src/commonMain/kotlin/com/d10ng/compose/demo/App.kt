@@ -68,6 +68,7 @@ import com.d10ng.compose.demo.pages.StepperScreen
 import com.d10ng.compose.demo.pages.StepsScreen
 import com.d10ng.compose.demo.pages.SwitchScreen
 import com.d10ng.compose.demo.pages.TagScreen
+import com.d10ng.compose.demo.pages.TimePickerScreen
 import com.d10ng.compose.demo.pages.ToastScreen
 import com.d10ng.compose.demo.pages.TypographyScreen
 import com.d10ng.compose.model.UiViewModelManager
@@ -244,6 +245,9 @@ fun App() {
                         }
                         is DatePickerRoute -> NavEntry(key) {
                             DatePickerScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is TimePickerRoute -> NavEntry(key) {
+                            TimePickerScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is DialogRoute -> NavEntry(key) {
                             DialogScreen(onBack = { backStack.removeLastOrNull() })
