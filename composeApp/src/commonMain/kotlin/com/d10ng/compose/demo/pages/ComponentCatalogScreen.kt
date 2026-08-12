@@ -23,6 +23,7 @@ import com.d10ng.compose.demo.ComponentCategory
 import com.d10ng.compose.demo.ComponentCategoryRoute
 import com.d10ng.compose.demo.ComponentSource
 import com.d10ng.compose.demo.DatePickerRoute
+import com.d10ng.compose.demo.DividerRoute
 import com.d10ng.compose.demo.DialogRoute
 import com.d10ng.compose.demo.FieldRoute
 import com.d10ng.compose.demo.IndexBarRoute
@@ -122,7 +123,7 @@ private val libraryPages = mapOf(
         ComponentPage("Avatar 头像", AvatarRoute),
         ComponentPage("Steps 步骤条", StepsRoute),
         ComponentPage("Popover 气泡弹出框", PopoverRoute),
-        ComponentPage("Divider 分割线")
+        ComponentPage("Divider 分割线", DividerRoute)
     ),
     ComponentCategory.NAVIGATION to listOf(
         ComponentPage("NavBar 导航栏", NavBarRoute),
@@ -144,7 +145,7 @@ private val materialPages = mapOf(
     ComponentCategory.BASIC to listOf(
         ComponentPage("Button 按钮族", MaterialButtonRoute),
         ComponentPage("ListItem 列表项", MaterialListItemRoute),
-        ComponentPage("Divider 分割线")
+        ComponentPage("Divider 分割线", DividerRoute)
     ),
     ComponentCategory.FORM to listOf(
         ComponentPage("Checkbox 复选框", MaterialCheckboxRoute),

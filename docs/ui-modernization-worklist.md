@@ -54,8 +54,10 @@
 | D-008A | 为自有 RadioCell 建立独立页面 | 已完成 | 五目标编译；Playwright 390px/互斥选择/禁用/边框/长文本 | 4/4，100%；Markdown 人工 1/1；无高/中问题 | `1406511` |
 | D-008B | 为自有 Picker 建立独立页面 | 已完成 | 五目标编译；Playwright 390px/点击吸附/外部选择/多列同步 | 4/4，100%；Markdown 人工 1/1；修复 1 项低优先级问题 | `6b1a289` |
 | D-008C | 为自有 DatePicker 建立独立页面 | 已完成 | 五目标编译；Playwright 390px/五种模式/闰年/起止边界/本地时区/语义 | 4/4，100%；Markdown 人工 1/1；修复 2 项中、1 项低优先级问题 | `c90316e` |
-| D-008D | 为自有 TimePicker 建立独立页面 | 已完成 | 五目标编译；Playwright 390px/HMS/HM/滚轮交互/起止边界/回调/语义 | 4/4，100%；Markdown 人工 1/1；修复 2 项中优先级问题 | 本提交 |
-| D-009 | 为 Divider、Overlay、BDSignalBeamBox 建立单组件页面 | 待办 | Modifier/模态/领域数据 | 待执行 | 待提交 |
+| D-008D | 为自有 TimePicker 建立独立页面 | 已完成 | 五目标编译；Playwright 390px/HMS/HM/滚轮交互/起止边界/回调/语义 | 4/4，100%；Markdown 人工 1/1；修复 2 项中优先级问题 | `56317cb` |
+| D-009A | 为 Divider 建立官方/自有对照单组件页面 | 已完成 | 五目标编译；Playwright 390px/双入口/横纵方向/Hairline/粗细/颜色/inset/RTL/Intrinsic | 4/4，100%；Markdown 人工 1/1；修复 1 项低优先级问题 | 本提交 |
+| D-009B | 为 Overlay 建立单组件页面 | 待办 | 模态层级/外点关闭/返回/语义 | 待执行 | 待提交 |
+| D-009C | 为 BDSignalBeamBox 建立单组件页面 | 待办 | 空数据/上下限/超长数据/颜色/语义 | 待执行 | 待提交 |
 | M-001 | Divider 内部委托官方 Material3 实现 | 已完成 | 五目标编译、JVM 测试通过 | 1/1，100%；无高/中问题 | `f096153` |
 | M-002 | 修复 Checkbox、RadioCell、loading Button 的状态与选择语义 | 已完成 | 五目标编译、JVM 测试、语义检查 | 4/4，100%；修复 2 项中优先级问题 | `9d9d151` |
 | M-003 | 评估 Cell 底部分割线下沉为 Modifier | 待办 | 布局截图、调用影响 | 待执行 | 待提交 |
@@ -76,6 +78,7 @@
 | M-018 | 加固 Picker/MultiPicker 输入契约和无障碍操作 | 待办 | 空集合、选中长度、Modifier、禁用、键盘/读屏增减、独立列/级联模型 | 待执行 | 待提交 |
 | M-019 | 评估 DatePicker 通用场景迁官方日历组件并加固滚轮差异化能力 | 待办 | 官方/滚轮兼容 API、时区/DST、非法范围、Modifier、禁用、键盘/读屏 | 待执行 | 待提交 |
 | M-020 | 评估 TimePicker 普通 HM 场景迁官方并加固有限范围 HMS 滚轮 | 待办 | 参数校验、越界值、HM 秒契约、联动竞态、Modifier、禁用、键盘/读屏、官方兼容 API | 待执行 | 待提交 |
+| M-021 | 迁移 Divider 调用点并评估弃用自有兼容层 | 待办 | 21 个横线调用点、纵线公开 API、0.5dp/Hairline 视觉、逻辑方向 inset、弃用周期 | 待执行 | 待提交 |
 | A-001 | 为 Stepper、IndexBar、Steps、BDSignalBeamBox 补齐键盘和语义 | 待办 | UI 测试、语义快照 | 待执行 | 待提交 |
 | A-002 | 建立 Adaptive 五目标验证 spike | 待办 | Android/iOS/JVM/JS/Wasm | 待执行 | 待提交 |
 | T-001 | 建立关键单组件页面的 Compose UI 与截图回归基线 | 待办 | Android/JVM 自动化 | 待执行 | 待提交 |
@@ -112,3 +115,4 @@
 | 2026-08-12 | D-008B | 新增 Picker/MultiPicker 组件族独立页面，覆盖单列点击吸附、外部上一/下一、自定义样式、三列选择和外部组合同步；五目标编译与 390px 验收通过；OCR 4/4、Markdown 人工 1/1，修正页面语义容器格式；组件无官方直接替代且不适合 Modifier，输入契约与无障碍操作转 M-018 跟踪 |
 | 2026-08-12 | D-008C | 新增 DatePicker 独立页面，覆盖 YMD/YM/Y/MD/M、定制后缀、闰年、起止边界、本地时区时间戳和滚轮语义；五目标编译与 390px 验收通过；OCR 4/4、Markdown 人工 1/1，修正 YMD 月后缀、UTC 边界日期和滚动项重复分配；官方日历组件仅适合通用场景，当前五模式滚轮不适合 Modifier，兼容迁移与契约加固转 M-019 跟踪 |
 | 2026-08-12 | D-008D | 新增 TimePicker 独立页面，覆盖 HMS/HM、定制后缀、非整点范围、起止/中间预设、真实滚轮交互、总秒数与回调分量；五目标编译与 390px 验收通过；OCR 4/4、Markdown 人工 1/1，修正 HM 隐藏秒状态和 Wasm 模式/当前值语义；官方组件仅适合普通 HM，有限范围 HMS 滚轮不适合 Modifier，参数契约、联动和双轨迁移转 M-020 跟踪 |
+| 2026-08-12 | D-009A | 将原 D-009 拆为 Divider、Overlay、BDSignalBeamBox 三个单组件任务；新增自有/Material 3 双入口共享 Divider 对照页，覆盖 Hairline、0.5/1/2/3/4dp、颜色、逻辑方向 inset、RTL、宽度限制、固定高度和 IntrinsicSize.Min；五目标编译与 390px 验收通过；OCR 4/4、Markdown 人工 1/1，修正方向性文案；Divider 是布局节点不适合 Modifier，自有薄适配层迁移与弃用转 M-021 跟踪 |

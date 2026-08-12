@@ -34,6 +34,7 @@ import com.d10ng.compose.demo.pages.ComponentCatalogScreen
 import com.d10ng.compose.demo.pages.ComponentCategoryScreen
 import com.d10ng.compose.demo.pages.DialogScreen
 import com.d10ng.compose.demo.pages.DatePickerScreen
+import com.d10ng.compose.demo.pages.DividerScreen
 import com.d10ng.compose.demo.pages.FieldScreen
 import com.d10ng.compose.demo.pages.HomeScreen
 import com.d10ng.compose.demo.pages.IndexBarScreen
@@ -248,6 +249,9 @@ fun App() {
                         }
                         is TimePickerRoute -> NavEntry(key) {
                             TimePickerScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is DividerRoute -> NavEntry(key) {
+                            DividerScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is DialogRoute -> NavEntry(key) {
                             DialogScreen(onBack = { backStack.removeLastOrNull() })
