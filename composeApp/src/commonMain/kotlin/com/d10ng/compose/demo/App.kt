@@ -33,6 +33,7 @@ import com.d10ng.compose.demo.pages.ColorScreen
 import com.d10ng.compose.demo.pages.ComponentCatalogScreen
 import com.d10ng.compose.demo.pages.ComponentCategoryScreen
 import com.d10ng.compose.demo.pages.DialogScreen
+import com.d10ng.compose.demo.pages.DatePickerScreen
 import com.d10ng.compose.demo.pages.FieldScreen
 import com.d10ng.compose.demo.pages.HomeScreen
 import com.d10ng.compose.demo.pages.IndexBarScreen
@@ -240,6 +241,9 @@ fun App() {
                         }
                         is PickerRoute -> NavEntry(key) {
                             PickerScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is DatePickerRoute -> NavEntry(key) {
+                            DatePickerScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is DialogRoute -> NavEntry(key) {
                             DialogScreen(onBack = { backStack.removeLastOrNull() })

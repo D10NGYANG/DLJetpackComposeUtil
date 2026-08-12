@@ -22,6 +22,7 @@ import com.d10ng.compose.demo.ColorRoute
 import com.d10ng.compose.demo.ComponentCategory
 import com.d10ng.compose.demo.ComponentCategoryRoute
 import com.d10ng.compose.demo.ComponentSource
+import com.d10ng.compose.demo.DatePickerRoute
 import com.d10ng.compose.demo.DialogRoute
 import com.d10ng.compose.demo.FieldRoute
 import com.d10ng.compose.demo.IndexBarRoute
@@ -103,7 +104,7 @@ private val libraryPages = mapOf(
         ComponentPage("ListMenuItem 列表菜单", LibraryListMenuItemRoute),
         ComponentPage("RadioCell 单选行", RadioCellRoute),
         ComponentPage("Picker 滚轮选择", PickerRoute),
-        ComponentPage("DatePicker 日期选择"),
+        ComponentPage("DatePicker 日期选择", DatePickerRoute),
         ComponentPage("TimePicker 时间选择")
     ),
     ComponentCategory.FEEDBACK to listOf(

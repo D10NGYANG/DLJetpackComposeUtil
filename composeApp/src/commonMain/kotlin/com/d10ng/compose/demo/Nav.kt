@@ -133,6 +133,9 @@ data object RadioCellRoute : NavKey
 data object PickerRoute : NavKey
 
 @Serializable
+data object DatePickerRoute : NavKey
+
+@Serializable
 data object DialogRoute : NavKey
 
 @Serializable
