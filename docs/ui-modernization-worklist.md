@@ -60,9 +60,9 @@
 | D-009C | 为 BDSignalBeamBox 建立单组件页面 | 已完成 | 五目标编译；Playwright 390px/空数据/上下限/20 路横向滚动/越界钳制/颜色/长文案/AX 语义 | 5/5，100%；Markdown 人工 1/1；修复 2 项高、2 项中优先级问题 | `85d72ec` |
 | M-001 | Divider 内部委托官方 Material3 实现 | 已完成 | 五目标编译、JVM 测试通过 | 1/1，100%；无高/中问题 | `f096153` |
 | M-002 | 修复 Checkbox、RadioCell、loading Button 的状态与选择语义 | 已完成 | 五目标编译、JVM 测试、语义检查 | 4/4，100%；修复 2 项中优先级问题 | `9d9d151` |
-| M-003 | 评估 Cell 底部分割线下沉为 Modifier | 已完成 | 五目标编译；Playwright 390px/LTR/RTL 非对称缩进/动态高度/无分割线 | 2/2，100%；Markdown 人工 1/1；修复 1 项中、1 项低优先级问题 | 本提交 |
+| M-003 | 评估 Cell 底部分割线下沉为 Modifier | 已完成 | 五目标编译；Playwright 390px/LTR/RTL 非对称缩进/动态高度/无分割线 | 2/2，100%；Markdown 人工 1/1；修复 1 项中、1 项低优先级问题 | `ff1d237` |
 | M-004 | 评估 ImagePreview 手势下沉为内部 Modifier | 已完成 | 库/Demo Android 编译、手势逻辑复审 | 1/1，100%；无高/中问题 | `a462ce0` |
-| M-005 | 评估 IndexBar 拖动选择下沉为内部 Modifier | 待办 | 指针/取消/键盘回归 | 待执行 | 待提交 |
+| M-005 | 评估 IndexBar 拖动选择下沉为内部 Modifier | 已完成 | 五目标编译；Playwright 390px 顶/中/底分段、同段去重、触控取消、单项/空列表/27 项完整模式 | 2/2，100%；Markdown 人工 1/1；修复 1 项低优先级可读性问题 | 本提交 |
 | M-006 | Badge 迁移官方 BadgedBox/Badge 并保留数字格式化适配 | 待办 | 状态矩阵、语义快照 | 待执行 | 待提交 |
 | M-007 | Checkbox 方形样式迁官方，保留圆形语义化变体 | 待办 | 视觉与选择语义 | 待执行 | 待提交 |
 | M-008 | Search 与 ListMenuItem 迁移官方 SearchBar/ExposedDropdown | 待办 | 焦点、键盘、返回、空菜单反馈、展开语义、窄屏测量 | 待执行 | 待提交 |
@@ -120,3 +120,4 @@
 | 2026-08-12 | D-009B | 新增 Overlay 独立页面，覆盖居中/底部对齐、内容按钮、内容留白、外点关闭、点击拦截与 Escape 返回；修复内容留白误关闭，遮罩色改用主题 scrim，并避免 pointerInput 捕获旧回调；五目标编译与 390px 验收通过；OCR 5/5、Markdown 人工 1/1，修正文档漂移；官方库没有等价的独立 Overlay，组件不适合 Modifier，普通弹窗应迁 Dialog/AlertDialog/BasicAlertDialog，焦点隔离、底层语义、窗口层级与多层策略转 M-010 跟踪 |
 | 2026-08-12 | D-009C | 新增 BDSignalBeamBox 独立领域页面，覆盖常规、空数据、0/60 上下限、20 路超长、越界输入、颜色和长文案；修复越界强度直接进入布局、超长数据挤压、空态伪造 0 号卫星和缺少信号语义，20 路可横向访问且 AX 树完整暴露逐柱强度；五目标编译与 390px 验收通过；OCR 5/5、Markdown 人工 1/1；官方无同类领域组件，整体不适合 Modifier，数据模型、Modifier 接入、暗色/本地化/RTL 转 M-022 跟踪 |
 | 2026-08-12 | M-003 | 仅将 CellRow 的底部分割线下沉为私有 drawWithContent Modifier，保留 0.5dp 空内容高度、主题色与 RTL 逻辑缩进；Cell 和 CellGroup 的 Divider 会参与公开可观察的布局高度，继续保留 Composable 节点；五目标编译与 390px LTR/RTL、动态高度、无分割线验收通过；OCR 2/2、Markdown 人工 1/1，修复 RTL 物理坐标映射和空内容高度兼容问题 |
+| 2026-08-12 | M-005 | IndexBar 保留公开 Composable，仅将指针识别、分段命中和取消清理下沉为私有 Modifier；修复空列表越界、悬停误选、分段阈值偏差、取消残留、旧回调捕获和事件未消费；Demo 补充精简、单项、空列表和完整模式；五目标编译与 390px Playwright 验收通过，按下/释放/touchCancel 提示状态正确；OCR 2/2、Markdown 人工 1/1；键盘操作和完整读屏语义仍由 A-001 跟踪 |

@@ -1,6 +1,8 @@
 package com.d10ng.compose.ui.navigation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -15,23 +17,24 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
-import kotlin.math.roundToInt
 
 /**
  * 索引栏
@@ -67,8 +70,10 @@ fun IndexBar(
     var selectChar by remember {
         mutableStateOf<Char?>(null)
     }
-    var barSize by remember {
-        mutableIntStateOf(0)
+    val onSelectState = rememberUpdatedState(onSelect)
+    val onTouchState = rememberUpdatedState { touched: Boolean, char: Char? ->
+        isTouch = touched
+        selectChar = char
     }
     Box(
         modifier = modifier
@@ -81,38 +86,19 @@ fun IndexBar(
                 .background(if (isTouch) touchColor else Color.Transparent)
                 .padding(vertical = 16.dp)
                 .align(Alignment.CenterEnd)
-                .onSizeChanged {
-                    barSize = it.height
+                .semantics {
+                    contentDescription = "索引栏"
+                    stateDescription = selectChar?.let { "当前索引 $it" }
+                        ?: if (chars.isEmpty()) "无可用索引" else "${chars.size} 个索引"
+                    if (chars.isEmpty()) disabled()
                 }
-                .pointerInput(chars) {
-                    awaitPointerEventScope {
-                        while (true) {
-                            val event = awaitPointerEvent()
-                            when (event.type) {
-                                PointerEventType.Press, PointerEventType.Move -> {
-                                    isTouch = true
-                                    if (barSize != 0) {
-                                        val y = event.changes.first().position.y
-                                        val pos = y / barSize * chars.size
-                                        val c = chars[pos
-                                            .roundToInt()
-                                            .coerceAtLeast(0)
-                                            .coerceAtMost(chars.size - 1)]
-                                        if (c != selectChar) {
-                                            selectChar = c
-                                            onSelect.invoke(c)
-                                        }
-                                    }
-                                }
-
-                                PointerEventType.Release -> {
-                                    isTouch = false
-                                    selectChar = null
-                                }
-                            }
-                        }
+                .indexSelectionGesture(
+                    chars = chars,
+                    onSelect = { onSelectState.value(it) },
+                    onTouchStateChange = { touched, char ->
+                        onTouchState.value(touched, char)
                     }
-                },
+                ),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             chars.forEach { char ->
@@ -122,6 +108,46 @@ fun IndexBar(
 
         if (selectChar != null) {
             selectText(selectChar.toString())
+        }
+    }
+}
+
+private fun Modifier.indexSelectionGesture(
+    chars: List<Char>,
+    onSelect: (Char) -> Unit,
+    onTouchStateChange: (Boolean, Char?) -> Unit
+): Modifier = if (chars.isEmpty()) this else pointerInput(chars) {
+    awaitEachGesture {
+        var selectedChar: Char? = null
+        try {
+            val down = awaitFirstDown(requireUnconsumed = false)
+
+            fun selectAt(y: Float) {
+                val barHeight = size.height
+                if (barHeight <= 0) return
+                val index = (y.coerceIn(0f, barHeight.toFloat()) / barHeight * chars.size)
+                    .toInt()
+                    .coerceAtMost(chars.lastIndex)
+                val char = chars[index]
+                if (char != selectedChar) {
+                    selectedChar = char
+                    onTouchStateChange(true, char)
+                    onSelect(char)
+                }
+            }
+
+            selectAt(down.position.y)
+            down.consume()
+            do {
+                val event = awaitPointerEvent()
+                val change = event.changes.firstOrNull { it.id == down.id } ?: break
+                if (change.pressed) {
+                    selectAt(change.position.y)
+                    change.consume()
+                }
+            } while (change.pressed)
+        } finally {
+            onTouchStateChange(false, null)
         }
     }
 }
