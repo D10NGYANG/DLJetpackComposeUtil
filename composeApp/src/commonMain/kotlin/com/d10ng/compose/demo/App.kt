@@ -37,6 +37,7 @@ import com.d10ng.compose.demo.pages.FieldScreen
 import com.d10ng.compose.demo.pages.HomeScreen
 import com.d10ng.compose.demo.pages.IndexBarScreen
 import com.d10ng.compose.demo.pages.MaterialButtonScreen
+import com.d10ng.compose.demo.pages.MaterialAlertDialogScreen
 import com.d10ng.compose.demo.pages.MaterialBadgeScreen
 import com.d10ng.compose.demo.pages.MaterialCheckboxScreen
 import com.d10ng.compose.demo.pages.MaterialChipScreen
@@ -168,6 +169,9 @@ fun App() {
                         }
                         is MaterialSnackbarRoute -> NavEntry(key) {
                             MaterialSnackbarScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is MaterialAlertDialogRoute -> NavEntry(key) {
+                            MaterialAlertDialogScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is ColorRoute -> NavEntry(key) {
                             ColorScreen(onBack = { backStack.removeLastOrNull() })

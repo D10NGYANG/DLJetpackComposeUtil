@@ -70,6 +70,9 @@ data object MaterialProgressIndicatorRoute : NavKey
 data object MaterialSnackbarRoute : NavKey
 
 @Serializable
+data object MaterialAlertDialogRoute : NavKey
+
+@Serializable
 data object ColorRoute : NavKey
 
 @Serializable
