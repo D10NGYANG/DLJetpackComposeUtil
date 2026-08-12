@@ -36,6 +36,7 @@ import com.d10ng.compose.demo.pages.DialogScreen
 import com.d10ng.compose.demo.pages.FieldScreen
 import com.d10ng.compose.demo.pages.HomeScreen
 import com.d10ng.compose.demo.pages.IndexBarScreen
+import com.d10ng.compose.demo.pages.InputScreen
 import com.d10ng.compose.demo.pages.MaterialButtonScreen
 import com.d10ng.compose.demo.pages.MaterialAlertDialogScreen
 import com.d10ng.compose.demo.pages.MaterialBadgeScreen
@@ -212,6 +213,9 @@ fun App() {
                         }
                         is SearchRoute -> NavEntry(key) {
                             SearchScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is InputRoute -> NavEntry(key) {
+                            InputScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is DialogRoute -> NavEntry(key) {
                             DialogScreen(onBack = { backStack.removeLastOrNull() })

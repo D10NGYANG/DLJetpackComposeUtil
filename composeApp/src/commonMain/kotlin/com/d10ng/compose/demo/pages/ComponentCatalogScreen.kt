@@ -25,6 +25,7 @@ import com.d10ng.compose.demo.ComponentSource
 import com.d10ng.compose.demo.DialogRoute
 import com.d10ng.compose.demo.FieldRoute
 import com.d10ng.compose.demo.IndexBarRoute
+import com.d10ng.compose.demo.InputRoute
 import com.d10ng.compose.demo.MaterialButtonRoute
 import com.d10ng.compose.demo.MaterialBadgeRoute
 import com.d10ng.compose.demo.MaterialAlertDialogRoute
@@ -89,7 +90,7 @@ private val libraryPages = mapOf(
         ComponentPage("CheckButton 选择按钮", CheckButtonRoute),
         ComponentPage("Stepper 步进器", StepperRoute),
         ComponentPage("Search 搜索", SearchRoute),
-        ComponentPage("Input 输入原语"),
+        ComponentPage("Input 输入原语", InputRoute),
         ComponentPage("MenuInput 菜单输入"),
         ComponentPage("RadioCell 单选行"),
         ComponentPage("Picker 滚轮选择"),

@@ -112,6 +112,9 @@ data object StepperRoute : NavKey
 data object SearchRoute : NavKey
 
 @Serializable
+data object InputRoute : NavKey
+
+@Serializable
 data object DialogRoute : NavKey
 
 @Serializable

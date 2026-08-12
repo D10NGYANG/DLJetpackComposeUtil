@@ -45,8 +45,9 @@
 | D-005B | 建立官方 ProgressIndicator 单组件页面 | 已完成 | 五目标编译；Playwright 390px/确定/不确定/运行/暂停/重置 | 4/4，100%；无高/中问题 | `e87a617` |
 | D-005C | 建立官方 Snackbar 单组件页面 | 已完成 | 五目标编译；Playwright 390px/队列/操作/关闭/样式 | 4/4，100%；修复 1 项中优先级问题 | `583fcab` |
 | D-005D | 建立官方 AlertDialog 单组件页面 | 已完成 | 五目标编译；Playwright 390px/确认/取消/外部关闭/长文本/主题 | 4/4，100%；修复 1 项低优先级问题 | `26d3663` |
-| D-005E | 建立官方 ModalBottomSheet 单组件页面 | 已完成 | 五目标编译；Playwright 390px/部分展开/完全展开/滚动/关闭/主题 | 4/4，100%；修复 2 项低优先级问题 | 本提交 |
-| D-006 | 为自有 Input 与 MenuInput 建立独立页面 | 待办 | 输入/过滤/焦点/错误 | 待执行 | 待提交 |
+| D-005E | 建立官方 ModalBottomSheet 单组件页面 | 已完成 | 五目标编译；Playwright 390px/部分展开/完全展开/滚动/关闭/主题 | 4/4，100%；修复 2 项低优先级问题 | `2df530b` |
+| D-006A | 为自有 Input 建立独立页面 | 已完成 | 五目标编译；Playwright 390px/输入/状态/密码/滚动 | 4/4，100%；Markdown 人工 1/1；修复 1 项低优先级问题 | 本提交 |
+| D-006B | 为自有 MenuInput 建立独立页面 | 待办 | 过滤/焦点/错误/密码/空结果 | 待执行 | 待提交 |
 | D-007 | 为 ListItem、ListInputItem、ListMenuItem 建立同族页面 | 待办 | 槽位/禁用/长文本 | 待执行 | 待提交 |
 | D-008 | 为 RadioCell、Picker、DatePicker、TimePicker 建立单组件页面 | 待办 | 模式/边界/时区/语义 | 待执行 | 待提交 |
 | D-009 | 为 Divider、Overlay、BDSignalBeamBox 建立单组件页面 | 待办 | Modifier/模态/领域数据 | 待执行 | 待提交 |
@@ -62,6 +63,7 @@
 | M-010 | Dialog 外壳迁官方 modal，保留 Builder 组合能力 | 待办 | 焦点、返回、外点关闭 | 待执行 | 待提交 |
 | M-011 | NormalToast 迁 Snackbar，拆分阻塞 Loading 行为 | 待办 | 队列、播报、取消 | 待执行 | 待提交 |
 | M-012 | 设计 token 迁 MaterialTheme + CompositionLocal | 待办 | light/dark、子树覆盖 | 待执行 | 待提交 |
+| M-013 | 重构 Input 焦点契约并评估直接使用官方 BasicTextField | 待办 | 焦点切换、IME、输入法组合、语义 | 待执行 | 待提交 |
 | A-001 | 为 Stepper、IndexBar、Steps、BDSignalBeamBox 补齐键盘和语义 | 待办 | UI 测试、语义快照 | 待执行 | 待提交 |
 | A-002 | 建立 Adaptive 五目标验证 spike | 待办 | Android/iOS/JVM/JS/Wasm | 待执行 | 待提交 |
 | T-001 | 建立关键单组件页面的 Compose UI 与截图回归基线 | 待办 | Android/JVM 自动化 | 待执行 | 待提交 |
@@ -89,3 +91,4 @@
 | 2026-08-12 | D-005C | 新增 Material Snackbar 独立页面，覆盖短消息、持续操作、顺序队列、手动关闭、自定义样式和结果反馈；修复跨消息共享样式状态，五目标编译与 390px 交互验收通过，OCR 4/4 |
 | 2026-08-12 | D-005D | 新增 Material AlertDialog 独立页面，覆盖确认、取消、外部关闭、危险长文本、图标插槽和自定义主题；补齐明确内容色，五目标编译与 390px 交互验收通过，OCR 4/4 |
 | 2026-08-12 | D-005E | 新增 Material ModalBottomSheet 独立页面，覆盖部分/完全展开、内部滚动、按钮/遮罩关闭和自定义主题；局部声明实验性 API，修复移动端标题截断并补足长内容，五目标编译与 390px 交互验收通过，OCR 4/4 |
+| 2026-08-12 | D-006A | 新增 Input 独立页面，覆盖基础输入、焦点、只读/禁用、密码与 IME、多行边界、对齐和样式；补齐字段语义与密码显隐交互，五目标编译和 390px 验收通过；OCR 4/4、Markdown 人工 1/1，移除提前声明的不可达路由，现有焦点契约缺陷转 M-013 跟踪 |
