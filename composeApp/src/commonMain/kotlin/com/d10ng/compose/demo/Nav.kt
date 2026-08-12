@@ -40,6 +40,9 @@ data class ComponentCategoryRoute(
 data object MaterialButtonRoute : NavKey
 
 @Serializable
+data object MaterialCheckboxRoute : NavKey
+
+@Serializable
 data object ColorRoute : NavKey
 
 @Serializable

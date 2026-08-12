@@ -26,6 +26,7 @@ import com.d10ng.compose.demo.DialogRoute
 import com.d10ng.compose.demo.FieldRoute
 import com.d10ng.compose.demo.IndexBarRoute
 import com.d10ng.compose.demo.MaterialButtonRoute
+import com.d10ng.compose.demo.MaterialCheckboxRoute
 import com.d10ng.compose.demo.NavBarRoute
 import com.d10ng.compose.demo.NotifyRoute
 import com.d10ng.compose.demo.PopoverRoute
@@ -123,7 +124,7 @@ private val materialPages = mapOf(
         ComponentPage("Divider 分割线")
     ),
     ComponentCategory.FORM to listOf(
-        ComponentPage("Checkbox 复选框"),
+        ComponentPage("Checkbox 复选框", MaterialCheckboxRoute),
         ComponentPage("RadioButton 单选按钮"),
         ComponentPage("Switch 开关"),
         ComponentPage("TextField 文本输入"),
