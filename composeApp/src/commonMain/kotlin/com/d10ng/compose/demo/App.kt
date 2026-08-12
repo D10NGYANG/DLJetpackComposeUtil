@@ -42,6 +42,7 @@ import com.d10ng.compose.demo.pages.MaterialBadgeScreen
 import com.d10ng.compose.demo.pages.MaterialCheckboxScreen
 import com.d10ng.compose.demo.pages.MaterialChipScreen
 import com.d10ng.compose.demo.pages.MaterialListItemScreen
+import com.d10ng.compose.demo.pages.MaterialModalBottomSheetScreen
 import com.d10ng.compose.demo.pages.MaterialProgressIndicatorScreen
 import com.d10ng.compose.demo.pages.MaterialRadioButtonScreen
 import com.d10ng.compose.demo.pages.MaterialSliderScreen
@@ -172,6 +173,9 @@ fun App() {
                         }
                         is MaterialAlertDialogRoute -> NavEntry(key) {
                             MaterialAlertDialogScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is MaterialModalBottomSheetRoute -> NavEntry(key) {
+                            MaterialModalBottomSheetScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is ColorRoute -> NavEntry(key) {
                             ColorScreen(onBack = { backStack.removeLastOrNull() })

@@ -73,6 +73,9 @@ data object MaterialSnackbarRoute : NavKey
 data object MaterialAlertDialogRoute : NavKey
 
 @Serializable
+data object MaterialModalBottomSheetRoute : NavKey
+
+@Serializable
 data object ColorRoute : NavKey
 
 @Serializable
