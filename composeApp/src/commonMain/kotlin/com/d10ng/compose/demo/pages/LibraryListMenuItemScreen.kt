@@ -115,7 +115,7 @@ fun LibraryListMenuItemScreen(onBack: () -> Unit = {}) {
                 ListMenuItem(
                     modifier = Modifier.semantics { contentDescription = "空列表菜单" },
                     title = "空列表",
-                    note = "箭头会切换，但不会出现选项或空态提示",
+                    note = "展开后显示不可选择的空态提示",
                     value = null,
                     placeholder = "没有可选项",
                     inputWidth = 200.dp,

@@ -41,6 +41,7 @@ import com.d10ng.compose.demo.MaterialListItemRoute
 import com.d10ng.compose.demo.MaterialModalBottomSheetRoute
 import com.d10ng.compose.demo.MaterialProgressIndicatorRoute
 import com.d10ng.compose.demo.MaterialRadioButtonRoute
+import com.d10ng.compose.demo.MaterialSearchBarRoute
 import com.d10ng.compose.demo.MaterialSliderRoute
 import com.d10ng.compose.demo.MaterialSnackbarRoute
 import com.d10ng.compose.demo.MaterialSwitchRoute
@@ -154,6 +155,7 @@ private val materialPages = mapOf(
         ComponentPage("RadioButton 单选按钮", MaterialRadioButtonRoute),
         ComponentPage("Switch 开关", MaterialSwitchRoute),
         ComponentPage("TextField 文本输入", MaterialTextFieldRoute),
+        ComponentPage("SearchBar 搜索", MaterialSearchBarRoute),
         ComponentPage("Slider 滑块", MaterialSliderRoute),
         ComponentPage("Chip 标签控件", MaterialChipRoute)
     ),

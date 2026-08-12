@@ -52,6 +52,7 @@ import com.d10ng.compose.demo.pages.MaterialListItemScreen
 import com.d10ng.compose.demo.pages.MaterialModalBottomSheetScreen
 import com.d10ng.compose.demo.pages.MaterialProgressIndicatorScreen
 import com.d10ng.compose.demo.pages.MaterialRadioButtonScreen
+import com.d10ng.compose.demo.pages.MaterialSearchBarScreen
 import com.d10ng.compose.demo.pages.MaterialSliderScreen
 import com.d10ng.compose.demo.pages.MaterialSnackbarScreen
 import com.d10ng.compose.demo.pages.MaterialSwitchScreen
@@ -164,6 +165,9 @@ fun App() {
                         }
                         is MaterialTextFieldRoute -> NavEntry(key) {
                             MaterialTextFieldScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is MaterialSearchBarRoute -> NavEntry(key) {
+                            MaterialSearchBarScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is MaterialListItemRoute -> NavEntry(key) {
                             MaterialListItemScreen(onBack = { backStack.removeLastOrNull() })
