@@ -55,6 +55,9 @@ data object MaterialTextFieldRoute : NavKey
 data object MaterialListItemRoute : NavKey
 
 @Serializable
+data object MaterialBadgeRoute : NavKey
+
+@Serializable
 data object ColorRoute : NavKey
 
 @Serializable
