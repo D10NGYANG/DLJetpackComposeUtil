@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavKey
 import com.d10ng.compose.demo.AvatarRoute
 import com.d10ng.compose.demo.BadgeRoute
+import com.d10ng.compose.demo.BDSignalBeamBoxRoute
 import com.d10ng.compose.demo.ButtonRoute
 import com.d10ng.compose.demo.CellRoute
 import com.d10ng.compose.demo.CheckButtonRoute
@@ -131,7 +132,7 @@ private val libraryPages = mapOf(
         ComponentPage("IndexBar 索引栏", IndexBarRoute)
     ),
     ComponentCategory.DOMAIN to listOf(
-        ComponentPage("BDSignalBeamBox 信号波束")
+        ComponentPage("BDSignalBeamBox 信号波束", BDSignalBeamBoxRoute)
     ),
     ComponentCategory.MODIFIER to listOf(
         ComponentPage("dashBorder 虚线边框"),

@@ -145,6 +145,9 @@ data object DividerRoute : NavKey
 data object OverlayRoute : NavKey
 
 @Serializable
+data object BDSignalBeamBoxRoute : NavKey
+
+@Serializable
 data object DialogRoute : NavKey
 
 @Serializable

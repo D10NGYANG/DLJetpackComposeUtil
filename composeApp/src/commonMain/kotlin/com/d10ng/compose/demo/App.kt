@@ -25,6 +25,7 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.d10ng.compose.demo.pages.AvatarScreen
 import com.d10ng.compose.demo.pages.BadgeScreen
+import com.d10ng.compose.demo.pages.BDSignalBeamBoxScreen
 import com.d10ng.compose.demo.pages.ButtonScreen
 import com.d10ng.compose.demo.pages.CellScreen
 import com.d10ng.compose.demo.pages.CheckButtonScreen
@@ -256,6 +257,9 @@ fun App() {
                         }
                         is OverlayRoute -> NavEntry(key) {
                             OverlayScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is BDSignalBeamBoxRoute -> NavEntry(key) {
+                            BDSignalBeamBoxScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is DialogRoute -> NavEntry(key) {
                             DialogScreen(onBack = { backStack.removeLastOrNull() })
