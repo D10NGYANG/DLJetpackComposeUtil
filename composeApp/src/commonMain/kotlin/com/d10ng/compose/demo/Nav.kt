@@ -118,6 +118,9 @@ data object InputRoute : NavKey
 data object MenuInputRoute : NavKey
 
 @Serializable
+data object LibraryListItemRoute : NavKey
+
+@Serializable
 data object DialogRoute : NavKey
 
 @Serializable

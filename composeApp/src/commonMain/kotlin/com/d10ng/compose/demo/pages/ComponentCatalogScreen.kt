@@ -26,6 +26,7 @@ import com.d10ng.compose.demo.DialogRoute
 import com.d10ng.compose.demo.FieldRoute
 import com.d10ng.compose.demo.IndexBarRoute
 import com.d10ng.compose.demo.InputRoute
+import com.d10ng.compose.demo.LibraryListItemRoute
 import com.d10ng.compose.demo.MaterialButtonRoute
 import com.d10ng.compose.demo.MaterialBadgeRoute
 import com.d10ng.compose.demo.MaterialAlertDialogRoute
@@ -82,7 +83,8 @@ private val libraryPages = mapOf(
     ),
     ComponentCategory.BASIC to listOf(
         ComponentPage("Button 按钮", ButtonRoute),
-        ComponentPage("Cell 单元格", CellRoute)
+        ComponentPage("Cell 单元格", CellRoute),
+        ComponentPage("ListItem 列表项", LibraryListItemRoute)
     ),
     ComponentCategory.FORM to listOf(
         ComponentPage("Checkbox 复选框", CheckboxRoute),
