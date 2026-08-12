@@ -40,6 +40,7 @@ import com.d10ng.compose.demo.pages.MaterialButtonScreen
 import com.d10ng.compose.demo.pages.MaterialCheckboxScreen
 import com.d10ng.compose.demo.pages.MaterialRadioButtonScreen
 import com.d10ng.compose.demo.pages.MaterialSwitchScreen
+import com.d10ng.compose.demo.pages.MaterialTextFieldScreen
 import com.d10ng.compose.demo.pages.NavBarScreen
 import com.d10ng.compose.demo.pages.NotifyScreen
 import com.d10ng.compose.demo.pages.PopoverScreen
@@ -140,6 +141,9 @@ fun App() {
                         }
                         is MaterialSwitchRoute -> NavEntry(key) {
                             MaterialSwitchScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is MaterialTextFieldRoute -> NavEntry(key) {
+                            MaterialTextFieldScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is ColorRoute -> NavEntry(key) {
                             ColorScreen(onBack = { backStack.removeLastOrNull() })

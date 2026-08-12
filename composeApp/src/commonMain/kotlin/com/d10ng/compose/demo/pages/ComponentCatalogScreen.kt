@@ -29,6 +29,7 @@ import com.d10ng.compose.demo.MaterialButtonRoute
 import com.d10ng.compose.demo.MaterialCheckboxRoute
 import com.d10ng.compose.demo.MaterialRadioButtonRoute
 import com.d10ng.compose.demo.MaterialSwitchRoute
+import com.d10ng.compose.demo.MaterialTextFieldRoute
 import com.d10ng.compose.demo.NavBarRoute
 import com.d10ng.compose.demo.NotifyRoute
 import com.d10ng.compose.demo.PopoverRoute
@@ -129,7 +130,7 @@ private val materialPages = mapOf(
         ComponentPage("Checkbox 复选框", MaterialCheckboxRoute),
         ComponentPage("RadioButton 单选按钮", MaterialRadioButtonRoute),
         ComponentPage("Switch 开关", MaterialSwitchRoute),
-        ComponentPage("TextField 文本输入"),
+        ComponentPage("TextField 文本输入", MaterialTextFieldRoute),
         ComponentPage("Slider 滑块"),
         ComponentPage("Chip 标签控件")
     ),
