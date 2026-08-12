@@ -39,6 +39,7 @@ import com.d10ng.compose.demo.pages.IndexBarScreen
 import com.d10ng.compose.demo.pages.InputScreen
 import com.d10ng.compose.demo.pages.LibraryListInputItemScreen
 import com.d10ng.compose.demo.pages.LibraryListItemScreen
+import com.d10ng.compose.demo.pages.LibraryListMenuItemScreen
 import com.d10ng.compose.demo.pages.MaterialButtonScreen
 import com.d10ng.compose.demo.pages.MaterialAlertDialogScreen
 import com.d10ng.compose.demo.pages.MaterialBadgeScreen
@@ -228,6 +229,9 @@ fun App() {
                         }
                         is LibraryListInputItemRoute -> NavEntry(key) {
                             LibraryListInputItemScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is LibraryListMenuItemRoute -> NavEntry(key) {
+                            LibraryListMenuItemScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is DialogRoute -> NavEntry(key) {
                             DialogScreen(onBack = { backStack.removeLastOrNull() })

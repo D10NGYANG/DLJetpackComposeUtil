@@ -124,6 +124,9 @@ data object LibraryListItemRoute : NavKey
 data object LibraryListInputItemRoute : NavKey
 
 @Serializable
+data object LibraryListMenuItemRoute : NavKey
+
+@Serializable
 data object DialogRoute : NavKey
 
 @Serializable

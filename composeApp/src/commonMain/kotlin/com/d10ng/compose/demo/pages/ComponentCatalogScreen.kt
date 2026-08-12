@@ -28,6 +28,7 @@ import com.d10ng.compose.demo.IndexBarRoute
 import com.d10ng.compose.demo.InputRoute
 import com.d10ng.compose.demo.LibraryListInputItemRoute
 import com.d10ng.compose.demo.LibraryListItemRoute
+import com.d10ng.compose.demo.LibraryListMenuItemRoute
 import com.d10ng.compose.demo.MaterialButtonRoute
 import com.d10ng.compose.demo.MaterialBadgeRoute
 import com.d10ng.compose.demo.MaterialAlertDialogRoute
@@ -97,6 +98,7 @@ private val libraryPages = mapOf(
         ComponentPage("Input 输入原语", InputRoute),
         ComponentPage("MenuInput 菜单输入", MenuInputRoute),
         ComponentPage("ListInputItem 列表输入", LibraryListInputItemRoute),
+        ComponentPage("ListMenuItem 列表菜单", LibraryListMenuItemRoute),
         ComponentPage("RadioCell 单选行"),
         ComponentPage("Picker 滚轮选择"),
         ComponentPage("DatePicker 日期选择"),
