@@ -27,6 +27,7 @@ import com.d10ng.compose.demo.FieldRoute
 import com.d10ng.compose.demo.IndexBarRoute
 import com.d10ng.compose.demo.MaterialButtonRoute
 import com.d10ng.compose.demo.MaterialCheckboxRoute
+import com.d10ng.compose.demo.MaterialListItemRoute
 import com.d10ng.compose.demo.MaterialRadioButtonRoute
 import com.d10ng.compose.demo.MaterialSwitchRoute
 import com.d10ng.compose.demo.MaterialTextFieldRoute
@@ -123,7 +124,7 @@ private val libraryPages = mapOf(
 private val materialPages = mapOf(
     ComponentCategory.BASIC to listOf(
         ComponentPage("Button 按钮族", MaterialButtonRoute),
-        ComponentPage("ListItem 列表项"),
+        ComponentPage("ListItem 列表项", MaterialListItemRoute),
         ComponentPage("Divider 分割线")
     ),
     ComponentCategory.FORM to listOf(

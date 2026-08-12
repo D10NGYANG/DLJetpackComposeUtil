@@ -52,6 +52,9 @@ data object MaterialSwitchRoute : NavKey
 data object MaterialTextFieldRoute : NavKey
 
 @Serializable
+data object MaterialListItemRoute : NavKey
+
+@Serializable
 data object ColorRoute : NavKey
 
 @Serializable
