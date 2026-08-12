@@ -41,8 +41,8 @@
 | D-007 | 为 ListItem、ListInputItem、ListMenuItem 建立同族页面 | 待办 | 槽位/禁用/长文本 | 待执行 | 待提交 |
 | D-008 | 为 RadioCell、Picker、DatePicker、TimePicker 建立单组件页面 | 待办 | 模式/边界/时区/语义 | 待执行 | 待提交 |
 | D-009 | 为 Divider、Overlay、BDSignalBeamBox 建立单组件页面 | 待办 | Modifier/模态/领域数据 | 待执行 | 待提交 |
-| M-001 | Divider 内部委托官方 Material3 实现 | 已完成 | 五目标编译、JVM 测试通过 | 1/1，100%；无高/中问题 | 本提交 |
-| M-002 | 修复 Checkbox、RadioCell、loading Button 的状态与选择语义 | 待办 | 五目标编译、语义快照 | 待执行 | 待提交 |
+| M-001 | Divider 内部委托官方 Material3 实现 | 已完成 | 五目标编译、JVM 测试通过 | 1/1，100%；无高/中问题 | `f096153` |
+| M-002 | 修复 Checkbox、RadioCell、loading Button 的状态与选择语义 | 已完成 | 五目标编译、JVM 测试、语义检查 | 4/4，100%；修复 2 项中优先级问题 | 本提交 |
 | M-003 | 评估 Cell 底部分割线下沉为 Modifier | 待办 | 布局截图、调用影响 | 待执行 | 待提交 |
 | M-004 | 评估 ImagePreview 手势下沉为内部 Modifier | 待办 | Android 编译、手势回归 | 待执行 | 待提交 |
 | M-005 | 评估 IndexBar 拖动选择下沉为内部 Modifier | 待办 | 指针/取消/键盘回归 | 待执行 | 待提交 |
@@ -65,3 +65,4 @@
 | 2026-08-12 | R-001 | 审查原始 12 个代码/配置文件；组件改动拆入 M-001/M-002/M-004，聚合页问题由 D-001 修复；五目标编译与 JVM 测试通过 |
 | 2026-08-12 | D-001 | 首页收敛为来源目录，新增分类与单组件目录路由，移除聚合预览；五目标编译与桌面/390px Playwright 验收通过，OCR 6/6 |
 | 2026-08-12 | M-001 | HorizontalDivider/VerticalDivider 委托 Material3 官方实现，保留原参数契约；五目标编译和 JVM 测试通过，OCR 1/1 |
+| 2026-08-12 | M-002 | 修复 Checkbox/RadioCell/Button 状态语义与 RadioSheet 选择组；复审关闭 Modifier 缓存和 loading 名称问题，五目标编译与 JVM 测试通过，OCR 4/4 |

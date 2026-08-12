@@ -1,18 +1,19 @@
 package com.d10ng.compose.ui.form
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
@@ -30,11 +31,10 @@ import com.d10ng.compose.utils.next
 /**
  * 单选单元格
  * 以列表行形式展示单选项，右侧显示 RadioButton，标题居左
- * 注意：[disabled] 仅影响 RadioButton 的视觉状态和颜色，不会拦截外层行的点击事件
  * @param modifier Modifier 修饰符
  * @param label String 选项标题文字
  * @param selected Boolean 是否处于选中状态
- * @param disabled Boolean 是否禁用，禁用时 RadioButton 颜色变浅，但行点击事件仍会触发，默认 false
+ * @param disabled Boolean 是否禁用，禁用时整行不响应点击，默认 false
  * @param border Boolean 是否在底部显示分割线，默认 true
  * @param onClick () -> Unit 行点击回调，默认无操作
  */
@@ -49,7 +49,12 @@ fun RadioCell(
 ) {
     Column(
         modifier = modifier
-            .clickable { onClick() }
+            .selectable(
+                selected = selected,
+                enabled = !disabled,
+                role = Role.RadioButton,
+                onClick = onClick
+            )
             .padding(horizontal = defaultPaddingSize)
     ) {
         Row(
@@ -69,7 +74,7 @@ fun RadioCell(
             // 单选按钮
             RadioButton(
                 selected = selected,
-                onClick = onClick,
+                onClick = null,
                 colors = RadioButtonDefaults.colors(
                     selectedColor = AppColor.Main.primary,
                     unselectedColor = AppColor.Neutral.tips,

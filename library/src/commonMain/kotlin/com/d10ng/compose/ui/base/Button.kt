@@ -17,10 +17,12 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -101,6 +103,7 @@ fun Button(
     color: Color? = null,
     onClick: () -> Unit
 ) {
+    val enabled = !disabled && !loading
     // 主要颜色
     val mainColor = color ?: type.color
     // 背景颜色
@@ -111,25 +114,29 @@ fun Button(
     } else if (mainColor.isDark()) Color.White else AppColor.Neutral.title
     // 边框颜色
     val borderColor = color ?: type.border
-    val thisModifier = remember {
-        if (size == ButtonSize.MINI || size == ButtonSize.SMALL) {
-            modifier.height(size.height)
-        } else {
-            modifier
+    val sizedModifier = if (size == ButtonSize.MINI || size == ButtonSize.SMALL) {
+        modifier.height(size.height)
+    } else {
+        modifier
+    }
+    val stateModifier = if (loading) {
+        sizedModifier.semantics {
+            contentDescription = text
+            stateDescription = "加载中"
         }
+    } else {
+        sizedModifier
     }
     Button(
-        onClick = {
-            if (!disabled && !loading) onClick()
-        },
-        modifier = thisModifier,
-        enabled = !disabled,
+        onClick = onClick,
+        modifier = stateModifier,
+        enabled = enabled,
         shape = shape,
         colors = ButtonDefaults.buttonColors(
             containerColor = bgColor,
-            disabledContainerColor = bgColor.next(0.5),
+            disabledContainerColor = if (loading) bgColor else bgColor.next(0.5),
             contentColor = contentColor,
-            disabledContentColor = contentColor.next(0.5),
+            disabledContentColor = if (loading) contentColor else contentColor.next(0.5),
         ),
         border = BorderStroke(
             width = if (hairline) 0.3.dp else 1.dp,
