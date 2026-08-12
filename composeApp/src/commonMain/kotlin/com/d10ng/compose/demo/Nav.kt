@@ -58,6 +58,9 @@ data object MaterialListItemRoute : NavKey
 data object MaterialBadgeRoute : NavKey
 
 @Serializable
+data object MaterialChipRoute : NavKey
+
+@Serializable
 data object ColorRoute : NavKey
 
 @Serializable
