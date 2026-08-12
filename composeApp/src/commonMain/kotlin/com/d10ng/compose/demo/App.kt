@@ -58,6 +58,7 @@ import com.d10ng.compose.demo.pages.NavBarScreen
 import com.d10ng.compose.demo.pages.NotifyScreen
 import com.d10ng.compose.demo.pages.PopoverScreen
 import com.d10ng.compose.demo.pages.PullRefreshScreen
+import com.d10ng.compose.demo.pages.RadioCellScreen
 import com.d10ng.compose.demo.pages.SearchScreen
 import com.d10ng.compose.demo.pages.ShapeScreen
 import com.d10ng.compose.demo.pages.SheetScreen
@@ -232,6 +233,9 @@ fun App() {
                         }
                         is LibraryListMenuItemRoute -> NavEntry(key) {
                             LibraryListMenuItemScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is RadioCellRoute -> NavEntry(key) {
+                            RadioCellScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is DialogRoute -> NavEntry(key) {
                             DialogScreen(onBack = { backStack.removeLastOrNull() })
