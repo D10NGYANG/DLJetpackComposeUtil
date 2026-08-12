@@ -30,6 +30,7 @@ import com.d10ng.compose.demo.MaterialBadgeRoute
 import com.d10ng.compose.demo.MaterialCheckboxRoute
 import com.d10ng.compose.demo.MaterialChipRoute
 import com.d10ng.compose.demo.MaterialListItemRoute
+import com.d10ng.compose.demo.MaterialProgressIndicatorRoute
 import com.d10ng.compose.demo.MaterialRadioButtonRoute
 import com.d10ng.compose.demo.MaterialSliderRoute
 import com.d10ng.compose.demo.MaterialSwitchRoute
@@ -142,7 +143,7 @@ private val materialPages = mapOf(
         ComponentPage("Snackbar 消息条"),
         ComponentPage("AlertDialog 弹出框"),
         ComponentPage("ModalBottomSheet 底部面板"),
-        ComponentPage("ProgressIndicator 进度指示")
+        ComponentPage("ProgressIndicator 进度指示", MaterialProgressIndicatorRoute)
     ),
     ComponentCategory.DISPLAY to listOf(
         ComponentPage("Badge 徽标", MaterialBadgeRoute)
