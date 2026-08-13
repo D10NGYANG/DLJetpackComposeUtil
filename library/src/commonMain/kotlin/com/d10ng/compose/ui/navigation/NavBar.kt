@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -39,7 +40,6 @@ import com.d10ng.compose.resources.ic_round_back_22
 import com.d10ng.compose.resources.nav_bar_back
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.defaultPaddingSize
-import com.d10ng.compose.ui.show.HorizontalDivider
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 

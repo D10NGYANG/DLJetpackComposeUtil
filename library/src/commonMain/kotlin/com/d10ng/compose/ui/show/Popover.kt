@@ -143,6 +143,7 @@ fun PopoverColumnItems(
  * @param onClick () -> Unit 点击列表项时的回调
  */
 @Composable
+@Suppress("DEPRECATION")
 fun PopoverColumnItem(
     text: String,
     border: Boolean = true,
@@ -457,4 +458,3 @@ private fun PopoverContentPreview(placement: PopoverPlacement, dark: Boolean) {
         )
     }
 }
-

@@ -29,6 +29,10 @@ import androidx.compose.ui.unit.dp
  * @param paddingStart Dp 分割线左侧内边距，默认为 0.dp
  * @param paddingEnd Dp 分割线右侧内边距，默认为 0.dp
  */
+@Deprecated(
+    message = "Material3.HorizontalDivider is the preferred API. Use this facade only when paddingStart/paddingEnd compatibility is required.",
+    replaceWith = ReplaceWith("HorizontalDivider(thickness = thickness, color = color, modifier = modifier.padding(start = paddingStart, end = paddingEnd))", "androidx.compose.material3.HorizontalDivider", "androidx.compose.foundation.layout.padding")
+)
 @Composable
 fun HorizontalDivider(
     modifier: Modifier = Modifier,
@@ -55,6 +59,10 @@ fun HorizontalDivider(
  * @param paddingTop Dp 分割线顶部内边距，默认为 0.dp
  * @param paddingBottom Dp 分割线底部内边距，默认为 0.dp
  */
+@Deprecated(
+    message = "Material3.VerticalDivider is the preferred API. Use this facade only when paddingTop/paddingBottom compatibility is required.",
+    replaceWith = ReplaceWith("VerticalDivider(thickness = thickness, color = color, modifier = modifier.padding(top = paddingTop, bottom = paddingBottom))", "androidx.compose.material3.VerticalDivider", "androidx.compose.foundation.layout.padding")
+)
 @Composable
 fun VerticalDivider(
     modifier: Modifier = Modifier,
@@ -71,6 +79,7 @@ fun VerticalDivider(
 }
 
 @Preview(showBackground = true)
+@Suppress("DEPRECATION")
 @Composable
 fun PreviewHorizontalDivider() {
     androidx.compose.foundation.layout.Column(
@@ -89,6 +98,7 @@ fun PreviewHorizontalDivider() {
 }
 
 @Preview(showBackground = true)
+@Suppress("DEPRECATION")
 @Composable
 fun PreviewVerticalDivider() {
     androidx.compose.foundation.layout.Row(

@@ -157,6 +157,7 @@ private fun BoxText(
 }
 
 @Composable
+@Suppress("DEPRECATION")
 private fun CustomDivider(
     modifier: Modifier = Modifier
 ) {
