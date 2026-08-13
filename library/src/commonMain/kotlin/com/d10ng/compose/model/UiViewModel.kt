@@ -1,9 +1,15 @@
 package com.d10ng.compose.model
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.d10ng.compose.ui.base.LoadingToast
@@ -17,6 +23,7 @@ import com.d10ng.compose.ui.feedback.NotifyType
 import com.d10ng.compose.ui.sheet.Sheet
 import com.d10ng.compose.ui.sheet.builder.SheetBuilder
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -38,6 +45,8 @@ class UiViewModel : ViewModel(), IUiViewModel {
     )
     private val toastStateFlow = MutableStateFlow(ToastState(null))
     private var cancelToastJob: Job? = null
+    private val snackbarHostState = SnackbarHostState()
+    private val snackbarJobs = mutableSetOf<Job>()
 
     // ---- Loading ----
     private data class LoadingState(val visible: Boolean, val text: String = "")
@@ -103,7 +112,13 @@ class UiViewModel : ViewModel(), IUiViewModel {
     private fun ToastLayer() {
         val state by toastStateFlow.collectAsState()
         val msg = state.msg
-        if (msg != null) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            SnackbarHost(
+                hostState = snackbarHostState,
+                modifier = Modifier.align(Alignment.BottomCenter),
+            )
+        }
+        if (msg != null && state.type != ToastType.Normal) {
             Toast(text = msg, position = state.position, type = state.type)
         }
     }
@@ -119,13 +134,39 @@ class UiViewModel : ViewModel(), IUiViewModel {
 
     // ---- 内部统一展示 Toast ----
     private fun showToastInternal(msg: String, duration: Long, position: ToastPosition, type: ToastType) {
-        // 原子更新：一次赋值，避免分步更新产生中间状态帧
+        if (type == ToastType.Normal) {
+            // 普通 Snackbar 与旧图标 Toast 互斥，避免两个反馈层同时覆盖页面。
+            cancelToastJob?.cancel()
+            toastStateFlow.value = ToastState(null)
+            enqueueSnackbar(msg, duration)
+            return
+        }
+        clearSnackbarQueue()
+        // 原子更新：一次赋值，避免多 Flow 分步赋值产生中间状态帧
         toastStateFlow.value = ToastState(msg, position, type)
         cancelToastJob?.cancel()
         cancelToastJob = viewModelScope.launch {
             delay(duration)
             toastStateFlow.value = ToastState(null)
         }
+    }
+
+    private fun enqueueSnackbar(message: String, duration: Long) {
+        val job = viewModelScope.launch(start = CoroutineStart.LAZY) {
+            snackbarHostState.showSnackbar(
+                message = message,
+                duration = resolveSnackbarDuration(duration),
+            )
+        }
+        snackbarJobs += job
+        job.invokeOnCompletion { snackbarJobs -= job }
+        job.start()
+    }
+
+    private fun clearSnackbarQueue() {
+        snackbarJobs.toList().forEach(Job::cancel)
+        snackbarJobs.clear()
+        snackbarHostState.currentSnackbarData?.dismiss()
     }
 
     override fun showToast(msg: String, duration: Long, position: ToastPosition) {
