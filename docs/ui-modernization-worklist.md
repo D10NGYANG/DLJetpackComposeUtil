@@ -58,7 +58,7 @@
 | D-009A | 为 Divider 建立官方/自有对照单组件页面 | 已完成 | 五目标编译；Playwright 390px/双入口/横纵方向/Hairline/粗细/颜色/inset/RTL/Intrinsic | 4/4，100%；Markdown 人工 1/1；修复 1 项低优先级问题 | `ee0419c` |
 | D-009B | 为 Overlay 建立单组件页面 | 已完成 | 五目标编译；Playwright 390px/居中与底部/内容留白与按钮/外点关闭/点击拦截/Escape 返回 | 5/5，100%；Markdown 人工 1/1；修复 1 项高、2 项低优先级问题 | `535b125` |
 | D-009C | 为 BDSignalBeamBox 建立单组件页面 | 已完成 | 五目标编译；Playwright 390px/空数据/上下限/20 路横向滚动/越界钳制/颜色/长文案/AX 语义 | 5/5，100%；Markdown 人工 1/1；修复 2 项高、2 项中优先级问题 | `85d72ec` |
-| D-010 | 为 dashBorder、debounceClick 建立 Modifier 独立页面 | 已完成 | 虚线宽度/间距/圆角/颜色；防抖时长、连续点击、语义反馈和窄屏布局 | 5/5，100%；Markdown 人工 1/1；无高/中问题 | 本提交 |
+| D-010 | 为 dashBorder、debounceClick 建立 Modifier 独立页面 | 已完成 | 虚线宽度/间距/圆角/颜色；防抖时长、连续点击、语义反馈和窄屏布局 | 5/5，100%；Markdown 人工 1/1；无高/中问题 | `8bb2fea` |
 | M-001 | Divider 内部委托官方 Material3 实现 | 已完成 | 五目标编译、JVM 测试通过 | 1/1，100%；无高/中问题 | `f096153` |
 | M-002 | 修复 Checkbox、RadioCell、loading Button 的状态与选择语义 | 已完成 | 五目标编译、JVM 测试、语义检查 | 4/4，100%；修复 2 项中优先级问题 | `9d9d151` |
 | M-003 | 评估 Cell 底部分割线下沉为 Modifier | 已完成 | 五目标编译；Playwright 390px/LTR/RTL 非对称缩进/动态高度/无分割线 | 2/2，100%；Markdown 人工 1/1；修复 1 项中、1 项低优先级问题 | `ff1d237` |
@@ -70,22 +70,22 @@
 | M-009 | NavBar 迁移 TopAppBar 并提供兼容适配 | 已完成 | 五目标编译；浏览器 390px 自有/官方页、标题避让、RTL、Insets、回调与三种滚动行为 | 8/8，100%；Markdown 人工 2/2；修复 2 项中、2 项低优先级问题 | `2cc033c` |
 | M-010 | Dialog 外壳迁官方 modal，保留 Builder 组合能力 | 已完成 | 焦点进入/恢复与隔离、底层语义隐藏、返回/外点策略、窗口层级、多层管理 | 6/6，100%；Markdown 人工 1/1；修复 1 项中、2 项低优先级问题 | `ad6ee4f` |
 | M-011 | NormalToast 迁 Snackbar，拆分阻塞 Loading 行为 | 已完成 | 队列、播报、取消 | 4/4，100%；Markdown 人工 2/2；修复 1 项中、1 项低优先级问题 | `41274c4` |
-| M-012 | 设计 token 迁 MaterialTheme + CompositionLocal | 已完成 | 五目标编译；Playwright 390x844 首页截图与主题入口检查 | 5/5，100%；Markdown 人工 1/1；修复 2 项中优先级主题继承问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| M-013 | 重构 Input 焦点契约并评估直接使用官方 BasicTextField | 已完成 | 五目标编译；Playwright 390x844 首页截图与输入页面入口检查 | 2/2，100%；Markdown 人工 1/1；修复 1 项中优先级焦点释放问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| M-014 | 评估 MenuInput 迁移官方 ExposedDropdownMenuBox/SearchBar | 已完成 | 五目标编译；Playwright 390x844 首页与菜单输入入口检查 | 1/1，100%；Markdown 人工 1/1；修复 1 项中优先级空菜单展开问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| M-015 | ListItem 槽位重载迁官方并补静态/禁用语义 | 已完成 | 五目标编译；Playwright 390x844 首页截图与 ListItem 入口检查 | 2/2，100%；Markdown 人工 1/1；修复 2 项中优先级问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| M-016 | 评估移除 ListInputItem 组合包装并迁官方 ListItem + TextField/ExposedDropdown | 已完成 | 五目标编译；Playwright 390x844 首页与 ListInputItem 入口检查 | 3/3，100%；Markdown 人工 1/1；修复 1 项中优先级禁用/只读组合问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| M-017 | 评估 RadioCell 并入 Cell 尾随槽并修正长文本测量 | 已完成 | 五目标编译；Playwright 390x844 首页与 RadioCell 入口检查 | 2/2，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| M-018 | 加固 Picker/MultiPicker 输入契约和无障碍操作 | 已完成 | 空集合、选中长度、Modifier、禁用、键盘/读屏增减、独立列/级联模型 | 3/3，100%；Markdown 人工 1/1；修复 2 项中优先级问题；Wasm 运行态连接受限，编译与 HTTP 启动检查完成 | 本提交 |
-| M-019 | 评估 DatePicker 通用场景迁官方日历组件并加固滚轮差异化能力 | 已完成 | 官方/滚轮兼容 API、时区/DST、非法范围、Modifier、禁用、键盘/读屏 | 2/2，100%；Markdown 人工 1/1；修复 1 项中优先级问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| M-020 | 评估 TimePicker 普通 HM 场景迁官方并加固有限范围 HMS 滚轮 | 已完成 | 参数校验、越界值、HM 秒契约、联动竞态、Modifier、禁用、键盘/读屏、官方兼容 API | 3/3，100%；Markdown 人工 1/1；修复 1 项中优先级问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| M-021 | 迁移 Divider 调用点并评估弃用自有兼容层 | 已完成 | 21 个横线调用点、纵线公开 API、0.5dp/Hairline 视觉、逻辑方向 inset、弃用周期 | 8/8，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| M-022 | 加固 BDSignalBeamBox 领域契约与主题适配 | 已完成 | 五目标编译；Modifier、空数据、长编号、暗色主题、本地化、RTL | 2/2，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| A-001 | 为 Stepper、IndexBar、Steps、BDSignalBeamBox 补齐键盘和语义 | 已完成 | Stepper/Steps/IndexBar/BDSignalBeamBox 键盘与语义契约分批验收 | 4/4，100%；Markdown 人工 1/1；修复 1 项中优先级状态一致性问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| A-001A | 为 Stepper、Steps 补齐键盘和语义 | 已完成 | 五目标编译；Stepper 加减键盘触发、禁用/边界状态、Steps 当前状态与空集合/越界语义 | 2/2，100%；Markdown 人工 1/1；修复 1 项中优先级状态一致性问题 | 本提交 |
-| A-001B | 为 IndexBar、BDSignalBeamBox 补齐键盘和语义 | 已完成 | 五目标编译；IndexBar 方向键/Enter/Space、空列表禁用、逐柱 0..60 进度语义 | 2/2，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| A-002 | 建立 Adaptive 五目标验证 spike | 已完成 | Android/iOS/JVM/JS/Wasm；公共 `BoxWithConstraints` 三断点 Demo | 4/4，100%；Markdown 人工 1/1；修复 1 项中优先级布局问题 | 本提交 |
-| T-001 | 建立关键单组件页面的 Compose UI 与截图回归基线 | 已完成 | 固定 390x844 Playwright PNG 基线、确定性校验脚本与页面矩阵 | 2/2，100%；Markdown 人工 2/2；Wasm Canvas/后台 HTTP 限制记录为残余风险 | 本提交 |
+| M-012 | 设计 token 迁 MaterialTheme + CompositionLocal | 已完成 | 五目标编译；Playwright 390x844 首页截图与主题入口检查 | 5/5，100%；Markdown 人工 1/1；修复 2 项中优先级主题继承问题；Wasm Canvas 控制台错误按 T-001 跟踪 | `662d005` |
+| M-013 | 重构 Input 焦点契约并评估直接使用官方 BasicTextField | 已完成 | 五目标编译；Playwright 390x844 首页截图与输入页面入口检查 | 2/2，100%；Markdown 人工 1/1；修复 1 项中优先级焦点释放问题；Wasm Canvas 控制台错误按 T-001 跟踪 | `167f4ea` |
+| M-014 | 评估 MenuInput 迁移官方 ExposedDropdownMenuBox/SearchBar | 已完成 | 五目标编译；Playwright 390x844 首页与菜单输入入口检查 | 1/1，100%；Markdown 人工 1/1；修复 1 项中优先级空菜单展开问题；Wasm Canvas 控制台错误按 T-001 跟踪 | `05d5bb0` |
+| M-015 | ListItem 槽位重载迁官方并补静态/禁用语义 | 已完成 | 五目标编译；Playwright 390x844 首页截图与 ListItem 入口检查 | 2/2，100%；Markdown 人工 1/1；修复 2 项中优先级问题；Wasm Canvas 控制台错误按 T-001 跟踪 | `244e800` |
+| M-016 | 评估移除 ListInputItem 组合包装并迁官方 ListItem + TextField/ExposedDropdown | 已完成 | 五目标编译；Playwright 390x844 首页与 ListInputItem 入口检查 | 3/3，100%；Markdown 人工 1/1；修复 1 项中优先级禁用/只读组合问题；Wasm Canvas 控制台错误按 T-001 跟踪 | `2299185` |
+| M-017 | 评估 RadioCell 并入 Cell 尾随槽并修正长文本测量 | 已完成 | 五目标编译；Playwright 390x844 首页与 RadioCell 入口检查 | 2/2，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | `180a79c` |
+| M-018 | 加固 Picker/MultiPicker 输入契约和无障碍操作 | 已完成 | 空集合、选中长度、Modifier、禁用、键盘/读屏增减、独立列/级联模型 | 3/3，100%；Markdown 人工 1/1；修复 2 项中优先级问题；Wasm 运行态连接受限，编译与 HTTP 启动检查完成 | `122885a` |
+| M-019 | 评估 DatePicker 通用场景迁官方日历组件并加固滚轮差异化能力 | 已完成 | 官方/滚轮兼容 API、时区/DST、非法范围、Modifier、禁用、键盘/读屏 | 2/2，100%；Markdown 人工 1/1；修复 1 项中优先级问题；Wasm Canvas 控制台错误按 T-001 跟踪 | `8b3b7a1` |
+| M-020 | 评估 TimePicker 普通 HM 场景迁官方并加固有限范围 HMS 滚轮 | 已完成 | 参数校验、越界值、HM 秒契约、联动竞态、Modifier、禁用、键盘/读屏、官方兼容 API | 3/3，100%；Markdown 人工 1/1；修复 1 项中优先级问题；Wasm Canvas 控制台错误按 T-001 跟踪 | `c969870` |
+| M-021 | 迁移 Divider 调用点并评估弃用自有兼容层 | 已完成 | 21 个横线调用点、纵线公开 API、0.5dp/Hairline 视觉、逻辑方向 inset、弃用周期 | 8/8，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | `0c5d61c` |
+| M-022 | 加固 BDSignalBeamBox 领域契约与主题适配 | 已完成 | 五目标编译；Modifier、空数据、长编号、暗色主题、本地化、RTL | 2/2，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | `5e7ca28` |
+| A-001 | 为 Stepper、IndexBar、Steps、BDSignalBeamBox 补齐键盘和语义 | 已完成 | Stepper/Steps/IndexBar/BDSignalBeamBox 键盘与语义契约分批验收 | 4/4，100%；Markdown 人工 1/1；修复 1 项中优先级状态一致性问题；Wasm Canvas 控制台错误按 T-001 跟踪 | `bc2cd86` + `35d7000` |
+| A-001A | 为 Stepper、Steps 补齐键盘和语义 | 已完成 | 五目标编译；Stepper 加减键盘触发、禁用/边界状态、Steps 当前状态与空集合/越界语义 | 2/2，100%；Markdown 人工 1/1；修复 1 项中优先级状态一致性问题 | `bc2cd86` |
+| A-001B | 为 IndexBar、BDSignalBeamBox 补齐键盘和语义 | 已完成 | 五目标编译；IndexBar 方向键/Enter/Space、空列表禁用、逐柱 0..60 进度语义 | 2/2，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | `35d7000` |
+| A-002 | 建立 Adaptive 五目标验证 spike | 已完成 | Android/iOS/JVM/JS/Wasm；公共 `BoxWithConstraints` 三断点 Demo | 4/4，100%；Markdown 人工 1/1；修复 1 项中优先级布局问题 | `8c2b97f` |
+| T-001 | 建立关键单组件页面的 Compose UI 与截图回归基线 | 已完成 | 固定 390x844 Playwright PNG 基线、确定性校验脚本与页面矩阵 | 2/2，100%；Markdown 人工 2/2；Wasm Canvas/后台 HTTP 限制记录为残余风险 | `79ef397` |
 
 ## 进度记录
 
@@ -147,4 +147,4 @@
 | 2026-08-13 | T-001 | 建立 `output/playwright/` 下 8 张固定 `390x844` 代表性页面截图基线，新增 `scripts/verify-playwright-baseline.sh` 做文件、PNG 和尺寸确定性校验，并记录页面矩阵与后续像素差异扩展规则；当前 Wasm Canvas 语义桥和后台 HTTP 连接限制作为残余风险保留 | 2/2，100%；Markdown 人工 2/2；无高/中问题 | 本提交 |
 | 2026-08-13 | D-010 | 将 `dashBorder` 与 `debounceClick` 明确保留为 Modifier 扩展；对虚线宽度、间距、圆角和防抖时长做安全归一化，防抖点击补 Button 角色；新增 Modifier 独立 Demo，覆盖颜色、参数滑块、连续点击计数、0ms 恢复和窄屏滚动；五目标编译通过，服务未启动 | 5/5，100%；Markdown 人工 1/1；无高/中问题 | 本提交 |
 | 2026-08-13 | M-022 | 加固 `BDSignalBeamBox` 领域契约：新增可本地化的 `SignalLevelLabels`、Modifier/主题背景/卫星编号文案参数；改用 MaterialTheme surface、surfaceVariant、outlineVariant 和文字色，支持长编号动态柱宽、空数据语义、强度钳制、横向滚动与 RTL；Demo 增加长编号、RTL、自定义配色、长文案和语义预览；五目标编译通过，服务未启动 | 2/2，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| 2026-08-13 | 文档维护 | 回填 M-010/M-011 已完成提交哈希，修正主表与进度记录中的“待提交”漂移；OCR `unsupported_ext` 排除 Markdown，人工检查修改行与上下文，`git diff --check` 通过 |
+| 2026-08-13 | 文档维护 | 全量回填已完成任务的实际提交哈希，修正主表中遗留的“本提交”占位并保留 A-001 的双提交关联；OCR `unsupported_ext` 排除 Markdown，人工检查修改行与上下文，`git diff --check` 通过 |
