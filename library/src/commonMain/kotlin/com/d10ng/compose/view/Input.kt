@@ -17,7 +17,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -112,9 +112,11 @@ fun Input(
         minLines = minLines,
         cursorBrush = SolidColor(cursorColor)
     )
-    SideEffect {
-        if (isFocus) {
+    LaunchedEffect(isFocus, enabled, readOnly) {
+        if (isFocus && enabled && !readOnly) {
             focusRequester.requestFocus()
+        } else {
+            focusRequester.freeFocus()
         }
     }
 }
@@ -147,6 +149,7 @@ fun MenuInput(
     var isPasswordVisible by remember {
         mutableStateOf(false)
     }
+    var wasFocused by remember { mutableStateOf(false) }
     val visualTransformation = remember(isPassword, isPasswordVisible) {
         if (isPasswordVisible || !isPassword) {
             VisualTransformation.None
@@ -210,9 +213,12 @@ fun MenuInput(
                         .fillMaxWidth()
                         .weight(1f)
                         .onFocusChanged { state ->
-                            if (state.isFocused) {
+                            if (state.isFocused && !wasFocused) {
                                 onFocus.invoke()
+                            } else if (!state.isFocused && wasFocused) {
+                                onNoFocus.invoke()
                             }
+                            wasFocused = state.isFocused
                         }
                 )
                 if (suffix.isNotEmpty() && value.isNotEmpty()) {
@@ -234,8 +240,8 @@ fun MenuInput(
                     expanded = isFocus,
                     onDismissRequest = { onNoFocus.invoke() },
                     properties = PopupProperties(
-                        dismissOnBackPress = false,
-                        dismissOnClickOutside = false,
+                        dismissOnBackPress = true,
+                        dismissOnClickOutside = true,
                         clippingEnabled = false
                     ),
                     modifier = Modifier.heightIn(max = 200.dp)

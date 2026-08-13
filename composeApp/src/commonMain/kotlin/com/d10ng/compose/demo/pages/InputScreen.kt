@@ -29,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -45,6 +46,7 @@ import com.d10ng.compose.view.Input
 
 @Composable
 fun InputScreen(onBack: () -> Unit = {}) {
+    val focusManager = LocalFocusManager.current
     var basicValue by remember { mutableStateOf("") }
     var focusValue by remember { mutableStateOf("") }
     var requestFocus by remember { mutableStateOf(false) }
@@ -102,6 +104,9 @@ fun InputScreen(onBack: () -> Unit = {}) {
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Button(onClick = { requestFocus = true }) {
                         Text("请求焦点")
+                    }
+                    Button(onClick = { focusManager.clearFocus(force = true) }) {
+                        Text("清除焦点")
                     }
                     InputStatus(focusStatus)
                 }

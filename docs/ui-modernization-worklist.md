@@ -70,7 +70,7 @@
 | M-010 | Dialog 外壳迁官方 modal，保留 Builder 组合能力 | 已完成 | 焦点进入/恢复与隔离、底层语义隐藏、返回/外点策略、窗口层级、多层管理 | 6/6，100%；Markdown 人工 1/1；修复 1 项中、2 项低优先级问题 | 本提交 |
 | M-011 | NormalToast 迁 Snackbar，拆分阻塞 Loading 行为 | 已完成 | 队列、播报、取消 | 4/4，100%；Markdown 人工 2/2；修复 1 项中、1 项低优先级问题 | 本提交 |
 | M-012 | 设计 token 迁 MaterialTheme + CompositionLocal | 已完成 | 五目标编译；Playwright 390x844 首页截图与主题入口检查 | 5/5，100%；Markdown 人工 1/1；修复 2 项中优先级主题继承问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| M-013 | 重构 Input 焦点契约并评估直接使用官方 BasicTextField | 待办 | 焦点切换、IME、输入法组合、语义 | 待执行 | 待提交 |
+| M-013 | 重构 Input 焦点契约并评估直接使用官方 BasicTextField | 已完成 | 五目标编译；Playwright 390x844 首页截图与输入页面入口检查 | 2/2，100%；Markdown 人工 1/1；修复 1 项中优先级焦点释放问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
 | M-014 | 评估 MenuInput 迁移官方 ExposedDropdownMenuBox/SearchBar | 待办 | 锚点、过滤、焦点、键盘、返回、兼容 API | 待执行 | 待提交 |
 | M-015 | ListItem 槽位重载迁官方并补静态/禁用语义 | 待办 | 行高、点击、禁用、长文本、RTL、读屏 | 待执行 | 待提交 |
 | M-016 | 评估移除 ListInputItem 组合包装并迁官方 ListItem + TextField/ExposedDropdown | 待办 | 输入语义、父行点击、禁用/只读、焦点、窄屏测量、兼容 API | 待执行 | 待提交 |
@@ -128,3 +128,4 @@
 | 2026-08-13 | M-010 | `Dialog` 外壳委托 Compose UI 官方 modal，保留 `DialogBuilder`、`DialogBox`、任意 `contentAlignment` 和 id 管理；新增关闭策略纯逻辑测试、稳定 `key(id)`、六组特性预览（关闭策略、底层隔离、BottomCenter、输入/IME、多层、Progress 更新）；完成五目标编译、390x844 浏览器交互和官方版本评估文档；Wasm Canvas 语义桥的焦点节点恢复不作为全平台自动保证，继续由 T-001/A-001 跟踪 | 6/6，100%；Markdown 人工 1/1；修复 1 项中、2 项低优先级问题 | 待提交 |
 | 2026-08-13 | M-011 | 普通 `NormalToast` 委托 Material 3 `SnackbarHostState` 队列，保留 Success/Fail 图标提示和阻塞 `LoadingToast`；新增时长映射测试、队列/长时长/位置差异/Loading 生命周期 Demo 和官方替代性评估；完成五目标编译、390x844 队列与阻塞验证；普通提示固定底部且不再保留 Top/Center 位置语义，图标和 Loading 差异继续由兼容层维护 | 4/4，100%；Markdown 人工 2/2；修复 1 项中、1 项低优先级问题 | 待提交 |
 | 2026-08-13 | M-012 | 新增 `AppBrandColors`、`AppDesignTokens`、`LocalAppColors/LocalAppTypography/LocalAppShapes` 与 `AppTheme`；默认接入 MaterialTheme，旧 `AppColor` 保持兼容 façade；颜色页增加局部品牌色覆盖开关，形状页补充官方形状与半径 token 对照；修复嵌套主题默认 colors、品牌色、typography、shapes 重置问题；Android/JVM/JS/Wasm/iOS Simulator 编译通过，390x844 首页验证通过，服务已停止 | 5/5，100%；Markdown 人工 1/1；修复 2 项中优先级问题 | 本提交 |
+| 2026-08-13 | M-013 | `Input` 的焦点请求改用 `LaunchedEffect`，仅在受控状态变化时请求/释放自身焦点；`MenuInput` 补齐获得/失去焦点边沿回调并启用官方菜单外点/返回关闭；Demo 增加清除焦点操作；Android/JVM/JS/Wasm/iOS Simulator 编译通过，390x844 首页验证通过，服务已停止 | 2/2，100%；Markdown 人工 1/1；修复 1 项中优先级焦点释放问题 | 本提交 |
