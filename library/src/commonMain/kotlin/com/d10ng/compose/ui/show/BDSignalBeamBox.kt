@@ -13,8 +13,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +26,7 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
@@ -33,8 +36,14 @@ import kotlin.math.max
 
 private const val MAX_SIGNAL_STRENGTH = 60
 private const val MIN_VISIBLE_BEAMS = 10
-private val BeamItemWidth = 28.dp
 private val LevelAxisWidth = 45.dp
+
+/** 信号等级轴的可本地化文案。 */
+data class SignalLevelLabels(
+    val strong: String = "强",
+    val medium: String = "中",
+    val weak: String = "弱"
+)
 
 /**
  * 北斗信号强度展示
@@ -54,13 +63,21 @@ private val LevelAxisWidth = 45.dp
  * @param color Color 信号柱的填充颜色，默认为 [AppColor.Main.primary]
  * @param title String 顶部居中标题文本，默认为"北斗通讯卫星信号"
  * @param tips String 底部使用提示文本，默认为北斗卫星使用建议说明
+ * @param modifier Modifier 外部布局、主题和语义修饰，默认 Modifier
+ * @param backgroundColor Color 背景色；传 [Color.Unspecified] 时跟随 MaterialTheme.surface
+ * @param satelliteLabel (Int) -> String 卫星编号显示和无障碍文案，默认“卫星 {编号}”
+ * @param levelLabels SignalLevelLabels 强/中/弱等级轴文案，支持本地化
  */
 @Composable
 fun BDSignalBeamBox(
     beams: List<Pair<Int, Int>>,
     color: Color = AppColor.Main.primary,
     title: String = "北斗通讯卫星信号",
-    tips: String = "遮挡物会影响卫星信号的接收，使用时应将终端置于室外空旷开阔的地方，并将天线区朝南。北斗卫星在赤道上空，高纬度地区可再倾斜适当角度以获取更好的卫星信号。"
+    tips: String = "遮挡物会影响卫星信号的接收，使用时应将终端置于室外空旷开阔的地方，并将天线区朝南。北斗卫星在赤道上空，高纬度地区可再倾斜适当角度以获取更好的卫星信号。",
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = Color.Unspecified,
+    satelliteLabel: (Int) -> String = { "卫星 $it" },
+    levelLabels: SignalLevelLabels = SignalLevelLabels()
 ) {
     val normalizedBeams = beams.map { (satelliteId, strength) ->
         satelliteId to strength.coerceIn(0, MAX_SIGNAL_STRENGTH)
@@ -71,10 +88,17 @@ fun BDSignalBeamBox(
         val strengths = normalizedBeams.map { it.second }
         "${normalizedBeams.size} 路卫星信号，最弱 ${strengths.min()}，最强 ${strengths.max()}"
     }
+    val resolvedBackground = if (backgroundColor == Color.Unspecified) {
+        MaterialTheme.colorScheme.surface
+    } else {
+        backgroundColor
+    }
+    val maxIdLength = normalizedBeams.maxOfOrNull { satelliteLabel(it.first).length } ?: 0
+    val beamItemWidth = max(28, maxIdLength * 8 + 12).dp
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .background(Color.White)
+            .background(resolvedBackground)
             .semantics {
                 contentDescription = "北斗卫星信号图"
                 stateDescription = signalSummary
@@ -86,7 +110,7 @@ fun BDSignalBeamBox(
         BoxWithConstraints(
             modifier = Modifier.fillMaxWidth(),
         ) {
-            LineLevelView()
+            LineLevelView(levelLabels = levelLabels)
             val visibleSize = max(normalizedBeams.size, MIN_VISIBLE_BEAMS)
             val viewportWidth = (maxWidth - LevelAxisWidth).coerceAtLeast(0.dp)
             Box(
@@ -97,7 +121,7 @@ fun BDSignalBeamBox(
             ) {
                 Row(
                     modifier = Modifier
-                        .width((BeamItemWidth * visibleSize).coerceAtLeast(viewportWidth))
+                        .width((beamItemWidth * visibleSize).coerceAtLeast(viewportWidth))
                         .height(150.dp),
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
@@ -106,7 +130,9 @@ fun BDSignalBeamBox(
                         BeamItem(
                             satelliteId = beam?.first,
                             value = beam?.second ?: 0,
-                            color = color
+                            color = color,
+                            beamWidth = beamItemWidth,
+                            satelliteLabel = satelliteLabel
                         )
                     }
                 }
@@ -146,12 +172,15 @@ private fun BoxText(
     text: String
 ) {
     Box(
-        modifier = modifier.size(20.dp),
+        modifier = modifier.height(20.dp).widthIn(min = 20.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = text,
-            style = AppText.Normal.Tips.mini
+            style = AppText.Normal.Tips.mini,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }
@@ -165,14 +194,14 @@ private fun CustomDivider(
         modifier = modifier
             .fillMaxWidth()
             .height(1.dp),
-        color = AppColor.Neutral.line
+        color = MaterialTheme.colorScheme.outlineVariant
     )
 }
 
 @Composable
-private fun LineLevelView() {
+private fun LineLevelView(levelLabels: SignalLevelLabels) {
     BoxText(
-        text = "强",
+        text = levelLabels.strong,
         modifier = Modifier
             .padding(top = 16.dp, start = 16.dp)
     )
@@ -183,7 +212,7 @@ private fun LineLevelView() {
     )
 
     BoxText(
-        text = "中",
+        text = levelLabels.medium,
         modifier = Modifier
             .padding(top = 78.dp, start = 16.dp)
     )
@@ -194,7 +223,7 @@ private fun LineLevelView() {
     )
 
     BoxText(
-        text = "弱",
+        text = levelLabels.weak,
         modifier = Modifier
             .padding(top = 109.dp, start = 16.dp)
     )
@@ -214,24 +243,26 @@ private fun LineLevelView() {
 private fun BeamItem(
     satelliteId: Int?,
     value: Int,
-    color: Color
+    color: Color,
+    beamWidth: androidx.compose.ui.unit.Dp,
+    satelliteLabel: (Int) -> String
 ) {
     Column(
         modifier = Modifier
-            .width(BeamItemWidth)
+            .width(beamWidth)
             .fillMaxHeight()
             .then(
                 if (satelliteId == null) {
                     Modifier.clearAndSetSemantics { }
                 } else {
                     Modifier.clearAndSetSemantics {
-                        contentDescription = "卫星 $satelliteId，信号 $value/$MAX_SIGNAL_STRENGTH"
+                        contentDescription = "${satelliteLabel(satelliteId)}，信号 $value/$MAX_SIGNAL_STRENGTH"
                     }
                 }
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        BoxText(text = satelliteId?.toString().orEmpty())
+        BoxText(text = satelliteId?.let(satelliteLabel).orEmpty())
         Progress(
             progress = value.toFloat() / MAX_SIGNAL_STRENGTH,
             modifier = Modifier
@@ -251,7 +282,7 @@ private fun Progress(
 ) {
     Box(
         modifier = modifier
-            .background(AppColor.Neutral.line),
+            .background(MaterialTheme.colorScheme.surfaceVariant),
         contentAlignment = Alignment.BottomCenter
     ) {
         Box(

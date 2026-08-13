@@ -21,11 +21,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.navigation.NavBar
 import com.d10ng.compose.ui.show.BDSignalBeamBox
+import com.d10ng.compose.ui.show.SignalLevelLabels
 
 private enum class BeamScenario(
     val label: String,
@@ -46,6 +49,7 @@ fun BDSignalBeamBoxScreen(onBack: () -> Unit = {}) {
     var scenario by remember { mutableStateOf(BeamScenario.STANDARD) }
     var customColor by remember { mutableStateOf(false) }
     var longCopy by remember { mutableStateOf(false) }
+    var rtl by remember { mutableStateOf(false) }
     val strengths = scenario.beams.map { it.second.coerceIn(0, 60) }
     val summary = if (strengths.isEmpty()) {
         "输入 0 路；渲染 10 个空柱"
@@ -104,25 +108,46 @@ fun BDSignalBeamBoxScreen(onBack: () -> Unit = {}) {
                         onClick = { longCopy = !longCopy },
                         label = { Text(if (longCopy) "长文案" else "默认文案") }
                     )
+                    FilterChip(
+                        selected = rtl,
+                        onClick = { rtl = !rtl },
+                        label = { Text(if (rtl) "RTL" else "LTR") }
+                    )
                 }
             }
-            BDSignalBeamBox(
-                beams = scenario.beams,
-                color = if (customColor) Color(0xFF00897B) else MaterialTheme.colorScheme.primary,
-                title = if (longCopy) {
-                    "北斗卫星通信终端当前可用信号波束强度"
-                } else {
-                    "北斗通讯卫星信号"
-                },
-                tips = if (longCopy) {
-                    "卫星信号会受到建筑、山体和树木遮挡影响。请将终端放置在室外开阔区域，并让天线保持正确朝向，以获得更稳定的通信质量。"
-                } else {
-                    "遮挡物会影响卫星信号的接收，请在室外空旷开阔处使用。"
-                }
-            )
+            androidx.compose.runtime.CompositionLocalProvider(
+                LocalLayoutDirection provides if (rtl) LayoutDirection.Rtl else LayoutDirection.Ltr
+            ) {
+                BDSignalBeamBox(
+                    beams = if (scenario == BeamScenario.LONG) {
+                        scenario.beams.mapIndexed { index, pair ->
+                            (1000 + index * 37) to pair.second
+                        }
+                    } else scenario.beams,
+                    color = if (customColor) Color(0xFF00897B) else MaterialTheme.colorScheme.primary,
+                    title = if (longCopy) {
+                        "北斗卫星通信终端当前可用信号波束强度"
+                    } else {
+                        "北斗通讯卫星信号"
+                    },
+                    tips = if (longCopy) {
+                        "卫星信号会受到建筑、山体和树木遮挡影响。请将终端放置在室外开阔区域，并让天线保持正确朝向，以获得更稳定的通信质量。"
+                    } else {
+                        "遮挡物会影响卫星信号的接收，请在室外空旷开阔处使用。"
+                    },
+                    levelLabels = SignalLevelLabels(
+                        strong = "强",
+                        medium = "中",
+                        weak = "弱"
+                    ),
+                    modifier = Modifier.semantics {
+                        contentDescription = "${if (rtl) "RTL" else "LTR"} 北斗信号图"
+                    }
+                )
+            }
             BeamSection("组件边界") {
                 Text(
-                    text = "Material 3 无同类领域组件；保留 Composable，内部继续使用官方布局与语义能力",
+                    text = "Material 3 无同类领域组件；保留 Composable，支持 Modifier、暗色主题、长编号、本地化等级文案和 RTL",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
