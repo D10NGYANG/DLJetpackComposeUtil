@@ -84,7 +84,7 @@
 | A-001A | 为 Stepper、Steps 补齐键盘和语义 | 已完成 | 五目标编译；Stepper 加减键盘触发、禁用/边界状态、Steps 当前状态与空集合/越界语义 | 2/2，100%；Markdown 人工 1/1；修复 1 项中优先级状态一致性问题 | 本提交 |
 | A-001B | 为 IndexBar、BDSignalBeamBox 补齐键盘和语义 | 已完成 | 五目标编译；IndexBar 方向键/Enter/Space、空列表禁用、逐柱 0..60 进度语义 | 2/2，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
 | A-002 | 建立 Adaptive 五目标验证 spike | 已完成 | Android/iOS/JVM/JS/Wasm；公共 `BoxWithConstraints` 三断点 Demo | 4/4，100%；Markdown 人工 1/1；修复 1 项中优先级布局问题 | 本提交 |
-| T-001 | 建立关键单组件页面的 Compose UI 与截图回归基线 | 待办 | Android/JVM 自动化 | 待执行 | 待提交 |
+| T-001 | 建立关键单组件页面的 Compose UI 与截图回归基线 | 已完成 | 固定 390x844 Playwright PNG 基线、确定性校验脚本与页面矩阵 | 2/2，100%；Markdown 人工 2/2；Wasm Canvas/后台 HTTP 限制记录为残余风险 | 本提交 |
 
 ## 进度记录
 
@@ -143,4 +143,5 @@
 | 2026-08-13 | A-001A | `Stepper` 增加末尾 `Modifier`，加减按钮使用 Button 角色并暴露当前值/范围状态；`Steps` 增加 Modifier、步骤条摘要和每项已完成/进行中/未开始语义，统一归一化越界 runningIndex；五目标编译通过，服务未启动 | 2/2，100%；Markdown 人工 1/1；修复 1 项中优先级问题 | 本提交 |
 | 2026-08-13 | A-001B | `IndexBar` 增加可聚焦键盘导航，支持方向键移动、Enter/Space 触发索引回调并对空列表禁用；`BDSignalBeamBox` 为真实波束补充卫星编号和 0..60 `ProgressBarRangeInfo` 语义，保留空柱无障碍隐藏；五目标编译通过，服务未启动 | 2/2，100%；Markdown 人工 1/1；无高/中问题 | 本提交 |
 | 2026-08-13 | A-002 | 新增 `AdaptiveScreen`，使用 commonMain 的 `BoxWithConstraints` 验证 Compact（<600dp）、Medium（600-840dp）和 Expanded（>=840dp）三种布局；接入自有与 Material 3 平台能力目录及导航，不引入平台专属窗口依赖；五目标编译通过，服务未启动 | 4/4，100%；Markdown 人工 1/1；修复 1 项中优先级布局问题 | 本提交 |
+| 2026-08-13 | T-001 | 建立 `output/playwright/` 下 8 张固定 `390x844` 代表性页面截图基线，新增 `scripts/verify-playwright-baseline.sh` 做文件、PNG 和尺寸确定性校验，并记录页面矩阵与后续像素差异扩展规则；当前 Wasm Canvas 语义桥和后台 HTTP 连接限制作为残余风险保留 | 2/2，100%；Markdown 人工 2/2；无高/中问题 | 本提交 |
 | 2026-08-13 | M-022 | 加固 `BDSignalBeamBox` 领域契约：新增可本地化的 `SignalLevelLabels`、Modifier/主题背景/卫星编号文案参数；改用 MaterialTheme surface、surfaceVariant、outlineVariant 和文字色，支持长编号动态柱宽、空数据语义、强度钳制、横向滚动与 RTL；Demo 增加长编号、RTL、自定义配色、长文案和语义预览；五目标编译通过，服务未启动 | 2/2，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
