@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavKey
 import com.d10ng.compose.demo.AvatarRoute
+import com.d10ng.compose.demo.AdaptiveRoute
 import com.d10ng.compose.demo.BadgeRoute
 import com.d10ng.compose.demo.BDSignalBeamBoxRoute
 import com.d10ng.compose.demo.ButtonRoute
@@ -141,7 +142,8 @@ private val libraryPages = mapOf(
         ComponentPage("debounceClick 防抖点击")
     ),
     ComponentCategory.PLATFORM to listOf(
-        ComponentPage("ImagePreview 图片预览")
+        ComponentPage("ImagePreview 图片预览"),
+        ComponentPage("Adaptive 自适应布局", AdaptiveRoute)
     )
 )
 
@@ -173,7 +175,7 @@ private val materialPages = mapOf(
         ComponentPage("TopAppBar 顶部栏", MaterialTopAppBarRoute)
     ),
     ComponentCategory.PLATFORM to listOf(
-        ComponentPage("Adaptive 自适应布局")
+        ComponentPage("Adaptive 自适应布局", AdaptiveRoute)
     )
 )
 

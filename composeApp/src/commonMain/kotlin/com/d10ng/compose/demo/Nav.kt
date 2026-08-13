@@ -185,3 +185,6 @@ data object NavBarRoute : NavKey
 
 @Serializable
 data object IndexBarRoute : NavKey
+
+@Serializable
+data object AdaptiveRoute : NavKey

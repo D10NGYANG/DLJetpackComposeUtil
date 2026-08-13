@@ -24,6 +24,7 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.d10ng.compose.demo.pages.AvatarScreen
+import com.d10ng.compose.demo.pages.AdaptiveScreen
 import com.d10ng.compose.demo.pages.BadgeScreen
 import com.d10ng.compose.demo.pages.BDSignalBeamBoxScreen
 import com.d10ng.compose.demo.pages.ButtonScreen
@@ -302,6 +303,9 @@ fun App() {
                         }
                         is IndexBarRoute -> NavEntry(key) {
                             IndexBarScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is AdaptiveRoute -> NavEntry(key) {
+                            AdaptiveScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         else -> NavEntry(key as NavKey) {
                             HomeScreen(onNavigate = { backStack.add(it) })
