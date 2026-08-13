@@ -48,6 +48,7 @@ import com.d10ng.compose.demo.MaterialSnackbarRoute
 import com.d10ng.compose.demo.MaterialSwitchRoute
 import com.d10ng.compose.demo.MaterialTextFieldRoute
 import com.d10ng.compose.demo.MaterialTopAppBarRoute
+import com.d10ng.compose.demo.ModifierRoute
 import com.d10ng.compose.demo.MenuInputRoute
 import com.d10ng.compose.demo.NavBarRoute
 import com.d10ng.compose.demo.NotifyRoute
@@ -138,8 +139,8 @@ private val libraryPages = mapOf(
         ComponentPage("BDSignalBeamBox 信号波束", BDSignalBeamBoxRoute)
     ),
     ComponentCategory.MODIFIER to listOf(
-        ComponentPage("dashBorder 虚线边框"),
-        ComponentPage("debounceClick 防抖点击")
+        ComponentPage("dashBorder 虚线边框", ModifierRoute),
+        ComponentPage("debounceClick 防抖点击", ModifierRoute)
     ),
     ComponentCategory.PLATFORM to listOf(
         ComponentPage("ImagePreview 图片预览"),

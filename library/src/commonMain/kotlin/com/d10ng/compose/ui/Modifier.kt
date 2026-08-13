@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.PaintingStyle
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
@@ -38,21 +39,27 @@ fun Modifier.dashBorder(
     dashLength:Dp = 5.dp,
     cornerRadiusDp: Dp = 0.dp
 ) = drawBehind {
+    val safeWidth = width.coerceAtLeast(0.dp)
+    val safeDashLength = dashLength.coerceAtLeast(0.5.dp)
+    val safeCornerRadius = cornerRadiusDp.coerceAtLeast(0.dp)
     drawIntoCanvas {
         val paint = Paint()
             .apply {
-                strokeWidth = width.toPx()
+                strokeWidth = safeWidth.toPx()
                 this.color = color
                 style = PaintingStyle.Stroke
-                pathEffect = PathEffect.dashPathEffect(floatArrayOf(dashLength.toPx(), dashLength.toPx()), 0f)
+                pathEffect = PathEffect.dashPathEffect(
+                    floatArrayOf(safeDashLength.toPx(), safeDashLength.toPx()),
+                    0f
+                )
             }
         it.drawRoundRect(
-            width.toPx(),
-            width.toPx(),
-            size.width - width.toPx(),
-            size.height - width.toPx(),
-            cornerRadiusDp.toPx(),
-            cornerRadiusDp.toPx(),
+            safeWidth.toPx(),
+            safeWidth.toPx(),
+            size.width - safeWidth.toPx(),
+            size.height - safeWidth.toPx(),
+            safeCornerRadius.toPx(),
+            safeCornerRadius.toPx(),
             paint
         )
     }
@@ -72,12 +79,12 @@ fun Modifier.debounceClick(
     val scope = rememberCoroutineScope()
     val clickEnabled = remember { mutableStateOf(true) }
 
-    clickable {
+    clickable(role = Role.Button) {
         if (clickEnabled.value) {
             clickEnabled.value = false
             onClick()
             scope.launch {
-                delay(delayMillis)
+                delay(delayMillis.coerceAtLeast(0L))
                 clickEnabled.value = true
             }
         }

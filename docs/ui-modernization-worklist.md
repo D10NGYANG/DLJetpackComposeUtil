@@ -58,6 +58,7 @@
 | D-009A | 为 Divider 建立官方/自有对照单组件页面 | 已完成 | 五目标编译；Playwright 390px/双入口/横纵方向/Hairline/粗细/颜色/inset/RTL/Intrinsic | 4/4，100%；Markdown 人工 1/1；修复 1 项低优先级问题 | `ee0419c` |
 | D-009B | 为 Overlay 建立单组件页面 | 已完成 | 五目标编译；Playwright 390px/居中与底部/内容留白与按钮/外点关闭/点击拦截/Escape 返回 | 5/5，100%；Markdown 人工 1/1；修复 1 项高、2 项低优先级问题 | `535b125` |
 | D-009C | 为 BDSignalBeamBox 建立单组件页面 | 已完成 | 五目标编译；Playwright 390px/空数据/上下限/20 路横向滚动/越界钳制/颜色/长文案/AX 语义 | 5/5，100%；Markdown 人工 1/1；修复 2 项高、2 项中优先级问题 | `85d72ec` |
+| D-010 | 为 dashBorder、debounceClick 建立 Modifier 独立页面 | 已完成 | 虚线宽度/间距/圆角/颜色；防抖时长、连续点击、语义反馈和窄屏布局 | 5/5，100%；Markdown 人工 1/1；无高/中问题 | 本提交 |
 | M-001 | Divider 内部委托官方 Material3 实现 | 已完成 | 五目标编译、JVM 测试通过 | 1/1，100%；无高/中问题 | `f096153` |
 | M-002 | 修复 Checkbox、RadioCell、loading Button 的状态与选择语义 | 已完成 | 五目标编译、JVM 测试、语义检查 | 4/4，100%；修复 2 项中优先级问题 | `9d9d151` |
 | M-003 | 评估 Cell 底部分割线下沉为 Modifier | 已完成 | 五目标编译；Playwright 390px/LTR/RTL 非对称缩进/动态高度/无分割线 | 2/2，100%；Markdown 人工 1/1；修复 1 项中、1 项低优先级问题 | `ff1d237` |
@@ -144,4 +145,5 @@
 | 2026-08-13 | A-001B | `IndexBar` 增加可聚焦键盘导航，支持方向键移动、Enter/Space 触发索引回调并对空列表禁用；`BDSignalBeamBox` 为真实波束补充卫星编号和 0..60 `ProgressBarRangeInfo` 语义，保留空柱无障碍隐藏；五目标编译通过，服务未启动 | 2/2，100%；Markdown 人工 1/1；无高/中问题 | 本提交 |
 | 2026-08-13 | A-002 | 新增 `AdaptiveScreen`，使用 commonMain 的 `BoxWithConstraints` 验证 Compact（<600dp）、Medium（600-840dp）和 Expanded（>=840dp）三种布局；接入自有与 Material 3 平台能力目录及导航，不引入平台专属窗口依赖；五目标编译通过，服务未启动 | 4/4，100%；Markdown 人工 1/1；修复 1 项中优先级布局问题 | 本提交 |
 | 2026-08-13 | T-001 | 建立 `output/playwright/` 下 8 张固定 `390x844` 代表性页面截图基线，新增 `scripts/verify-playwright-baseline.sh` 做文件、PNG 和尺寸确定性校验，并记录页面矩阵与后续像素差异扩展规则；当前 Wasm Canvas 语义桥和后台 HTTP 连接限制作为残余风险保留 | 2/2，100%；Markdown 人工 2/2；无高/中问题 | 本提交 |
+| 2026-08-13 | D-010 | 将 `dashBorder` 与 `debounceClick` 明确保留为 Modifier 扩展；对虚线宽度、间距、圆角和防抖时长做安全归一化，防抖点击补 Button 角色；新增 Modifier 独立 Demo，覆盖颜色、参数滑块、连续点击计数、0ms 恢复和窄屏滚动；五目标编译通过，服务未启动 | 5/5，100%；Markdown 人工 1/1；无高/中问题 | 本提交 |
 | 2026-08-13 | M-022 | 加固 `BDSignalBeamBox` 领域契约：新增可本地化的 `SignalLevelLabels`、Modifier/主题背景/卫星编号文案参数；改用 MaterialTheme surface、surfaceVariant、outlineVariant 和文字色，支持长编号动态柱宽、空数据语义、强度钳制、横向滚动与 RTL；Demo 增加长编号、RTL、自定义配色、长文案和语义预览；五目标编译通过，服务未启动 | 2/2，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |

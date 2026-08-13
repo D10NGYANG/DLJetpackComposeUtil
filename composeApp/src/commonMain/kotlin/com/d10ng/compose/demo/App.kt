@@ -59,6 +59,7 @@ import com.d10ng.compose.demo.pages.MaterialSnackbarScreen
 import com.d10ng.compose.demo.pages.MaterialSwitchScreen
 import com.d10ng.compose.demo.pages.MaterialTextFieldScreen
 import com.d10ng.compose.demo.pages.MaterialTopAppBarScreen
+import com.d10ng.compose.demo.pages.ModifierScreen
 import com.d10ng.compose.demo.pages.MenuInputScreen
 import com.d10ng.compose.demo.pages.NavBarScreen
 import com.d10ng.compose.demo.pages.NotifyScreen
@@ -306,6 +307,9 @@ fun App() {
                         }
                         is AdaptiveRoute -> NavEntry(key) {
                             AdaptiveScreen(onBack = { backStack.removeLastOrNull() })
+                        }
+                        is ModifierRoute -> NavEntry(key) {
+                            ModifierScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         else -> NavEntry(key as NavKey) {
                             HomeScreen(onNavigate = { backStack.add(it) })
