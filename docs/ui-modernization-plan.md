@@ -76,7 +76,7 @@
 | 单组件页面 | 一个页面只展示一个组件或一组不可拆分的同族 API | 覆盖默认、禁用、加载、错误、空值、长文本、交互与自定义参数 |
 | 官方组件页面 | 按官方组件逐页验证当前依赖版本的真实 API | 与自有页面使用相同状态矩阵，便于对照 |
 | 对照信息 | 在单组件页面标记官方候选与行为差异 | 不把多个不同组件堆入一个综合页面 |
-| 平台能力页 | 检查 Android/iOS/Desktop/Web 专属能力 | 待建立平台路由与可见性模型 |
+| 平台能力页 | 检查 Android/iOS/Desktop/Web 专属能力 | 已建立 Adaptive 跨平台能力入口；平台专属路由与真机回归仍待补齐 |
 
 ## 分阶段任务表
 
@@ -85,15 +85,16 @@
 | 0 | 初始化 CodeGraph 并确认索引可同步 | 完成 | `codegraph status` 显示索引最新 |
 | 1 | 官方能力与组件替代调研 | 完成 | 每项结论有官方一手资料和特性差异 |
 | 1 | 建立分类目录与单组件页面规范 | 已完成 | 目录页不展示组件；每个组件有独立路由和完整状态矩阵 |
-| 1 | 拆分官方 Material 3 综合预览 | 待办 | 官方组件逐页展示，综合页删除 |
-| 1 | 拆分自有组件覆盖补充页 | 待办 | Input/List/Picker/Date/Time/Radio/Divider/Overlay/BDSignal 各有独立页面 |
-| 1 | 多平台编译与桌面/移动视觉检查 | 待重验 | Android、JVM、iOS、JS、Wasm 编译通过；单组件页面无溢出或遮挡 |
-| 1 | 首批官方迁移与语义修复 | 进行中 | 已有 Divider、Checkbox、Radio、Button 实现，待按独立任务完成审查与提交 |
-| 2 | Button、selection、Badge、Divider 对照页 | 待办 | 同屏状态矩阵、键盘操作、语义说明齐全 |
-| 2 | Field/Search/Picker 对照页 | 待办 | 输入法、焦点、错误、只读、RTL、长文本场景齐全 |
-| 2 | Dialog/Sheet/Toast/Notify 对照页 | 待办 | dismiss、返回、队列、旋转/尺寸变化场景齐全 |
-| 3 | 第一批内部实现迁移与弃用策略 | 待办 | 无公开行为回归，迁移文档和 deprecated replacement 齐全 |
-| 3 | Compose UI 自动化与截图基线 | 待办 | 关键组件状态有语义测试和至少 Android/JVM 截图回归 |
+| 1 | 拆分官方 Material 3 综合预览 | 已完成 | 官方组件按单组件独立页面展示，分类目录只负责导航 |
+| 1 | 拆分自有组件覆盖补充页 | 已完成 | Input/List/Picker/Date/Time/Radio/Divider/Overlay/BDSignal 等均有独立页面 |
+| 1 | 多平台编译与桌面/移动视觉检查 | 已完成 | Android、JVM、iOS、JS、Wasm 编译通过；390x844 页面基线已建立；真机/Canvas 无障碍差异列为残余风险 |
+| 1 | 首批官方迁移与语义修复 | 已完成 | Divider、Checkbox、Radio、Button、Badge、List、输入、Dialog、Toast 等按独立任务审查并提交 |
+| 2 | Button、selection、Badge、Divider 对照页 | 已完成 | 官方与自有页面均可独立访问，覆盖状态矩阵、交互和语义差异 |
+| 2 | Field/Search/Picker 对照页 | 已完成 | 官方与自有页面分别覆盖输入法、焦点、错误、只读、长文本及滚轮差异 |
+| 2 | Dialog/Sheet/Toast/Notify 对照页 | 已完成 | 官方 Dialog/Sheet/Snackbar 页面与自有 Builder/Toast 页面分别覆盖关闭、返回、队列和阻塞差异 |
+| 2 | 平台能力页与真机无障碍回归 | 待办 | 补齐 Android/iOS/Desktop/Web 专属路由；在真实设备验证安全区、字体放大、键盘、读屏和 Canvas 语义桥 |
+| 3 | 第一批内部实现迁移与弃用策略 | 已完成 | 首批内部委托、兼容层和 deprecated replacement 已提交；删除旧 API 继续遵循发布周期 |
+| 3 | Compose UI 自动化与截图基线 | 已完成 | 关键页面固定 390x844 PNG 基线与确定性校验脚本已提交；运行态限制记录为残余风险 |
 | 4 | 删除达到弃用周期的冗余 API | 待办 | 发布说明、版本策略、下游迁移完成 |
 
 ## 验证矩阵
@@ -101,6 +102,15 @@
 每个迁移候选至少检查：默认、禁用、加载/错误、长文本、窄屏、深色主题、RTL、键盘焦点、读屏语义、返回/外部点击、状态保存和快速重复操作。跨平台组件至少编译 Android、JVM、iOS、JS、Wasm；输入与弹层需要补充真机行为检查。
 
 具体任务、审查覆盖率和提交记录维护在 [UI 现代化工作清单](ui-modernization-worklist.md)。每个任务必须经过实现、构建、OCR 委托审查、问题修复、复审和独立提交后，才能标记完成。
+
+## 收尾状态与观察项
+
+当前第一轮现代化已完成：官方候选组件已逐页展示，自有组件已补齐关键状态，首批内部委托和 Modifier 下沉已按独立提交交付。后续不再默认新增同名包装，而是根据以下观察项决定是否继续演进：
+
+- Material 3 `SearchBar`、`ScrollField` 及 Date/Time scroll variant 仍受依赖版本和跨平台映射影响，保持双轨实现并在升级依赖时重做对照验收。
+- Wasm Canvas 的焦点、键盘和辅助功能树映射，以及 Android/iOS 真机安全区、字体放大、IME 和读屏行为，不能由当前编译和 PNG 基线替代。
+- `ImagePreview` 当前仍为 Android 专属；若库继续扩大 CMP 范围，应单独决定 expect/actual 实现或移出通用组件清单。
+- 已标记 `@Deprecated` 的兼容 API 需经过至少一个发布周期、迁移文档和下游确认后，才能执行删除任务。
 
 ## 本轮不直接删除组件的原因
 
