@@ -75,7 +75,7 @@
 | M-015 | ListItem 槽位重载迁官方并补静态/禁用语义 | 已完成 | 五目标编译；Playwright 390x844 首页截图与 ListItem 入口检查 | 2/2，100%；Markdown 人工 1/1；修复 2 项中优先级问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
 | M-016 | 评估移除 ListInputItem 组合包装并迁官方 ListItem + TextField/ExposedDropdown | 已完成 | 五目标编译；Playwright 390x844 首页与 ListInputItem 入口检查 | 3/3，100%；Markdown 人工 1/1；修复 1 项中优先级禁用/只读组合问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
 | M-017 | 评估 RadioCell 并入 Cell 尾随槽并修正长文本测量 | 已完成 | 五目标编译；Playwright 390x844 首页与 RadioCell 入口检查 | 2/2，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| M-018 | 加固 Picker/MultiPicker 输入契约和无障碍操作 | 待办 | 空集合、选中长度、Modifier、禁用、键盘/读屏增减、独立列/级联模型 | 待执行 | 待提交 |
+| M-018 | 加固 Picker/MultiPicker 输入契约和无障碍操作 | 已完成 | 空集合、选中长度、Modifier、禁用、键盘/读屏增减、独立列/级联模型 | 3/3，100%；Markdown 人工 1/1；修复 2 项中优先级问题；Wasm 运行态连接受限，编译与 HTTP 启动检查完成 | 本提交 |
 | M-019 | 评估 DatePicker 通用场景迁官方日历组件并加固滚轮差异化能力 | 待办 | 官方/滚轮兼容 API、时区/DST、非法范围、Modifier、禁用、键盘/读屏 | 待执行 | 待提交 |
 | M-020 | 评估 TimePicker 普通 HM 场景迁官方并加固有限范围 HMS 滚轮 | 待办 | 参数校验、越界值、HM 秒契约、联动竞态、Modifier、禁用、键盘/读屏、官方兼容 API | 待执行 | 待提交 |
 | M-021 | 迁移 Divider 调用点并评估弃用自有兼容层 | 待办 | 21 个横线调用点、纵线公开 API、0.5dp/Hairline 视觉、逻辑方向 inset、弃用周期 | 待执行 | 待提交 |
@@ -133,3 +133,4 @@
 | 2026-08-13 | M-015 | 自有 `ListItem` 增加 `enabled` 与可空插槽 `onClick`，静态项不再注册点击语义，可点击项统一标记 `Role.Button`；字符串和槽位重载补充禁用 Demo、计数验证、长文本与槽位对照；保持新增参数位于签名末尾兼容旧位置参数；Android/JVM/JS/Wasm/iOS Simulator 编译通过，390x844 首页验证通过，服务已停止 | 2/2，100%；Markdown 人工 1/1；修复 2 项中优先级问题 | 本提交 |
 | 2026-08-13 | M-016 | `ListInputItem` 保留兼容组合层，新增末尾 `enabled/readOnly` 参数并透传到官方 `BasicTextField` 与 `ExposedDropdownMenuBox`；禁用/只读时不请求焦点、不展开菜单；Demo 补充只读与禁用场景，验证父行不拦截输入焦点；Android/JVM/JS/Wasm/iOS Simulator 编译通过，390x844 首页验证通过，服务已停止 | 3/3，100%；Markdown 人工 1/1；修复 1 项中优先级禁用/只读组合问题 | 本提交 |
 | 2026-08-13 | M-017 | `RadioCell` 保持官方 `RadioButton` 与独立 `Role.RadioButton` 语义，长标题增加稳定权重避免挤压右侧控件；Demo 增加 `Cell.afterValue` + 官方 RadioButton 对照，明确父行点击与独立单选语义差异；Android/JVM/JS/Wasm/iOS Simulator 编译通过，390x844 首页验证通过，服务已停止 | 2/2，100%；Markdown 人工 1/1；无高/中问题 | 本提交 |
+| 2026-08-13 | M-018 | `Picker`/`MultiPicker` 允许空集合与缺失/非法选中值安全回退，新增 `enabled`、列级描述、读屏上一项/下一项和方向键操作；滚轮吸附保护末项边界；`MultiPickerSheetBuilder` 移除空列默认 `first()`；Demo 增加禁用、非法回退、空态、空列和列级语义场景；Android/JVM/JS/Wasm/iOS Simulator 编译通过，Playwright CLI 因 npx 启动受限未取得快照，后台 Demo HTTP 启动后连接受限，服务已停止 | 3/3，100%；Markdown 人工 1/1；修复 2 项中优先级问题 | 本提交 |

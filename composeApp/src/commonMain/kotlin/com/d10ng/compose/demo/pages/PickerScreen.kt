@@ -40,6 +40,8 @@ fun PickerScreen(onBack: () -> Unit = {}) {
     var multiSelection by remember {
         mutableStateOf(listOf("广东省", "深圳市", "南山区"))
     }
+    var pickerEnabled by remember { mutableStateOf(true) }
+    var invalidSelection by remember { mutableStateOf("不存在的选项") }
 
     Column(
         modifier = Modifier
@@ -101,14 +103,21 @@ fun PickerScreen(onBack: () -> Unit = {}) {
                     MultiPicker(
                         items = multiPickerItems,
                         selectedItems = multiSelection,
-                        itemText = { index, item ->
+                    itemText = { index, item ->
                             when (index) {
                                 0 -> "省：$item"
                                 1 -> "市：$item"
                                 else -> "区：$item"
-                            }
-                        },
-                        onValueChange = { multiSelection = it }
+                        }
+                    },
+                    columnContentDescription = { index ->
+                        when (index) {
+                            0 -> "省份滚轮"
+                            1 -> "城市滚轮"
+                            else -> "区域滚轮"
+                        }
+                    },
+                    onValueChange = { multiSelection = it }
                     )
                 }
                 PickerStatus("当前组合：${multiSelection.joinToString(" / ")}")
@@ -122,9 +131,49 @@ fun PickerScreen(onBack: () -> Unit = {}) {
                 }
             }
 
+            PickerSection("输入契约与无障碍") {
+                Button(
+                    onClick = { pickerEnabled = !pickerEnabled },
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                ) {
+                    Text(if (pickerEnabled) "禁用单列 Picker" else "启用单列 Picker")
+                }
+                Picker(
+                    items = singlePickerItems,
+                    selectedItem = singleSelection,
+                    enabled = pickerEnabled,
+                    accessibilityDescription = "可操作的月份滚轮",
+                    itemText = { "第 $it 项" },
+                    onValueChange = { singleSelection = it }
+                )
+                PickerStatus("禁用状态：${if (pickerEnabled) "可操作" else "不可操作"}；读屏可执行上一项/下一项")
+                Picker(
+                    items = linkedSetOf("有效选项", "第二选项"),
+                    selectedItem = invalidSelection,
+                    accessibilityDescription = "非法选中值回退示例",
+                    onValueChange = { invalidSelection = it }
+                )
+                PickerStatus("非法 selectedItem 会回退到第一项：$invalidSelection")
+                Picker(
+                    items = emptySet<String>(),
+                    enabled = false,
+                    accessibilityDescription = "空集合 Picker",
+                    onValueChange = {}
+                )
+                PickerStatus("空集合显示稳定空态，不调用 first()；enabled=false 时保持不可操作")
+                MultiPicker(
+                    items = listOf(linkedSetOf("A", "B"), emptySet(), linkedSetOf("1", "2")),
+                    selectedItems = listOf("非法值"),
+                    enabled = pickerEnabled,
+                    columnContentDescription = { "契约测试第 ${it + 1} 列" },
+                    onValueChange = {}
+                )
+                PickerStatus("MultiPicker 会按列回退非法/缺失选中值，并安全渲染空列")
+            }
+
             PickerSection("输入约束") {
-                PickerStatus("每列必须非空；selectedItems 数量必须与列数一致")
-                PickerStatus("当前 API 没有 enabled、键盘操作或可访问增减动作")
+                PickerStatus("空列显示空态；缺失或非法 selectedItems 会按列回退")
+                PickerStatus("API 支持 enabled、方向键和读屏上一项/下一项动作")
             }
         }
     }
