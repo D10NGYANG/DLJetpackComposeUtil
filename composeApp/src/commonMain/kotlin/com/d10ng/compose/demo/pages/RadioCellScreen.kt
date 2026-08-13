@@ -10,6 +10,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.form.RadioCell
+import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.navigation.NavBar
 
 @Composable
@@ -92,6 +95,25 @@ fun RadioCellScreen(onBack: () -> Unit = {}) {
                     )
                 }
                 RadioCellStatus("最后一行 border = false；当前模式：$notificationMode")
+            }
+
+            RadioCellSection("Cell 尾随槽对照") {
+                Cell(
+                    title = "Cell + 官方 RadioButton",
+                    label = "适合已有 Cell 表单，但需由父行维护选择语义",
+                    value = "尾随槽",
+                    onClick = { notificationMode = "cell" },
+                    afterValue = {
+                        RadioButton(
+                            selected = notificationMode == "cell",
+                            onClick = null,
+                            colors = RadioButtonDefaults.colors(
+                                selectedColor = MaterialTheme.colorScheme.primary
+                            )
+                        )
+                    }
+                )
+                RadioCellStatus("RadioCell 保留独立 Role.RadioButton；Cell 尾随槽依赖父行点击")
             }
         }
     }

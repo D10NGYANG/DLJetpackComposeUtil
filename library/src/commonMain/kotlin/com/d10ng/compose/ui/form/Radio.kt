@@ -67,7 +67,8 @@ fun RadioCell(
             Text(
                 text = label,
                 style = AppText.Normal.Title.default,
-                color = AppColor.Neutral.title.next(if (disabled) 0.5 else 0.0)
+                color = AppColor.Neutral.title.next(if (disabled) 0.5 else 0.0),
+                modifier = Modifier.weight(1f)
             )
             // 间隔
             Box(modifier = Modifier.weight(1f))
