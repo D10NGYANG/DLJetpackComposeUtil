@@ -80,8 +80,9 @@
 | M-020 | 评估 TimePicker 普通 HM 场景迁官方并加固有限范围 HMS 滚轮 | 已完成 | 参数校验、越界值、HM 秒契约、联动竞态、Modifier、禁用、键盘/读屏、官方兼容 API | 3/3，100%；Markdown 人工 1/1；修复 1 项中优先级问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
 | M-021 | 迁移 Divider 调用点并评估弃用自有兼容层 | 已完成 | 21 个横线调用点、纵线公开 API、0.5dp/Hairline 视觉、逻辑方向 inset、弃用周期 | 8/8，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
 | M-022 | 加固 BDSignalBeamBox 领域契约与主题适配 | 已完成 | 五目标编译；Modifier、空数据、长编号、暗色主题、本地化、RTL | 2/2，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| A-001 | 为 Stepper、IndexBar、Steps、BDSignalBeamBox 补齐键盘和语义 | 进行中 | 拆分为 A-001A（Stepper/Steps）与 A-001B（IndexBar/BDSignalBeamBox），分别验收 | 待执行 | 待提交 |
+| A-001 | 为 Stepper、IndexBar、Steps、BDSignalBeamBox 补齐键盘和语义 | 已完成 | Stepper/Steps/IndexBar/BDSignalBeamBox 键盘与语义契约分批验收 | 4/4，100%；Markdown 人工 1/1；修复 1 项中优先级状态一致性问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
 | A-001A | 为 Stepper、Steps 补齐键盘和语义 | 已完成 | 五目标编译；Stepper 加减键盘触发、禁用/边界状态、Steps 当前状态与空集合/越界语义 | 2/2，100%；Markdown 人工 1/1；修复 1 项中优先级状态一致性问题 | 本提交 |
+| A-001B | 为 IndexBar、BDSignalBeamBox 补齐键盘和语义 | 已完成 | 五目标编译；IndexBar 方向键/Enter/Space、空列表禁用、逐柱 0..60 进度语义 | 2/2，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
 | A-002 | 建立 Adaptive 五目标验证 spike | 待办 | Android/iOS/JVM/JS/Wasm | 待执行 | 待提交 |
 | T-001 | 建立关键单组件页面的 Compose UI 与截图回归基线 | 待办 | Android/JVM 自动化 | 待执行 | 待提交 |
 
@@ -140,4 +141,5 @@
 | 2026-08-13 | M-021 | 将 Cell、Field、Picker、Radio、NavBar 的无自定义 inset 横线调用迁移 Material3 `HorizontalDivider`；保留自有 `HorizontalDivider`/`VerticalDivider` 兼容层以支持 0.5dp 默认值、Hairline 和逻辑方向 inset，并标记 `@Deprecated` 提供官方替换建议；Popover、BDSignalBeamBox 等带 inset 场景保留并局部抑制弃用警告；Android/JVM/JS/Wasm/iOS Simulator 编译通过，服务未启动 | 8/8，100%；Markdown 人工 1/1；无高/中问题 | 本提交 |
 | 2026-08-13 | A-001 | 将键盘与语义补齐拆分为 A-001A（Stepper/Steps）和 A-001B（IndexBar/BDSignalBeamBox），先从具有明确操作模型的步进器与步骤条开始 | 计划更新，待 A-001A 验收 |
 | 2026-08-13 | A-001A | `Stepper` 增加末尾 `Modifier`，加减按钮使用 Button 角色并暴露当前值/范围状态；`Steps` 增加 Modifier、步骤条摘要和每项已完成/进行中/未开始语义，统一归一化越界 runningIndex；五目标编译通过，服务未启动 | 2/2，100%；Markdown 人工 1/1；修复 1 项中优先级问题 | 本提交 |
+| 2026-08-13 | A-001B | `IndexBar` 增加可聚焦键盘导航，支持方向键移动、Enter/Space 触发索引回调并对空列表禁用；`BDSignalBeamBox` 为真实波束补充卫星编号和 0..60 `ProgressBarRangeInfo` 语义，保留空柱无障碍隐藏；五目标编译通过，服务未启动 | 2/2，100%；Markdown 人工 1/1；无高/中问题 | 本提交 |
 | 2026-08-13 | M-022 | 加固 `BDSignalBeamBox` 领域契约：新增可本地化的 `SignalLevelLabels`、Modifier/主题背景/卫星编号文案参数；改用 MaterialTheme surface、surfaceVariant、outlineVariant 和文字色，支持长编号动态柱宽、空数据语义、强度钳制、横向滚动与 RTL；Demo 增加长编号、RTL、自定义配色、长文案和语义预览；五目标编译通过，服务未启动 | 2/2，100%；Markdown 人工 1/1；无高/中问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |

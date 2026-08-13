@@ -24,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.progressBarRangeInfo
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
@@ -257,6 +259,10 @@ private fun BeamItem(
                 } else {
                     Modifier.clearAndSetSemantics {
                         contentDescription = "${satelliteLabel(satelliteId)}，信号 $value/$MAX_SIGNAL_STRENGTH"
+                        progressBarRangeInfo = ProgressBarRangeInfo(
+                            current = value.toFloat(),
+                            range = 0f..MAX_SIGNAL_STRENGTH.toFloat()
+                        )
                     }
                 }
             ),
