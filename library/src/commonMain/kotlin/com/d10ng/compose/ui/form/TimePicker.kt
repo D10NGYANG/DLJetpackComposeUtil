@@ -74,6 +74,8 @@ enum class TimePickerMode(
  * @param textStyle TextStyle 选项文字样式，默认 `AppText.Normal.Title.default`
  * @param mode TimePickerMode 时间列组合模式，默认 [TimePickerMode.HMS]（时分秒三列）
  * @param itemText (Int, String) -> String 自定义选项文字格式化函数，第一个参数为列索引（0 起），第二个参数为原始文字（如 "08"），默认原样返回
+ * @param enabled Boolean 是否允许滚轮交互，默认 true
+ * @param modifier Modifier 外部布局和语义修饰，默认 Modifier
  */
 @Composable
 fun TimePicker(
@@ -84,42 +86,51 @@ fun TimePicker(
     textStyle: TextStyle = AppText.Normal.Title.default,
     mode: TimePickerMode = TimePickerMode.HMS,
     itemText: (Int, String) -> String = { _, item -> item },
+    enabled: Boolean = true,
+    modifier: Modifier = Modifier,
 ) {
+    val normalizedRangeStart = minOf(start, endInclude).coerceIn(0, 86399)
+    val normalizedRangeEnd = maxOf(start, endInclude).coerceIn(0, 86399)
+    val normalizedValue = value.coerceIn(normalizedRangeStart, normalizedRangeEnd)
     // 小时列表
-    val hours = remember(start, endInclude) {
-        (start.hour()..endInclude.hour()).map {
+    val hours = remember(normalizedRangeStart, normalizedRangeEnd) {
+        (normalizedRangeStart.hour()..normalizedRangeEnd.hour()).map {
             it.toString().padStart(2, '0')
         }.toSet()
     }
     // 选择小时
-    val hour = remember(value) {
-        value.hour()
+    val hour = remember(normalizedValue) {
+        normalizedValue.hour()
     }
     // 分钟列表
-    val minutes = remember(hour, start, endInclude) {
-        val startMinute = if (hour == start.hour()) start.minute() else 0
-        val endMinute = if (hour == endInclude.hour()) endInclude.minute() else 59
+    val minutes = remember(hour, normalizedRangeStart, normalizedRangeEnd) {
+        val startMinute = if (hour == normalizedRangeStart.hour()) normalizedRangeStart.minute() else 0
+        val endMinute = if (hour == normalizedRangeEnd.hour()) normalizedRangeEnd.minute() else 59
         (startMinute..endMinute).map {
             it.toString().padStart(2, '0')
         }.toSet()
     }
     // 选择分钟
-    val minute = remember(value) {
-        value.minute()
+    val minute = remember(normalizedValue) {
+        normalizedValue.minute()
     }
     // 秒列表
-    val seconds = remember(hour, minute, start, endInclude) {
+    val seconds = remember(hour, minute, normalizedRangeStart, normalizedRangeEnd) {
         val startSecond =
-            if (hour == start.hour() && minute == start.minute()) start.second() else 0
+            if (hour == normalizedRangeStart.hour() && minute == normalizedRangeStart.minute()) {
+                normalizedRangeStart.second()
+            } else 0
         val endSecond =
-            if (hour == endInclude.hour() && minute == endInclude.minute()) endInclude.second() else 59
+            if (hour == normalizedRangeEnd.hour() && minute == normalizedRangeEnd.minute()) {
+                normalizedRangeEnd.second()
+            } else 59
         (startSecond..endSecond).map {
             it.toString().padStart(2, '0')
         }.toSet()
     }
     // 选择秒
-    val second = remember(value) {
-        value.second()
+    val second = remember(normalizedValue) {
+        normalizedValue.second()
     }
 
     val items = remember(mode, hours, minutes, seconds) {
@@ -133,16 +144,25 @@ fun TimePicker(
         )
     }
 
-    MultiPicker(
-        items = items,
-        itemText = itemText,
-        textStyle = textStyle,
-        selectedItems = selectedItems,
-        onValueChange = {
-            val time = mode.getDate(it).coerceAtLeast(start).coerceAtMost(endInclude)
-            onValueChange(time, mode.getDateList(time))
-        }
-    )
+    androidx.compose.foundation.layout.Box(modifier = modifier) {
+        MultiPicker(
+            items = items,
+            itemText = itemText,
+            textStyle = textStyle,
+            selectedItems = selectedItems,
+            enabled = enabled,
+            columnContentDescription = { index ->
+                when (mode) {
+                    TimePickerMode.HMS -> listOf("小时", "分钟", "秒钟")[index]
+                    TimePickerMode.HM -> listOf("小时", "分钟")[index]
+                }
+            },
+            onValueChange = {
+                val time = mode.getDate(it).coerceIn(normalizedRangeStart, normalizedRangeEnd)
+                onValueChange(time, mode.getDateList(time))
+            }
+        )
+    }
 }
 
 internal fun Int.hour(): Int = this / 3600

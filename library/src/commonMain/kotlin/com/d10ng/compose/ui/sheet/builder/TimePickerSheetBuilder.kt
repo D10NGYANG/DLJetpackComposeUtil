@@ -77,11 +77,13 @@ class TimePickerSheetBuilder(
 
     @Composable
     override fun Build() {
+        val rangeStart = minOf(start, endInclude).coerceIn(0, 86399)
+        val rangeEnd = maxOf(start, endInclude).coerceIn(0, 86399)
         var selected by remember(value) {
-            mutableIntStateOf(value)
+            mutableIntStateOf(value.coerceIn(rangeStart, rangeEnd))
         }
         var selectedList by remember(value) {
-            mutableStateOf(listOf(value.hour(), value.minute(), value.second()))
+            mutableStateOf(mode.getDateList(selected))
         }
         SheetColumn {
             TitleBar(

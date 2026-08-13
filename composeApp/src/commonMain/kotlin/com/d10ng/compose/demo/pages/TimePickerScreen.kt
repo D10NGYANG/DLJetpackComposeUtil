@@ -37,6 +37,8 @@ private const val timePickerInitial = 14 * 3600 + 30 * 60 + 45
 fun TimePickerScreen(onBack: () -> Unit = {}) {
     var mode by remember { mutableStateOf(TimePickerMode.HMS) }
     var value by remember { mutableIntStateOf(timePickerInitial) }
+    var enabled by remember { mutableStateOf(true) }
+    val effectiveValue = value.coerceIn(timePickerStart, timePickerEnd)
     var callbackParts by remember { mutableStateOf(mode.getDateList(value)) }
     val suffixes = remember(mode) {
         when (mode) {
@@ -96,7 +98,7 @@ fun TimePickerScreen(onBack: () -> Unit = {}) {
                 .fillMaxWidth()
                 .semantics {
                     contentDescription =
-                        "${mode.name} 时间滚轮，当前 ${formatTime(value, mode)}"
+                        "${mode.name} 时间滚轮，当前 ${formatTime(effectiveValue, mode)}"
                 }
         ) {
             TimePicker(
@@ -108,12 +110,14 @@ fun TimePickerScreen(onBack: () -> Unit = {}) {
                 start = timePickerStart,
                 endInclude = timePickerEnd,
                 mode = mode,
-                itemText = { index, item -> "$item${suffixes[index]}" }
+                itemText = { index, item -> "$item${suffixes[index]}" },
+                enabled = enabled,
+                modifier = Modifier.semantics { contentDescription = "${mode.name} 时间滚轮" }
             )
         }
 
         Text(
-            text = "当前：${formatTime(value, mode)}（$value 秒）",
+            text = "当前：${formatTime(effectiveValue, mode)}（有效 $effectiveValue 秒，原始 $value 秒）",
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .semantics { liveRegion = LiveRegionMode.Polite },
@@ -144,9 +148,34 @@ fun TimePickerScreen(onBack: () -> Unit = {}) {
                 callbackParts = parts
             }
         }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Button(
+                onClick = { enabled = !enabled },
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(if (enabled) "禁用滚轮" else "启用滚轮")
+            }
+            Button(
+                onClick = { value = 99 * 3600 },
+                modifier = Modifier.weight(1f)
+            ) {
+                Text("非法值回退")
+            }
+        }
         Text(
-            text = "范围：08:15:00 至 20:45:59；边界小时会联动分钟和秒",
+            text = "范围：08:15:00 至 20:45:59；边界小时会联动分钟和秒，HM 回调不包含秒列",
             modifier = Modifier.padding(16.dp),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Text(
+            text = "官方 Material3 TimePicker：普通 HM 时分选择和主题/无障碍更完整；本组件：HMS 秒列、精确起止秒范围和滚轮联动，暂不互相替代",
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
