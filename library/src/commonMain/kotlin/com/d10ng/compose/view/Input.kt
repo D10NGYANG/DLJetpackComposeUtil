@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
+import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,7 +40,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.PopupProperties
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_baseline_visibility_24
 import com.d10ng.compose.resources.ic_baseline_visibility_off_24
@@ -122,6 +123,7 @@ fun Input(
 }
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun MenuInput(
     modifier: Modifier = Modifier,
     value: String,
@@ -178,72 +180,75 @@ fun MenuInput(
         Column(
             modifier = inputModifier
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(inputBackgroundColor, inputBackgroundShape)
-                    .padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (prefix.isNotEmpty() && value.isNotEmpty()) {
-                    Text(text = prefix, style = textStyle)
+            ExposedDropdownMenuBox(
+                expanded = isFocus && menus.isNotEmpty(),
+                onExpandedChange = { expanded ->
+                    if (menus.isNotEmpty()) {
+                        if (expanded) onFocus.invoke() else onNoFocus.invoke()
+                    }
                 }
-                Input(
-                    value = value,
-                    onValueChange = {
-                        if (it.contains("\n")) {
-                            onValueChange.invoke(it.replace("\n", ""))
-                            onClickNext.invoke()
-                        } else {
-                            onValueChange.invoke(it)
-                        }
-                    },
-                    textStyle = textStyle,
-                    placeholder = placeholder,
-                    placeholderStyle = placeholderStyle,
-                    keyboardOptions = KeyboardOptions().copy(
-                        keyboardType = keyboardType, imeAction = ImeAction.Next
-                    ),
-                    keyboardActions = KeyboardActions(onNext = { onClickNext.invoke() }),
-                    visualTransformation = visualTransformation,
-                    singleLine = maxLines == 1,
-                    maxLines = maxLines,
-                    isFocus = isFocus,
+            ) {
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(1f)
-                        .onFocusChanged { state ->
-                            if (state.isFocused && !wasFocused) {
-                                onFocus.invoke()
-                            } else if (!state.isFocused && wasFocused) {
-                                onNoFocus.invoke()
+                        .background(inputBackgroundColor, inputBackgroundShape)
+                        .padding(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    if (prefix.isNotEmpty() && value.isNotEmpty()) {
+                        Text(text = prefix, style = textStyle)
+                    }
+                    Input(
+                        value = value,
+                        onValueChange = {
+                            if (it.contains("\n")) {
+                                onValueChange.invoke(it.replace("\n", ""))
+                                onClickNext.invoke()
+                            } else {
+                                onValueChange.invoke(it)
                             }
-                            wasFocused = state.isFocused
-                        }
-                )
-                if (suffix.isNotEmpty() && value.isNotEmpty()) {
-                    Text(text = suffix, style = textStyle)
-                }
-                if (isPassword) {
-                    Icon(
-                        painter = painterResource(resource = if (isPasswordVisible) Res.drawable.ic_baseline_visibility_24 else Res.drawable.ic_baseline_visibility_off_24),
-                        contentDescription = if (isPasswordVisible) "点击隐藏" else "点击显示",
-                        tint = textStyle.color,
+                        },
+                        textStyle = textStyle,
+                        placeholder = placeholder,
+                        placeholderStyle = placeholderStyle,
+                        keyboardOptions = KeyboardOptions().copy(
+                            keyboardType = keyboardType, imeAction = ImeAction.Next
+                        ),
+                        keyboardActions = KeyboardActions(onNext = { onClickNext.invoke() }),
+                        visualTransformation = visualTransformation,
+                        singleLine = maxLines == 1,
+                        maxLines = maxLines,
+                        isFocus = isFocus,
                         modifier = Modifier
-                            .padding(start = 8.dp)
-                            .clickable { isPasswordVisible = !isPasswordVisible }
+                            .fillMaxWidth()
+                            .weight(1f)
+                            .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryEditable)
+                            .onFocusChanged { state ->
+                                if (state.isFocused && !wasFocused) {
+                                    onFocus.invoke()
+                                } else if (!state.isFocused && wasFocused) {
+                                    onNoFocus.invoke()
+                                }
+                                wasFocused = state.isFocused
+                            }
                     )
+                    if (suffix.isNotEmpty() && value.isNotEmpty()) {
+                        Text(text = suffix, style = textStyle)
+                    }
+                    if (isPassword) {
+                        Icon(
+                            painter = painterResource(resource = if (isPasswordVisible) Res.drawable.ic_baseline_visibility_24 else Res.drawable.ic_baseline_visibility_off_24),
+                            contentDescription = if (isPasswordVisible) "点击隐藏" else "点击显示",
+                            tint = textStyle.color,
+                            modifier = Modifier
+                                .padding(start = 8.dp)
+                                .clickable { isPasswordVisible = !isPasswordVisible }
+                        )
+                    }
                 }
-            }
-            if (menus.isNotEmpty()) {
-                DropdownMenu(
-                    expanded = isFocus,
+                ExposedDropdownMenu(
+                    expanded = isFocus && menus.isNotEmpty(),
                     onDismissRequest = { onNoFocus.invoke() },
-                    properties = PopupProperties(
-                        dismissOnBackPress = true,
-                        dismissOnClickOutside = true,
-                        clippingEnabled = false
-                    ),
                     modifier = Modifier.heightIn(max = 200.dp)
                 ) {
                     if (menuList.isEmpty()) {
