@@ -105,6 +105,8 @@ enum class DatePickerMode(
  * @param textStyle TextStyle 选项文字样式，默认 `AppText.Normal.Title.default`
  * @param mode DatePickerMode 日期列组合模式，默认 [DatePickerMode.YMD]（年月日三列）
  * @param itemText (Int, String) -> String 自定义选项文字格式化函数，第一个参数为列索引（0 起），第二个参数为原始文字（如 "04"），默认原样返回
+ * @param enabled Boolean 是否允许滚轮交互，默认 true
+ * @param modifier Modifier 外部布局和语义修饰，默认 Modifier
  */
 @Composable
 fun DatePicker(
@@ -115,15 +117,20 @@ fun DatePicker(
     textStyle: TextStyle = AppText.Normal.Title.default,
     mode: DatePickerMode = DatePickerMode.YMD,
     itemText: (Int, String) -> String = { _, item -> item },
+    enabled: Boolean = true,
+    modifier: Modifier = Modifier,
 ) {
-    val datetime = remember(value) {
-        createSystemLocalDateTime(value)
+    val rangeStart = minOf(start, endInclude)
+    val rangeEnd = maxOf(start, endInclude)
+    val normalizedValue = value.coerceIn(rangeStart, rangeEnd)
+    val datetime = remember(normalizedValue) {
+        createSystemLocalDateTime(normalizedValue)
     }
-    val startDateTime = remember(start) {
-        createSystemLocalDateTime(start)
+    val startDateTime = remember(rangeStart) {
+        createSystemLocalDateTime(rangeStart)
     }
-    val endDateTime = remember(endInclude) {
-        createSystemLocalDateTime(endInclude)
+    val endDateTime = remember(rangeEnd) {
+        createSystemLocalDateTime(rangeEnd)
     }
     // 年份列表
     val years = remember(startDateTime, endDateTime) {
@@ -144,7 +151,7 @@ fun DatePicker(
         val startDay = if (year == startDateTime.year && month == startDateTime.month.number) startDateTime.day else 1
         val endDay =
             if (year == endDateTime.year && month == endDateTime.month.number) endDateTime.day
-            else daysOfMonth(datetime.year, datetime.month.number)
+            else daysOfMonth(year, month)
         (startDay..endDay).map { it.toString().padStart(2, '0') }.toSet()
     }
     // 选择的日期
@@ -159,15 +166,29 @@ fun DatePicker(
             day.toString().padStart(2, '0')
         )
     }
-    MultiPicker(
-        items = items,
-        itemText = itemText,
-        textStyle = textStyle,
-        selectedItems = selectedItems,
-        onValueChange = {
-            onValueChange(mode.getDate(value, it).coerceAtLeast(start).coerceAtMost(endInclude))
-        }
-    )
+    Box(modifier = modifier) {
+        MultiPicker(
+            items = items,
+            itemText = itemText,
+            textStyle = textStyle,
+            selectedItems = selectedItems,
+            enabled = enabled,
+            columnContentDescription = { index ->
+                when (mode) {
+                    DatePickerMode.YMD -> listOf("年份", "月份", "日期")[index]
+                    DatePickerMode.YM -> listOf("年份", "月份")[index]
+                    DatePickerMode.Y -> listOf("年份")[index]
+                    DatePickerMode.MD -> listOf("月份", "日期")[index]
+                    DatePickerMode.M -> listOf("月份")[index]
+                }
+            },
+            onValueChange = {
+                onValueChange(
+                    mode.getDate(normalizedValue, it).coerceIn(rangeStart, rangeEnd)
+                )
+            }
+        )
+    }
 }
 
 private fun createSystemLocalDateTime(milliseconds: Long): LocalDateTime {

@@ -43,6 +43,8 @@ fun DatePickerScreen(onBack: () -> Unit = {}) {
     val datePickerLeapDay = remember(timeZone) { localDateMillis(2024, 2, 29, timeZone) }
     var mode by remember { mutableStateOf(DatePickerMode.YMD) }
     var value by remember(datePickerInitial) { mutableLongStateOf(datePickerInitial) }
+    var enabled by remember { mutableStateOf(true) }
+    val invalidValue = remember { localDateMillis(2035, 1, 1, timeZone) }
     val suffixes = remember(mode) {
         when (mode) {
             DatePickerMode.YMD -> listOf("年", "月", "日")
@@ -99,18 +101,21 @@ fun DatePickerScreen(onBack: () -> Unit = {}) {
                     start = datePickerStart,
                     endInclude = datePickerEnd,
                     mode = mode,
-                    itemText = { index, item -> "$item${suffixes[index]}" }
+                    itemText = { index, item -> "$item${suffixes[index]}" },
+                    enabled = enabled,
+                    modifier = Modifier.semantics { contentDescription = "${mode.name} 日期滚轮" }
                 )
             }
 
-            val datetime = Instant.fromEpochMilliseconds(value).toLocalDateTime(timeZone)
+            val effectiveValue = value.coerceIn(datePickerStart, datePickerEnd)
+            val datetime = Instant.fromEpochMilliseconds(effectiveValue).toLocalDateTime(timeZone)
             Text(
                 text = "当前：${datetime.year}-${datetime.month.number.toString().padStart(2, '0')}-${datetime.day.toString().padStart(2, '0')}",
                 modifier = Modifier.padding(horizontal = 16.dp),
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "时间戳：$value；时区：${timeZone.id}",
+                text = "时间戳：$effectiveValue（原始输入：$value）；时区：${timeZone.id}",
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -141,9 +146,40 @@ fun DatePickerScreen(onBack: () -> Unit = {}) {
                     Text("结束边界")
                 }
             }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(
+                    onClick = { enabled = !enabled },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(if (enabled) "禁用滚轮" else "启用滚轮")
+                }
+                Button(
+                    onClick = { value = invalidValue },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text("非法值回退")
+                }
+            }
+            Text(
+                text = "状态：${if (enabled) "可操作" else "禁用"}；超出范围的 value 会先回退到合法边界",
+                modifier = Modifier.padding(horizontal = 16.dp),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
             Text(
                 text = "范围：2000-01-01 至 2026-12-31；切换年月会联动有效日期",
                 modifier = Modifier.padding(16.dp),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Text(
+                text = "官方 Material3 DatePicker：月历网格、单日期/范围选择、主题和无障碍更完整；本组件：YMD/YM/Y/MD/M 滚轮、多列联动和自定义文案，暂不互相替代",
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
