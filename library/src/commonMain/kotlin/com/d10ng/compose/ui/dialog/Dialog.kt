@@ -1,24 +1,30 @@
 package com.d10ng.compose.ui.dialog
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import com.d10ng.compose.ui.dialog.builder.DialogBuilder
-import com.d10ng.compose.ui.feedback.Overlay
+import androidx.compose.ui.window.Dialog as ComposeDialog
 
 /**
  * 弹窗
@@ -28,8 +34,8 @@ import com.d10ng.compose.ui.feedback.Overlay
 
 /**
  * 弹窗根容器
- * 在 [Overlay] 遮罩上渲染指定 [DialogBuilder] 的内容，
- * 同时将 [id] 传递给 builder 以便在内部调用 dismiss
+ * 使用 Compose UI 官方 [ComposeDialog] 建立平台模态窗口，并渲染指定 [DialogBuilder] 的内容。
+ * 兼容旧 Builder 的任意 [Alignment] 定位；关闭策略仍由 [DialogBuilder.clickOutsideDismiss] 统一控制。
  * @param builder DialogBuilder 弹窗内容构建器
  * @param id String 弹窗唯一标识，用于关闭弹窗
  */
@@ -38,13 +44,35 @@ fun Dialog(
     builder: DialogBuilder,
     id: String
 ) {
-    Overlay(
-        onDismiss = {
-            if (builder.clickOutsideDismiss) DialogBuilder.dismiss(id)
-        },
-        contentAlignment = builder.contentAlignment
+    val dismissPolicy = resolveDialogDismissPolicy(builder.clickOutsideDismiss)
+    val dismiss by rememberUpdatedState { DialogBuilder.dismiss(id) }
+    ComposeDialog(
+        onDismissRequest = dismiss,
+        properties = DialogProperties(
+            dismissOnBackPress = dismissPolicy.dismissOnBackPress,
+            // 全屏对齐容器负责兼容旧 contentAlignment，因此由容器识别内容外点击。
+            dismissOnClickOutside = false,
+            usePlatformDefaultWidth = false,
+        ),
     ) {
-        builder.Build(id)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .pointerInput(dismissPolicy.dismissOnClickOutside) {
+                    detectTapGestures {
+                        if (dismissPolicy.dismissOnClickOutside) dismiss()
+                    }
+                },
+            contentAlignment = builder.contentAlignment,
+        ) {
+            Box(
+                modifier = Modifier.pointerInput(Unit) {
+                    detectTapGestures { }
+                }
+            ) {
+                builder.Build(id)
+            }
+        }
     }
 }
 

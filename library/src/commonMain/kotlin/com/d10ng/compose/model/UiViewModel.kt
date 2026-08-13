@@ -82,7 +82,9 @@ class UiViewModel : ViewModel(), IUiViewModel {
     private fun DialogLayer() {
         val dialogBuilderMap by dialogBuilderMapFlow.collectAsState()
         dialogBuilderMap.forEach { (id, builder) ->
-            Dialog(id = id, builder = builder)
+            key(id) {
+                Dialog(id = id, builder = builder)
+            }
         }
     }
 
