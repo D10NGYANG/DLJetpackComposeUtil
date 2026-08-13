@@ -16,6 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,6 +46,7 @@ import org.jetbrains.compose.resources.painterResource
  * @param runningColor Color 进行中及已完成步骤的颜色（图标、连接线、文字），默认为 [AppColor.Main.primary]
  * @param activeColor Color 已完成步骤的文字颜色，默认为 [AppColor.Neutral.body]
  * @param inactiveColor Color 未开始步骤的颜色（图标、连接线、文字），默认为 [AppColor.Neutral.hint]
+ * @param modifier Modifier 应用于步骤条根容器的修饰符
  */
 @Composable
 fun Steps(
@@ -51,16 +55,27 @@ fun Steps(
     runningColor: Color = AppColor.Main.primary,
     activeColor: Color = AppColor.Neutral.body,
     inactiveColor: Color = AppColor.Neutral.hint,
+    modifier: Modifier = Modifier,
 ) {
+    val currentIndex = if (items.isEmpty()) -1 else runningIndex.coerceIn(0, items.size - 1)
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .semantics {
+                contentDescription = "步骤条"
+                stateDescription = if (currentIndex < 0) {
+                    "无步骤"
+                } else {
+                    "当前第 ${currentIndex + 1} 步，共 ${items.size} 步"
+                }
+            }
     ) {
         items.forEachIndexed { index, item ->
             Step(
                 label = item,
                 mode = when {
-                    index < runningIndex -> StepMode.Active
-                    index == runningIndex -> StepMode.Running
+                    index < currentIndex -> StepMode.Active
+                    index == currentIndex -> StepMode.Running
                     else -> StepMode.Inactive
                 },
                 first = index == 0,
@@ -98,6 +113,7 @@ enum class StepMode {
  * @param runningColor Color 进行中及已完成状态的颜色，默认为 [AppColor.Main.primary]
  * @param activeColor Color 已完成状态的文字颜色，默认为 [AppColor.Neutral.body]
  * @param inactiveColor Color 未开始状态的颜色，默认为 [AppColor.Neutral.hint]
+ * @param modifier Modifier 应用于单个步骤项根容器的修饰符
  */
 @Composable
 fun RowScope.Step(
@@ -108,9 +124,19 @@ fun RowScope.Step(
     runningColor: Color = AppColor.Main.primary,
     activeColor: Color = AppColor.Neutral.body,
     inactiveColor: Color = AppColor.Neutral.hint,
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = Modifier.weight(1f),
+        modifier = modifier
+            .weight(1f)
+            .semantics {
+                contentDescription = label
+                stateDescription = when (mode) {
+                    StepMode.Active -> "已完成"
+                    StepMode.Running -> "进行中"
+                    StepMode.Inactive -> "未开始"
+                }
+            },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -222,4 +248,3 @@ fun PreviewSteps() {
         )
     }
 }
-

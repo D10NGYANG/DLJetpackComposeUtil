@@ -22,6 +22,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_round_add_24
 import com.d10ng.compose.resources.ic_round_add_circle_24
@@ -70,6 +74,7 @@ enum class StepperStyle {
  * @param inputWidth Dp 中间输入框的宽度，默认为 45.dp
  * @param buttonSize Dp 加减按钮的尺寸（宽高），默认为 32.dp
  * @param style StepperStyle 步进器样式，支持 [StepperStyle.Default] 和 [StepperStyle.Round]，默认为 [StepperStyle.Default]
+ * @param modifier Modifier 应用于步进器根容器的修饰符
  */
 @Composable
 fun Stepper(
@@ -82,7 +87,8 @@ fun Stepper(
     canInput: Boolean = true,
     inputWidth: Dp = 45.dp,
     buttonSize: Dp = 32.dp,
-    style: StepperStyle = StepperStyle.Default
+    style: StepperStyle = StepperStyle.Default,
+    modifier: Modifier = Modifier
 ) {
     when (style) {
         StepperStyle.Default -> StepperDefault(
@@ -94,7 +100,8 @@ fun Stepper(
             disabled = disabled,
             canInput = canInput,
             inputWidth = inputWidth,
-            buttonSize = buttonSize
+            buttonSize = buttonSize,
+            modifier = modifier
         )
         StepperStyle.Round -> StepperRound(
             value = value,
@@ -105,7 +112,8 @@ fun Stepper(
             disabled = disabled,
             canInput = canInput,
             inputWidth = inputWidth,
-            buttonSize = buttonSize
+            buttonSize = buttonSize,
+            modifier = modifier
         )
     }
 }
@@ -125,6 +133,7 @@ fun Stepper(
  * @param canInput Boolean 是否允许直接在输入框中输入数值，默认为 true
  * @param inputWidth Dp 中间输入框的宽度，默认为 45.dp
  * @param buttonSize Dp 加减按钮的尺寸（宽高），默认为 32.dp
+ * @param modifier Modifier 应用于步进器根容器的修饰符
  */
 @Composable
 fun StepperDefault(
@@ -136,10 +145,16 @@ fun StepperDefault(
     disabled: Boolean = false,
     canInput: Boolean = true,
     inputWidth: Dp = 45.dp,
-    buttonSize: Dp = 32.dp
+    buttonSize: Dp = 32.dp,
+    modifier: Modifier = Modifier
 ) {
     val disabledNext = 0.5
-    Row {
+    Row(
+        modifier = modifier.semantics {
+            contentDescription = "步进器"
+            stateDescription = "当前值 $value，范围 $min 至 $max"
+        }
+    ) {
         // 减少按钮
         val lessShape = remember {
             RoundedCornerShape(
@@ -161,7 +176,7 @@ fun StepperDefault(
                     lessShape
                 )
                 .clip(lessShape)
-                .clickable(enabled = lessEnable) {
+                .clickable(enabled = lessEnable, role = Role.Button) {
                     if (value > min) {
                         onValueChange(maxOf(value - step, min))
                     }
@@ -226,7 +241,7 @@ fun StepperDefault(
                     addShape
                 )
                 .clip(addShape)
-                .clickable(enabled = addEnable) {
+                .clickable(enabled = addEnable, role = Role.Button) {
                     if (value < max) {
                         onValueChange(minOf(value + step, max))
                     }
@@ -258,6 +273,7 @@ fun StepperDefault(
  * @param canInput Boolean 是否允许直接在输入框中输入数值，默认为 true
  * @param inputWidth Dp 中间输入框的宽度，默认为 45.dp
  * @param buttonSize Dp 加减按钮的尺寸（宽高），默认为 32.dp
+ * @param modifier Modifier 应用于步进器根容器的修饰符
  */
 @Composable
 fun StepperRound(
@@ -269,10 +285,16 @@ fun StepperRound(
     disabled: Boolean = false,
     canInput: Boolean = true,
     inputWidth: Dp = 45.dp,
-    buttonSize: Dp = 32.dp
+    buttonSize: Dp = 32.dp,
+    modifier: Modifier = Modifier
 ) {
     val disabledNext = 0.5
-    Row {
+    Row(
+        modifier = modifier.semantics {
+            contentDescription = "步进器"
+            stateDescription = "当前值 $value，范围 $min 至 $max"
+        }
+    ) {
         // 减少按钮
         val lessEnable = remember(value, min, disabled) {
             disabled.not() && value > min
@@ -282,7 +304,7 @@ fun StepperRound(
                 .padding(end = 1.dp)
                 .size(buttonSize)
                 .clip(AppShape.RC.Cycle)
-                .clickable(enabled = lessEnable) {
+                .clickable(enabled = lessEnable, role = Role.Button) {
                     if (value > min) {
                         onValueChange(maxOf(value - step, min))
                     }
@@ -334,7 +356,7 @@ fun StepperRound(
                 .padding(start = 1.dp)
                 .size(buttonSize)
                 .clip(AppShape.RC.Cycle)
-                .clickable(enabled = addEnable) {
+                .clickable(enabled = addEnable, role = Role.Button) {
                     if (value < max) {
                         onValueChange(minOf(value + step, max))
                     }
@@ -400,4 +422,3 @@ fun PreviewStepper() {
         Stepper(value = 5, onValueChange = {}, style = StepperStyle.Round)
     }
 }
-
