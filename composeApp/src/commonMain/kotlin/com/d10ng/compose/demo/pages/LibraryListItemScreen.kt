@@ -40,6 +40,7 @@ import com.d10ng.compose.view.ListItem
 @Composable
 fun LibraryListItemScreen(onBack: () -> Unit = {}) {
     var clickCount by remember { mutableIntStateOf(0) }
+    var disabledClickCount by remember { mutableIntStateOf(0) }
 
     Column(
         modifier = Modifier
@@ -54,7 +55,11 @@ fun LibraryListItemScreen(onBack: () -> Unit = {}) {
                 .verticalScroll(rememberScrollState())
         ) {
             LibraryListItemSection("字符串重载") {
-                ListItem(title = "基础列表项", isShowArrow = false)
+                ListItem(
+                    title = "静态列表项",
+                    isShowArrow = false,
+                    center = { Text("无点击语义") }
+                )
                 HorizontalDivider()
                 ListItem(
                     title = "账户信息",
@@ -126,6 +131,30 @@ fun LibraryListItemScreen(onBack: () -> Unit = {}) {
                         Text("第二行用于检查垂直对齐", style = MaterialTheme.typography.bodySmall)
                     },
                     right = { Text("右侧内容") }
+                )
+            }
+
+            LibraryListItemSection("禁用与可访问性") {
+                ListItem(
+                    title = "禁用列表项",
+                    note = "enabled=false，不应触发点击回调",
+                    enabled = false,
+                    onClick = { disabledClickCount += 1 }
+                )
+                Text(
+                    text = "禁用点击次数：$disabledClickCount",
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                ListItem(
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+                    enabled = false,
+                    onClick = { disabledClickCount += 1 },
+                    icon = {},
+                    title = { Text("禁用插槽列表项") },
+                    note = { Text("插槽重载同样保留 disabled 语义") },
+                    end = { Text("不可用") }
                 )
             }
 

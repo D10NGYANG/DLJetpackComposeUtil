@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
@@ -56,18 +57,20 @@ fun ListItem(
     modifier: Modifier = Modifier,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Start,
     verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
     icon: @Composable RowScope.() -> Unit = {},
     title: @Composable ColumnScope.() -> Unit = {},
     note: @Composable ColumnScope.() -> Unit = {},
     center: @Composable BoxScope.() -> Unit = {},
     right: @Composable RowScope.() -> Unit = {},
     end: @Composable RowScope.() -> Unit = {},
+    enabled: Boolean = true,
 ) {
     ListItemLayout(
         modifier = modifier,
         horizontalArrangement = horizontalArrangement,
         verticalAlignment = verticalAlignment,
+        enabled = enabled,
         onClick = onClick,
         icon = icon,
         title = title,
@@ -83,6 +86,7 @@ private fun ListItemLayout(
     modifier: Modifier,
     horizontalArrangement: Arrangement.Horizontal,
     verticalAlignment: Alignment.Vertical,
+    enabled: Boolean,
     onClick: (() -> Unit)?,
     icon: @Composable RowScope.() -> Unit,
     title: @Composable ColumnScope.() -> Unit,
@@ -95,7 +99,10 @@ private fun ListItemLayout(
         modifier = modifier
             .wrapContentHeight()
             .fillMaxWidth()
-            .then(if (onClick == null) Modifier else Modifier.clickable(onClick = onClick)),
+            .then(
+                if (onClick == null) Modifier
+                else Modifier.clickable(enabled = enabled, role = Role.Button, onClick = onClick)
+            ),
         horizontalArrangement = horizontalArrangement,
         verticalAlignment = verticalAlignment
     ) {
@@ -133,11 +140,13 @@ fun ListItem(
     isShowArrow: Boolean = true,
     onClick: () -> Unit = {},
     center: @Composable BoxScope.() -> Unit = {},
+    enabled: Boolean = true,
 ) {
     ListItemContent(
         modifier = modifier,
         horizontalArrangement = horizontalArrangement,
         verticalAlignment = verticalAlignment,
+        enabled = enabled,
         onClick = onClick,
         iconResource = iconResource,
         iconSizeDp = iconSizeDp,
@@ -159,6 +168,7 @@ private fun ListItemContent(
     modifier: Modifier,
     horizontalArrangement: Arrangement.Horizontal,
     verticalAlignment: Alignment.Vertical,
+    enabled: Boolean,
     onClick: (() -> Unit)?,
     iconResource: DrawableResource?,
     iconSizeDp: Dp,
@@ -177,6 +187,7 @@ private fun ListItemContent(
         modifier = modifier.padding(16.dp, 6.dp),
         horizontalArrangement = horizontalArrangement,
         verticalAlignment = verticalAlignment,
+        enabled = enabled,
         onClick = onClick,
         icon = {
             if (iconResource != null) {
@@ -291,8 +302,8 @@ fun ListInputItem(
         isShowTitleStar = isShowTitleStar,
         note = note,
         noteStyle = noteStyle,
-        isShowArrow = false
-    ) {
+        isShowArrow = false,
+        center = {
         MenuInput(
             modifier = Modifier
                 .padding(start = 16.dp),
@@ -318,7 +329,8 @@ fun ListInputItem(
             onFocus = onFocus,
             onNoFocus = onNoFocus
         )
-    }
+        }
+    )
 }
 
 @Composable
@@ -360,6 +372,7 @@ fun ListMenuItem(
         modifier = modifier,
         horizontalArrangement = horizontalArrangement,
         verticalAlignment = verticalAlignment,
+        enabled = true,
         onClick = null,
         iconResource = iconResource,
         iconSizeDp = iconSizeDp,
