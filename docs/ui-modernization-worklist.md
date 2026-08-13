@@ -73,7 +73,7 @@
 | M-013 | 重构 Input 焦点契约并评估直接使用官方 BasicTextField | 已完成 | 五目标编译；Playwright 390x844 首页截图与输入页面入口检查 | 2/2，100%；Markdown 人工 1/1；修复 1 项中优先级焦点释放问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
 | M-014 | 评估 MenuInput 迁移官方 ExposedDropdownMenuBox/SearchBar | 已完成 | 五目标编译；Playwright 390x844 首页与菜单输入入口检查 | 1/1，100%；Markdown 人工 1/1；修复 1 项中优先级空菜单展开问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
 | M-015 | ListItem 槽位重载迁官方并补静态/禁用语义 | 已完成 | 五目标编译；Playwright 390x844 首页截图与 ListItem 入口检查 | 2/2，100%；Markdown 人工 1/1；修复 2 项中优先级问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
-| M-016 | 评估移除 ListInputItem 组合包装并迁官方 ListItem + TextField/ExposedDropdown | 待办 | 输入语义、父行点击、禁用/只读、焦点、窄屏测量、兼容 API | 待执行 | 待提交 |
+| M-016 | 评估移除 ListInputItem 组合包装并迁官方 ListItem + TextField/ExposedDropdown | 已完成 | 五目标编译；Playwright 390x844 首页与 ListInputItem 入口检查 | 3/3，100%；Markdown 人工 1/1；修复 1 项中优先级禁用/只读组合问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
 | M-017 | 评估 RadioCell 并入 Cell 尾随槽并修正长文本测量 | 待办 | 互斥语义、禁用、长文本、尾随控件、兼容 API | 待执行 | 待提交 |
 | M-018 | 加固 Picker/MultiPicker 输入契约和无障碍操作 | 待办 | 空集合、选中长度、Modifier、禁用、键盘/读屏增减、独立列/级联模型 | 待执行 | 待提交 |
 | M-019 | 评估 DatePicker 通用场景迁官方日历组件并加固滚轮差异化能力 | 待办 | 官方/滚轮兼容 API、时区/DST、非法范围、Modifier、禁用、键盘/读屏 | 待执行 | 待提交 |
@@ -131,3 +131,4 @@
 | 2026-08-13 | M-013 | `Input` 的焦点请求改用 `LaunchedEffect`，仅在受控状态变化时请求/释放自身焦点；`MenuInput` 补齐获得/失去焦点边沿回调并启用官方菜单外点/返回关闭；Demo 增加清除焦点操作；Android/JVM/JS/Wasm/iOS Simulator 编译通过，390x844 首页验证通过，服务已停止 | 2/2，100%；Markdown 人工 1/1；修复 1 项中优先级焦点释放问题 | 本提交 |
 | 2026-08-13 | M-014 | `MenuInput` 弹出层迁移 Material 3 `ExposedDropdownMenuBox`，使用 `PrimaryEditable` 官方锚点与官方菜单测量/关闭行为；保留字符串过滤、最多 20 项、空结果、密码显隐、IME Next、前后缀、错误和兼容回调；无菜单时不展开空弹层；Android/JVM/JS/Wasm/iOS Simulator 编译通过，390x844 首页验证通过，服务已停止 | 1/1，100%；Markdown 人工 1/1；修复 1 项中优先级空菜单展开问题 | 本提交 |
 | 2026-08-13 | M-015 | 自有 `ListItem` 增加 `enabled` 与可空插槽 `onClick`，静态项不再注册点击语义，可点击项统一标记 `Role.Button`；字符串和槽位重载补充禁用 Demo、计数验证、长文本与槽位对照；保持新增参数位于签名末尾兼容旧位置参数；Android/JVM/JS/Wasm/iOS Simulator 编译通过，390x844 首页验证通过，服务已停止 | 2/2，100%；Markdown 人工 1/1；修复 2 项中优先级问题 | 本提交 |
+| 2026-08-13 | M-016 | `ListInputItem` 保留兼容组合层，新增末尾 `enabled/readOnly` 参数并透传到官方 `BasicTextField` 与 `ExposedDropdownMenuBox`；禁用/只读时不请求焦点、不展开菜单；Demo 补充只读与禁用场景，验证父行不拦截输入焦点；Android/JVM/JS/Wasm/iOS Simulator 编译通过，390x844 首页验证通过，服务已停止 | 3/3，100%；Markdown 人工 1/1；修复 1 项中优先级禁用/只读组合问题 | 本提交 |

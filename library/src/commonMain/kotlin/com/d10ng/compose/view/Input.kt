@@ -146,7 +146,9 @@ fun MenuInput(
     inputBackgroundShape: Shape = AppShape.RC.v4,
     onClickNext: () -> Unit = {},
     onFocus: () -> Unit = {},
-    onNoFocus: () -> Unit = {}
+    onNoFocus: () -> Unit = {},
+    enabled: Boolean = true,
+    readOnly: Boolean = false
 ) {
     var isPasswordVisible by remember {
         mutableStateOf(false)
@@ -181,9 +183,9 @@ fun MenuInput(
             modifier = inputModifier
         ) {
             ExposedDropdownMenuBox(
-                expanded = isFocus && menus.isNotEmpty(),
+                expanded = isFocus && menus.isNotEmpty() && enabled && !readOnly,
                 onExpandedChange = { expanded ->
-                    if (menus.isNotEmpty()) {
+                    if (menus.isNotEmpty() && enabled && !readOnly) {
                         if (expanded) onFocus.invoke() else onNoFocus.invoke()
                     }
                 }
@@ -218,6 +220,8 @@ fun MenuInput(
                         visualTransformation = visualTransformation,
                         singleLine = maxLines == 1,
                         maxLines = maxLines,
+                        enabled = enabled,
+                        readOnly = readOnly,
                         isFocus = isFocus,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -247,7 +251,7 @@ fun MenuInput(
                     }
                 }
                 ExposedDropdownMenu(
-                    expanded = isFocus && menus.isNotEmpty(),
+                    expanded = isFocus && menus.isNotEmpty() && enabled && !readOnly,
                     onDismissRequest = { onNoFocus.invoke() },
                     modifier = Modifier.heightIn(max = 200.dp)
                 ) {

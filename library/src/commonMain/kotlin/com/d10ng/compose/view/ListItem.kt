@@ -288,7 +288,9 @@ fun ListInputItem(
     inputBackgroundShape: Shape = AppShape.RC.v4,
     onClickNext: () -> Unit = {},
     onFocus: () -> Unit = {},
-    onNoFocus: () -> Unit = {}
+    onNoFocus: () -> Unit = {},
+    enabled: Boolean = true,
+    readOnly: Boolean = false
 ) {
     ListItem(
         modifier = modifier,
@@ -304,31 +306,33 @@ fun ListInputItem(
         noteStyle = noteStyle,
         isShowArrow = false,
         center = {
-        MenuInput(
-            modifier = Modifier
-                .padding(start = 16.dp),
-            value = value,
-            onValueChange = onValueChange,
-            textStyle = textStyle,
-            placeholder = placeholder,
-            placeholderStyle = placeholderStyle,
-            prefix = prefix,
-            suffix = suffix,
-            error = error ,
-            menus = menus,
-            noMatchMenuTips = noMatchMenuTips,
-            onMenuSelect = onMenuSelect,
-            keyboardType = keyboardType,
-            isPassword = isPassword,
-            isFocus = isFocus,
-            maxLines = maxLines,
-            inputWidth = inputWidth,
-            inputBackgroundColor = inputBackgroundColor,
-            inputBackgroundShape = inputBackgroundShape,
-            onClickNext = onClickNext,
-            onFocus = onFocus,
-            onNoFocus = onNoFocus
-        )
+            MenuInput(
+                modifier = Modifier
+                    .padding(start = 16.dp),
+                value = value,
+                onValueChange = onValueChange,
+                textStyle = textStyle,
+                placeholder = placeholder,
+                placeholderStyle = placeholderStyle,
+                prefix = prefix,
+                suffix = suffix,
+                error = error,
+                menus = menus,
+                noMatchMenuTips = noMatchMenuTips,
+                onMenuSelect = onMenuSelect,
+                keyboardType = keyboardType,
+                isPassword = isPassword,
+                isFocus = isFocus,
+                maxLines = maxLines,
+                inputWidth = inputWidth,
+                inputBackgroundColor = inputBackgroundColor,
+                inputBackgroundShape = inputBackgroundShape,
+                onClickNext = onClickNext,
+                onFocus = onFocus,
+                onNoFocus = onNoFocus,
+                enabled = enabled,
+                readOnly = readOnly
+            )
         }
     )
 }

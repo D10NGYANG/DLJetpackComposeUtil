@@ -157,6 +157,27 @@ fun LibraryListInputItemScreen(onBack: () -> Unit = {}) {
                 ListInputItemStatus("Next 已触发 $nextCount 次")
             }
 
+            ListInputItemSection("只读与禁用") {
+                ListInputItem(
+                    modifier = Modifier.semantics { contentDescription = "只读列表输入" },
+                    title = "只读值",
+                    note = "可选择但不允许编辑或展开菜单",
+                    value = "只读内容",
+                    onValueChange = {},
+                    readOnly = true,
+                    menus = departmentMenus
+                )
+                ListInputItem(
+                    modifier = Modifier.semantics { contentDescription = "禁用列表输入" },
+                    title = "禁用值",
+                    note = "不响应输入、焦点和菜单操作",
+                    value = "禁用内容",
+                    onValueChange = {},
+                    enabled = false,
+                    menus = departmentMenus
+                )
+            }
+
             ListInputItemSection("自适应宽度与长文本") {
                 ListInputItem(
                     modifier = Modifier.semantics { contentDescription = "地址列表输入" },
