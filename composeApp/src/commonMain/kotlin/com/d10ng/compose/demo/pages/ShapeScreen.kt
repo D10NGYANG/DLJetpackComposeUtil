@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
+import com.d10ng.compose.ui.AppShape
+import com.d10ng.compose.ui.AppThemeTokens
 import com.d10ng.compose.ui.navigation.NavBar
 
 /**
@@ -49,6 +51,9 @@ fun ShapeScreen(onBack: () -> Unit = {}) {
                 ShapeBox(large, "large")
                 ShapeBox(extraLarge, "extraLarge")
             }
+            ShapeBox(AppThemeTokens.shapes.medium, "LocalAppShapes.medium")
+            ShapeBox(AppShape.RC.v4, "AppShape.RC.v4 token")
+            ShapeBox(AppShape.RC.v8, "AppShape.RC.v8 token")
         }
     }
 }

@@ -78,6 +78,7 @@ import com.d10ng.compose.demo.pages.ToastScreen
 import com.d10ng.compose.demo.pages.TypographyScreen
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
+import com.d10ng.compose.ui.AppTheme
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
@@ -101,8 +102,8 @@ fun App() {
             CircularProgressIndicator()
         }
     } else {
-        MaterialTheme(
-            colorScheme = AppColor.toColorScheme()
+        AppTheme(
+            colors = AppColor.toColorScheme()
         ) {
             val backStack = remember { mutableStateListOf<Any>(HomeRoute) }
 

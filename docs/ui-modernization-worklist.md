@@ -69,7 +69,7 @@
 | M-009 | NavBar 迁移 TopAppBar 并提供兼容适配 | 已完成 | 五目标编译；浏览器 390px 自有/官方页、标题避让、RTL、Insets、回调与三种滚动行为 | 8/8，100%；Markdown 人工 2/2；修复 2 项中、2 项低优先级问题 | `2cc033c` |
 | M-010 | Dialog 外壳迁官方 modal，保留 Builder 组合能力 | 已完成 | 焦点进入/恢复与隔离、底层语义隐藏、返回/外点策略、窗口层级、多层管理 | 6/6，100%；Markdown 人工 1/1；修复 1 项中、2 项低优先级问题 | 本提交 |
 | M-011 | NormalToast 迁 Snackbar，拆分阻塞 Loading 行为 | 已完成 | 队列、播报、取消 | 4/4，100%；Markdown 人工 2/2；修复 1 项中、1 项低优先级问题 | 本提交 |
-| M-012 | 设计 token 迁 MaterialTheme + CompositionLocal | 待办 | light/dark、子树覆盖 | 待执行 | 待提交 |
+| M-012 | 设计 token 迁 MaterialTheme + CompositionLocal | 已完成 | 五目标编译；Playwright 390x844 首页截图与主题入口检查 | 5/5，100%；Markdown 人工 1/1；修复 2 项中优先级主题继承问题；Wasm Canvas 控制台错误按 T-001 跟踪 | 本提交 |
 | M-013 | 重构 Input 焦点契约并评估直接使用官方 BasicTextField | 待办 | 焦点切换、IME、输入法组合、语义 | 待执行 | 待提交 |
 | M-014 | 评估 MenuInput 迁移官方 ExposedDropdownMenuBox/SearchBar | 待办 | 锚点、过滤、焦点、键盘、返回、兼容 API | 待执行 | 待提交 |
 | M-015 | ListItem 槽位重载迁官方并补静态/禁用语义 | 待办 | 行高、点击、禁用、长文本、RTL、读屏 | 待执行 | 待提交 |
@@ -127,3 +127,4 @@
 | 2026-08-12 | M-009 | 保持 `NavBar` 公开签名，Center/CenterStart 分别委托 Material 3 `CenterAlignedTopAppBar`/`TopAppBar`，显式保留 60dp、标题样式、背景、Insets 开关和底部分割线，其他 Alignment 继续旧布局兜底；返回改用 48dp `IconButton`，补中英文本地化和 RTL 镜像；自有 NavBar 独立页覆盖真实回调、长标题、不对称 action、背景、状态栏、RTL 和兜底，官方 TopAppBar 独立页覆盖 Start/Center、长标题及 pinned/enter-always/exit-until-collapsed；五目标编译与 390px 浏览器验收通过；OCR 8/8、Markdown 人工 2/2，修复返回描述不可本地化、Scaffold 水平安全区遗漏、官方 action 空回调和兼容兜底 RTL 未镜像；真实 Android/iOS 刘海安全区与字体缩放继续由 T-001 跟踪 |
 | 2026-08-13 | M-010 | `Dialog` 外壳委托 Compose UI 官方 modal，保留 `DialogBuilder`、`DialogBox`、任意 `contentAlignment` 和 id 管理；新增关闭策略纯逻辑测试、稳定 `key(id)`、六组特性预览（关闭策略、底层隔离、BottomCenter、输入/IME、多层、Progress 更新）；完成五目标编译、390x844 浏览器交互和官方版本评估文档；Wasm Canvas 语义桥的焦点节点恢复不作为全平台自动保证，继续由 T-001/A-001 跟踪 | 6/6，100%；Markdown 人工 1/1；修复 1 项中、2 项低优先级问题 | 待提交 |
 | 2026-08-13 | M-011 | 普通 `NormalToast` 委托 Material 3 `SnackbarHostState` 队列，保留 Success/Fail 图标提示和阻塞 `LoadingToast`；新增时长映射测试、队列/长时长/位置差异/Loading 生命周期 Demo 和官方替代性评估；完成五目标编译、390x844 队列与阻塞验证；普通提示固定底部且不再保留 Top/Center 位置语义，图标和 Loading 差异继续由兼容层维护 | 4/4，100%；Markdown 人工 2/2；修复 1 项中、1 项低优先级问题 | 待提交 |
+| 2026-08-13 | M-012 | 新增 `AppBrandColors`、`AppDesignTokens`、`LocalAppColors/LocalAppTypography/LocalAppShapes` 与 `AppTheme`；默认接入 MaterialTheme，旧 `AppColor` 保持兼容 façade；颜色页增加局部品牌色覆盖开关，形状页补充官方形状与半径 token 对照；修复嵌套主题默认 colors、品牌色、typography、shapes 重置问题；Android/JVM/JS/Wasm/iOS Simulator 编译通过，390x844 首页验证通过，服务已停止 | 5/5，100%；Markdown 人工 1/1；修复 2 项中优先级问题 | 本提交 |
