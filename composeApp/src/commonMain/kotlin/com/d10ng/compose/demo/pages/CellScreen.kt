@@ -2,35 +2,22 @@ package com.d10ng.compose.demo.pages
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.base.Cell
 import com.d10ng.compose.ui.base.CellArrowDirection
 import com.d10ng.compose.ui.base.CellGroup
-import com.d10ng.compose.ui.base.CellRow
 import com.d10ng.compose.ui.navigation.NavBar
 
 /**
@@ -40,7 +27,6 @@ import com.d10ng.compose.ui.navigation.NavBar
  */
 @Composable
 fun CellScreen(onBack: () -> Unit = {}) {
-    var rtl by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -116,33 +102,6 @@ fun CellScreen(onBack: () -> Unit = {}) {
                     onClick = {
                         UiViewModelManager.showToast("点击了单元格")
                     })
-            }
-            CellGroup(title = "CellRow 分割线") {
-                FilterChip(
-                    selected = rtl,
-                    onClick = { rtl = !rtl },
-                    label = { Text(if (rtl) "RTL 缩进" else "LTR 缩进") },
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-                CompositionLocalProvider(
-                    LocalLayoutDirection provides if (rtl) LayoutDirection.Rtl else LayoutDirection.Ltr
-                ) {
-                    CellRow(
-                        dividerPaddingValues = PaddingValues(start = 40.dp, end = 8.dp),
-                        contentPaddingValues = PaddingValues(horizontal = 16.dp, vertical = 18.dp)
-                    ) {
-                        Text(
-                            "非对称逻辑缩进\n第二行验证动态高度",
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
-                }
-                CellRow(
-                    divider = false,
-                    contentPaddingValues = PaddingValues(horizontal = 16.dp, vertical = 18.dp)
-                ) {
-                    Text("无分割线", modifier = Modifier.fillMaxWidth())
-                }
             }
         }
     }

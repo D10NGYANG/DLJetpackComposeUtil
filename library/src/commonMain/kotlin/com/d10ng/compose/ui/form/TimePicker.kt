@@ -74,8 +74,6 @@ enum class TimePickerMode(
  * @param textStyle TextStyle 选项文字样式，默认 `AppText.Normal.Title.default`
  * @param mode TimePickerMode 时间列组合模式，默认 [TimePickerMode.HMS]（时分秒三列）
  * @param itemText (Int, String) -> String 自定义选项文字格式化函数，第一个参数为列索引（0 起），第二个参数为原始文字（如 "08"），默认原样返回
- * @param enabled Boolean 是否允许滚轮交互，默认 true
- * @param modifier Modifier 外部布局和语义修饰，默认 Modifier
  */
 @Composable
 fun TimePicker(
@@ -86,8 +84,6 @@ fun TimePicker(
     textStyle: TextStyle = AppText.Normal.Title.default,
     mode: TimePickerMode = TimePickerMode.HMS,
     itemText: (Int, String) -> String = { _, item -> item },
-    enabled: Boolean = true,
-    modifier: Modifier = Modifier,
 ) {
     val normalizedRangeStart = minOf(start, endInclude).coerceIn(0, 86399)
     val normalizedRangeEnd = maxOf(start, endInclude).coerceIn(0, 86399)
@@ -144,25 +140,16 @@ fun TimePicker(
         )
     }
 
-    androidx.compose.foundation.layout.Box(modifier = modifier) {
-        MultiPicker(
-            items = items,
-            itemText = itemText,
-            textStyle = textStyle,
-            selectedItems = selectedItems,
-            enabled = enabled,
-            columnContentDescription = { index ->
-                when (mode) {
-                    TimePickerMode.HMS -> listOf("小时", "分钟", "秒钟")[index]
-                    TimePickerMode.HM -> listOf("小时", "分钟")[index]
-                }
-            },
-            onValueChange = {
-                val time = mode.getDate(it).coerceIn(normalizedRangeStart, normalizedRangeEnd)
-                onValueChange(time, mode.getDateList(time))
-            }
-        )
-    }
+    MultiPicker(
+        items = items,
+        itemText = itemText,
+        textStyle = textStyle,
+        selectedItems = selectedItems,
+        onValueChange = {
+            val time = mode.getDate(it).coerceIn(normalizedRangeStart, normalizedRangeEnd)
+            onValueChange(time, mode.getDateList(time))
+        }
+    )
 }
 
 internal fun Int.hour(): Int = this / 3600

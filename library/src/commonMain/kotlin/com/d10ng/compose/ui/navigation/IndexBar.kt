@@ -1,7 +1,6 @@
 package com.d10ng.compose.ui.navigation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Arrangement
@@ -25,11 +24,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEventType
-import androidx.compose.ui.input.key.key
-import androidx.compose.ui.input.key.type
-import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
@@ -76,7 +70,6 @@ fun IndexBar(
     var selectChar by remember {
         mutableStateOf<Char?>(null)
     }
-    var keyboardIndex by remember(chars) { mutableStateOf(-1) }
     val onSelectState = rememberUpdatedState(onSelect)
     val onTouchState = rememberUpdatedState { touched: Boolean, char: Char? ->
         isTouch = touched
@@ -93,27 +86,13 @@ fun IndexBar(
                 .background(if (isTouch) touchColor else Color.Transparent)
                 .padding(vertical = 16.dp)
                 .align(Alignment.CenterEnd)
-            .semantics {
-                contentDescription = "索引栏"
-                stateDescription = selectChar?.let { "当前索引 $it" }
-                    ?: if (chars.isEmpty()) "无可用索引" else "${chars.size} 个索引"
-                if (chars.isEmpty()) disabled()
-            }
-            .focusable(enabled = chars.isNotEmpty())
-            .onKeyEvent { event ->
-                if (chars.isEmpty() || event.type != KeyEventType.KeyDown) return@onKeyEvent false
-                val nextIndex = when (event.key) {
-                    Key.DirectionDown, Key.DirectionRight -> (keyboardIndex + 1).coerceAtMost(chars.lastIndex)
-                    Key.DirectionUp, Key.DirectionLeft -> (if (keyboardIndex < 0) chars.lastIndex else keyboardIndex - 1).coerceAtLeast(0)
-                    Key.Enter, Key.NumPadEnter, Key.Spacebar -> if (keyboardIndex < 0) 0 else keyboardIndex
-                    else -> return@onKeyEvent false
+                .semantics {
+                    contentDescription = "索引栏"
+                    stateDescription = selectChar?.let { "当前索引 $it" }
+                        ?: if (chars.isEmpty()) "无可用索引" else "${chars.size} 个索引"
+                    if (chars.isEmpty()) disabled()
                 }
-                keyboardIndex = nextIndex
-                selectChar = chars[nextIndex]
-                onSelectState.value(chars[nextIndex])
-                true
-            }
-            .indexSelectionGesture(
+                .indexSelectionGesture(
                     chars = chars,
                     onSelect = { onSelectState.value(it) },
                     onTouchStateChange = { touched, char ->

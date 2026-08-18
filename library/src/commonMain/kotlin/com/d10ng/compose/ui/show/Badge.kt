@@ -5,11 +5,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material3.Badge as MaterialBadge
-import androidx.compose.material3.BadgedBox as MaterialBadgedBox
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,11 +32,17 @@ fun BadgeBox(
     badge: @Composable () -> Unit,
     content: @Composable () -> Unit
 ) {
-    MaterialBadgedBox(
-        badge = { badge() }
+    Box(
+        modifier = Modifier
     ) {
         Box(modifier = Modifier.padding(4.dp)) {
             content()
+        }
+        Box(
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+        ) {
+            badge()
         }
     }
 }
@@ -47,8 +51,8 @@ fun BadgeBox(
  * 文本徽标
  *
  * 显示带文字内容的徽标，文字超出最大宽度时裁剪。
- * 当 [content] 为空字符串时使用 Material 3 的 6.dp 小圆点；
- * 有文字内容时使用最小 16×16.dp 的胶囊背景，文字仍按兼容规则裁剪到 32.dp。
+ * 当 [content] 为空字符串时退化为小圆点样式（直径 12.dp）；
+ * 有文字内容时显示胶囊形背景（最小尺寸 18×18.dp），文字超长时自动裁剪。
  *
  * @param content String 徽标显示的文本内容；为空字符串时显示小圆点，默认为空字符串
  * @param color Color 徽标背景色，默认为 [AppColor.Func.error]（红色）
@@ -59,13 +63,18 @@ fun Badge(
     color: Color = AppColor.Func.error
 ) {
     if (content.isEmpty()) {
-        MaterialBadge(
-            containerColor = color
+        Box(
+            modifier = Modifier
+                .defaultMinSize(minWidth = 12.dp, minHeight = 12.dp)
+                .background(color, AppShape.RC.Cycle)
         )
     } else {
-        MaterialBadge(
-            containerColor = color,
-            contentColor = MaterialTheme.colorScheme.surface
+        Box(
+            modifier = Modifier
+                .defaultMinSize(minWidth = 18.dp, minHeight = 18.dp)
+                .background(color, AppShape.RC.v10)
+                .padding(horizontal = 4.dp, vertical = 1.dp),
+            contentAlignment = Alignment.Center
         ) {
             Text(
                 text = content,
@@ -95,12 +104,12 @@ fun Badge(
     color: Color = AppColor.Func.error
 ) {
     if (num > 0) {
-        Badge(formatBadgeCount(num, max), color)
+        val content = remember(num, max) {
+            if (num > max) "$max+" else num.toString()
+        }
+        Badge(content, color)
     }
 }
-
-private fun formatBadgeCount(num: Int, max: Int): String =
-    if (num > max) "$max+" else num.toString()
 
 @Preview
 @Composable

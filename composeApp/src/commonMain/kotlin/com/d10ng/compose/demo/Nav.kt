@@ -7,81 +7,6 @@ import kotlinx.serialization.Serializable
 data object HomeRoute : NavKey
 
 @Serializable
-enum class ComponentSource {
-    LIBRARY,
-    MATERIAL3
-}
-
-@Serializable
-enum class ComponentCategory {
-    THEME,
-    BASIC,
-    FORM,
-    FEEDBACK,
-    DISPLAY,
-    NAVIGATION,
-    DOMAIN,
-    MODIFIER,
-    PLATFORM
-}
-
-@Serializable
-data class ComponentCatalogRoute(
-    val source: ComponentSource
-) : NavKey
-
-@Serializable
-data class ComponentCategoryRoute(
-    val source: ComponentSource,
-    val category: ComponentCategory
-) : NavKey
-
-@Serializable
-data object MaterialButtonRoute : NavKey
-
-@Serializable
-data object MaterialCheckboxRoute : NavKey
-
-@Serializable
-data object MaterialRadioButtonRoute : NavKey
-
-@Serializable
-data object MaterialSwitchRoute : NavKey
-
-@Serializable
-data object MaterialTextFieldRoute : NavKey
-
-@Serializable
-data object MaterialSearchBarRoute : NavKey
-
-@Serializable
-data object MaterialListItemRoute : NavKey
-
-@Serializable
-data object MaterialBadgeRoute : NavKey
-
-@Serializable
-data object MaterialChipRoute : NavKey
-
-@Serializable
-data object MaterialSliderRoute : NavKey
-
-@Serializable
-data object MaterialProgressIndicatorRoute : NavKey
-
-@Serializable
-data object MaterialSnackbarRoute : NavKey
-
-@Serializable
-data object MaterialAlertDialogRoute : NavKey
-
-@Serializable
-data object MaterialModalBottomSheetRoute : NavKey
-
-@Serializable
-data object MaterialTopAppBarRoute : NavKey
-
-@Serializable
 data object ColorRoute : NavKey
 
 @Serializable
@@ -118,42 +43,6 @@ data object StepperRoute : NavKey
 data object SearchRoute : NavKey
 
 @Serializable
-data object InputRoute : NavKey
-
-@Serializable
-data object MenuInputRoute : NavKey
-
-@Serializable
-data object LibraryListItemRoute : NavKey
-
-@Serializable
-data object LibraryListInputItemRoute : NavKey
-
-@Serializable
-data object LibraryListMenuItemRoute : NavKey
-
-@Serializable
-data object RadioCellRoute : NavKey
-
-@Serializable
-data object PickerRoute : NavKey
-
-@Serializable
-data object DatePickerRoute : NavKey
-
-@Serializable
-data object TimePickerRoute : NavKey
-
-@Serializable
-data object DividerRoute : NavKey
-
-@Serializable
-data object OverlayRoute : NavKey
-
-@Serializable
-data object BDSignalBeamBoxRoute : NavKey
-
-@Serializable
 data object DialogRoute : NavKey
 
 @Serializable
@@ -185,9 +74,3 @@ data object NavBarRoute : NavKey
 
 @Serializable
 data object IndexBarRoute : NavKey
-
-@Serializable
-data object AdaptiveRoute : NavKey
-
-@Serializable
-data object ModifierRoute : NavKey

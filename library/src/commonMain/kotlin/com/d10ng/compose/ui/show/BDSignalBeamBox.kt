@@ -1,10 +1,8 @@
 package com.d10ng.compose.ui.show
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -13,39 +11,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.progressBarRangeInfo
-import androidx.compose.ui.semantics.ProgressBarRangeInfo
-import androidx.compose.ui.semantics.stateDescription
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.defaultPaddingSize
 import kotlin.math.max
-
-private const val MAX_SIGNAL_STRENGTH = 60
-private const val MIN_VISIBLE_BEAMS = 10
-private val LevelAxisWidth = 45.dp
-
-/** 信号等级轴的可本地化文案。 */
-data class SignalLevelLabels(
-    val strong: String = "强",
-    val medium: String = "中",
-    val weak: String = "弱"
-)
 
 /**
  * 北斗信号强度展示
@@ -61,82 +38,45 @@ data class SignalLevelLabels(
  * 底部附带使用提示文本。
  *
  * @param beams List<Pair<Int, Int>> 卫星信号列表，每项为 (卫星序号, 信号强度)；
- *   信号强度会限制在 0～60，不足 10 项时以无编号的空柱补齐，超过 10 项时可横向滚动
+ *   信号强度范围为 0～60，不足 10 项时自动补齐至 10 项显示
  * @param color Color 信号柱的填充颜色，默认为 [AppColor.Main.primary]
  * @param title String 顶部居中标题文本，默认为"北斗通讯卫星信号"
  * @param tips String 底部使用提示文本，默认为北斗卫星使用建议说明
- * @param modifier Modifier 外部布局、主题和语义修饰，默认 Modifier
- * @param backgroundColor Color 背景色；传 [Color.Unspecified] 时跟随 MaterialTheme.surface
- * @param satelliteLabel (Int) -> String 卫星编号显示和无障碍文案，默认“卫星 {编号}”
- * @param levelLabels SignalLevelLabels 强/中/弱等级轴文案，支持本地化
  */
 @Composable
 fun BDSignalBeamBox(
     beams: List<Pair<Int, Int>>,
     color: Color = AppColor.Main.primary,
     title: String = "北斗通讯卫星信号",
-    tips: String = "遮挡物会影响卫星信号的接收，使用时应将终端置于室外空旷开阔的地方，并将天线区朝南。北斗卫星在赤道上空，高纬度地区可再倾斜适当角度以获取更好的卫星信号。",
-    modifier: Modifier = Modifier,
-    backgroundColor: Color = Color.Unspecified,
-    satelliteLabel: (Int) -> String = { "卫星 $it" },
-    levelLabels: SignalLevelLabels = SignalLevelLabels()
+    tips: String = "遮挡物会影响卫星信号的接收，使用时应将终端置于室外空旷开阔的地方，并将天线区朝南。北斗卫星在赤道上空，高纬度地区可再倾斜适当角度以获取更好的卫星信号。"
 ) {
-    val normalizedBeams = beams.map { (satelliteId, strength) ->
-        satelliteId to strength.coerceIn(0, MAX_SIGNAL_STRENGTH)
-    }
-    val signalSummary = if (normalizedBeams.isEmpty()) {
-        "暂无卫星信号"
-    } else {
-        val strengths = normalizedBeams.map { it.second }
-        "${normalizedBeams.size} 路卫星信号，最弱 ${strengths.min()}，最强 ${strengths.max()}"
-    }
-    val resolvedBackground = if (backgroundColor == Color.Unspecified) {
-        MaterialTheme.colorScheme.surface
-    } else {
-        backgroundColor
-    }
-    val maxIdLength = normalizedBeams.maxOfOrNull { satelliteLabel(it.first).length } ?: 0
-    val beamItemWidth = max(28, maxIdLength * 8 + 12).dp
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .background(resolvedBackground)
-            .semantics {
-                contentDescription = "北斗卫星信号图"
-                stateDescription = signalSummary
-            }
+            .background(Color.White)
     ) {
         // 标题
         Title(text = title)
         // 信号展示区域
-        BoxWithConstraints(
+        Box(
             modifier = Modifier.fillMaxWidth(),
         ) {
-            LineLevelView(levelLabels = levelLabels)
-            val visibleSize = max(normalizedBeams.size, MIN_VISIBLE_BEAMS)
-            val viewportWidth = (maxWidth - LevelAxisWidth).coerceAtLeast(0.dp)
-            Box(
+            LineLevelView()
+            Row(
                 modifier = Modifier
-                    .padding(start = LevelAxisWidth)
-                    .width(viewportWidth)
-                    .horizontalScroll(rememberScrollState())
+                    .fillMaxWidth()
+                    .height(150.dp)
+                    .padding(start = 45.dp),
+                horizontalArrangement = Arrangement.SpaceAround
             ) {
-                Row(
-                    modifier = Modifier
-                        .width((beamItemWidth * visibleSize).coerceAtLeast(viewportWidth))
-                        .height(150.dp),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    repeat(visibleSize) { index ->
-                        val beam = normalizedBeams.getOrNull(index)
-                        BeamItem(
-                            satelliteId = beam?.first,
-                            value = beam?.second ?: 0,
-                            color = color,
-                            beamWidth = beamItemWidth,
-                            satelliteLabel = satelliteLabel
-                        )
-                    }
+                val size = max(beams.size, 10)
+                (0 until size).forEach { index ->
+                    val value = if (beams.size <= index) 0 to 0 else beams[index]
+                    BeamItem(
+                        index = value.first,
+                        value = value.second.coerceIn(0, 60),
+                        color = color
+                    )
                 }
             }
         }
@@ -174,21 +114,17 @@ private fun BoxText(
     text: String
 ) {
     Box(
-        modifier = modifier.height(20.dp).widthIn(min = 20.dp),
+        modifier = modifier.size(20.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = text,
-            style = AppText.Normal.Tips.mini,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            style = AppText.Normal.Tips.mini
         )
     }
 }
 
 @Composable
-@Suppress("DEPRECATION")
 private fun CustomDivider(
     modifier: Modifier = Modifier
 ) {
@@ -196,14 +132,14 @@ private fun CustomDivider(
         modifier = modifier
             .fillMaxWidth()
             .height(1.dp),
-        color = MaterialTheme.colorScheme.outlineVariant
+        color = AppColor.Neutral.line
     )
 }
 
 @Composable
-private fun LineLevelView(levelLabels: SignalLevelLabels) {
+private fun LineLevelView() {
     BoxText(
-        text = levelLabels.strong,
+        text = "强",
         modifier = Modifier
             .padding(top = 16.dp, start = 16.dp)
     )
@@ -214,7 +150,7 @@ private fun LineLevelView(levelLabels: SignalLevelLabels) {
     )
 
     BoxText(
-        text = levelLabels.medium,
+        text = "中",
         modifier = Modifier
             .padding(top = 78.dp, start = 16.dp)
     )
@@ -225,7 +161,7 @@ private fun LineLevelView(levelLabels: SignalLevelLabels) {
     )
 
     BoxText(
-        text = levelLabels.weak,
+        text = "弱",
         modifier = Modifier
             .padding(top = 109.dp, start = 16.dp)
     )
@@ -243,34 +179,18 @@ private fun LineLevelView(levelLabels: SignalLevelLabels) {
 
 @Composable
 private fun BeamItem(
-    satelliteId: Int?,
+    index: Int,
     value: Int,
-    color: Color,
-    beamWidth: androidx.compose.ui.unit.Dp,
-    satelliteLabel: (Int) -> String
+    color: Color
 ) {
     Column(
         modifier = Modifier
-            .width(beamWidth)
-            .fillMaxHeight()
-            .then(
-                if (satelliteId == null) {
-                    Modifier.clearAndSetSemantics { }
-                } else {
-                    Modifier.clearAndSetSemantics {
-                        contentDescription = "${satelliteLabel(satelliteId)}，信号 $value/$MAX_SIGNAL_STRENGTH"
-                        progressBarRangeInfo = ProgressBarRangeInfo(
-                            current = value.toFloat(),
-                            range = 0f..MAX_SIGNAL_STRENGTH.toFloat()
-                        )
-                    }
-                }
-            ),
+            .fillMaxHeight(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        BoxText(text = satelliteId?.let(satelliteLabel).orEmpty())
+        BoxText(text = index.toString())
         Progress(
-            progress = value.toFloat() / MAX_SIGNAL_STRENGTH,
+            progress = value / 60f,
             modifier = Modifier
                 .weight(1f)
                 .width(12.dp)
@@ -288,7 +208,7 @@ private fun Progress(
 ) {
     Box(
         modifier = modifier
-            .background(MaterialTheme.colorScheme.surfaceVariant),
+            .background(AppColor.Neutral.line),
         contentAlignment = Alignment.BottomCenter
     ) {
         Box(

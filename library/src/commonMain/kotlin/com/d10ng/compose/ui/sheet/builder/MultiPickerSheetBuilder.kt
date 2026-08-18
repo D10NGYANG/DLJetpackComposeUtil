@@ -21,10 +21,10 @@ import kotlinx.coroutines.CoroutineScope
  *
  * @param T 选项数据类型
  * @param title 标题文字，默认 "请选择"
- * @param items 每列的可选项集合列表，列表长度决定列数，空列会显示空态且不可操作
+ * @param items 每列的可选项集合列表，列表长度决定列数，每个 Set 不可为空
  * @param itemText 选项文字转换函数，第一个参数为列索引（从 0 起），第二个为选项值
  * @param textStyle 选项文字样式，默认 `AppText.Normal.Title.default`
- * @param selectedItems 各列当前选中项列表，缺失或非法值会由 MultiPicker 回退到列首项
+ * @param selectedItems 各列当前选中项列表，长度须与 [items] 一致，默认每列取第一项
  * @param cancelText 取消按钮文字，默认 "取消"
  * @param confirmText 确定按钮文字，默认 "确定"
  * @param onCancelClick 取消按钮点击回调，返回 true 则自动关闭弹窗
@@ -37,12 +37,16 @@ class MultiPickerSheetBuilder<T>(
     private val items: List<Set<T>>,
     private val itemText: (Int, T) -> String = { _, item -> item.toString() },
     private val textStyle: TextStyle = AppText.Normal.Title.default,
-    private val selectedItems: List<T> = emptyList(),
+    private val selectedItems: List<T> = items.map { it.first() },
     private val cancelText: String = "取消",
     private val confirmText: String = "确定",
     private val onCancelClick: suspend CoroutineScope.() -> Boolean = { true },
     private val onConfirmClick: suspend CoroutineScope.(List<T>) -> Boolean = { true },
 ): SheetBuilder() {
+    init {
+        require(items.all { it.isNotEmpty() }) { "each items column must not be empty" }
+    }
+
     @Composable
     override fun Build() {
         var selected by remember(selectedItems) {

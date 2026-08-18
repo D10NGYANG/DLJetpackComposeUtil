@@ -10,24 +10,6 @@ import com.d10ng.compose.utils.next
 
 object AppColor {
 
-    internal fun defaultBrandColors() = AppBrandColors(
-        link = Func.link,
-        success = Func.success,
-        notice = Func.notice,
-        noticeBg = Func.noticeBg,
-        assist = Func.assist,
-        surface = Neutral.surface,
-        background = Neutral.bg,
-        card = Neutral.card,
-        line = Neutral.line,
-        border = Neutral.border,
-        hint = Neutral.hint,
-        tips = Neutral.tips,
-        body = Neutral.body,
-        title = Neutral.title,
-        scrim = Neutral.scrim
-    )
-
     /**
      * 主色
      */

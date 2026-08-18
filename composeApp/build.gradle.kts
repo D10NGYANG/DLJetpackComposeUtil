@@ -70,9 +70,6 @@ kotlin {
             // 日期时间
             implementation(libs.kotlinx.datetime)
         }
-        jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-        }
     }
 }
 

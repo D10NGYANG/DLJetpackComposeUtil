@@ -102,7 +102,6 @@ fun Popover(
         }
     }
 }
-
 /**
  * Popover 气泡弹出框纵向列表
  *
@@ -143,7 +142,6 @@ fun PopoverColumnItems(
  * @param onClick () -> Unit 点击列表项时的回调
  */
 @Composable
-@Suppress("DEPRECATION")
 fun PopoverColumnItem(
     text: String,
     border: Boolean = true,

@@ -1,7 +1,6 @@
 package com.d10ng.compose.demo.pages
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,18 +8,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -37,13 +32,6 @@ import com.d10ng.compose.ui.navigation.IndexBar
 import com.d10ng.compose.ui.navigation.NavBar
 import kotlinx.coroutines.launch
 
-private enum class IndexBarMode(val label: String, val chars: List<Char>) {
-    DEFAULT("精简", listOf('A', 'C', 'F', 'M', 'S', 'Z', '#')),
-    SINGLE("单项", listOf('A')),
-    EMPTY("空列表", emptyList()),
-    FULL("完整", "ABCDEFGHIJKLMNOPQRSTUVWXYZ#".toList())
-}
-
 /**
  * IndexBar 索引栏
  * @Author d10ng
@@ -54,9 +42,6 @@ fun IndexBarScreen(
     onBack: () -> Unit = {},
 ) {
     var loading by remember { mutableStateOf(!AreaStore.loaded) }
-    var mode by remember { mutableStateOf(IndexBarMode.DEFAULT) }
-    var selected by remember { mutableStateOf<Char?>(null) }
-    var selectCount by remember { mutableIntStateOf(0) }
     LaunchedEffect(Unit) {
         AreaStore.load()
         loading = false
@@ -80,56 +65,25 @@ fun IndexBarScreen(
             val listState = rememberLazyListState()
             val scope = rememberCoroutineScope()
 
-            Column(modifier = Modifier.fillMaxSize()) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .horizontalScroll(rememberScrollState())
-                        .padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    IndexBarMode.entries.forEach { item ->
-                        FilterChip(
-                            selected = mode == item,
-                            onClick = {
-                                mode = item
-                                selected = null
-                                selectCount = 0
-                            },
-                            label = { Text(item.label) }
-                        )
+            IndexBar(
+                modifier = Modifier.fillMaxSize(),
+                onSelect = { value ->
+                    val index = data.indexOfFirst { it.indexLetter.equals(value.toString(), true) }
+                    if (index >= 0) {
+                        scope.launch { listState.scrollToItem(index) }
                     }
                 }
-                Text(
-                    text = "当前：${selected ?: "--"}；回调：$selectCount 次；索引：${mode.chars.size} 项",
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
-                    style = AppText.Normal.Body.small
-                )
-                IndexBar(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f),
-                    chars = mode.chars,
-                    onSelect = { value ->
-                        selected = value
-                        selectCount += 1
-                        val index = data.indexOfFirst { it.indexLetter.equals(value.toString(), true) }
-                        if (index >= 0) {
-                            scope.launch { listState.scrollToItem(index) }
-                        }
-                    }
+            ) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    state = listState
                 ) {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        state = listState
-                    ) {
-                        itemsIndexed(data, { i, _ -> i }) { index, item ->
-                            val isShowTag = if (index == 0) true else {
-                                val last = data[index - 1]
-                                last.indexLetter != item.indexLetter
-                            }
-                            ItemView(item, isShowTag)
+                    itemsIndexed(data, { i, _ -> i }) { index, item ->
+                        val isShowTag = if (index == 0) true else {
+                            val last = data[index - 1]
+                            last.indexLetter != item.indexLetter
                         }
+                        ItemView(item, isShowTag)
                     }
                 }
             }

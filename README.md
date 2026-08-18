@@ -1,10 +1,10 @@
 # DLJetpackComposeUtil
 
-基于 Compose Multiplatform 开发的 Vant 风格 UI 组件库，提供丰富的跨平台 UI 组件，支持 Android、iOS 和 Web(WasmJs) 平台。
+基于 Compose Multiplatform 开发的 Vant 风格 UI 组件库，提供丰富的跨平台 UI 组件，支持 Android、iOS、JVM Desktop、JavaScript 和 WebAssembly 平台。
 
-[![Version](https://img.shields.io/badge/version-3.3.4-blue.svg)](https://github.com/D10NGYANG/DLJetpackComposeUtil)
+[![Version](https://img.shields.io/badge/version-3.3.5-blue.svg)](https://github.com/D10NGYANG/DLJetpackComposeUtil)
 [![Kotlin](https://img.shields.io/badge/kotlin-2.3.21-orange.svg)](https://kotlinlang.org/)
-[![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.11.0-green.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
+[![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.11.1-green.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 
 > 参考 [Vant4](https://vant-contrib.gitee.io/vant/#/zh-CN/home) 设计规范，提供统一的设计语言和用户体验。
@@ -12,17 +12,18 @@
 ## 目录
 
 - [特性](#特性)
-- [预览](#预览)
+- [预览与文档](#预览与文档)
 - [安装](#安装)
 - [快速开始](#快速开始)
 - [组件列表](#组件列表)
 - [主要组件使用示例](#主要组件使用示例)
 - [主题定制](#主题定制)
+- [版本日志](#版本日志)
 - [许可证](#许可证)
 
 ## 特性
 
-- 🚀 **跨平台支持**：基于 Compose Multiplatform 开发，支持 Android、iOS 和 Web(WasmJs) 平台
+- 🚀 **跨平台支持**：发布 Android、iOS Arm64、iOS Simulator Arm64、JVM、JavaScript 和 WasmJs 制品
 - 🎨 **统一设计风格**：参考 Vant4 设计规范，提供一致的视觉体验
 - 📦 **丰富的组件**：提供 20+ 个高质量组件，覆盖常见的 UI 场景
 - 🔧 **灵活的主题定制**：支持自定义主题色、形状和文字样式
@@ -38,24 +39,52 @@
 
 ### 1. 添加仓库
 
-```gradle
-allprojects {
-  repositories {
-    ...
-    maven { url 'https://raw.githubusercontent.com/D10NGYANG/maven-repo/main/repository' }
-  }
+```kotlin
+// settings.gradle.kts
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://raw.githubusercontent.com/D10NGYANG/maven-repo/main/repository")
+    }
 }
 ```
 
 ### 2. 添加依赖
 
-```gradle
-dependencies {
-    implementation("com.github.D10NGYANG:DLJetpackComposeUtil:3.3.4")
+Kotlin Multiplatform 项目在 `commonMain` 中添加依赖：
+
+```kotlin
+// build.gradle.kts
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation("com.github.D10NGYANG:DLJetpackComposeUtil:3.3.5")
+        }
+    }
 }
 ```
 
-### 3. 混淆配置
+Android 或 JVM 单平台项目可直接添加：
+
+```kotlin
+dependencies {
+    implementation("com.github.D10NGYANG:DLJetpackComposeUtil:3.3.5")
+}
+```
+
+### 3. 版本兼容性
+
+| 项目 | 版本或要求 |
+|:---|:---|
+| Kotlin | 2.3.21 |
+| Compose Multiplatform | 1.11.1 |
+| Android minSdk | 26 |
+| JVM toolchain | 11 |
+
+### 4. Android 混淆配置
+
+启用代码压缩时，可保留组件库公开类型：
 
 ```proguard
 -keep class com.d10ng.compose.** {*;}
@@ -599,6 +628,26 @@ val smallBodyStyle = AppText.Normal.Body.small // 正常粗细小号内容
 val primaryStyle = AppText.Bold.Primary.default // 粗体主题色文字
 val errorStyle = AppText.Medium.Error.default // 中等粗细错误色文字
 ```
+
+## 版本日志
+
+### 3.3.5（2026-08-18）
+
+本版本聚焦兼容性、稳定性和性能，不增加调用方迁移成本，不调整组件正常状态下的视觉样式。
+
+- 修复 Button、Checkbox、Radio 的禁用与加载状态处理，避免状态变化后仍使用旧值，并补充标准交互语义。
+- 修复 ImagePreview 缩放边界、无效图片路径和手势回调更新问题。
+- 修复 IndexBar 触摸越界、手势取消后状态残留和回调未更新问题。
+- 修复 Picker 滚动吸附越界及非法选中项处理；Picker 和 MultiPicker 继续要求选项集合非空。
+- 修复 DatePicker、TimePicker 的反向范围、越界值、月份天数和边界联动问题。
+- 修复 TimePickerSheetBuilder 初始值与选择模式不一致的问题，并对 MultiPickerSheetBuilder 空列配置明确报错。
+- 优化 Input 焦点请求生命周期，避免每次重组重复请求焦点，并过滤重复的焦点边沿回调。
+- 增加 Modifier 非法参数保护和北斗信号强度范围保护。
+- 保持 `3.3.4` 的公开类、函数参数、主题颜色和正常布局不变。
+
+### 3.3.4（2026-07-10）
+
+- 优化 Sheet 展示时的焦点清理和虚拟键盘收起逻辑。
 
 ## 许可证
 

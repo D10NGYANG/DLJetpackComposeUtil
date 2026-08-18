@@ -7,12 +7,12 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import com.d10ng.compose.utils.BackHandler
 
@@ -24,7 +24,7 @@ import com.d10ng.compose.utils.BackHandler
 
 /**
  * 遮罩层
- * 使用当前 Material 主题 scrim 色的全屏半透明遮罩，通常用于弹窗、抽屉等浮层的背景
+ * 全屏半透明黑色遮罩，通常用于弹窗、抽屉等浮层的背景
  * 点击遮罩区域或按下返回键均会触发 [onDismiss] 回调
  * 自动适配状态栏和输入法高度
  * @param onDismiss () -> Unit 点击遮罩或按下返回键时的关闭回调，默认无操作
@@ -41,26 +41,15 @@ fun Overlay(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.scrim.copy(alpha = 0.5f))
+            .background(Color.Black.copy(alpha = 0.5f))
             .pointerInput(Unit) {
                 detectTapGestures { onDismissEvent() }
             }
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding()
-                .imePadding(),
-            contentAlignment = contentAlignment
-        ) {
-            Box(
-                modifier = Modifier.pointerInput(Unit) {
-                    detectTapGestures { }
-                },
-                content = content
-            )
-        }
-    }
+            .statusBarsPadding()
+            .imePadding(),
+        content = content,
+        contentAlignment = contentAlignment
+    )
     BackHandler {
         onDismissEvent()
     }

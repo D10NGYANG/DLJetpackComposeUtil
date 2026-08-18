@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "3.3.4"
+version = "3.3.5"
 
 kotlin {
     withSourcesJar(publish = true)
@@ -120,4 +120,3 @@ afterEvaluate {
         }
     }
 }
-

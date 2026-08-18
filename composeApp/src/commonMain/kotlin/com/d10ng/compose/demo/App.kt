@@ -24,50 +24,20 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.d10ng.compose.demo.pages.AvatarScreen
-import com.d10ng.compose.demo.pages.AdaptiveScreen
 import com.d10ng.compose.demo.pages.BadgeScreen
-import com.d10ng.compose.demo.pages.BDSignalBeamBoxScreen
 import com.d10ng.compose.demo.pages.ButtonScreen
 import com.d10ng.compose.demo.pages.CellScreen
 import com.d10ng.compose.demo.pages.CheckButtonScreen
 import com.d10ng.compose.demo.pages.CheckboxScreen
 import com.d10ng.compose.demo.pages.ColorScreen
-import com.d10ng.compose.demo.pages.ComponentCatalogScreen
-import com.d10ng.compose.demo.pages.ComponentCategoryScreen
 import com.d10ng.compose.demo.pages.DialogScreen
-import com.d10ng.compose.demo.pages.DatePickerScreen
-import com.d10ng.compose.demo.pages.DividerScreen
 import com.d10ng.compose.demo.pages.FieldScreen
 import com.d10ng.compose.demo.pages.HomeScreen
 import com.d10ng.compose.demo.pages.IndexBarScreen
-import com.d10ng.compose.demo.pages.InputScreen
-import com.d10ng.compose.demo.pages.LibraryListInputItemScreen
-import com.d10ng.compose.demo.pages.LibraryListItemScreen
-import com.d10ng.compose.demo.pages.LibraryListMenuItemScreen
-import com.d10ng.compose.demo.pages.MaterialButtonScreen
-import com.d10ng.compose.demo.pages.MaterialAlertDialogScreen
-import com.d10ng.compose.demo.pages.MaterialBadgeScreen
-import com.d10ng.compose.demo.pages.MaterialCheckboxScreen
-import com.d10ng.compose.demo.pages.MaterialChipScreen
-import com.d10ng.compose.demo.pages.MaterialListItemScreen
-import com.d10ng.compose.demo.pages.MaterialModalBottomSheetScreen
-import com.d10ng.compose.demo.pages.MaterialProgressIndicatorScreen
-import com.d10ng.compose.demo.pages.MaterialRadioButtonScreen
-import com.d10ng.compose.demo.pages.MaterialSearchBarScreen
-import com.d10ng.compose.demo.pages.MaterialSliderScreen
-import com.d10ng.compose.demo.pages.MaterialSnackbarScreen
-import com.d10ng.compose.demo.pages.MaterialSwitchScreen
-import com.d10ng.compose.demo.pages.MaterialTextFieldScreen
-import com.d10ng.compose.demo.pages.MaterialTopAppBarScreen
-import com.d10ng.compose.demo.pages.ModifierScreen
-import com.d10ng.compose.demo.pages.MenuInputScreen
 import com.d10ng.compose.demo.pages.NavBarScreen
 import com.d10ng.compose.demo.pages.NotifyScreen
-import com.d10ng.compose.demo.pages.OverlayScreen
-import com.d10ng.compose.demo.pages.PickerScreen
 import com.d10ng.compose.demo.pages.PopoverScreen
 import com.d10ng.compose.demo.pages.PullRefreshScreen
-import com.d10ng.compose.demo.pages.RadioCellScreen
 import com.d10ng.compose.demo.pages.SearchScreen
 import com.d10ng.compose.demo.pages.ShapeScreen
 import com.d10ng.compose.demo.pages.SheetScreen
@@ -75,12 +45,10 @@ import com.d10ng.compose.demo.pages.StepperScreen
 import com.d10ng.compose.demo.pages.StepsScreen
 import com.d10ng.compose.demo.pages.SwitchScreen
 import com.d10ng.compose.demo.pages.TagScreen
-import com.d10ng.compose.demo.pages.TimePickerScreen
 import com.d10ng.compose.demo.pages.ToastScreen
 import com.d10ng.compose.demo.pages.TypographyScreen
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.AppColor
-import com.d10ng.compose.ui.AppTheme
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
@@ -104,8 +72,8 @@ fun App() {
             CircularProgressIndicator()
         }
     } else {
-        AppTheme(
-            colors = AppColor.toColorScheme()
+        MaterialTheme(
+            colorScheme = AppColor.toColorScheme()
         ) {
             val backStack = remember { mutableStateListOf<Any>(HomeRoute) }
 
@@ -139,66 +107,6 @@ fun App() {
                     when (key) {
                         is HomeRoute -> NavEntry(key) {
                             HomeScreen(onNavigate = { backStack.add(it) })
-                        }
-                        is ComponentCatalogRoute -> NavEntry(key) {
-                            ComponentCatalogScreen(
-                                source = key.source,
-                                onNavigate = { backStack.add(it) },
-                                onBack = { backStack.removeLastOrNull() }
-                            )
-                        }
-                        is ComponentCategoryRoute -> NavEntry(key) {
-                            ComponentCategoryScreen(
-                                source = key.source,
-                                category = key.category,
-                                onNavigate = { backStack.add(it) },
-                                onBack = { backStack.removeLastOrNull() }
-                            )
-                        }
-                        is MaterialButtonRoute -> NavEntry(key) {
-                            MaterialButtonScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MaterialCheckboxRoute -> NavEntry(key) {
-                            MaterialCheckboxScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MaterialRadioButtonRoute -> NavEntry(key) {
-                            MaterialRadioButtonScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MaterialSwitchRoute -> NavEntry(key) {
-                            MaterialSwitchScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MaterialTextFieldRoute -> NavEntry(key) {
-                            MaterialTextFieldScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MaterialSearchBarRoute -> NavEntry(key) {
-                            MaterialSearchBarScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MaterialListItemRoute -> NavEntry(key) {
-                            MaterialListItemScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MaterialBadgeRoute -> NavEntry(key) {
-                            MaterialBadgeScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MaterialChipRoute -> NavEntry(key) {
-                            MaterialChipScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MaterialSliderRoute -> NavEntry(key) {
-                            MaterialSliderScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MaterialProgressIndicatorRoute -> NavEntry(key) {
-                            MaterialProgressIndicatorScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MaterialSnackbarRoute -> NavEntry(key) {
-                            MaterialSnackbarScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MaterialAlertDialogRoute -> NavEntry(key) {
-                            MaterialAlertDialogScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MaterialModalBottomSheetRoute -> NavEntry(key) {
-                            MaterialModalBottomSheetScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MaterialTopAppBarRoute -> NavEntry(key) {
-                            MaterialTopAppBarScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         is ColorRoute -> NavEntry(key) {
                             ColorScreen(onBack = { backStack.removeLastOrNull() })
@@ -236,42 +144,6 @@ fun App() {
                         is SearchRoute -> NavEntry(key) {
                             SearchScreen(onBack = { backStack.removeLastOrNull() })
                         }
-                        is InputRoute -> NavEntry(key) {
-                            InputScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is MenuInputRoute -> NavEntry(key) {
-                            MenuInputScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is LibraryListItemRoute -> NavEntry(key) {
-                            LibraryListItemScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is LibraryListInputItemRoute -> NavEntry(key) {
-                            LibraryListInputItemScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is LibraryListMenuItemRoute -> NavEntry(key) {
-                            LibraryListMenuItemScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is RadioCellRoute -> NavEntry(key) {
-                            RadioCellScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is PickerRoute -> NavEntry(key) {
-                            PickerScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is DatePickerRoute -> NavEntry(key) {
-                            DatePickerScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is TimePickerRoute -> NavEntry(key) {
-                            TimePickerScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is DividerRoute -> NavEntry(key) {
-                            DividerScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is OverlayRoute -> NavEntry(key) {
-                            OverlayScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is BDSignalBeamBoxRoute -> NavEntry(key) {
-                            BDSignalBeamBoxScreen(onBack = { backStack.removeLastOrNull() })
-                        }
                         is DialogRoute -> NavEntry(key) {
                             DialogScreen(onBack = { backStack.removeLastOrNull() })
                         }
@@ -304,12 +176,6 @@ fun App() {
                         }
                         is IndexBarRoute -> NavEntry(key) {
                             IndexBarScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is AdaptiveRoute -> NavEntry(key) {
-                            AdaptiveScreen(onBack = { backStack.removeLastOrNull() })
-                        }
-                        is ModifierRoute -> NavEntry(key) {
-                            ModifierScreen(onBack = { backStack.removeLastOrNull() })
                         }
                         else -> NavEntry(key as NavKey) {
                             HomeScreen(onNavigate = { backStack.add(it) })

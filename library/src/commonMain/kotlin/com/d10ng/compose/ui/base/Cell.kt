@@ -3,6 +3,7 @@ package com.d10ng.compose.ui.base
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,27 +13,21 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.resources.Res
 import com.d10ng.compose.resources.ic_round_forward_16
@@ -40,6 +35,7 @@ import com.d10ng.compose.ui.AppColor
 import com.d10ng.compose.ui.AppShape
 import com.d10ng.compose.ui.AppText
 import com.d10ng.compose.ui.defaultPaddingSize
+import com.d10ng.compose.ui.show.HorizontalDivider
 import org.jetbrains.compose.resources.painterResource
 
 /**
@@ -234,46 +230,24 @@ fun CellRow(
     contentPaddingValues: PaddingValues = PaddingValues(0.dp),
     content: @Composable RowScope.() -> Unit
 ) {
-    val layoutDirection = LocalLayoutDirection.current
-    val dividerColor = MaterialTheme.colorScheme.outlineVariant
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .then(if (divider) Modifier.heightIn(min = 0.5.dp) else Modifier)
-            .bottomDivider(
-                enabled = divider,
-                color = dividerColor,
-                startPadding = dividerPaddingValues.calculateStartPadding(layoutDirection),
-                endPadding = dividerPaddingValues.calculateEndPadding(layoutDirection),
-                layoutDirection = layoutDirection
+    Box(modifier = modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier
+                .align(Alignment.CenterStart)
+                .fillMaxWidth()
+                .padding(contentPaddingValues),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            content()
+        }
+        if (divider) {
+            HorizontalDivider(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                paddingStart = dividerPaddingValues.calculateStartPadding(LocalLayoutDirection.current),
+                paddingEnd = dividerPaddingValues.calculateEndPadding(LocalLayoutDirection.current)
             )
-            .padding(contentPaddingValues),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        content()
+        }
     }
-}
-
-private fun Modifier.bottomDivider(
-    enabled: Boolean,
-    color: Color,
-    startPadding: Dp,
-    endPadding: Dp,
-    layoutDirection: LayoutDirection,
-    thickness: Dp = 0.5.dp
-): Modifier = if (!enabled) this else drawWithContent {
-    drawContent()
-    val strokeWidth = thickness.toPx()
-    val leftPadding = if (layoutDirection == LayoutDirection.Ltr) startPadding else endPadding
-    val rightPadding = if (layoutDirection == LayoutDirection.Ltr) endPadding else startPadding
-    val startX = leftPadding.toPx().coerceIn(0f, size.width)
-    val endX = (size.width - rightPadding.toPx()).coerceIn(startX, size.width)
-    drawLine(
-        color = color,
-        start = Offset(startX, size.height - strokeWidth / 2f),
-        end = Offset(endX, size.height - strokeWidth / 2f),
-        strokeWidth = strokeWidth
-    )
 }
 
 @Preview

@@ -5,7 +5,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,19 +13,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.d10ng.compose.ui.AppColor
-import com.d10ng.compose.ui.AppThemeTokens
-import com.d10ng.compose.ui.LocalAppColors
 import com.d10ng.compose.ui.base.CellTitle
 import com.d10ng.compose.ui.navigation.NavBar
 import com.d10ng.compose.utils.isDark
@@ -39,7 +32,6 @@ import com.d10ng.compose.utils.isDark
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ColorScreen(onBack: () -> Unit = {}) {
-    var brandOverride by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -76,20 +68,6 @@ fun ColorScreen(onBack: () -> Unit = {}) {
                 ColorRow(body, "body")
                 ColorRow(title, "title")
                 ColorRow(scrim, "scrim")
-            }
-            CellTitle(title = "CompositionLocal 品牌扩展")
-            RowLabel(
-                title = "局部 success 覆盖",
-                checked = brandOverride,
-                onCheckedChange = { brandOverride = it }
-            )
-            androidx.compose.runtime.CompositionLocalProvider(
-                LocalAppColors provides AppThemeTokens.colors.copy(
-                    success = if (brandOverride) Color(0xFF9C27B0) else AppThemeTokens.colors.success
-                )
-            ) {
-                ColorRow(AppThemeTokens.colors.success, "LocalAppColors.success")
-                ColorRow(AppThemeTokens.colors.link, "LocalAppColors.link")
             }
             CellTitle(title = "ColorScheme")
             MaterialTheme.colorScheme.apply {
@@ -132,17 +110,6 @@ fun ColorScreen(onBack: () -> Unit = {}) {
             }
             Spacer(Modifier.height(16.dp))
         }
-    }
-}
-
-@Composable
-private fun RowLabel(title: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
-    androidx.compose.foundation.layout.Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
-    ) {
-        Text(title, modifier = Modifier.weight(1f))
-        Switch(checked = checked, onCheckedChange = onCheckedChange)
     }
 }
 

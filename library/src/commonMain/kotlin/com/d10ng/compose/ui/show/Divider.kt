@@ -1,10 +1,13 @@
 package com.d10ng.compose.ui.show
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.HorizontalDivider as MaterialHorizontalDivider
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.VerticalDivider as MaterialVerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,10 +32,6 @@ import androidx.compose.ui.unit.dp
  * @param paddingStart Dp 分割线左侧内边距，默认为 0.dp
  * @param paddingEnd Dp 分割线右侧内边距，默认为 0.dp
  */
-@Deprecated(
-    message = "Material3.HorizontalDivider is the preferred API. Use this facade only when paddingStart/paddingEnd compatibility is required.",
-    replaceWith = ReplaceWith("HorizontalDivider(thickness = thickness, color = color, modifier = modifier.padding(start = paddingStart, end = paddingEnd))", "androidx.compose.material3.HorizontalDivider", "androidx.compose.foundation.layout.padding")
-)
 @Composable
 fun HorizontalDivider(
     modifier: Modifier = Modifier,
@@ -41,10 +40,12 @@ fun HorizontalDivider(
     paddingStart: Dp = 0.dp,
     paddingEnd: Dp = 0.dp,
 ) {
-    MaterialHorizontalDivider(
-        modifier = modifier.padding(start = paddingStart, end = paddingEnd),
-        thickness = thickness,
-        color = color
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(thickness)
+            .padding(start = paddingStart, end = paddingEnd)
+            .background(color)
     )
 }
 
@@ -59,10 +60,6 @@ fun HorizontalDivider(
  * @param paddingTop Dp 分割线顶部内边距，默认为 0.dp
  * @param paddingBottom Dp 分割线底部内边距，默认为 0.dp
  */
-@Deprecated(
-    message = "Material3.VerticalDivider is the preferred API. Use this facade only when paddingTop/paddingBottom compatibility is required.",
-    replaceWith = ReplaceWith("VerticalDivider(thickness = thickness, color = color, modifier = modifier.padding(top = paddingTop, bottom = paddingBottom))", "androidx.compose.material3.VerticalDivider", "androidx.compose.foundation.layout.padding")
-)
 @Composable
 fun VerticalDivider(
     modifier: Modifier = Modifier,
@@ -71,15 +68,16 @@ fun VerticalDivider(
     paddingTop: Dp = 0.dp,
     paddingBottom: Dp = 0.dp,
 ) {
-    MaterialVerticalDivider(
-        modifier = modifier.padding(top = paddingTop, bottom = paddingBottom),
-        thickness = thickness,
-        color = color
+    Box(
+        modifier = modifier
+            .fillMaxHeight()
+            .width(thickness)
+            .padding(top = paddingTop, bottom = paddingBottom)
+            .background(color)
     )
 }
 
 @Preview(showBackground = true)
-@Suppress("DEPRECATION")
 @Composable
 fun PreviewHorizontalDivider() {
     androidx.compose.foundation.layout.Column(
@@ -98,7 +96,6 @@ fun PreviewHorizontalDivider() {
 }
 
 @Preview(showBackground = true)
-@Suppress("DEPRECATION")
 @Composable
 fun PreviewVerticalDivider() {
     androidx.compose.foundation.layout.Row(
