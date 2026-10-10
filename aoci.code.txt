@@ -1,0 +1,303 @@
+#AOCI-CODE-VOLUME: 1
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/===
+.gitattributes[FV5T]: F:统一文本检出为LF以保持AOCI字节基线 | R:- | A:- | S:二进制由Git自动识别而不改写
+.gitignore[FV4T]: F:排除构建产物、IDE状态及本机MCP配置并保留Xcode工程定义 | R:- | A:- | S:-
+AGENTS.md[SG7S]: F:约束Agent读取AOCI完整认知、作者化批次与治理收尾 | R:- | A:aoci_rules,aoci_overview,aoci_maintain | S:认知压缩恢复必须重载Overview且不得按摘要补答
+LICENSE[SG4T]: F:授予MIT使用修改分发权并声明无担保 | R:- | A:- | S:分发需保留版权与许可声明
+README.md[SU6L]: F:说明3.4.0组件库安装使用、兼容基线与Android模块迁移入口 | R:code:library/build.gradle.kts,code:docs/releases/3.4.0.md | A:安装说明,兼容表,构建命令,版本日志 | S:组件调用API兼容但Android构建环境要求提升
+build.gradle.kts[FV6T]: F:声明AGP应用与KMP插件并配置稳定依赖更新过滤 | R:code:gradle/libs.versions.toml | A:isNonStable,DependencyUpdatesTask | S:移除独立Kotlin Android插件以避免AGP9内置Kotlin冲突
+color.md[SU3T]: F:说明Material3颜色角色与使用场景 | R:- | A:颜色角色表 | S:-
+gradle.properties[FV5T]: F:配置Gradle缓存内存与AndroidX及CInterop公共化 | R:- | A:configuration-cache,caching | S:-
+gradlew[XV5M]: F:解析Unix环境并以jar入口启动新版Gradle Wrapper | R:code:gradle/wrapper/gradle-wrapper.properties | A:gradlew | S:依赖xargs解析JVM选项并保留Cygwin路径转换
+gradlew.bat[XV5S]: F:解析Windows Java环境并以jar入口透传执行Gradle Wrapper | R:code:gradle/wrapper/gradle-wrapper.properties | A:gradlew.bat | S:结束本地变量作用域后执行Java并保留错误码
+settings.gradle.kts[FV7T]: F:配置插件依赖仓库工具链解析及四个模块映射 | R:code:gradle/libs.versions.toml,code:library/build.gradle.kts,code:composeAndroidApp/build.gradle.kts | A:pluginManagement,dependencyResolutionManagement | S:library重命名DLJetpackComposeUtil；仓库分组过滤不等于独占路由
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/.github/workflows/===
+deploy.yml[OV6T]: F:master推送或手动触发Wasm示例与Dokka构建并发布Pages | R:code:composeApp/build.gradle.kts,code:library/build.gradle.kts | A:build,deploy | S:构建依赖仓库凭据来自GitHub Secrets
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/androidApp/===
+.gitignore[FV2T]: F:排除Android示例模块构建目录 | R:- | A:- | S:-
+build.gradle.kts[FV6T]: F:使用AGP内置Kotlin配置独立Android主题示例和Compose BOM | R:code:gradle/libs.versions.toml,code:library/build.gradle.kts | A:android,dependencies | S:release未启用压缩，保持原应用ID
+proguard-rules.pro[FV2T]: F:保留Android示例混淆规则说明模板 | R:code:androidApp/build.gradle.kts | A:- | S:所有规则均为注释
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/androidApp/src/main/===
+AndroidManifest.xml[FE4T]: F:注册Android示例启动Activity、图标主题与备份资源 | R:code:androidApp/src/main/java/com/d10ng/compose/android/demo/MainActivity.kt | A:MAIN,LAUNCHER | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/androidApp/src/main/java/com/d10ng/compose/android/demo/===
+MainActivity.kt[EU4S]: F:展示Material主题颜色、字体与形状的Android示例入口 | R:code:androidApp/src/main/java/com/d10ng/compose/android/demo/ui/theme/Theme.kt | A:MainActivity,Greeting | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/androidApp/src/main/java/com/d10ng/compose/android/demo/ui/theme/===
+Color.kt[FU2T]: F:定义示例紫色粉色调色板常量 | R:- | A:Purple80,Purple40,Pink80,Pink40 | S:-
+Theme.kt[CU4T]: F:提供Android示例Material主题容器 | R:- | A:ComposeDemoTheme | S:计算的动态配色与Typography未传入MaterialTheme
+Type.kt[FU2T]: F:声明默认Material3字体排版对象 | R:- | A:Typography | S:自定义样式均被注释
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/androidApp/src/main/res/drawable/===
+ic_launcher_background.xml[FU2S]: F:绘制Android启动图标绿色网格背景 | R:- | A:ic_launcher_background | S:-
+ic_launcher_foreground.xml[FU2T]: F:绘制Android机器人启动图标前景及阴影 | R:- | A:ic_launcher_foreground | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/androidApp/src/main/res/mipmap-anydpi/===
+ic_launcher.xml[FU2T]: F:组合自适应启动图标背景前景和单色层 | R:- | A:ic_launcher | S:-
+ic_launcher_round.xml[FU2T]: F:组合圆形入口使用的自适应启动图标 | R:- | A:ic_launcher_round | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/androidApp/src/main/res/values/===
+colors.xml[FU2T]: F:提供Android示例基础XML颜色资源 | R:- | A:purple_200,teal_200,black,white | S:-
+strings.xml[FL2T]: F:声明Android示例应用显示名称 | R:- | A:app_name | S:-
+themes.xml[FU2T]: F:声明无ActionBar的浅色平台主题 | R:- | A:Theme.ComposeDemo | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/androidApp/src/main/res/xml/===
+backup_rules.xml[FC3T]: F:提供示例全量备份配置占位 | R:- | A:full-backup-content | S:没有生效的include或exclude规则
+data_extraction_rules.xml[FC3T]: F:提供Android云备份及迁移规则模板 | R:- | A:data-extraction-rules | S:云备份段为空且设备迁移段被注释
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeApp/===
+build.gradle.kts[FV7T]: F:配置共享Demo的KMP Android库、iOS框架、桌面及Web目标 | R:code:gradle/libs.versions.toml,code:composeAndroidApp/build.gradle.kts | A:ComposeApp,MainKt | S:Android仅提供共享库，应用打包位于composeAndroidApp且namespace分离
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeApp/src/androidMain/kotlin/com/d10ng/compose/demo/===
+App.android.kt[IU3T]: F:提供Android字体加载actual实现并返回空 | R:- | A:loadCustomFontFamily | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeApp/src/androidMain/kotlin/com/d10ng/compose/demo/pages/===
+ImagePreviewScreen.kt[EU4T]: F:调用PhotoManager选图并展示可关闭的图片预览 | R:code:library/src/androidMain/kotlin/com/d10ng/compose/ui/show/ImagePreview.kt | A:ImagePreviewScreen | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeApp/src/commonMain/composeResources/drawable/===
+compose-multiplatform.xml[FU2T]: F:绘制600dp的Compose多平台标志 | R:- | A:compose-multiplatform | S:-
+ic_avatar_40.xml[FU2T]: F:提供圆形橙红渐变头像背景 | R:- | A:ic_avatar_40 | S:-
+ic_command_center_avatar_40.xml[FU2T]: F:提供星形指挥中心头像矢量 | R:- | A:ic_command_center_avatar_40 | S:-
+ic_group_avatar_40.xml[FU2T]: F:提供橙色渐变圆角群组人物头像 | R:- | A:ic_group_avatar_40 | S:-
+ic_launcher_foreground.xml[FU2T]: F:提供共享蓝色调色盘标志 | R:- | A:ic_launcher_foreground | S:-
+round_add_circle_outline_24.xml[FU2T]: F:提供圆圈加号描边图标 | R:- | A:round_add_circle_outline_24 | S:-
+round_cruelty_free_24.xml[FU2T]: F:提供兔子轮廓图标 | R:- | A:round_cruelty_free_24 | S:-
+round_mood_24.xml[FU2T]: F:提供笑脸图标 | R:- | A:round_mood_24 | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeApp/src/commonMain/composeResources/files/===
+area_phone_code.json[FD3L]: F:提供共享地区电话区号及中英繁体名称数据 | R:code:composeApp/src/commonMain/kotlin/com/d10ng/compose/demo/stores/AreaStore.kt | A:code,locale,zh,en,tw | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeApp/src/commonMain/kotlin/com/d10ng/compose/demo/===
+App.kt[EU7S]: F:预载平台字体后建立主题、Navigation3页面与全局UI宿主 | R:code:composeApp/src/commonMain/kotlin/com/d10ng/compose/demo/Nav.kt,code:library/src/commonMain/kotlin/com/d10ng/compose/model/UiViewModelManager.kt | A:App,loadCustomFontFamily | S:返回直接移除末项，栈使用remember而非保存型导航栈
+Nav.kt[FU5T]: F:为组件示例页面声明可序列化Navigation3路由键 | R:code:composeApp/src/commonMain/kotlin/com/d10ng/compose/demo/App.kt | A:HomeRoute,ColorRoute,SheetRoute | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeApp/src/commonMain/kotlin/com/d10ng/compose/demo/pages/===
+AvatarScreen.kt[EU4S]: F:展示字符头像、自定义背景、徽标与尺寸组合 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/show/Avatar.kt | A:AvatarScreen | S:-
+BadgeScreen.kt[EU4S]: F:展示点状文字数字徽标、最大值与自定义颜色 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/show/Badge.kt | A:BadgeScreen | S:-
+ButtonScreen.kt[EU4S]: F:演示按钮类型、禁用加载、形状尺寸及图标并提供流式示例容器 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/base/Button.kt | A:ButtonScreen,CustomFlowRow | S:-
+CellScreen.kt[EU4S]: F:演示分组单元格、箭头图标和点击反馈 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/base/Cell.kt | A:CellScreen | S:-
+CheckButtonScreen.kt[EU4T]: F:演示选择按钮单选多选及按钮样式 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/form/CheckButton.kt | A:CheckButtonScreen | S:-
+CheckboxScreen.kt[EU4T]: F:演示复选框禁用、圆形、颜色尺寸和单元格组合 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/form/Checkbox.kt | A:CheckboxScreen | S:-
+ColorScreen.kt[EU4S]: F:展示AppColor与Material色彩角色并计算对比文字色 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/Color.kt | A:ColorScreen | S:-
+DialogScreen.kt[EU5M]: F:演示提示确认结果输入及动态进度弹窗 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/model/UiViewModelManager.kt | A:DialogScreen | S:示例进度任务用独立Default协程作用域
+FieldScreen.kt[EU4M]: F:演示输入类型、禁用只读、错误提示、自动高度及标签对齐 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/form/Field.kt | A:FieldScreen,isMobileNumber | S:-
+HomeScreen.kt[EU5M]: F:按样式基础表单反馈展示导航类别提供组件页面入口 | R:code:composeApp/src/commonMain/kotlin/com/d10ng/compose/demo/Nav.kt | A:HomeScreen | S:-
+IndexBarScreen.kt[EU5S]: F:加载地区区号并以索引栏联动列表定位 | R:code:composeApp/src/commonMain/kotlin/com/d10ng/compose/demo/stores/AreaStore.kt | A:IndexBarScreen | S:-
+NavBarScreen.kt[EU4S]: F:演示导航栏标题对齐、返回及右侧操作插槽 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/navigation/NavBar.kt | A:NavBarScreen | S:-
+NotifyScreen.kt[EU4T]: F:演示四类通知、长文本与自定义持续时间 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/model/UiViewModelManager.kt | A:NotifyScreen | S:-
+PopoverScreen.kt[EU4S]: F:演示浅色深色气泡菜单及选择关闭反馈 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/show/Popover.kt | A:PopoverScreen | S:-
+PullRefreshScreen.kt[EU4T]: F:通过延时一秒模拟Material3下拉刷新 | R:- | A:PullRefreshScreen | S:刷新任务使用独立Default作用域
+SearchScreen.kt[EU4S]: F:演示搜索框动作、禁用加载、文本对齐及形状 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/form/Search.kt | A:SearchScreen | S:模拟搜索任务使用独立Default作用域
+ShapeScreen.kt[EU3T]: F:展示MaterialTheme五级容器形状 | R:- | A:ShapeScreen | S:-
+SheetScreen.kt[EU5M]: F:演示单选动作多列滚轮日期和时间面板 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/model/UiViewModelManager.kt | A:SheetScreen | S:日期展示按系统时区换算
+StepperScreen.kt[EU4T]: F:演示整数步进器步长边界禁用与圆角样式 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/form/Stepper.kt | A:StepperScreen | S:-
+StepsScreen.kt[EU4T]: F:演示四步流程切换及当前步骤自定义颜色 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/show/Steps.kt | A:StepsScreen | S:-
+SwitchScreen.kt[EU4T]: F:演示开关禁用加载、大小颜色图标及单元格组合 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/form/Switch.kt | A:SwitchScreen | S:-
+TagScreen.kt[EU4T]: F:演示标签类型、填充圆角标记描边与自定义颜色 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/show/Tag.kt | A:TagScreen | S:-
+ToastScreen.kt[EU4S]: F:演示文本加载成功失败Toast及位置和动态更新 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/model/UiViewModelManager.kt | A:ToastScreen | S:倒计时示例使用独立Default作用域
+TypographyScreen.kt[EU3T]: F:展示Material字体层级及字重字号行高参数 | R:- | A:TypographyScreen | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeApp/src/commonMain/kotlin/com/d10ng/compose/demo/stores/===
+AreaStore.kt[DD5T]: F:读取共享地区JSON并缓存按英文名排序的区号列表 | R:code:composeApp/src/commonMain/composeResources/files/area_phone_code.json | A:AreaStore,Info,load,list,loaded | S:loaded仅在成功解码后置真
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeApp/src/iosMain/kotlin/com/d10ng/compose/demo/===
+App.ios.kt[IU3T]: F:提供iOS空字体加载实现 | R:- | A:loadCustomFontFamily | S:-
+MainViewController.kt[EU5T]: F:将共享App嵌入ComposeUIViewController供Swift调用 | R:code:composeApp/src/commonMain/kotlin/com/d10ng/compose/demo/App.kt | A:MainViewController | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeApp/src/jvmMain/kotlin/com/d10ng/compose/demo/===
+App.jvm.kt[IU3T]: F:提供JVM空字体加载实现 | R:- | A:loadCustomFontFamily | S:-
+main.kt[EU4T]: F:创建桌面示例窗口并在关闭时退出应用 | R:code:composeApp/src/commonMain/kotlin/com/d10ng/compose/demo/App.kt | A:main | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeApp/src/webMain/kotlin/com/d10ng/compose/demo/===
+App.js.kt[IU5T]: F:从资源字节构造Web端MiSans正常字重字体 | R:code:composeApp/src/commonMain/kotlin/com/d10ng/compose/demo/App.kt | A:loadCustomFontFamily | S:-
+main.kt[EU4T]: F:将共享App挂载到浏览器body的ComposeViewport | R:code:composeApp/src/commonMain/kotlin/com/d10ng/compose/demo/App.kt | A:main | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeApp/src/webMain/resources/===
+index.html[EU3T]: F:提供中文Web入口并加载样式与composeApp脚本 | R:code:composeApp/src/webMain/resources/styles.css | A:index.html | S:-
+styles.css[FU2T]: F:令Web根容器填满窗口并隐藏页面溢出 | R:- | A:html,body | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/docs/research/===
+compose-ui-updates-2026-08.md[SV5S]: F:记录2026年8月Compose升级依据和同树Sheet迁移验证 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/sheet/Sheet.kt | A:版本映射,迁移结果,验证限制 | S:历史发布状态需按审计日期理解
+dependency-audit-2026-10-08.md[SV5S]: F:记录2026年10月8日依赖候选、安全公告及兼容性限制 | R:code:gradle/libs.versions.toml | A:更新优先级,来源,核验限制 | S:记录Gradle修复版公告与下载可用性冲突
+dependency-audit-2026-10-10.md[SV5T]: F:记录依赖更新优先级及Gradle安全修复发布状态的新核验 | R:code:gradle/libs.versions.toml,code:gradle/wrapper/gradle-wrapper.properties | A:安全补丁,配套候选,验证限制 | S:未实施升级或全量漏洞扫描；Kotlin候选更新为2.4.21
+dependency-upgrade-2026-10-10.md[SV6S]: F:记录工具链迁移、实机UI验收及3.4.0制品完整性和独立消费检查 | R:code:gradle/libs.versions.toml,code:composeAndroidApp/src/androidTest/kotlin/com/d10ng/compose/demo/ActivityResultRegressionTest.kt | A:版本表,构建测试,截图,设备回归,发布前检查 | S:API31不覆盖预测性返回取消；成功选图为受控注入；保留Wasm弃用日志
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/gradle/===
+gradle-daemon-jvm.properties[FV5T]: F:指定Amazon JDK21 daemon工具链及各平台下载地址 | R:- | A:toolchainVersion,toolchainVendor | S:不同于CI显式安装的JDK17
+libs.versions.toml[FV8T]: F:集中声明Compose1.12配套依赖、AGP9和Kotlin2.4工具链及仪器测试坐标 | R:code:build.gradle.kts,code:library/build.gradle.kts | A:versions,libraries,plugins | S:Android制品要求compileSdk37与AGP9.1；Material3仍独立alpha版本
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/gradle/wrapper/===
+gradle-wrapper.properties[FV7T]: F:锁定官方Gradle9.8.1发行包地址及完整性校验 | R:code:gradlew | A:distributionUrl,distributionSha256Sum | S:固定官方bin包SHA256，禁止静默接受不同内容
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/iosApp/Configuration/===
+Config.xcconfig[FV4T]: F:定义iOS应用名与Bundle标识配置 | R:- | A:TEAM_ID,BUNDLE_ID,APP_NAME | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/iosApp/iosApp.xcodeproj/===
+project.pbxproj[FV6M]: F:配置SwiftUI应用编译签名与Gradle嵌入Kotlin框架阶段 | R:code:composeApp/build.gradle.kts,code:iosApp/Configuration/Config.xcconfig | A:iosApp,embedAndSignAppleFrameworkForXcode | S:iOS部署目标15.3，构建阶段允许IDE覆盖跳过
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/iosApp/iosApp.xcodeproj/project.xcworkspace/xcshareddata/===
+IDEWorkspaceChecks.plist[FV1T]: F:记录Xcode已完成旧Mac32位兼容警告检查 | R:- | A:IDEDidComputeMac32BitWarning | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/iosApp/iosApp/Assets.xcassets/AccentColor.colorset/===
+Contents.json[FU2T]: F:声明未设具体颜色的通用AccentColor资产 | R:- | A:AccentColor | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/iosApp/iosApp/Assets.xcassets/AppIcon.appiconset/===
+Contents.json[FU2T]: F:将1024像素图片注册为iOS通用应用图标 | R:- | A:AppIcon | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/iosApp/iosApp/Assets.xcassets/===
+Contents.json[FV1T]: F:声明Xcode主资产目录格式版本和作者 | R:- | A:info | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/iosApp/iosApp/===
+ContentView.swift[IU5T]: F:用SwiftUI容器承载Kotlin主控制器 | R:code:composeApp/src/iosMain/kotlin/com/d10ng/compose/demo/MainViewController.kt | A:ComposeView,ContentView | S:忽略系统安全区及键盘避让交由Compose处理
+Info.plist[FC4T]: F:配置iOS应用身份版本、方向、单场景和帧时长选项 | R:- | A:CFBundleVersion,UISupportedInterfaceOrientations | S:-
+iOSApp.swift[EU4T]: F:创建SwiftUI应用场景并显示ContentView | R:code:iosApp/iosApp/ContentView.swift | A:iOSApp | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/iosApp/iosApp/Preview Content/Preview Assets.xcassets/===
+Contents.json[FV1T]: F:声明Xcode预览资产目录元数据 | R:- | A:info | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/kotlin-js-store/wasm/===
+yarn.lock[FV4T]: F:锁定Wasm使用的js-joda3.2.0下载与完整性 | R:- | A:yarn lockfile v1 | S:由工具生成，不应手工修改
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/kotlin-js-store/===
+yarn.lock[FV5L]: F:锁定JS依赖解析版本、来源及完整性摘要 | R:- | A:yarn lockfile v1 | S:由工具生成，更新应经Kotlin与Yarn解析流程
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/===
+build.gradle.kts[FV8S]: F:配置3.4.0六平台UI库、Android单变体Host测试及Dokka和Maven发布 | R:code:gradle/libs.versions.toml,code:settings.gradle.kts | A:3.4.0,javadocJar,publishing,testAndroidHostTest | S:Android坐标仍为DLJetpackComposeUtil-android；发布到本机Git制品目录和凭据保护的Nexus
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/androidMain/kotlin/com/d10ng/compose/ui/show/===
+ImagePreview.kt[LU6T]: F:解码本地图片并提供点击关闭双击复位和缩放平移 | R:code:composeApp/src/androidMain/kotlin/com/d10ng/compose/demo/pages/ImagePreviewScreen.kt | A:ImagePreview | S:解码失败仍可点击关闭；缩放限1至5倍且回到1倍清偏移
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonMain/composeResources/drawable/===
+ic_baseline_arrow_drop_down_24.xml[FU2T]: F:提供向下三角图标 | R:- | A:ic_baseline_arrow_drop_down_24 | S:-
+ic_baseline_arrow_drop_up_24.xml[FU2T]: F:提供向上三角图标 | R:- | A:ic_baseline_arrow_drop_up_24 | S:-
+ic_baseline_keyboard_arrow_right_24.xml[FU2T]: F:提供右向折角箭头 | R:- | A:ic_baseline_keyboard_arrow_right_24 | S:-
+ic_baseline_visibility_24.xml[FU2T]: F:提供密码可见眼睛图标 | R:- | A:ic_baseline_visibility_24 | S:-
+ic_baseline_visibility_off_24.xml[FU2T]: F:提供密码隐藏斜线眼睛图标 | R:- | A:ic_baseline_visibility_off_24 | S:-
+ic_false_102.xml[FU2T]: F:提供102dp红色圆圈叉号结果图标 | R:- | A:ic_false_102 | S:-
+ic_round_add_24.xml[FU2T]: F:提供圆头加号图标 | R:- | A:ic_round_add_24 | S:-
+ic_round_add_circle_24.xml[FU2T]: F:提供实心圆形加号图标 | R:- | A:ic_round_add_circle_24 | S:-
+ic_round_back_22.xml[FU2T]: F:提供灰色左向返回箭头 | R:- | A:ic_round_back_22 | S:-
+ic_round_cancel_24.xml[FU2T]: F:提供圆形取消叉号图标 | R:- | A:ic_round_cancel_24 | S:-
+ic_round_check_24.xml[FU2T]: F:提供白色勾选图标 | R:- | A:ic_round_check_24 | S:-
+ic_round_error_160.xml[FU2T]: F:提供160dp红圈错误叉号图标 | R:- | A:ic_round_error_160 | S:-
+ic_round_forward_16.xml[FU2T]: F:提供16dp灰色右向箭头 | R:- | A:ic_round_forward_16 | S:-
+ic_round_remove_24.xml[FU2T]: F:提供圆头减号图标 | R:- | A:ic_round_remove_24 | S:-
+ic_round_remove_circle_24.xml[FU2T]: F:提供实心圆形减号图标 | R:- | A:ic_round_remove_circle_24 | S:-
+ic_round_search_22.xml[FU2T]: F:提供灰色放大镜搜索图标 | R:- | A:ic_round_search_22 | S:-
+ic_round_steps_active_20.xml[FU2T]: F:提供实心圆内勾选的步骤激活图标 | R:- | A:ic_round_steps_active_20 | S:-
+ic_round_success_160.xml[FU2T]: F:提供160dp绿色圆圈成功图标 | R:- | A:ic_round_success_160 | S:-
+ic_success_102.xml[FU2T]: F:提供102dp橙红圆圈成功勾选图标 | R:- | A:ic_success_102 | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonMain/kotlin/com/d10ng/compose/model/===
+IUiViewModel.kt[LU7T]: F:定义Toast加载通知与Sheet统一操作契约 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/model/UiViewModel.kt | A:IUiViewModel | S:默认提示2500ms；持久通知需显式隐藏
+UiViewModel.kt[AU8M]: F:以分层StateFlow维护Toast加载通知对话框和Sheet状态 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/sheet/Sheet.kt,code:library/src/commonMain/kotlin/com/d10ng/compose/ui/dialog/Dialog.kt | A:UiViewModel,Init,showDialog,updateDialog,hideDialog | S:图层顺序Sheet至Loading；新提示取消旧定时；同Builder不重复入栈
+UiViewModelManager.kt[AU8S]: F:按组合生命周期登记UI宿主并广播提示弹层操作 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/model/UiViewModel.kt | A:Init,showDialog,updateDialog,hideDialog | S:仅向已登记宿主广播；同一Dialog UUID共享给全部宿主
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonMain/kotlin/com/d10ng/compose/ui/===
+Color.kt[CU7S]: F:提供品牌功能中性色并映射Material颜色方案 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/utils/ColorUtils.kt | A:AppColor,toColorScheme | S:颜色是普通可变字段，写入本身不触发Compose重组
+Modifier.kt[CU5T]: F:提供带参数保护的虚线边框和点击节流Modifier | R:- | A:dashBorder,debounceClick | S:首次点击即执行，等待期忽略后续点击
+Shape.kt[CU5T]: F:缓存圆形及0至50dp圆角形状和默认间距 | R:- | A:AppShape,defaultPaddingSize | S:-
+Type.kt[CU7M]: F:按字重颜色字号提供文字样式及Material主题角色访问 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/Color.kt | A:AppText,BasicTextFontWeight,BasicTextFontSize | S:AppColor样式惰性缓存颜色，Scheme访问器在组合中读取当前主题
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonMain/kotlin/com/d10ng/compose/ui/base/===
+Button.kt[LU6M]: F:封装Vant风格Material按钮类型大小朴素边框和加载状态 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/utils/ColorUtils.kt | A:Button,ButtonType,ButtonSize | S:加载与禁用都阻止点击；仅迷你小型强制高度
+Cell.kt[LU6M]: F:提供标题分组单元格及带底部分隔线的行容器 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/show/Divider.kt | A:Cell,CellGroup,CellTitle,CellRow | S:显示箭头不代表可点击；点击由非空onClick决定
+Toast.kt[LU6M]: F:渲染文字成功失败与阻断交互的加载提示 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/model/UiViewModel.kt | A:Toast,NormalToast,IconToast,LoadingToast | S:位置仅作用于普通Toast；阻断型图标提示消费返回
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonMain/kotlin/com/d10ng/compose/ui/dialog/===
+Dialog.kt[LU6S]: F:用Overlay承载Builder并提供限宽圆角弹窗容器 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/feedback/Overlay.kt,code:library/src/commonMain/kotlin/com/d10ng/compose/ui/dialog/builder/DialogBuilder.kt | A:Dialog,DialogBox,DialogColumn | S:外点与返回统一服从clickOutsideDismiss
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonMain/kotlin/com/d10ng/compose/ui/dialog/builder/===
+ConfirmDialogBuilder.kt[LU5S]: F:构建带异步确认取消回调的双按钮弹窗 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/dialog/builder/DialogBuilder.kt | A:ConfirmDialogBuilder,ButtonRow | S:回调返回true才关闭
+DialogBuilder.kt[LU7T]: F:定义对话框内容构建与全局按ID关闭入口 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/model/UiViewModelManager.kt | A:DialogBuilder,Build,dismiss | S:默认禁止外部关闭且居中展示
+InputDialogBuilder.kt[LU6M]: F:构建多输入项弹窗并在确认时聚合校验错误 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/view/Input.kt | A:InputDialogBuilder,InputField,VerifyResult | S:所有校验通过才调用确认；输入状态以Builder实例为键
+ProgressDialogBuilder.kt[LU5S]: F:构建可复制更新的进度弹窗及三种进度文本模式 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/dialog/builder/DialogBuilder.kt | A:ProgressDialogBuilder,Type | S:进度条钳制范围，显示文本未同样钳制
+ResultDialogBuilder.kt[LU5S]: F:构建成功失败图标结果弹窗及可选取消按钮 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/dialog/builder/ConfirmDialogBuilder.kt | A:ResultDialogBuilder,Status | S:确认取消返回true才关闭
+TipsDialogBuilder.kt[LU5S]: F:构建分级提示弹窗并提供共享标题正文样式 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/dialog/builder/DialogBuilder.kt | A:TipsDialogBuilder,TitleText,ContentText | S:异步按钮回调返回true才关闭
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonMain/kotlin/com/d10ng/compose/ui/feedback/===
+Notify.kt[LU5T]: F:展示含状态栏间距的分类通知横幅 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/model/UiViewModel.kt | A:Notify,NotifyType | S:最多三行超出省略
+Overlay.kt[LU6T]: F:提供带系统栏和键盘避让的全屏半透明遮罩 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/utils/BackHandlerUtils.kt | A:Overlay | S:返回与点击共用最新onDismiss回调
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonMain/kotlin/com/d10ng/compose/ui/form/===
+CheckButton.kt[LU5M]: F:提供标签或按钮外观的单选多选集合组件 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/Modifier.kt | A:CheckButton,CheckButtonGroup,CheckButtonMode | S:单选取消当前项会保留原选择
+Checkbox.kt[LU5S]: F:提供方形圆形复选框与标准可切换无障碍语义 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/Shape.kt | A:Checkbox,CheckboxType | S:-
+DatePicker.kt[LU7M]: F:按系统时区提供年月日组合滚轮与日期边界联动 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/form/Picker.kt | A:DatePicker,DatePickerMode | S:排序反向范围并钳制值；重建日期年份限1970至9999且日期按月截断
+Field.kt[LU6M]: F:组合标签图标输入清除密码可见性和错误提示 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/view/Input.kt | A:Field,FieldLabelAlign | S:空值错误放占位符；非空错误另起一行
+Picker.kt[LU7M]: F:以惰性列表实现单列多列滚轮、吸附及受控选择 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/show/Divider.kt | A:Picker,MultiPicker | S:每列必须非空；缺失或非法选中值回退首项；回调跳过初始发射
+Radio.kt[LU5S]: F:以整行单选语义封装带文字和分隔线的RadioButton | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/show/Divider.kt | A:RadioCell | S:内部RadioButton不单独处理点击
+Search.kt[LU5S]: F:提供搜索标签图标、清除加载状态及可选动作按钮 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/view/Input.kt | A:Search | S:loading隐藏清除按钮但不禁用输入和动作
+Stepper.kt[LU6L]: F:提供默认与圆形整数步进器及受限文本输入 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/view/Input.kt | A:Stepper,StepperDefault,StepperRound,StepperStyle | S:加减使用Int运算且未验证step和反向边界
+Switch.kt[LU5S]: F:封装Material开关颜色尺寸、加载和自定义图标 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/utils/ColorUtils.kt | A:Switch | S:加载或禁用阻止切换，自定义图标覆盖加载图
+TimePicker.kt[LU7S]: F:将日内秒数映射为时分秒滚轮及联动范围 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/form/Picker.kt | A:TimePicker,TimePickerMode | S:边界排序并钳制0至86399；HM回调仍钳制原秒级范围
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonMain/kotlin/com/d10ng/compose/ui/navigation/===
+IndexBar.kt[LU6M]: F:将侧边字母栏触摸映射为选择回调和浮层提示 | R:- | A:IndexBar,DefaultIndexBarCharText,DefaultIndexBarSelectText | S:空列表不注册手势；索引钳制且取消必清触摸状态
+NavBar.kt[LU5S]: F:提供系统栏占位、返回、标题与右侧插槽导航栏 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/show/Divider.kt | A:NavBar | S:标题内距仅依据返回按钮，未测量右侧插槽宽度
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonMain/kotlin/com/d10ng/compose/ui/sheet/===
+Sheet.kt[LU8M]: F:以同树BottomSheet和Scrim承载Builder并管理显隐动画焦点 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/sheet/SheetDismissPolicy.kt,code:library/src/commonMain/kotlin/com/d10ng/compose/ui/sheet/builder/SheetBuilder.kt | A:Sheet,SheetBox,SheetColumn | S:新状态工厂仅启用Hidden与Expanded；等待hide完成移除且自管Insets和关闭策略
+SheetDismissPolicy.kt[CU7T]: F:推导Sheet遮罩手势官方及兼容返回的互斥关闭策略 | R:code:library/src/commonTest/kotlin/com/d10ng/compose/ui/sheet/SheetDismissPolicyTest.kt | A:resolveSheetDismissPolicy,SheetDismissPolicy | S:强制模式及退出动画消费返回但不触发关闭
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonMain/kotlin/com/d10ng/compose/ui/sheet/builder/===
+ActionSheetBuilder.kt[LU5S]: F:构建选项操作面板与取消行 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/sheet/builder/SheetBuilder.kt | A:ActionSheetBuilder | S:选项回调执行后自动dismiss
+DatePickerSheetBuilder.kt[LU6T]: F:将日期滚轮与异步确认取消标题栏组合成面板 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/form/DatePicker.kt | A:DatePickerSheetBuilder | S:初始selected保留原value，未滚动确认不会采用滚轮内部钳制值
+MultiPickerSheetBuilder.kt[LU6T]: F:将多列滚轮与标题栏组合并返回选择列表 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/form/Picker.kt | A:MultiPickerSheetBuilder | S:每列非空；默认参数first先于init检查执行
+RadioSheetBuilder.kt[LU5S]: F:构建可滚动单选面板并支持无确认按钮即时提交 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/form/Radio.kt | A:RadioSheetBuilder | S:默认选择取首项；无按钮模式回调true才关闭
+SheetBuilder.kt[LU7S]: F:定义Sheet可见流、顶部限距及异步确认取消标题栏 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/sheet/Sheet.kt | A:SheetBuilder,TitleBar,dismiss | S:dismiss只置visible=false，由组合层完成动画后移除
+SinglePickerSheetBuilder.kt[LU5T]: F:组合单列滚轮与带确认取消的标题栏 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/form/Picker.kt | A:SinglePickerSheetBuilder | S:默认选择要求集合非空
+TimePickerSheetBuilder.kt[LU6S]: F:构建时间滚轮面板并支持按系统时区设置当前时间 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/form/TimePicker.kt | A:TimePickerSheetBuilder,setCurrentTime | S:初始化先钳制秒数并按模式生成返回列表
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonMain/kotlin/com/d10ng/compose/ui/show/===
+Avatar.kt[LU4T]: F:将大写字符与自定义背景插槽组成头像 | R:- | A:Avatar | S:背景形状不裁剪自定义content
+BDSignalBeamBox.kt[LU5M]: F:按卫星编号绘制北斗信号柱、强中弱标尺与天线提示 | R:- | A:BDSignalBeamBox | S:至少绘制10柱并将强度钳制0至60
+Badge.kt[LU4S]: F:渲染点状文字数字徽标及右上角叠加容器 | R:- | A:Badge,BadgeBox | S:数字不大于零时不显示
+Divider.kt[LU4S]: F:提供可配置颜色厚度和两端内距的水平垂直分隔线 | R:- | A:HorizontalDivider,VerticalDivider | S:-
+Popover.kt[LU6L]: F:根据锚点和窗口选择气泡位置箭头形状并渲染浅深色菜单 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/show/Divider.kt | A:Popover,PopoverColumnItems,PopoverColumnItem,PopoverPlacement | S:优先水平居中及锚点下方，空间不足逐项回退
+Steps.kt[LU5M]: F:按集合顺序展示已完成当前和未完成步骤及连接线 | R:- | A:Steps,Step,StepMode | S:runningIndex不钳制，越界可令全部处于同类状态
+Tag.kt[LU5S]: F:提供分类颜色和填充描边圆角标记样式的标签 | R:- | A:Tag,TagType,TagStyle | S:颜色缓存键仅含style与type，自定义颜色变化可能不刷新
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonMain/kotlin/com/d10ng/compose/utils/===
+BackHandlerUtils.kt[CU6T]: F:以NavigationEvent封装跨平台返回完成回调 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/sheet/Sheet.kt | A:BackHandler | S:只处理完成事件，不暴露预测手势进度
+ColorUtils.kt[CU6T]: F:提供明暗判断、黑白混色、十六进制与相关配色计算 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/Color.kt | A:isDark,next,toHex,makeRelatedColors | S:next拒绝超出负1至1的比例并保留原透明度
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonMain/kotlin/com/d10ng/compose/view/===
+Input.kt[LU7M]: F:封装基础输入焦点请求和带筛选菜单前后缀错误的输入 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/view/ListItem.kt | A:Input,MenuInput | S:筛选最多20项；焦点边沿去重；输入换行会清除并触发Next
+ListItem.kt[LU6M]: F:提供插槽列表项及输入和下拉菜单组合项 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/view/Input.kt | A:ListItem,ListInputItem,ListMenuItem,ListItemMenu | S:菜单按data等值匹配，选择后关闭
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/commonTest/kotlin/com/d10ng/compose/ui/sheet/===
+SheetDismissPolicyTest.kt[TU6T]: F:验证Sheet进入展示退出强制和移除五态关闭策略 | R:code:library/src/commonMain/kotlin/com/d10ng/compose/ui/sheet/SheetDismissPolicy.kt | A:SheetDismissPolicyTest | S:纯策略测试不验证真实手势动画或平台窗口
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeAndroidApp/===
+build.gradle.kts[FV7T]: F:配置共享Demo的Android打包调试及Activity结果和弹层仪器测试 | R:code:composeApp/build.gradle.kts,code:gradle/libs.versions.toml | A:assembleDebug,assembleDebugAndroidTest,AndroidJUnitRunner | S:测试依赖仅用于androidTest；默认应用ID与targetSdk34保持原值
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeAndroidApp/src/main/===
+AndroidManifest.xml[FE4T]: F:注册跨平台Demo的Android启动入口及配置变更处理 | R:code:composeAndroidApp/src/main/kotlin/com/d10ng/compose/demo/MainActivity.kt | A:MAIN,LAUNCHER | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeAndroidApp/src/main/assets/===
+area_phone_code.json[FD3L]: F:保存电话区号地区标识及中英繁体地区名称 | R:- | A:code,locale,zh,en,tw | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeAndroidApp/src/main/kotlin/com/d10ng/compose/demo/===
+MainActivity.kt[EU5T]: F:启动共享App并锁定屏幕方向与启用透明系统栏 | R:code:composeApp/src/commonMain/kotlin/com/d10ng/compose/demo/App.kt | A:MainActivity,AppAndroidPreview | S:应用入口由共享KMP模块移至纯Android模块
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeAndroidApp/src/main/res/drawable/===
+ic_launcher_background.xml[FU2S]: F:提供绿色网格启动图标背景矢量 | R:- | A:ic_launcher_background | S:-
+ic_launcher_foreground.xml[FU2T]: F:绘制蓝色调色盘启动前景矢量 | R:- | A:ic_launcher_foreground | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeAndroidApp/src/main/res/mipmap-anydpi-v26/===
+ic_launcher.xml[FU2T]: F:组合白色背景与调色盘前景的自适应图标 | R:- | A:ic_launcher | S:-
+ic_launcher_round.xml[FU2T]: F:声明圆形启动入口的白底调色盘图标 | R:- | A:ic_launcher_round | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeAndroidApp/src/main/res/values/===
+ic_launcher_background.xml[FU2T]: F:设置启动图标背景为白色 | R:- | A:ic_launcher_background | S:-
+strings.xml[FL2T]: F:声明示例应用名为DLJetpackComposeUtil | R:- | A:app_name | S:-
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeAndroidApp/src/androidTest/kotlin/com/d10ng/compose/demo/===
+ActivityResultRegressionTest.kt[TU6M]: F:实机验证Activity重建launcher清理、选图结果和预览及强制Sheet关闭策略 | R:code:composeAndroidApp/src/main/kotlin/com/d10ng/compose/demo/MainActivity.kt,code:library/src/androidMain/kotlin/com/d10ng/compose/ui/show/ImagePreview.kt | A:ActivityResultRegressionTest | S:成功图片结果由Intents注入；真实选图器只开关；API29夹具最终删除；单击需等待双击窗口
+
+===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/docs/releases/===
+3.4.0.md[SV7T]: F:提供3.4.0发布说明、依赖对照、消费方升级步骤及验证边界 | R:code:README.md,code:docs/research/dependency-upgrade-2026-10-10.md | A:升级步骤,构建基线,验证结果,已知限制 | S:Android需AGP9.1与SDK37；Gradle9.8.1超Kotlin完整测试上限但有项目实测

@@ -1,8 +1,9 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.android.kmp.library)
     alias(libs.plugins.compose)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.dokka)
@@ -11,15 +12,20 @@ plugins {
 }
 
 group = "com.github.D10NGYANG"
-version = "3.3.5"
+version = "3.4.0"
 
 kotlin {
     withSourcesJar(publish = true)
 
     jvmToolchain(11)
 
-    androidTarget {
-        publishLibraryVariants("release")
+    android {
+        namespace = "com.d10ng.compose"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        compilerOptions { jvmTarget.set(JvmTarget.JVM_11) }
+        androidResources { enable = true }
+        withHostTest { }
     }
 
     iosArm64()
@@ -62,23 +68,6 @@ compose.resources {
     packageOfResClass = "com.d10ng.compose.resources"
 }
 
-android {
-    namespace = "com.d10ng.compose"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-}
-
-dependencies {
-    debugImplementation(libs.compose.uiTooling)
-}
-
 dokka {
     moduleName.set("D10NGYANG Compose Library")
 
@@ -89,7 +78,7 @@ dokka {
     }
 }
 
-val javadocJar by tasks.registering(Jar::class) {
+val javadocJar = tasks.register<Jar>("javadocJar") {
     // Gradle 会自动解析依赖，只需指定新任务的 outputDirectory 即可
     from(tasks.dokkaGeneratePublicationHtml.flatMap { it.outputDirectory })
     archiveClassifier.set("javadoc")

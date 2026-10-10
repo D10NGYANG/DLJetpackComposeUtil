@@ -2,9 +2,9 @@
 
 基于 Compose Multiplatform 开发的 Vant 风格 UI 组件库，提供丰富的跨平台 UI 组件，支持 Android、iOS、JVM Desktop、JavaScript 和 WebAssembly 平台。
 
-[![Version](https://img.shields.io/badge/version-3.3.5-blue.svg)](https://github.com/D10NGYANG/DLJetpackComposeUtil)
-[![Kotlin](https://img.shields.io/badge/kotlin-2.3.21-orange.svg)](https://kotlinlang.org/)
-[![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.11.1-green.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
+[![Version](https://img.shields.io/badge/version-3.4.0-blue.svg)](https://github.com/D10NGYANG/DLJetpackComposeUtil/releases/tag/3.4.0)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.4.21-orange.svg)](https://kotlinlang.org/)
+[![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.12.1-green.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 
 > 参考 [Vant4](https://vant-contrib.gitee.io/vant/#/zh-CN/home) 设计规范，提供统一的设计语言和用户体验。
@@ -59,7 +59,7 @@ Kotlin Multiplatform 项目在 `commonMain` 中添加依赖：
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("com.github.D10NGYANG:DLJetpackComposeUtil:3.3.5")
+            implementation("com.github.D10NGYANG:DLJetpackComposeUtil:3.4.0")
         }
     }
 }
@@ -69,18 +69,33 @@ Android 或 JVM 单平台项目可直接添加：
 
 ```kotlin
 dependencies {
-    implementation("com.github.D10NGYANG:DLJetpackComposeUtil:3.3.5")
+    implementation("com.github.D10NGYANG:DLJetpackComposeUtil:3.4.0")
 }
 ```
 
 ### 3. 版本兼容性
 
+以下为 `3.4.0` 的构建与验收基线。组件调用 API 保持兼容，但 Android 构建工具要求已提升，升级前请阅读 [3.4.0 升级说明](docs/releases/3.4.0.md)。
+
 | 项目 | 版本或要求 |
 |:---|:---|
-| Kotlin | 2.3.21 |
-| Compose Multiplatform | 1.11.1 |
+| Kotlin | 2.4.21 |
+| Compose Multiplatform | 1.12.1 |
+| JetBrains Material3 | 1.12.0-alpha03 |
+| Gradle / AGP | 9.8.1 / 9.1.1 |
+| Android compileSdk | 37 |
 | Android minSdk | 26 |
 | JVM toolchain | 11 |
+
+Compose 1.12 的 Android 制品要求 AGP 9.1+ 和 compileSdk 37。`library` 与 `composeApp` 使用 Android KMP library 插件；跨平台 Demo 的 Android 入口迁至 `composeAndroidApp`，应用 ID 保持 `com.d10ng.compose.demo`。原 `androidApp` 主题示例保持独立。
+
+```shell
+./gradlew :composeAndroidApp:assembleDebug
+./gradlew :DLJetpackComposeUtil:jvmTest :DLJetpackComposeUtil:testAndroidHostTest
+./gradlew :composeApp:wasmJsBrowserDevelopmentExecutableDistribution
+```
+
+Gradle 9.8.1 用于修复构建工具安全漏洞，高于 Kotlin 2.4.21 文档列出的完整测试上限 9.7.0；本项目构建与验证结果见[迁移报告](docs/research/dependency-upgrade-2026-10-10.md)。库的 Android 发布改为单变体，已核验消费坐标仍为 `DLJetpackComposeUtil-android`。
 
 ### 4. Android 混淆配置
 
@@ -630,6 +645,15 @@ val errorStyle = AppText.Medium.Error.default // 中等粗细错误色文字
 ```
 
 ## 版本日志
+
+### 3.4.0（2026-10-10）
+
+- 升级 Compose Multiplatform 1.12.1、Material3 1.12.0-alpha03、Lifecycle 2.11.0、Navigation3 1.1.2，Android Demo 使用 DLAppUtil 2.7.1。
+- 采用带安全修复的 Gradle 9.8.1，并固定官方 SHA-256；配套迁移 AGP 9.1.1、Kotlin 2.4.21 和 compileSdk 37。
+- KMP 模块改用 Android KMP library 插件，跨平台 Demo 的 Android 启动入口拆至 `composeAndroidApp`；应用 ID、minSdk 和 targetSdk 保持原值。
+- Sheet 适配 `rememberBottomSheetState`，显式仅启用 Hidden/Expanded，保留关闭策略与公开 Builder API。
+- 补充 Activity 重建、选图结果与预览、真实系统选图器取消和强制 Sheet 的 Android 仪器测试；完成多平台构建、19 项测试执行及 Web/Android/iOS UI 验证。
+- 完整兼容性要求、升级步骤和验证边界见 [3.4.0 发布与升级说明](docs/releases/3.4.0.md)。
 
 ### 3.3.5（2026-08-18）
 

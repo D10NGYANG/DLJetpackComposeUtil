@@ -38,5 +38,5 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-include(":androidApp", ":composeApp", ":library")
+include(":androidApp", ":composeAndroidApp", ":composeApp", ":library")
 project(":library").name = "DLJetpackComposeUtil"
