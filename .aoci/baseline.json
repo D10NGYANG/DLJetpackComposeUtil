@@ -1,7 +1,7 @@
 {
   "version": 1,
   "created_at": "2026-10-10T02:37:08Z",
-  "updated_at": "2026-10-10T06:43:28Z",
+  "updated_at": "2026-11-03T03:29:11Z",
   "files": {
     ".gitattributes": {
       "role": "index",
@@ -11,9 +11,9 @@
     },
     ".github/workflows/deploy.yml": {
       "role": "index",
-      "sha256": "aa39c8b27790b830871f12c5539330cd3c259252cd27db7cac9ea77855762598",
-      "size": 1321,
-      "normalized_sha256": "aa39c8b27790b830871f12c5539330cd3c259252cd27db7cac9ea77855762598"
+      "sha256": "c5dc47fb6763a78e45714bf05aac03d8a637412097cfbdfd5564701c3a7f6622",
+      "size": 1339,
+      "normalized_sha256": "c5dc47fb6763a78e45714bf05aac03d8a637412097cfbdfd5564701c3a7f6622"
     },
     ".gitignore": {
       "role": "index",
@@ -35,9 +35,9 @@
     },
     "README.md": {
       "role": "index",
-      "sha256": "d848698ef2026e0f06340cab85a1fad5216272483695fe017f89d1843622eca0",
-      "size": 26859,
-      "normalized_sha256": "d848698ef2026e0f06340cab85a1fad5216272483695fe017f89d1843622eca0"
+      "sha256": "23dbff4585d26ce7fb6b8475b681159d7ae07d5886246053cc185fe6a1a029a6",
+      "size": 27654,
+      "normalized_sha256": "23dbff4585d26ce7fb6b8475b681159d7ae07d5886246053cc185fe6a1a029a6"
     },
     "androidApp/.gitignore": {
       "role": "index",
@@ -193,9 +193,9 @@
     },
     "aoci.code.txt": {
       "role": "index",
-      "sha256": "956eacd01884ce25f5af9c6ae2ebd4fb4e9144e8314a248bcea42a226b2f1645",
-      "size": 39634,
-      "normalized_sha256": "956eacd01884ce25f5af9c6ae2ebd4fb4e9144e8314a248bcea42a226b2f1645"
+      "sha256": "f94cd5d160fbb339011b699641c812fa4af167cf02941b0a4a44e45a1776fefd",
+      "size": 40717,
+      "normalized_sha256": "f94cd5d160fbb339011b699641c812fa4af167cf02941b0a4a44e45a1776fefd"
     },
     "aoci.meta.txt": {
       "role": "index",
@@ -211,9 +211,9 @@
     },
     "build.gradle.kts": {
       "role": "index",
-      "sha256": "e2315801047ac0076230440815f4cf8212b4006e9af9b9a76a9302a6644d9e9d",
+      "sha256": "e2fc2993623947e9d549eb4225bf4971138f23b33662a9f322d32c5d87f6e195",
       "size": 974,
-      "normalized_sha256": "e2315801047ac0076230440815f4cf8212b4006e9af9b9a76a9302a6644d9e9d"
+      "normalized_sha256": "e2fc2993623947e9d549eb4225bf4971138f23b33662a9f322d32c5d87f6e195"
     },
     "color.md": {
       "role": "index",
@@ -227,11 +227,17 @@
       "size": 1324,
       "normalized_sha256": "c6358dae2f373ae1b63b45c4fe4ed9da378486272ba6cb89558be6b07d056dee"
     },
+    "composeAndroidApp/lint.xml": {
+      "role": "index",
+      "sha256": "4bb1540edf60ba49620a2df05c6b91e9886c378b2b98cf51c1d799196e2492ca",
+      "size": 300,
+      "normalized_sha256": "4bb1540edf60ba49620a2df05c6b91e9886c378b2b98cf51c1d799196e2492ca"
+    },
     "composeAndroidApp/src/androidTest/kotlin/com/d10ng/compose/demo/ActivityResultRegressionTest.kt": {
       "role": "index",
-      "sha256": "feba4a1e171d03965f982c958775e1991ab5b72281eac30a605c05450376db54",
-      "size": 11312,
-      "normalized_sha256": "feba4a1e171d03965f982c958775e1991ab5b72281eac30a605c05450376db54"
+      "sha256": "2b4301a0b9b87abb880b91150d2b4686d408b98c23565b4a08057137cbf1f117",
+      "size": 11919,
+      "normalized_sha256": "2b4301a0b9b87abb880b91150d2b4686d408b98c23565b4a08057137cbf1f117"
     },
     "composeAndroidApp/src/main/AndroidManifest.xml": {
       "role": "index",
@@ -324,9 +330,9 @@
     },
     "composeApp/src/androidMain/kotlin/com/d10ng/compose/demo/pages/ImagePreviewScreen.kt": {
       "role": "index",
-      "sha256": "dc7551677e7022b47dac96781828c1cb5f1d659d6ff6bb44b798144cabf99f9e",
-      "size": 2397,
-      "normalized_sha256": "dc7551677e7022b47dac96781828c1cb5f1d659d6ff6bb44b798144cabf99f9e"
+      "sha256": "441949f2b3e2450ae904bad23d8bdeb62f9065330ecf617f9f25cd415a090d8c",
+      "size": 3993,
+      "normalized_sha256": "441949f2b3e2450ae904bad23d8bdeb62f9065330ecf617f9f25cd415a090d8c"
     },
     "composeApp/src/androidMain/res/drawable/ic_launcher_background.xml": {
       "role": "index",
@@ -739,6 +745,12 @@
       "size": 5320,
       "normalized_sha256": "52cbd1ab80766f1f23750742e836c96072b05fefbbea09eacaf20174b9a58647"
     },
+    "docs/releases/3.4.1.md": {
+      "role": "index",
+      "sha256": "df336e2efefd9c3d78523a2beea954b0b34b651ce6fc55aadbb0b2491e4c3c1e",
+      "size": 4711,
+      "normalized_sha256": "df336e2efefd9c3d78523a2beea954b0b34b651ce6fc55aadbb0b2491e4c3c1e"
+    },
     "docs/research/compose-ui-updates-2026-08.md": {
       "role": "index",
       "sha256": "0075e330240b4ce4a2fd217f5d70cfc92d815b00fd968a9eadf9e654f9cfca47",
@@ -757,11 +769,23 @@
       "size": 9326,
       "normalized_sha256": "ffc67718c5b800cee72e8bad77c1b0307bdad6dc85bf17810fd7237c1cd0bf12"
     },
+    "docs/research/dependency-audit-2026-11-03.md": {
+      "role": "index",
+      "sha256": "f8334e18189b37f9ab9ab82172465c391515ed586c4eb8225f477c27c0245cac",
+      "size": 7475,
+      "normalized_sha256": "f8334e18189b37f9ab9ab82172465c391515ed586c4eb8225f477c27c0245cac"
+    },
     "docs/research/dependency-upgrade-2026-10-10.md": {
       "role": "index",
       "sha256": "278a299088d811f400178061fb6e957d3be9386725c7b3c2ff51490fb7e0b441",
       "size": 12419,
       "normalized_sha256": "278a299088d811f400178061fb6e957d3be9386725c7b3c2ff51490fb7e0b441"
+    },
+    "docs/research/dependency-upgrade-2026-11-03.md": {
+      "role": "index",
+      "sha256": "affde3825070ab4d1f344b6b888adab2b02fcbd866273c2f9e1d0600956cbffa",
+      "size": 8724,
+      "normalized_sha256": "affde3825070ab4d1f344b6b888adab2b02fcbd866273c2f9e1d0600956cbffa"
     },
     "gradle.properties": {
       "role": "index",
@@ -777,9 +801,9 @@
     },
     "gradle/libs.versions.toml": {
       "role": "index",
-      "sha256": "e69f1abd038b00791247df1ba8a47c6409e5b6729afdbeb9b1111676973b82b9",
+      "sha256": "6f68c6d35138242e60c2227a56a552af4ea4dd4cb4e0f900622eaf99fd9e9512",
       "size": 4930,
-      "normalized_sha256": "e69f1abd038b00791247df1ba8a47c6409e5b6729afdbeb9b1111676973b82b9"
+      "normalized_sha256": "6f68c6d35138242e60c2227a56a552af4ea4dd4cb4e0f900622eaf99fd9e9512"
     },
     "gradle/wrapper/gradle-wrapper.jar": {
       "role": "index",
@@ -788,9 +812,9 @@
     },
     "gradle/wrapper/gradle-wrapper.properties": {
       "role": "index",
-      "sha256": "b9c24447093e4fab2b1f37bfb461d2a1eb14157a4808dff50e0f954801a8f8f1",
+      "sha256": "62779c1edca4389b50577428c5cab724a2ddd3ea4cac0685ce48bab709cce6c6",
       "size": 368,
-      "normalized_sha256": "b9c24447093e4fab2b1f37bfb461d2a1eb14157a4808dff50e0f954801a8f8f1"
+      "normalized_sha256": "62779c1edca4389b50577428c5cab724a2ddd3ea4cac0685ce48bab709cce6c6"
     },
     "gradlew": {
       "role": "index",
@@ -877,15 +901,15 @@
     },
     "kotlin-js-store/yarn.lock": {
       "role": "index",
-      "sha256": "e2bd0e6d39d88759f7ca8fe19bf204acd5f8b6d77f03cda78ce89229be99cbf2",
-      "size": 151978,
-      "normalized_sha256": "e2bd0e6d39d88759f7ca8fe19bf204acd5f8b6d77f03cda78ce89229be99cbf2"
+      "sha256": "b69941fb6410fb04c7058fbbf04441ed80fd5312e483bf6baddff65c37a101c8",
+      "size": 145806,
+      "normalized_sha256": "b69941fb6410fb04c7058fbbf04441ed80fd5312e483bf6baddff65c37a101c8"
     },
     "library/build.gradle.kts": {
       "role": "index",
-      "sha256": "e1b2a0f1da17c1ff670dbf8e4894b21279cd8562bda8b8b4fc57ddb0fd2940fb",
+      "sha256": "0b038e7a5b7f2b4adcb803647922bcd5e679a5fbb7125eed4a19ca7cc3ba05a0",
       "size": 3160,
-      "normalized_sha256": "e1b2a0f1da17c1ff670dbf8e4894b21279cd8562bda8b8b4fc57ddb0fd2940fb"
+      "normalized_sha256": "0b038e7a5b7f2b4adcb803647922bcd5e679a5fbb7125eed4a19ca7cc3ba05a0"
     },
     "library/src/androidMain/kotlin/com/d10ng/compose/ui/show/ImagePreview.kt": {
       "role": "index",
@@ -1318,6 +1342,12 @@
       "sha256": "48456ad84e1eabf50faaab81d39c90ca2c948aafbd04e6af0bc0d01888df3eb6",
       "size": 2657,
       "normalized_sha256": "48456ad84e1eabf50faaab81d39c90ca2c948aafbd04e6af0bc0d01888df3eb6"
+    },
+    "output/playwright/dependency-upgrade-1103/production-web/composeApp.js.map": {
+      "role": "observe",
+      "sha256": "f9daa707bc1ea7a20ecd6beb96d0e0b89255319999dedb5c0a5d26b217519a11",
+      "size": 1500779,
+      "normalized_sha256": "f9daa707bc1ea7a20ecd6beb96d0e0b89255319999dedb5c0a5d26b217519a11"
     },
     "settings.gradle.kts": {
       "role": "index",

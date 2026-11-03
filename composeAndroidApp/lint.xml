@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <!-- Demo 不调用 DLAppUtil 的系统通知功能；保留对本项目通知调用的权限检查。 -->
+    <issue id="NotificationPermission">
+        <ignore regexp=".*com\.d10ng\.app\.managers\.NotificationController.*" />
+    </issue>
+</lint>

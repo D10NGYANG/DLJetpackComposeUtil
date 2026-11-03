@@ -5,8 +5,8 @@
 .gitignore[FV4T]: F:排除构建产物、IDE状态及本机MCP配置并保留Xcode工程定义 | R:- | A:- | S:-
 AGENTS.md[SG7S]: F:约束Agent读取AOCI完整认知、作者化批次与治理收尾 | R:- | A:aoci_rules,aoci_overview,aoci_maintain | S:认知压缩恢复必须重载Overview且不得按摘要补答
 LICENSE[SG4T]: F:授予MIT使用修改分发权并声明无担保 | R:- | A:- | S:分发需保留版权与许可声明
-README.md[SU6L]: F:说明3.4.0组件库安装使用、兼容基线与Android模块迁移入口 | R:code:library/build.gradle.kts,code:docs/releases/3.4.0.md | A:安装说明,兼容表,构建命令,版本日志 | S:组件调用API兼容但Android构建环境要求提升
-build.gradle.kts[FV6T]: F:声明AGP应用与KMP插件并配置稳定依赖更新过滤 | R:code:gradle/libs.versions.toml | A:isNonStable,DependencyUpdatesTask | S:移除独立Kotlin Android插件以避免AGP9内置Kotlin冲突
+README.md[SU6L]: F:说明3.4.1组件库安装、兼容基线、组件用法和版本更新入口 | R:code:library/build.gradle.kts,code:docs/releases/3.4.1.md | A:安装说明,兼容表,构建命令,版本日志 | S:3.4.0调用API可直接兼容；3.3.x仍需先迁移Android构建环境
+build.gradle.kts[FV6T]: F:声明共用插件并使用io.github版本检查插件过滤非稳定候选 | R:code:gradle/libs.versions.toml | A:isNonStable,DependencyUpdatesTask | S:过滤会遗漏Material3配套alpha更新，需另核官方组件表
 color.md[SU3T]: F:说明Material3颜色角色与使用场景 | R:- | A:颜色角色表 | S:-
 gradle.properties[FV5T]: F:配置Gradle缓存内存与AndroidX及CInterop公共化 | R:- | A:configuration-cache,caching | S:-
 gradlew[XV5M]: F:解析Unix环境并以jar入口启动新版Gradle Wrapper | R:code:gradle/wrapper/gradle-wrapper.properties | A:gradlew | S:依赖xargs解析JVM选项并保留Cygwin路径转换
@@ -14,7 +14,7 @@ gradlew.bat[XV5S]: F:解析Windows Java环境并以jar入口透传执行Gradle W
 settings.gradle.kts[FV7T]: F:配置插件依赖仓库工具链解析及四个模块映射 | R:code:gradle/libs.versions.toml,code:library/build.gradle.kts,code:composeAndroidApp/build.gradle.kts | A:pluginManagement,dependencyResolutionManagement | S:library重命名DLJetpackComposeUtil；仓库分组过滤不等于独占路由
 
 ===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/.github/workflows/===
-deploy.yml[OV6T]: F:master推送或手动触发Wasm示例与Dokka构建并发布Pages | R:code:composeApp/build.gradle.kts,code:library/build.gradle.kts | A:build,deploy | S:构建依赖仓库凭据来自GitHub Secrets
+deploy.yml[OV6T]: F:用Corretto21构建Wasm示例与Dokka并部署Pages | R:code:composeApp/build.gradle.kts,code:library/build.gradle.kts | A:build,deploy | S:master推送或手动触发；仓库凭据来自GitHub Secrets
 
 ===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/androidApp/===
 .gitignore[FV2T]: F:排除Android示例模块构建目录 | R:- | A:- | S:-
@@ -56,7 +56,7 @@ build.gradle.kts[FV7T]: F:配置共享Demo的KMP Android库、iOS框架、桌面
 App.android.kt[IU3T]: F:提供Android字体加载actual实现并返回空 | R:- | A:loadCustomFontFamily | S:-
 
 ===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeApp/src/androidMain/kotlin/com/d10ng/compose/demo/pages/===
-ImagePreviewScreen.kt[EU4T]: F:调用PhotoManager选图并展示可关闭的图片预览 | R:code:library/src/androidMain/kotlin/com/d10ng/compose/ui/show/ImagePreview.kt | A:ImagePreviewScreen | S:-
+ImagePreviewScreen.kt[EU5S]: F:用官方PickVisualMedia选取JPEG并缓存为文件供图片预览 | R:code:library/src/androidMain/kotlin/com/d10ng/compose/ui/show/ImagePreview.kt | A:ImagePreviewScreen | S:取消不等待Flow；读取失败提示；预览关闭、离开与协程取消均清理临时文件
 
 ===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeApp/src/commonMain/composeResources/drawable/===
 compose-multiplatform.xml[FU2T]: F:绘制600dp的Compose多平台标志 | R:- | A:compose-multiplatform | S:-
@@ -125,13 +125,15 @@ compose-ui-updates-2026-08.md[SV5S]: F:记录2026年8月Compose升级依据和�
 dependency-audit-2026-10-08.md[SV5S]: F:记录2026年10月8日依赖候选、安全公告及兼容性限制 | R:code:gradle/libs.versions.toml | A:更新优先级,来源,核验限制 | S:记录Gradle修复版公告与下载可用性冲突
 dependency-audit-2026-10-10.md[SV5T]: F:记录依赖更新优先级及Gradle安全修复发布状态的新核验 | R:code:gradle/libs.versions.toml,code:gradle/wrapper/gradle-wrapper.properties | A:安全补丁,配套候选,验证限制 | S:未实施升级或全量漏洞扫描；Kotlin候选更新为2.4.21
 dependency-upgrade-2026-10-10.md[SV6S]: F:记录工具链迁移、实机UI验收及3.4.0制品完整性和独立消费检查 | R:code:gradle/libs.versions.toml,code:composeAndroidApp/src/androidTest/kotlin/com/d10ng/compose/demo/ActivityResultRegressionTest.kt | A:版本表,构建测试,截图,设备回归,发布前检查 | S:API31不覆盖预测性返回取消；成功选图为受控注入；保留Wasm弃用日志
+dependency-audit-2026-11-03.md[SV4T]: F:记录升级前直接依赖候选、优先级与兼容性证据 | R:code:gradle/libs.versions.toml | A:- | S:历史审计结论不代替升级后的验证报告
+dependency-upgrade-2026-11-03.md[SQ6T]: F:记录依赖与选图迁移、多平台UI验收及3.4.1制品消费校验 | R:code:docs/releases/3.4.1.md | A:测试矩阵,证据目录,发布验证 | S:手机Demo原包经覆盖安装但未清除数据；未覆盖桌面原生UI及全量供应链扫描
 
 ===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/gradle/===
 gradle-daemon-jvm.properties[FV5T]: F:指定Amazon JDK21 daemon工具链及各平台下载地址 | R:- | A:toolchainVersion,toolchainVendor | S:不同于CI显式安装的JDK17
-libs.versions.toml[FV8T]: F:集中声明Compose1.12配套依赖、AGP9和Kotlin2.4工具链及仪器测试坐标 | R:code:build.gradle.kts,code:library/build.gradle.kts | A:versions,libraries,plugins | S:Android制品要求compileSdk37与AGP9.1；Material3仍独立alpha版本
+libs.versions.toml[FV8T]: F:集中声明Compose1.12.2配套、Kotlin2.4、AGP9及targetSdk36版本 | R:code:build.gradle.kts,code:library/build.gradle.kts | A:versions,libraries,plugins | S:Material3保持独立alpha配套；AGP9.1.1支持compileSdk37，不盲随最新版
 
 ===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/gradle/wrapper/===
-gradle-wrapper.properties[FV7T]: F:锁定官方Gradle9.8.1发行包地址及完整性校验 | R:code:gradlew | A:distributionUrl,distributionSha256Sum | S:固定官方bin包SHA256，禁止静默接受不同内容
+gradle-wrapper.properties[FV7T]: F:锁定官方Gradle9.8.2发行包与完整性摘要 | R:code:gradlew | A:distributionUrl,distributionSha256Sum | S:版本高于Kotlin官方完整测试上限9.7，升级需实际构建验证
 
 ===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/iosApp/Configuration/===
 Config.xcconfig[FV4T]: F:定义iOS应用名与Bundle标识配置 | R:- | A:TEAM_ID,BUNDLE_ID,APP_NAME | S:-
@@ -163,10 +165,10 @@ Contents.json[FV1T]: F:声明Xcode预览资产目录元数据 | R:- | A:info | S
 yarn.lock[FV4T]: F:锁定Wasm使用的js-joda3.2.0下载与完整性 | R:- | A:yarn lockfile v1 | S:由工具生成，不应手工修改
 
 ===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/kotlin-js-store/===
-yarn.lock[FV5L]: F:锁定JS依赖解析版本、来源及完整性摘要 | R:- | A:yarn lockfile v1 | S:由工具生成，更新应经Kotlin与Yarn解析流程
+yarn.lock[FV5L]: F:锁定JS构建依赖版本、下载来源与完整性摘要 | R:- | A:yarn lockfile v1 | S:由工具生成，更新应经Kotlin与Yarn解析流程
 
 ===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/===
-build.gradle.kts[FV8S]: F:配置3.4.0六平台UI库、Android单变体Host测试及Dokka和Maven发布 | R:code:gradle/libs.versions.toml,code:settings.gradle.kts | A:3.4.0,javadocJar,publishing,testAndroidHostTest | S:Android坐标仍为DLJetpackComposeUtil-android；发布到本机Git制品目录和凭据保护的Nexus
+build.gradle.kts[FV8S]: F:配置3.4.1六平台UI库、Android单变体Host测试及Dokka和Maven发布 | R:code:gradle/libs.versions.toml,code:settings.gradle.kts | A:3.4.1,javadocJar,publishing,testAndroidHostTest | S:Android坐标仍为DLJetpackComposeUtil-android；发布到本机Git制品目录和凭据保护的Nexus
 
 ===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/library/src/androidMain/kotlin/com/d10ng/compose/ui/show/===
 ImagePreview.kt[LU6T]: F:解码本地图片并提供点击关闭双击复位和缩放平移 | R:code:composeApp/src/androidMain/kotlin/com/d10ng/compose/demo/pages/ImagePreviewScreen.kt | A:ImagePreview | S:解码失败仍可点击关闭；缩放限1至5倍且回到1倍清偏移
@@ -274,6 +276,7 @@ SheetDismissPolicyTest.kt[TU6T]: F:验证Sheet进入展示退出强制和移除�
 
 ===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeAndroidApp/===
 build.gradle.kts[FV7T]: F:配置共享Demo的Android打包调试及Activity结果和弹层仪器测试 | R:code:composeApp/build.gradle.kts,code:gradle/libs.versions.toml | A:assembleDebug,assembleDebugAndroidTest,AndroidJUnitRunner | S:测试依赖仅用于androidTest；默认应用ID与targetSdk34保持原值
+lint.xml[FQ5T]: F:按依赖类名排除NotificationPermission误报 | R:code:composeAndroidApp/build.gradle.kts | A:NotificationPermission | S:Demo未调用该通知功能；不得扩展为全局禁用权限检查
 
 ===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeAndroidApp/src/main/===
 AndroidManifest.xml[FE4T]: F:注册跨平台Demo的Android启动入口及配置变更处理 | R:code:composeAndroidApp/src/main/kotlin/com/d10ng/compose/demo/MainActivity.kt | A:MAIN,LAUNCHER | S:-
@@ -297,7 +300,8 @@ ic_launcher_background.xml[FU2T]: F:设置启动图标背景为白色 | R:- | A:
 strings.xml[FL2T]: F:声明示例应用名为DLJetpackComposeUtil | R:- | A:app_name | S:-
 
 ===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/composeAndroidApp/src/androidTest/kotlin/com/d10ng/compose/demo/===
-ActivityResultRegressionTest.kt[TU6M]: F:实机验证Activity重建launcher清理、选图结果和预览及强制Sheet关闭策略 | R:code:composeAndroidApp/src/main/kotlin/com/d10ng/compose/demo/MainActivity.kt,code:library/src/androidMain/kotlin/com/d10ng/compose/ui/show/ImagePreview.kt | A:ActivityResultRegressionTest | S:成功图片结果由Intents注入；真实选图器只开关；API29夹具最终删除；单击需等待双击窗口
+ActivityResultRegressionTest.kt[TU6M]: F:验证重建引用清理、真实选图取消、预览绘制与缓存清理及强制Sheet拦截 | R:code:composeApp/src/androidMain/kotlin/com/d10ng/compose/demo/pages/ImagePreviewScreen.kt | A:ActivityResultRegressionTest | S:成功与无效URI由Intents注入；真实选择器仅开关；MediaStore夹具最终删除
 
 ===/Users/d10ng/project/kotlin/DLJetpackComposeUtil/docs/releases/===
 3.4.0.md[SV7T]: F:提供3.4.0发布说明、依赖对照、消费方升级步骤及验证边界 | R:code:README.md,code:docs/research/dependency-upgrade-2026-10-10.md | A:升级步骤,构建基线,验证结果,已知限制 | S:Android需AGP9.1与SDK37；Gradle9.8.1超Kotlin完整测试上限但有项目实测
+3.4.1.md[SV6T]: F:说明3.4.1依赖补丁、选图修复、升级步骤与验证边界 | R:code:docs/releases/3.4.0.md,code:gradle/libs.versions.toml | A:升级步骤,版本对照,验证结果 | S:示例专用依赖不强制消费者跟随；其他项目直调旧PhotoManager仍需自行迁移

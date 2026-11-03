@@ -5,7 +5,6 @@ import android.app.Instrumentation.ActivityResult
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.SystemClock
 import android.provider.MediaStore
@@ -21,20 +20,14 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
 import com.d10ng.app.managers.ActivityManager
-import com.d10ng.app.managers.PhotoManager
+import com.d10ng.compose.demo.pages.ImagePreviewScreen
 import com.d10ng.compose.model.UiViewModelManager
 import com.d10ng.compose.ui.sheet.builder.RadioSheetBuilder
-import com.d10ng.compose.ui.show.ImagePreview
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withTimeout
 import org.hamcrest.Matchers.anyOf
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.File
-import java.util.concurrent.atomic.AtomicBoolean
 
 @RunWith(AndroidJUnit4::class)
 class ActivityResultRegressionTest {
@@ -153,25 +146,9 @@ class ActivityResultRegressionTest {
                 ActivityScenario.launch(MainActivity::class.java).use { scenario ->
                     repeat(3) { attempt ->
                         if (attempt > 0) scenario.recreate()
-                        instrumentation.waitForIdleSync()
-                        val path = runBlocking {
-                            withTimeout(15_000) { PhotoManager.pick() }
-                        }
-                        assertNotNull("Photo result missing after recreation $attempt", path)
-                        val decoded = requireNotNull(BitmapFactory.decodeFile(path))
-                        try {
-                            assertEquals(32, decoded.width)
-                            assertEquals(32, decoded.height)
-                            assertTrue(Color.green(decoded.getPixel(16, 16)) > 240)
-                        } finally {
-                            decoded.recycle()
-                        }
-                        val dismissed = AtomicBoolean(false)
-                        scenario.onActivity { activity ->
-                            activity.setContent {
-                                ImagePreview(requireNotNull(path)) { dismissed.set(true) }
-                            }
-                        }
+                        scenario.onActivity { it.setContent { ImagePreviewScreen() } }
+                        waitForText("选择图片", true)
+                        tapText("选择图片")
                         val deadline = SystemClock.uptimeMillis() + 5_000
                         var rendered = false
                         while (!rendered && SystemClock.uptimeMillis() < deadline) {
@@ -192,13 +169,14 @@ class ActivityResultRegressionTest {
                             SystemClock.sleep(100)
                         }
                         assertTrue("Selected image was not rendered", rendered)
-                        instrumentation.waitForIdleSync()
-                        // 图片预览同时支持双击，单击回调需等待双击判定窗口结束。
-                        val tapDeadline = SystemClock.uptimeMillis() + 2_000
-                        while (!dismissed.get() && SystemClock.uptimeMillis() < tapDeadline) {
-                            SystemClock.sleep(50)
+                        val dismissDeadline = SystemClock.uptimeMillis() + 3_000
+                        while (SystemClock.uptimeMillis() < dismissDeadline &&
+                            context.cacheDir.listFiles().orEmpty().any { it.name.startsWith("image-preview-") }) {
+                            SystemClock.sleep(100)
                         }
-                        assertTrue("Image tap did not call onDismiss", dismissed.get())
+                        assertFalse("Preview file was not cleaned after dismissal",
+                            context.cacheDir.listFiles().orEmpty().any { it.name.startsWith("image-preview-") })
+                        waitForText("选择图片", true)
                     }
                 }
             } finally {
@@ -211,15 +189,37 @@ class ActivityResultRegressionTest {
     }
 
     @Test
-    fun realSystemPickerCanOpenAndCancelAfterRecreation() = runBlocking {
+    fun unreadablePhotoShowsErrorAndCleansTemporaryFile() {
+        Intents.init()
+        try {
+            intending(anyOf(
+                hasAction(Intent.ACTION_OPEN_DOCUMENT),
+                hasAction(MediaStore.ACTION_PICK_IMAGES)
+            )).respondWith(ActivityResult(Activity.RESULT_OK,
+                Intent().setData(android.net.Uri.parse("content://com.d10ng.compose.validation/missing"))))
+            ActivityScenario.launch(MainActivity::class.java).use { scenario ->
+                waitForText("DLJetpackComposeUtil", true)
+                scenario.onActivity { it.setContent { ImagePreviewScreen(); UiViewModelManager.Init() } }
+                waitForText("选择图片", true)
+                tapText("选择图片")
+                waitForText("无法读取所选图片", true)
+                assertFalse(instrumentation.targetContext.cacheDir.listFiles().orEmpty()
+                    .any { it.name.startsWith("image-preview-") })
+            }
+        } finally {
+            Intents.release()
+        }
+    }
+
+    @Test
+    fun realSystemPickerCanOpenAndCancelAfterRecreation() {
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
             scenario.recreate()
-            instrumentation.waitForIdleSync()
-            val result = async(Dispatchers.Default) {
-                withTimeout(20_000) { PhotoManager.pick() }
-            }
-            val automation = instrumentation.uiAutomation
-            try {
+            scenario.onActivity { it.setContent { ImagePreviewScreen() } }
+            repeat(2) {
+                waitForText("选择图片", true)
+                tapText("选择图片")
+                val automation = instrumentation.uiAutomation
                 val deadline = SystemClock.uptimeMillis() + 10_000
                 var pickerPackage: String? = null
                 while (SystemClock.uptimeMillis() < deadline) {
@@ -229,11 +229,22 @@ class ActivityResultRegressionTest {
                 }
                 assertNotNull("System picker did not expose a window", pickerPackage)
                 assertNotEquals(instrumentation.targetContext.packageName, pickerPackage)
+                automation.waitForIdle(500, 5_000)
                 assertTrue(automation.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK))
-                assertNull(withTimeout(10_000) { result.await() })
-            } finally {
-                result.cancel()
+                waitForText("选择图片", true)
             }
         }
+    }
+
+    private fun tapText(text: String) {
+        fun find(node: AccessibilityNodeInfo?): AccessibilityNodeInfo? {
+            if (node == null) return null
+            if (node.text?.toString() == text || node.contentDescription?.toString() == text) return node
+            return (0 until node.childCount).firstNotNullOfOrNull { find(node.getChild(it)) }
+        }
+        val node = requireNotNull(find(instrumentation.uiAutomation.rootInActiveWindow))
+        val bounds = android.graphics.Rect()
+        node.getBoundsInScreen(bounds)
+        tap(bounds.exactCenterX(), bounds.exactCenterY())
     }
 }
